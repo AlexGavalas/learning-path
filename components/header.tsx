@@ -31,6 +31,7 @@ const Logo = styled(motion.h1)`
     padding: 0.5rem;
     border-radius: 0.5rem;
     background-color: #ffffff;
+    font-size: clamp(1.5rem, 8vw, 2rem);
 `;
 
 export const Header = () => {
