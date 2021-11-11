@@ -1,9 +1,9 @@
 {
-    "name": "nextjs-blog",
+    "name": "learning-path",
     "version": "0.1.0",
     "private": true,
     "engines": {
-        "node": "16"
+        "node": "14"
     },
     "scripts": {
         "dev": "next dev",
@@ -12,6 +12,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@emotion/react": "^11.5.0",
         "@emotion/styled": "^11.3.0",
         "date-fns": "2.25.0",
         "framer-motion": "^5.2.1",
