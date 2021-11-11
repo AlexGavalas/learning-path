@@ -11,59 +11,59 @@ import { getAllPostIds, getPostData, Post } from '../../lib/posts';
 import styles from '../../styles/utils.module.css';
 
 export const getStaticProps: GetStaticProps<
-	{ postData: Post },
-	{ id: string }
+    { postData: Post },
+    { id: string }
 > = async ({ params }) => {
-	if (!params || !params.id) {
-		return {
-			notFound: true,
-		};
-	}
+    if (!params || !params.id) {
+        return {
+            notFound: true,
+        };
+    }
 
-	const postData = await getPostData(params.id);
+    const postData = await getPostData(params.id);
 
-	return {
-		props: {
-			postData,
-		},
-	};
+    return {
+        props: {
+            postData,
+        },
+    };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const paths = getAllPostIds();
+    const paths = getAllPostIds();
 
-	return {
-		paths,
-		fallback: false,
-	};
+    return {
+        paths,
+        fallback: false,
+    };
 };
 
 const BackLink = styled.div`
-	margin-block-start: 3rem;
+    margin-block-start: 3rem;
 `;
 
 const Post = ({ postData }: { postData: Post }) => {
-	return (
-		<Layout>
-			<Head>
-				<title>{postData.title}</title>
-			</Head>
-			<article>
-				<h1 className={styles.headingLg}>{postData.title}</h1>
-				<div className={styles.lightText}>
-					<Date dateString={postData.date} />
-				</div>
-				<div
-					dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-				/>
-			</article>
-			<BackLink>
-				<Link href="/">
-					<a>← Back to home</a>
-				</Link>
-			</BackLink>
-		</Layout>
-	);
+    return (
+        <Layout>
+            <Head>
+                <title>{postData.title}</title>
+            </Head>
+            <article>
+                <h1 className={styles.headingLg}>{postData.title}</h1>
+                <div className={styles.lightText}>
+                    <Date dateString={postData.date} />
+                </div>
+                <div
+                    dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+                />
+            </article>
+            <BackLink>
+                <Link href="/">
+                    <a>← Back to home</a>
+                </Link>
+            </BackLink>
+        </Layout>
+    );
 };
 
 export default Post;
