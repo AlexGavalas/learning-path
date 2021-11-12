@@ -1,3 +1,7 @@
+/* @tailwind base; CSS reset */
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
     padding: 0;

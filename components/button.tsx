@@ -1,21 +1,12 @@
-import styled from '@emotion/styled';
+import { FC, ButtonHTMLAttributes } from 'react';
 
-export const Button = styled.button`
-    appearance: none;
-    outline: none;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-    background-color: white;
-    color: black;
-
-    border: 1px solid black;
-    border-radius: 0.25rem;
-
-    padding-block: 0.5rem;
-    padding-inline: 1rem;
-
-    cursor: pointer;
-
-    &:hover {
-        background-color: #eaecf0;
-    }
-`;
+export const Button: FC<ButtonProps> = ({ children, ...rest }) => (
+    <button
+        className="cursor-pointer p-2 bg-transparent border-none rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
+        {...rest}
+    >
+        {children}
+    </button>
+);

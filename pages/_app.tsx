@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { AnimatePresence } from 'framer-motion';
 import styled from '@emotion/styled';
+import { ThemeProvider } from 'next-themes';
 
 import '../styles/global.css';
 
@@ -18,20 +19,22 @@ const Container = styled.div`
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (
-        <Container>
-            <Head>
-                <link rel="icon" href="/favicon.ico" />
-                <title>Learning Path</title>
-            </Head>
-            <Header />
-            <AnimatePresence
-                exitBeforeEnter
-                initial={false}
-                onExitComplete={() => window.scrollTo(0, 0)}
-            >
-                <Component {...pageProps} />
-            </AnimatePresence>
-        </Container>
+        <ThemeProvider attribute="class">
+            <Container>
+                <Head>
+                    <link rel="icon" href="/favicon.ico" />
+                    <title>Learning Path</title>
+                </Head>
+                <Header />
+                <AnimatePresence
+                    exitBeforeEnter
+                    initial={false}
+                    onExitComplete={() => window.scrollTo(0, 0)}
+                >
+                    <Component {...pageProps} />
+                </AnimatePresence>
+            </Container>
+        </ThemeProvider>
     );
 };
 

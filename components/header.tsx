@@ -1,11 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
 import { Button } from './button';
 
 const StyledHeader = styled.header`
-    height: 5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -20,36 +21,52 @@ const LinksContainer = styled.div`
     align-items: center;
 `;
 
-const HorizontalSeparator = styled.span`
-    margin-inline: 0.5rem;
-`;
-
 const LoginContainer = styled.div``;
 
-const Logo = styled(motion.h1)`
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    background-color: #ffffff;
-    font-size: clamp(1.5rem, 8vw, 2rem);
-`;
-
 export const Header = () => {
+    const [mounted, setIsMounted] = useState(false);
+    const { setTheme, resolvedTheme } = useTheme();
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    const toggleTheme = () => {
+        setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
+    };
+
     return (
         <StyledHeader>
             <LinksContainer>
                 <Link href="/" passHref>
-                    <Logo
-                        whileHover={{ backgroundColor: '#d7d7d7' }}
-                        transition={{ duration: 0.5 }}
-                    >
+                    <h1 className="cursor-pointer p-2 text-3xl dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-800">
                         Learning Path
-                    </Logo>
+                    </h1>
                 </Link>
             </LinksContainer>
-            {/* <LoginContainer>
-				<Button>Login</Button>
-			</LoginContainer> */}
+            <LoginContainer>
+                {mounted && (
+                    <Button onClick={toggleTheme}>
+                        {resolvedTheme === 'light' ? (
+                            <img
+                                src="/moon.svg"
+                                alt="Moon"
+                                width={20}
+                                height={20}
+                            />
+                        ) : (
+                            <img
+                                src="/sun.svg"
+                                alt="Sun"
+                                width={20}
+                                height={20}
+                            />
+                        )}
+                    </Button>
+                )}
+            </LoginContainer>
         </StyledHeader>
     );
 };
+
+export default Header;
