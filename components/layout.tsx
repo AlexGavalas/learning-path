@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
 
 const Container = styled(motion.main)`
-    padding-inline-start: 0.5rem;
+    padding-inline: 1rem;
     margin-block: 3rem;
     width: 100%;
 `;

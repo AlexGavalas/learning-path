@@ -19,9 +19,8 @@ const LinksContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 0.5rem;
 `;
-
-const LoginContainer = styled.div``;
 
 export const Header = () => {
     const [mounted, setIsMounted] = useState(false);
@@ -44,8 +43,8 @@ export const Header = () => {
                     </h1>
                 </Link>
             </LinksContainer>
-            <LoginContainer>
-                {mounted && (
+            {mounted && (
+                <div className="mr-3">
                     <Button onClick={toggleTheme}>
                         {resolvedTheme === 'light' ? (
                             <img
@@ -63,8 +62,8 @@ export const Header = () => {
                             />
                         )}
                     </Button>
-                )}
-            </LoginContainer>
+                </div>
+            )}
         </StyledHeader>
     );
 };
