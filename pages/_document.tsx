@@ -15,7 +15,12 @@ class MyDocument extends Document {
     render() {
         return (
             <Html lang="en">
-                <Head />
+                <Head>
+                    <meta
+                        name="description"
+                        content="A place where you can learn stuff about web development"
+                    />
+                </Head>
                 <body className="bg-white dark:bg-[#121212]">
                     <Main />
                     <NextScript />
