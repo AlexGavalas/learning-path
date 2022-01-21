@@ -50,8 +50,14 @@ const Post = ({ postData }: { postData: Post }) => {
             </Head>
             <article>
                 <h1 className={styles.headingLg}>{postData.title}</h1>
-                <div className={styles.lightText}>
-                    <Date dateString={postData.date} />
+                <div className="text-gray-500 flex gap-2">
+                    <p>
+                        Created at <Date dateString={postData.date} />
+                    </p>
+                    <p> / </p>
+                    <p>
+                        Updated at <Date dateString={postData.updated} />
+                    </p>
                 </div>
                 <div
                     dangerouslySetInnerHTML={{ __html: postData.contentHtml }}

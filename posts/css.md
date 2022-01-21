@@ -1,6 +1,7 @@
 ---
 title: 'CSS material'
 date: '2021-11-11'
+updated: '2021-11-11'
 ---
 
 This is a list with material you can use to learn CSS. It will be updated frequently, so check it from time to time for new stuff.

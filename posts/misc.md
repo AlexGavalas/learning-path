@@ -1,6 +1,7 @@
 ---
 title: 'Miscellaneous'
 date: '2021-11-11'
+updated: '2021-11-11'
 ---
 
 A list with stuff about anything.

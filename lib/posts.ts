@@ -12,6 +12,7 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 export type Post = {
     id: string;
     date: string;
+    updated: string;
     title: string;
     contentHtml: string;
 };

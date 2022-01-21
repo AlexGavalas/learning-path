@@ -1,0 +1,67 @@
+---
+title: 'Version Control w/ git'
+date: '2022-01-21'
+updated: '2022-01-21'
+---
+
+## Tutorials and resources
+
+If you are a git beginner start from these tutorials to get a grasp of what is git and how to use it efficiently.
+
+-   [GitHowTo](https://githowto.com/)
+-   [Learn Git Branching](https://learngitbranching.js.org/)
+-   [Practice Git](https://gitexercises.fracz.com/)
+-   [Git crash course](https://neros.dev/blog/git-crash-course-part-1/)
+-   [Git from the bottom up](https://jwiegley.github.io/git-from-the-bottom-up/)
+
+If you are a seasoned git user check these resources for a - _hopefully_ - more in depth look.
+
+-   [Git from Beginner to Advanced](https://www.madebymike.com.au/writing/how-to-git/)
+-   [Git series](https://www.daolf.com/posts/git-series-part-1/)
+-   [Learn Git without Git](https://itoshkov.github.io/git-tutorial)
+-   [Advanced Git series](https://css-tricks.com/creating-the-perfect-commit-in-git/)
+-   [The Pro Git book](https://git-scm.com/book/en/v2)
+
+---
+
+## Cheat sheets
+
+Quick info about git can be found [here](https://github.com/bennadel/git-cheat-sheet) and [here](https://education.github.com/git-cheat-sheet-education.pdf).
+
+---
+
+## Tools
+
+To detect secrets within a code base you can use [detect-secrets](https://github.com/Yelp/detect-secrets) or [gitleaks](https://github.com/zricethezav/gitleaks). Also [reviewdog](https://github.com/reviewdog/reviewdog) is an automated code review tool.
+
+To lint commit messages there are tools like [gitlint](https://github.com/jorisroovers/gitlint) and [commitlint](https://github.com/conventional-changelog/commitlint).
+
+For a package release workflow you can check out [semantic-release](https://github.com/semantic-release/semantic-release), [standard-version](https://github.com/conventional-changelog/standard-version), [release-it](https://github.com/release-it/release-it), [beachball](https://github.com/microsoft/beachball), [auto](https://github.com/intuit/auto) and [release-please](https://github.com/googleapis/release-please).
+
+Regarding changelog automation, see [release](https://github.com/vercel/release) and the modules in the [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) ecosystem.
+
+Nice packages regarding git hooks are [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky).
+
+A simple [terminal UI](https://github.com/jesseduffield/lazygit) for git.
+
+---
+
+## Interesting sites
+
+-   [gitignore.io](https://www.toptal.com/developers/gitignore)
+-   [ohshitgit.com](https://ohshitgit.com/) (or check the [PG-13 version](https://dangitgit.com/))
+-   [gitexplorer.com](https://gitexplorer.com/)
+-   [githooks.com](https://githooks.com/)
+-   [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)
+-   [keepachangelog.com](https://keepachangelog.com/en/1.0.0/)
+-   [GitAlias](https://github.com/GitAlias/gitalias)
+
+If you want to start contributing to open source software [this](http://firsttimersonly.com/) should be a good place to start.
+
+---
+
+## Interesting articles
+
+-   [How To Make Life Easier When Using Git](https://www.smashingmagazine.com/make-life-easier-when-using-git)
+-   [Patterns for Managing Source Code Branches](https://martinfowler.com/articles/branching-patterns.html)
+-   [Little Things I Like to Do with Git](https://csswizardry.com/2017/05/little-things-i-like-to-do-with-git)
