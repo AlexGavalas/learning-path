@@ -8,8 +8,6 @@ import Layout from '../components/layout';
 import { SearchArea } from '../components/search-area';
 import { getSortedPostsData, Post } from '../lib/posts';
 
-import utilStyles from '../styles/utils.module.css';
-
 export const getStaticProps: GetStaticProps = async () => {
     const allPostsData = getSortedPostsData();
 
@@ -25,17 +23,17 @@ const Home: NextPage<{ allPostsData: Post[] }> = ({ allPostsData }) => {
 
     return (
         <Layout>
-            <section className={utilStyles.headingMd}>
+            <section className="leading-8 text-xl">
                 <SearchArea posts={allPostsData} setPosts={setPosts} />
-                <h2 className={utilStyles.headingLg}>Notes</h2>
-                <ul className={utilStyles.list}>
+                <h2 className="my-8 text-black dark:text-white">Notes</h2>
+                <ul className="list-none p-0">
                     {posts.map(({ id, date, title }) => (
-                        <li className={utilStyles.listItem} key={id}>
+                        <li className="my-6" key={id}>
                             <Link href={`/posts/${id}`} scroll={false}>
                                 <a>{title}</a>
                             </Link>
                             <br />
-                            <small className={utilStyles.lightText}>
+                            <small className="text-gray-400">
                                 <Date dateString={date} />
                             </small>
                         </li>

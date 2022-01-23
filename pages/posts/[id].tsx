@@ -8,8 +8,6 @@ import Layout from '../../components/layout';
 import Date from '../../components/date';
 import { getAllPostIds, getPostData, Post } from '../../lib/posts';
 
-import styles from '../../styles/utils.module.css';
-
 export const getStaticProps: GetStaticProps<
     { postData: Post },
     { id: string }
@@ -49,8 +47,8 @@ const Post = ({ postData }: { postData: Post }) => {
                 <title>{postData.title}</title>
             </Head>
             <article>
-                <h1 className={styles.headingLg}>{postData.title}</h1>
-                <div className="text-gray-500 flex gap-2">
+                <h1 className="my-8">{postData.title}</h1>
+                <div className="text-gray-500 flex gap-2 mb-4">
                     <p>
                         Created at <Date dateString={postData.date} />
                     </p>
@@ -61,6 +59,7 @@ const Post = ({ postData }: { postData: Post }) => {
                 </div>
                 <div
                     dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+                    className="prose dark:prose-invert"
                 />
             </article>
             <BackLink>

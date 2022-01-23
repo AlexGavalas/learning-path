@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 const Container = styled(motion.main)`
     padding-inline: 1rem;
-    margin-block: 3rem;
+    margin-block: 2rem;
     width: 100%;
 `;
 
