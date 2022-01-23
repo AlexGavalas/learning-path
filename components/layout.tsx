@@ -1,12 +1,5 @@
 import type { FC } from 'react';
 import { motion } from 'framer-motion';
-import styled from '@emotion/styled';
-
-const Container = styled(motion.main)`
-    padding-inline: 1rem;
-    margin-block: 2rem;
-    width: 100%;
-`;
 
 const variants = {
     hidden: {
@@ -19,15 +12,16 @@ const variants = {
 
 const Layout: FC = ({ children }) => {
     return (
-        <Container
+        <motion.main
             initial="hidden"
             animate="enter"
             exit="hidden"
             variants={variants}
             transition={{ type: 'linear' }}
+            className="px-2 mt-4"
         >
             {children}
-        </Container>
+        </motion.main>
     );
 };
 

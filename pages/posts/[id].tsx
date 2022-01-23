@@ -1,8 +1,6 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
-
 import Head from 'next/head';
 import Link from 'next/link';
-import styled from '@emotion/styled';
 
 import Layout from '../../components/layout';
 import Date from '../../components/date';
@@ -36,10 +34,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-const BackLink = styled.div`
-    margin-block-start: 3rem;
-`;
-
 const Post = ({ postData }: { postData: Post }) => {
     return (
         <Layout>
@@ -62,11 +56,11 @@ const Post = ({ postData }: { postData: Post }) => {
                     className="prose dark:prose-invert"
                 />
             </article>
-            <BackLink>
+            <div className="mt-8">
                 <Link href="/">
                     <a>← Back to home</a>
                 </Link>
-            </BackLink>
+            </div>
         </Layout>
     );
 };
