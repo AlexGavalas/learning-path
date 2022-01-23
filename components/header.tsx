@@ -37,10 +37,10 @@ export const Header = () => {
     return (
         <StyledHeader>
             <LinksContainer>
-                <Link href="/" passHref>
-                    <h1 className="cursor-pointer p-2 text-3xl dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-800">
+                <Link href="/">
+                    <a className="cursor-pointer hover:no-underline font-[700] p-2 m-2 text-3xl text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-800">
                         Learning Path
-                    </h1>
+                    </a>
                 </Link>
             </LinksContainer>
             {mounted && (

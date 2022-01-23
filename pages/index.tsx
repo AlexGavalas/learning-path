@@ -1,9 +1,11 @@
 import type { NextPage, GetStaticProps } from 'next';
+import { useState } from 'react';
 
 import Link from 'next/link';
 
 import Date from '../components/date';
 import Layout from '../components/layout';
+import { SearchArea } from '../components/search-area';
 import { getSortedPostsData, Post } from '../lib/posts';
 
 import utilStyles from '../styles/utils.module.css';
@@ -19,12 +21,15 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Home: NextPage<{ allPostsData: Post[] }> = ({ allPostsData }) => {
+    const [posts, setPosts] = useState(allPostsData);
+
     return (
         <Layout>
             <section className={utilStyles.headingMd}>
+                <SearchArea posts={allPostsData} setPosts={setPosts} />
                 <h2 className={utilStyles.headingLg}>Notes</h2>
                 <ul className={utilStyles.list}>
-                    {allPostsData.map(({ id, date, title }) => (
+                    {posts.map(({ id, date, title }) => (
                         <li className={utilStyles.listItem} key={id}>
                             <Link href={`/posts/${id}`} scroll={false}>
                                 <a>{title}</a>
