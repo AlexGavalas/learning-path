@@ -56,7 +56,7 @@ const Post = ({ postData }: { postData: Post }) => {
                     className="prose dark:prose-invert"
                 />
             </article>
-            <div className="mt-8">
+            <div className="my-8">
                 <Link href="/">
                     <a>← Back to home</a>
                 </Link>

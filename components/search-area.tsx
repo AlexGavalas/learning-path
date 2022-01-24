@@ -52,11 +52,11 @@ export const SearchArea = ({
             <input
                 name={QUERY_FIELD_NAME}
                 ref={queryEl}
-                className="pl-2 h-full w-full border-[1px] dark:border-0 border-solid bg-transparent dark:bg-gray-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
+                className="pl-2 h-full w-full border-[1px] dark:border-0 border-solid bg-transparent dark:bg-neutral-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
                 autoComplete="off"
                 placeholder="Search notes"
             />
-            <button className="cursor-pointer h-6 absolute right-1 bg-transparent rounded border-0 text-black dark:text-white bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-800">
+            <button className="cursor-pointer h-6 absolute right-1 bg-transparent rounded border-0 text-black dark:text-white bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600">
                 Search
             </button>
         </form>
