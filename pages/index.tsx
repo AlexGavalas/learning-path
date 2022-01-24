@@ -26,19 +26,23 @@ const Home: NextPage<{ allPostsData: Post[] }> = ({ allPostsData }) => {
             <section className="leading-8 text-xl">
                 <SearchArea posts={allPostsData} setPosts={setPosts} />
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>
-                <ul className="list-none p-0">
-                    {posts.map(({ id, date, title }) => (
-                        <li className="my-6" key={id}>
-                            <Link href={`/posts/${id}`} scroll={false}>
-                                <a>{title}</a>
-                            </Link>
-                            <br />
-                            <small className="text-gray-400">
-                                <Date dateString={date} />
-                            </small>
-                        </li>
-                    ))}
-                </ul>
+                {posts.length > 0 ? (
+                    <ul className="list-none p-0">
+                        {posts.map(({ id, date, title }) => (
+                            <li className="my-6" key={id}>
+                                <Link href={`/posts/${id}`} scroll={false}>
+                                    <a>{title}</a>
+                                </Link>
+                                <br />
+                                <small className="text-gray-400">
+                                    <Date dateString={date} />
+                                </small>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="text-center">No notes found</p>
+                )}
             </section>
         </Layout>
     );
