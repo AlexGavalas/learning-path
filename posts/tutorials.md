@@ -24,11 +24,12 @@ This is a list with collections of tutorials on various subjects.
 -   [Learn HTML](https://www.learn-html.org/)
 -   [React Three Fiber Journey](https://journey.pmnd.rs/)
 -   [Learn GraphQL (Odyssey)](https://odyssey.apollographql.com/)
--   [Intro to Storybook](https://storybook.js.org/tutorials/intro-to-storybook/)
+-   [Learn Storybook](https://storybook.js.org/tutorials/)
 -   [Intro to D3](https://yangdanny97.github.io/intro-to-d3/)
 -   [Intro to CSS 3D Transforms](https://3dtransforms.desandro.com/)
 -   [Code Guppy](https://codeguppy.com/)
 -   [30 seconds of code](https://www.30secondsofcode.org/)
+-   [Technical Writing Courses](https://developers.google.com/tech-writing/)
 
 ---
 

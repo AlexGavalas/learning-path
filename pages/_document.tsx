@@ -18,7 +18,7 @@ class MyDocument extends Document {
                 <Head>
                     <meta
                         name="description"
-                        content="A place where you can learn stuff about web development"
+                        content="Learn stuff about software development"
                     />
                 </Head>
                 <body className="bg-white dark:bg-[#121212]">
