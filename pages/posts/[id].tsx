@@ -1,10 +1,13 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { MDXRemote } from 'next-mdx-remote';
 
 import Layout from '../../components/layout';
 import Date from '../../components/date';
 import { getAllPostIds, getPostData, Post } from '../../lib/posts';
+
+const components = {};
 
 export const getStaticProps: GetStaticProps<
     { postData: Post },
@@ -51,10 +54,12 @@ const Post = ({ postData }: { postData: Post }) => {
                         Updated at <Date dateString={postData.updated} />
                     </p>
                 </div>
-                <div
-                    dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-                    className="prose dark:prose-invert"
-                />
+                <div className="prose dark:prose-invert">
+                    <MDXRemote
+                        {...postData.mdxSource}
+                        components={components}
+                    />
+                </div>
             </article>
             <div className="my-8">
                 <Link href="/">
