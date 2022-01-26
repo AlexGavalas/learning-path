@@ -1,0 +1,37 @@
+---
+title: 'Tutorials'
+date: '2022-01-26'
+updated: '2022-01-26'
+---
+
+This is a list with collections of tutorials on various subjects.
+
+-   [Guru99](https://www.guru99.com/)
+-   [The missing semester of your CS education](https://missing.csail.mit.edu/)
+-   [Google Learn](https://web.dev/learn/)
+-   [Microsoft Learn](https://docs.microsoft.com/en-gb/learn/browse/)
+-   [Learn Android App Quality](https://developer.android.com/quality)
+-   [Learn Firebase](https://firebase.google.com/community/learn)
+-   [Google Play Academy](https://playacademy.exceedlms.com/student/catalog)
+-   [Digital Ocean Tutorials](https://www.digitalocean.com/community/tutorials)
+-   [CodeSource](https://codesource.io/)
+-   [The Odin Project](https://www.theodinproject.com/)
+-   [Coding Fantasy](https://codingfantasy.com/)
+-   [Authorization Academy](https://www.osohq.com/academy)
+-   [Practical Guide to Web Animation](https://tilda.education/en/web-animation-course)
+-   [JAMStack Explorers](https://explorers.netlify.com/)
+-   [Learn Playwright and Puppeteer](https://www.checklyhq.com/learn/headless)
+-   [Learn HTML](https://www.learn-html.org/)
+-   [React Three Fiber Journey](https://journey.pmnd.rs/)
+-   [Learn GraphQL (Odyssey)](https://odyssey.apollographql.com/)
+-   [Intro to Storybook](https://storybook.js.org/tutorials/intro-to-storybook/)
+-   [Intro to D3](https://yangdanny97.github.io/intro-to-d3/)
+-   [Intro to CSS 3D Transforms](https://3dtransforms.desandro.com/)
+
+---
+
+## Articles
+
+Material that covers a specific subject in depth.
+
+-   [React: Event Bubbling and Capturing](https://www.robinwieruch.de/react-event-bubbling-capturing/)
