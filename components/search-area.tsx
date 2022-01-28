@@ -47,7 +47,7 @@ export const SearchArea = ({
         setLoading(true);
 
         try {
-            const response = await fetch(`/api/search?query=${query}`);
+            const response = await fetch(`/api/search?q=${query}`);
             const json = await response.json();
 
             const filteredPosts = posts.filter(({ title }) =>
