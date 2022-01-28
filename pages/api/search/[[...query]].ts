@@ -9,7 +9,13 @@ interface Note {
 const handler: NextApiHandler = async (req, res) => {
     const { query } = req.query;
 
-    const { data } = await supabase.rpc<Note>('search_notes', { q: query });
+    console.log({ query });
+
+    const { data, ...rest } = await supabase.rpc<Note>('search_notes', {
+        q: query,
+    });
+
+    console.log({ data, ...rest });
 
     res.json({
         data: data?.map(({ title }) => title) || [],
