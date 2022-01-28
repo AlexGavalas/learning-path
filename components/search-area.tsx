@@ -4,6 +4,7 @@ import type {
     MouseEventHandler,
     SetStateAction,
 } from 'react';
+
 import { useEffect, useState, useRef } from 'react';
 
 import type { Post } from '../lib/posts';
@@ -19,6 +20,7 @@ export const SearchArea = ({
 }) => {
     const queryEl = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
@@ -35,20 +37,29 @@ export const SearchArea = ({
         };
     }, []);
 
-    const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
 
         if (!query) {
             return setPosts(posts);
         }
 
-        const userQuery = new RegExp(query, 'i');
+        setLoading(true);
 
-        const filteredPosts = posts.filter(({ title }) =>
-            userQuery.test(title)
-        );
+        try {
+            const response = await fetch(`/api/search?query=${query}`);
+            const json = await response.json();
 
-        setPosts(filteredPosts);
+            const filteredPosts = posts.filter(({ title }) =>
+                json.data.includes(title)
+            );
+
+            setPosts(filteredPosts);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const onClear: MouseEventHandler<HTMLButtonElement> = () => {
@@ -81,6 +92,9 @@ export const SearchArea = ({
                     Search
                 </button>
             </div>
+            {loading && (
+                <div className="animate-loader bg-no-repeat bg-center bg-gradient-to-r from-white via-[#4675aa] to-white bg-[length:25%_100%] w-full h-[2px] absolute bottom-[-8px]" />
+            )}
         </form>
     );
 };
