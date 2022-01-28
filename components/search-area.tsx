@@ -9,7 +9,13 @@ import { useEffect, useState, useRef } from 'react';
 
 import type { Post } from '../lib/posts';
 
+import { supabase } from '../lib/supabase';
+
 const QUERY_FIELD_NAME = 'query';
+
+interface Note {
+    title: string;
+}
 
 export const SearchArea = ({
     posts,
@@ -47,11 +53,14 @@ export const SearchArea = ({
         setLoading(true);
 
         try {
-            const response = await fetch(`/api/search/${query}`);
-            const json = await response.json();
+            const { data } = await supabase.rpc<Note>('search_notes', {
+                q: query,
+            });
+
+            const postTitles = data?.map(({ title }) => title) || [];
 
             const filteredPosts = posts.filter(({ title }) =>
-                json.data.includes(title)
+                postTitles.includes(title)
             );
 
             setPosts(filteredPosts);
