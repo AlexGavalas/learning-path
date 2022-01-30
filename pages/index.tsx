@@ -30,7 +30,7 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                     <ul className="list-none p-0">
                         {posts.map(({ id, date, title }) => (
                             <li className="my-6" key={id}>
-                                <Link href={`/posts/${id}`} scroll={false}>
+                                <Link href={`/posts/${id}`}>
                                     <a>{title}</a>
                                 </Link>
                                 <br />
