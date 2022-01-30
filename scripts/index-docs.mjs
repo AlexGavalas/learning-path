@@ -16,17 +16,15 @@ const INDEX_LABEL = 'Indexing took: ';
 (async () => {
     console.time(DELETE_LABEL);
 
-    // const res = await supabase.from('note_contents').delete();
+    const res = await supabase.from('note_contents').delete();
 
-    // if (res.status !== 200) {
-    //     console.log(`Could not delete previous note contents.`);
+    if (res.status !== 200) {
+        console.log(`Could not delete previous note contents.`);
 
-    //     process.exit(1);
-    // }
+        process.exit(1);
+    }
 
     console.timeEnd(DELETE_LABEL);
-
-    return;
 
     const notes = await fs.readdir(POSTS_DIR);
 
@@ -43,6 +41,7 @@ const INDEX_LABEL = 'Indexing took: ';
         const parsedContents = content
             .split('\n')
             .filter(Boolean)
+            // Remove some markdown syntax
             .map((line) => line.replace('-   ', ''));
 
         const values = parsedContents.map((line) => ({
@@ -60,10 +59,4 @@ const INDEX_LABEL = 'Indexing took: ';
     console.log('Indexed all docs ...');
 
     console.timeEnd(INDEX_LABEL);
-
-    console.log('Searching ...');
-
-    const nc = await supabase.rpc('search_notes', { q: 'react' });
-
-    console.log(nc.body);
 })();

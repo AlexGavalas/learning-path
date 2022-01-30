@@ -6,8 +6,11 @@ import { MDXRemote } from 'next-mdx-remote';
 import Layout from '../../components/layout';
 import Date from '../../components/date';
 import { getAllPostIds, getPostData, Post } from '../../lib/posts';
+import { YoutubeIcon } from '../../components/icons';
 
-const components = {};
+const components = {
+    YoutubeIcon: YoutubeIcon,
+};
 
 export const getStaticProps: GetStaticProps<
     { postData: Post },
