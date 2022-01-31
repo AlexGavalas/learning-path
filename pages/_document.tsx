@@ -22,14 +22,14 @@ class MyDocument extends Document {
                 <Head>
                     <meta name="description" content={DESCRIPTION} />
 
-                    <meta property="og:type" content="website" />
-                    <meta property="og:url" content={SITE_URL} />
+                    <meta property="og:site_name" content={TITLE} />
                     <meta property="og:title" content={TITLE} />
                     <meta property="og:description" content={DESCRIPTION} />
                     <meta
                         property="og:image"
                         content="/public/images/spash.jpg"
                     />
+                    <meta property="og:url" content={SITE_URL} />
 
                     <meta
                         property="twitter:card"
