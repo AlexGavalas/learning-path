@@ -25,10 +25,7 @@ class MyDocument extends Document {
                     <meta property="og:site_name" content={TITLE} />
                     <meta property="og:title" content={TITLE} />
                     <meta property="og:description" content={DESCRIPTION} />
-                    <meta
-                        property="og:image"
-                        content="/public/images/spash.jpg"
-                    />
+                    <meta property="og:image" content="/images/spash.jpg" />
                     <meta property="og:url" content={SITE_URL} />
 
                     <meta
@@ -43,7 +40,7 @@ class MyDocument extends Document {
                     />
                     <meta
                         property="twitter:image"
-                        content="/public/images/spash.jpg"
+                        content="/images/spash.jpg"
                     />
                 </Head>
                 <body className="bg-white dark:bg-[#121212]">
