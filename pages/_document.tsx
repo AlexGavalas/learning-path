@@ -6,6 +6,10 @@ import Document, {
     DocumentContext,
 } from 'next/document';
 
+const DESCRIPTION = 'Learn stuff about software development';
+const TITLE = 'Learning Path';
+const SITE_URL = 'https://learning-path.dev/';
+
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
@@ -16,9 +20,30 @@ class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
+                    <meta name="description" content={DESCRIPTION} />
+
+                    <meta property="og:type" content="website" />
+                    <meta property="og:url" content={SITE_URL} />
+                    <meta property="og:title" content={TITLE} />
+                    <meta property="og:description" content={DESCRIPTION} />
                     <meta
-                        name="description"
-                        content="Learn stuff about software development"
+                        property="og:image"
+                        content="/public/images/spash.jpg"
+                    />
+
+                    <meta
+                        property="twitter:card"
+                        content="summary_large_image"
+                    />
+                    <meta property="twitter:url" content={SITE_URL} />
+                    <meta property="twitter:title" content={TITLE} />
+                    <meta
+                        property="twitter:description"
+                        content={DESCRIPTION}
+                    />
+                    <meta
+                        property="twitter:image"
+                        content="/public/images/spash.jpg"
                     />
                 </Head>
                 <body className="bg-white dark:bg-[#121212]">
