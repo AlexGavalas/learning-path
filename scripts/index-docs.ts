@@ -13,7 +13,7 @@ const POSTS_DIR = path.join(process.cwd(), 'posts');
 const DELETE_LABEL = 'Delete took: ';
 const INDEX_LABEL = 'Indexing took: ';
 
-(async () => {
+const indexDocs = async () => {
     console.time(DELETE_LABEL);
 
     const res = await supabase.from('note_contents').delete();
@@ -59,4 +59,6 @@ const INDEX_LABEL = 'Indexing took: ';
     console.log('Indexed all docs ...');
 
     console.timeEnd(INDEX_LABEL);
-})();
+};
+
+indexDocs();
