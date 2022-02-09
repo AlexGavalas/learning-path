@@ -33,8 +33,10 @@ export const getSortedPosts = () => {
         return { id, ...data };
     });
 
-    return allPostsData.sort(({ date: a }, { date: b }) =>
-        compareDesc(parseISO(a), parseISO(b))
+    return allPostsData.sort(
+        (a, b) =>
+            compareDesc(parseISO(a.updated), parseISO(b.updated)) ||
+            a.title.localeCompare(b.title)
     );
 };
 
