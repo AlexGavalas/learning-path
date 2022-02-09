@@ -28,14 +28,14 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>
                 {posts.length > 0 ? (
                     <ul className="list-none p-0">
-                        {posts.map(({ id, date, title }) => (
+                        {posts.map(({ id, updated, title }) => (
                             <li className="my-6" key={id}>
                                 <Link href={`/posts/${id}`}>
                                     <a>{title}</a>
                                 </Link>
                                 <br />
                                 <small className="text-gray-400">
-                                    <Date dateString={date} />
+                                    Updated: <Date dateString={updated} />
                                 </small>
                             </li>
                         ))}
