@@ -1,4 +1,5 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
+import { AnchorHTMLAttributes } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
@@ -8,8 +9,27 @@ import Date from '../../components/date';
 import { getAllPostIds, getPostData, Post } from '../../lib/posts';
 import { YoutubeIcon } from '../../components/icons';
 
+// Custom link component to use next's Link for internal routing
+const CustomLink = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {
+    const { href } = props;
+
+    const isInternalLink =
+        href && (href.startsWith('/') || href.startsWith('#'));
+
+    if (isInternalLink) {
+        return (
+            <Link href={href}>
+                <a {...props}>{props.children}</a>
+            </Link>
+        );
+    }
+
+    return <a {...props} />;
+};
+
 const components = {
     YoutubeIcon: YoutubeIcon,
+    a: CustomLink,
 };
 
 export const getStaticProps: GetStaticProps<
