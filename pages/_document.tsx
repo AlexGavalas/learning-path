@@ -42,6 +42,9 @@ class MyDocument extends Document {
                         property="twitter:image"
                         content="/images/spash.jpg"
                     />
+
+                    <link rel="canonical" href="https://learning-path.dev" />
+                    <meta name="theme-color" content="#121212" />
                 </Head>
                 <body className="bg-white dark:bg-[#121212]">
                     <Main />
