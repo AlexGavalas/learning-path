@@ -16,10 +16,12 @@ const INDEX_LABEL = 'Indexing took: ';
 const indexDocs = async () => {
     console.time(DELETE_LABEL);
 
-    const res = await supabase.from('note_contents').delete();
+    // Delete all records where the title is not empty, meaning all records
+    const res = await supabase.from('note_contents').delete().neq('title', '');
 
     if (res.status !== 200) {
         console.log(`Could not delete previous note contents.`);
+        console.log(res.error);
 
         process.exit(1);
     }
@@ -42,6 +44,7 @@ const indexDocs = async () => {
             .split('\n')
             .filter(Boolean)
             // Remove some markdown syntax
+            .filter((line) => line !== '---')
             .map((line) => line.replace('-   ', ''));
 
         const values = parsedContents.map((line) => ({

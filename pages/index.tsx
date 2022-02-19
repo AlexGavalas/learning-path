@@ -1,7 +1,6 @@
 import type { NextPage, GetStaticProps } from 'next';
-import { useState } from 'react';
-
 import Link from 'next/link';
+import { useState } from 'react';
 
 import Date from '../components/date';
 import Layout from '../components/layout';
@@ -24,6 +23,11 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
     return (
         <Layout>
             <section className="leading-8 text-xl">
+                <p className="text-center p-2">
+                    Hey there. 👋 This is a place where I keep all the
+                    interesting stuff I come across. Feel free to explore. It is
+                    a WIP, so you can expect things to change.
+                </p>
                 <SearchArea posts={allPosts} setPosts={setPosts} />
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>
                 {posts.length > 0 ? (
