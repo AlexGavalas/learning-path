@@ -63,7 +63,7 @@ export const Header = () => {
             <nav className="flex my-2">
                 {NAV_LINKS.map((navLink) => (
                     <Link href={navLink.href} key={navLink.name}>
-                        <a className="flex justify-center w-full hover:bg-gray-800 rounded hover:no-underline py-2">
+                        <a className="flex justify-center w-full dark:hover:bg-gray-800 hover:bg-gray-200 rounded hover:no-underline py-2">
                             {navLink.name}
                         </a>
                     </Link>
