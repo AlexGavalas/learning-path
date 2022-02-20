@@ -1,6 +1,6 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
-import { useState, useEffect, FormEventHandler } from 'react';
+import { useState, useEffect, FormEventHandler, useRef } from 'react';
 import { intervalToDuration, add } from 'date-fns';
 
 import Layout from '../components/layout';
@@ -53,15 +53,18 @@ const EXPIRE_AFTER_SECS = 60 * 60 * 24 * 5;
 const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
     const [posts, setPosts] = useState(initialPosts);
     const [hasUser, setHasUser] = useState(isLoggedIn);
+    const formRef = useRef<HTMLFormElement>(null);
 
     const { user, userLoaded } = useUser();
 
     const addNewNote: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
 
+        if (!formRef.current) return;
+
         const user = supabase.auth.user();
 
-        const post = new FormData(e.currentTarget).get('post');
+        const post = new FormData(formRef.current).get('post');
 
         if (!post || !user) return;
 
@@ -72,10 +75,10 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
             name: user.user_metadata.name,
         };
 
-        redis.set(key, JSON.stringify(data));
-        redis.expire(key, EXPIRE_AFTER_SECS);
+        await redis.set(key, JSON.stringify(data));
+        await redis.expire(key, EXPIRE_AFTER_SECS);
 
-        e.currentTarget.reset();
+        formRef.current.reset();
 
         // Optimistic state update
         setPosts((prev) => [{ data, key }, ...prev]);
@@ -101,7 +104,11 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
                     days . Use this section for stuff like TIL, etc...
                 </p>
                 {userExists ? (
-                    <form className="relative h-8 flex" onSubmit={addNewNote}>
+                    <form
+                        className="relative h-8 flex"
+                        onSubmit={addNewNote}
+                        ref={formRef}
+                    >
                         <Input
                             name="post"
                             placeholder={`Post anything (max ${MAX_CHARS} characters)`}
