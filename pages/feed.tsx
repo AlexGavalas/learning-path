@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
 
     return {
         props: {
-            posts: [],
+            posts,
             isLoggedIn: !!user,
         },
     };
