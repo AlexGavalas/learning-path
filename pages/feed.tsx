@@ -214,7 +214,7 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
                                     key={key}
                                     className="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col"
                                 >
-                                    <p className="group border-solid border-0 border-l-2 border-l-[#4675aa] pl-4">
+                                    <p className="border-solid border-0 border-l-2 border-l-[#4675aa] pl-4 break-words">
                                         {postData}
                                     </p>
                                     <div className="self-end flex gap-4 items-center">
