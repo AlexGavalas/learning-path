@@ -3,8 +3,11 @@ import { AnimatePresence, motion, HTMLMotionProps } from 'framer-motion';
 
 import { useOnClickOutside } from '../hooks/use-on-click-outside';
 
+type DialogSize = 'md';
+
 interface DialogProps extends HTMLMotionProps<'dialog'> {
     onClickOutside?: () => void;
+    size?: DialogSize;
 }
 
 const variants = {
@@ -22,6 +25,7 @@ const FOCUSABLE_ELEMENTS =
 export const Dialog: FC<DialogProps> = ({
     children,
     onClickOutside = () => {},
+    size,
     ...props
 }) => {
     const modalRef = useRef<HTMLDialogElement>(null);
@@ -95,7 +99,9 @@ export const Dialog: FC<DialogProps> = ({
                     exit="hidden"
                     variants={variants}
                     transition={{ type: 'linear' }}
-                    className="inset-0 rounded bg-black"
+                    className={`inset-0 rounded bg-black ${
+                        size === 'md' ? 'w-[75%]' : ''
+                    }`}
                     {...props}
                 >
                     {children}

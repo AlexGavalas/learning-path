@@ -10,9 +10,10 @@ import { ListItem } from './item';
 interface FeedProps {
     posts: Post[];
     onPostDelete: (id: string) => void;
+    onPostUpdate: (id: string, newPost: string) => void;
 }
 
-export const Feed = ({ posts, onPostDelete }: FeedProps) => {
+export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
     const [openDialog, setOpenDialog] = useState(false);
     const idToDelete = useRef<string>();
     const { user } = useUser();
@@ -50,6 +51,7 @@ export const Feed = ({ posts, onPostDelete }: FeedProps) => {
                             post={post}
                             isMine={isMine}
                             handleDelete={handleDelete}
+                            onPostUpdate={onPostUpdate}
                         />
                     );
                 })}

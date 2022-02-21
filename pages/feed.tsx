@@ -110,6 +110,14 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
         setPosts((prev) => prev.filter((item) => item.id !== id));
     };
 
+    const onPostUpdate = (id: string, newPost: string) => {
+        setPosts((prev) =>
+            prev.map((item) =>
+                item.id === id ? { ...item, post: newPost } : item
+            )
+        );
+    };
+
     return (
         <Layout>
             <section className="leading-8 text-xl">
@@ -171,7 +179,11 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
                         </Button>
                     </div>
                 )}
-                <FeedList posts={posts} onPostDelete={onPostDelete} />
+                <FeedList
+                    posts={posts}
+                    onPostDelete={onPostDelete}
+                    onPostUpdate={onPostUpdate}
+                />
             </section>
         </Layout>
     );
