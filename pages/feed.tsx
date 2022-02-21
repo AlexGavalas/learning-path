@@ -1,6 +1,6 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import { useState, FormEventHandler, useRef } from 'react';
-import { intervalToDuration, add } from 'date-fns';
+import { intervalToDuration, add, format } from 'date-fns';
 
 import Layout from '../components/layout';
 import { Input } from '../components/input';
@@ -28,16 +28,23 @@ export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
 }) => {
     const { user } = await supabase.auth.api.getUserByCookie(req);
 
-    const { data } = await redis.keys('posts:*');
+    const { data: redisKeys } = await redis.keys('posts:*');
 
     const redisData = await Promise.all(
-        data.map((key: string) => redis.get(key))
+        redisKeys.map((key: string) => redis.get(key))
     );
 
-    const posts: Post[] = redisData.map(({ data }, i) => ({
-        data: JSON.parse(data) as unknown as PostContent,
-        key: data[i],
-    }));
+    const posts: Post[] = redisData
+        .map(({ data }, i) => ({
+            data: JSON.parse(data) as unknown as PostContent,
+            key: redisKeys[i],
+        }))
+        .sort((a, b) => {
+            const [, tsA] = a.key.split(':');
+            const [, tsB] = b.key.split(':');
+
+            return tsB - tsA;
+        });
 
     return {
         props: {
@@ -150,14 +157,30 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
                     </div>
                 )}
                 <ul className="mt-4">
-                    {posts.map(({ data: { post, name }, key }) => (
-                        <li
-                            key={key}
-                            className="list-none border-0 border-b-2 border-solid py-4"
-                        >
-                            {name}: {post}
-                        </li>
-                    ))}
+                    {posts.map(({ data: { post, name }, key }) => {
+                        const [, timestamp] = key.split(':');
+
+                        const postDate = format(
+                            new Date(+timestamp),
+                            'dd/MM/yyyy HH:mm'
+                        );
+
+                        return (
+                            <li
+                                key={key}
+                                className="list-none py-6 border-0 border-solid last:border-b-0"
+                            >
+                                <figure className="flex flex-col">
+                                    <blockquote className="border-solid border-0 border-l-2 border-l-[#4675aa] pl-4">
+                                        <p>{post}</p>
+                                    </blockquote>
+                                    <figcaption className="self-end italic">
+                                        - {name} at {postDate}
+                                    </figcaption>
+                                </figure>
+                            </li>
+                        );
+                    })}
                 </ul>
             </section>
         </Layout>
