@@ -10,6 +10,9 @@ import { useEffect, useState, useRef } from 'react';
 import type { Post } from '../lib/posts';
 
 import { supabase } from '../lib/supabase';
+import { Button } from './button';
+import { Input } from './input';
+import { Loader } from './loader';
 
 const QUERY_FIELD_NAME = 'query';
 
@@ -78,32 +81,23 @@ export const SearchArea = ({
 
     return (
         <form onSubmit={onSubmit} className="relative h-8 flex items-center">
-            <input
+            <Input
                 name={QUERY_FIELD_NAME}
                 ref={queryEl}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="pl-2 h-full w-full border-[1px] dark:border-0 border-solid bg-transparent dark:bg-neutral-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
                 autoComplete="off"
                 placeholder="Search notes"
             />
             <div className="h-full p-1 absolute right-0 flex gap-2">
                 {query && (
-                    <button
-                        className="cursor-pointer rounded border-0 text-black dark:text-white bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600"
-                        onClick={onClear}
-                        type="button"
-                    >
+                    <Button onClick={onClear} type="button">
                         Clear
-                    </button>
+                    </Button>
                 )}
-                <button className="cursor-pointer rounded border-0 text-black dark:text-white bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600">
-                    Search
-                </button>
+                <Button>Search</Button>
             </div>
-            {loading && (
-                <div className="animate-loader bg-no-repeat bg-center bg-gradient-to-r from-white via-[#4675aa] to-white bg-[length:25%_100%] w-full h-[2px] absolute bottom-[-8px]" />
-            )}
+            {loading && <Loader />}
         </form>
     );
 };

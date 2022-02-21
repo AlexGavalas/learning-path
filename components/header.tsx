@@ -40,7 +40,7 @@ export const Header = () => {
                 </div>
                 {mounted && (
                     <div className="mr-3">
-                        <Button onClick={toggleTheme}>
+                        <Button onClick={toggleTheme} variant="wrapper">
                             {resolvedTheme === 'light' ? (
                                 <img
                                     src="/moon.svg"
