@@ -1,25 +1,15 @@
 import type { NextPage, GetServerSideProps } from 'next';
-import { useState, useCallback, FormEventHandler, useRef } from 'react';
-import { intervalToDuration, add, format } from 'date-fns';
+import { useState, FormEventHandler, useRef } from 'react';
+import { intervalToDuration, add } from 'date-fns';
 
 import Layout from '../components/layout';
-import { Dialog } from '../components/dialog';
+import { Feed as FeedList } from '../features/feed';
 import { Textarea } from '../components/textarea';
 import { Button } from '../components/button';
 import { Loader } from '../components/loader';
 import { supabase } from '../lib/supabase';
 import { redis } from '../lib/redis';
 import { useUser } from '../lib/use-user';
-
-interface PostContent {
-    post: string;
-    name: string;
-}
-
-interface Post {
-    data: PostContent;
-    key: string;
-}
 
 interface FeedProps {
     posts: Post[];
@@ -64,14 +54,9 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [hasUser, setHasUser] = useState(isLoggedIn);
     const [submitting, setSubmitting] = useState(false);
-    const [editingPost, setEditingPost] = useState<Post | null>(null);
-    const [openDialog, setOpenDialog] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
-    const keyToDelete = useRef<string>();
 
     const { user, userLoaded } = useUser();
-
-    const closeDialog = useCallback(() => setOpenDialog(false), []);
 
     const addNewNote: FormEventHandler<HTMLFormElement> = async (e) => {
         try {
@@ -112,23 +97,8 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
 
     const userExists = Boolean(userLoaded && (user || hasUser));
 
-    const handleDelete = async () => {
-        const key = keyToDelete.current;
-
-        if (!key) return;
-
-        const { error } = await redis.del(key);
-
-        if (error) {
-            // TODO: Show an error to the user
-            return;
-        }
-
+    const onPostDelete = (key: string) => {
         setPosts((prev) => prev.filter((item) => item.key !== key));
-    };
-
-    const handleEdit = (post: Post) => {
-        setEditingPost(post);
     };
 
     return (
@@ -192,79 +162,8 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
                         </Button>
                     </div>
                 )}
-                <ul className="mt-4">
-                    {posts.length > 0 ? (
-                        posts.map((post) => {
-                            const {
-                                data: { post: postData, name },
-                                key,
-                            } = post;
-
-                            const [, timestamp] = key.split(':');
-
-                            const postDate = format(
-                                new Date(+timestamp),
-                                'dd/MM/yyyy HH:mm'
-                            );
-
-                            const isMine = name === user?.user_metadata.name;
-
-                            return (
-                                <li
-                                    key={key}
-                                    className="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col"
-                                >
-                                    <p className="border-solid border-0 border-l-2 border-l-[#4675aa] pl-4 break-words">
-                                        {postData}
-                                    </p>
-                                    <div className="self-end flex gap-4 items-center">
-                                        {isMine && (
-                                            <div className="flex gap-2 h-5">
-                                                <Button
-                                                    variant="danger"
-                                                    onClick={() => {
-                                                        setOpenDialog(true);
-                                                        keyToDelete.current =
-                                                            key;
-                                                    }}
-                                                >
-                                                    Delete
-                                                </Button>
-                                                {/* <Button
-                                                    onClick={() => {
-                                                        handleEdit(post);
-                                                    }}
-                                                >
-                                                    Edit
-                                                </Button> */}
-                                            </div>
-                                        )}
-                                        <p className="italic text-sm ">
-                                            - {name} at {postDate}
-                                        </p>
-                                    </div>
-                                </li>
-                            );
-                        })
-                    ) : (
-                        <p className="text-center">No posts yet</p>
-                    )}
-                </ul>
+                <FeedList posts={posts} onPostDelete={onPostDelete} />
             </section>
-            <Dialog open={openDialog} onClickOutside={closeDialog}>
-                <p>Are you sure you want to delete?</p>
-                <div className="flex gap-2 justify-end">
-                    <Button onClick={closeDialog}>No</Button>
-                    <Button
-                        onClick={() => {
-                            handleDelete();
-                            closeDialog();
-                        }}
-                    >
-                        Yes
-                    </Button>
-                </div>
-            </Dialog>
         </Layout>
     );
 };
