@@ -5,18 +5,13 @@ import { Button } from '../../components/button';
 interface ListItemProps {
     post: Post;
     isMine: boolean;
-    handleDelete: (key: string) => void;
+    handleDelete: (id: string) => void;
 }
 
 export const ListItem = ({ post, isMine, handleDelete }: ListItemProps) => {
-    const {
-        data: { post: postData, name },
-        key,
-    } = post;
+    const { post: postData, name, id, ts: timestamp } = post;
 
-    const [, timestamp] = key.split(':');
-
-    const postDate = format(new Date(+timestamp), 'dd/MM/yyyy HH:mm');
+    const postDate = format(new Date(timestamp), 'dd/MM/yyyy HH:mm');
 
     return (
         <li className="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col">
@@ -28,7 +23,7 @@ export const ListItem = ({ post, isMine, handleDelete }: ListItemProps) => {
                     <div className="flex gap-2 h-5">
                         <Button
                             variant="danger"
-                            onClick={() => handleDelete(key)}
+                            onClick={() => handleDelete(id)}
                         >
                             Delete
                         </Button>

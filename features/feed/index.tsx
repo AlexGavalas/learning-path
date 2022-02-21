@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
+import { query as q } from 'faunadb';
 
-import { redis } from '../../lib/redis';
+import { fauna } from '../../lib/fauna';
 import { useUser } from '../../lib/use-user';
 import { Dialog } from '../../components/dialog';
 import { Button } from '../../components/button';
@@ -8,34 +9,29 @@ import { ListItem } from './item';
 
 interface FeedProps {
     posts: Post[];
-    onPostDelete: (key: string) => void;
+    onPostDelete: (id: string) => void;
 }
 
 export const Feed = ({ posts, onPostDelete }: FeedProps) => {
     const [openDialog, setOpenDialog] = useState(false);
-    const keyToDelete = useRef<string>();
+    const idToDelete = useRef<string>();
     const { user } = useUser();
 
     const closeDialog = useCallback(() => setOpenDialog(false), []);
 
-    const handleDelete = (key: string) => {
+    const handleDelete = (id: string) => {
         setOpenDialog(true);
-        keyToDelete.current = key;
+        idToDelete.current = id;
     };
 
-    const deleteCurrentKey = async () => {
-        const key = keyToDelete.current;
+    const deleteCurrentId = async () => {
+        const id = idToDelete.current;
 
-        if (!key) return;
+        if (!id) return;
 
-        const { error } = await redis.del(key);
+        await fauna.query(q.Delete(q.Ref(q.Collection('posts'), id)));
 
-        if (error) {
-            // TODO: Show an error to the user
-            return;
-        }
-
-        onPostDelete(key);
+        onPostDelete(id);
     };
 
     if (!posts.length) {
@@ -46,11 +42,11 @@ export const Feed = ({ posts, onPostDelete }: FeedProps) => {
         <>
             <ul className="mt-4">
                 {posts.map((post) => {
-                    const isMine = post.data.name === user?.user_metadata.name;
+                    const isMine = post.name === user?.user_metadata.name;
 
                     return (
                         <ListItem
-                            key={post.key}
+                            key={post.id}
                             post={post}
                             isMine={isMine}
                             handleDelete={handleDelete}
@@ -64,7 +60,7 @@ export const Feed = ({ posts, onPostDelete }: FeedProps) => {
                     <Button onClick={closeDialog}>No</Button>
                     <Button
                         onClick={() => {
-                            deleteCurrentKey();
+                            deleteCurrentId();
                             closeDialog();
                         }}
                     >

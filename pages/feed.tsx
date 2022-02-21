@@ -1,6 +1,7 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import { useState, FormEventHandler, useRef } from 'react';
 import { intervalToDuration, add } from 'date-fns';
+import { query as q, Ref } from 'faunadb';
 
 import Layout from '../components/layout';
 import { Feed as FeedList } from '../features/feed';
@@ -8,7 +9,7 @@ import { Textarea } from '../components/textarea';
 import { Button } from '../components/button';
 import { Loader } from '../components/loader';
 import { supabase } from '../lib/supabase';
-import { redis } from '../lib/redis';
+import { fauna } from '../lib/fauna';
 import { useUser } from '../lib/use-user';
 
 interface FeedProps {
@@ -16,32 +17,35 @@ interface FeedProps {
     isLoggedIn: boolean;
 }
 
+type QueryResult = {
+    data: {
+        data: Post;
+        ts: number;
+        ref: { id: string };
+    }[];
+};
+
 export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
     req,
 }) => {
     const { user } = await supabase.auth.api.getUserByCookie(req);
 
-    const { data: redisKeys } = await redis.keys('posts:*');
-
-    const redisData = await Promise.all(
-        redisKeys.map((key: string) => redis.get(key))
+    const { data: posts } = await fauna.query<QueryResult>(
+        q.Map(
+            q.Paginate(q.Match(q.Index('posts_by_ts'))),
+            q.Lambda(['ts', 'ref'], q.Get(q.Var('ref')))
+        )
     );
 
-    const posts: Post[] = redisData
-        .map(({ data }, i) => ({
-            data: JSON.parse(data) as unknown as PostContent,
-            key: redisKeys[i],
-        }))
-        .sort((a, b) => {
-            const [, tsA] = a.key.split(':');
-            const [, tsB] = b.key.split(':');
-
-            return tsB - tsA;
-        });
+    const result = posts.map(({ data, ts, ref }) => ({
+        ...data,
+        ts: ts / 1000,
+        id: ref.id,
+    }));
 
     return {
         props: {
-            posts,
+            posts: result,
             isLoggedIn: !!user,
         },
     };
@@ -72,23 +76,28 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
 
             if (!post || !user) return;
 
-            const key = `posts:${Date.now()}`;
-
             const data = {
                 post: post.toString().slice(0, MAX_CHARS),
                 name: user.user_metadata.name,
             };
 
-            const { error } = await redis.set(key, JSON.stringify(data));
-
-            if (error) return;
-
-            await redis.expire(key, EXPIRE_AFTER_SECS);
+            const newDoc = await fauna.query<Post & { ref: { id: string } }>(
+                q.Create(q.Collection('posts'), {
+                    data,
+                })
+            );
 
             formRef.current.reset();
 
             // Optimistic state update
-            setPosts((prev) => [{ data, key }, ...prev]);
+            setPosts((prev) => [
+                {
+                    ...data,
+                    ts: Date.now(),
+                    id: newDoc.ref.id,
+                },
+                ...prev,
+            ]);
         } catch (e) {
         } finally {
             setSubmitting(false);
@@ -97,8 +106,8 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
 
     const userExists = Boolean(userLoaded && (user || hasUser));
 
-    const onPostDelete = (key: string) => {
-        setPosts((prev) => prev.filter((item) => item.key !== key));
+    const onPostDelete = (id: string) => {
+        setPosts((prev) => prev.filter((item) => item.id !== id));
     };
 
     return (
