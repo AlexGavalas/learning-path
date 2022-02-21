@@ -1,6 +1,5 @@
 import type { NextPage, GetServerSideProps } from 'next';
-import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
-import { useState, useEffect, FormEventHandler, useRef } from 'react';
+import { useState, FormEventHandler, useRef } from 'react';
 import { intervalToDuration, add } from 'date-fns';
 
 import Layout from '../components/layout';
@@ -28,16 +27,17 @@ export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
     req,
 }) => {
     const { user } = await supabase.auth.api.getUserByCookie(req);
+
     const { data } = await redis.keys('posts:*');
 
-    const posts: Post[] = [];
+    const redisData = await Promise.all(
+        data.map((key: string) => redis.get(key))
+    );
 
-    for (const key of data) {
-        const { data } = await redis.get(key);
-
-        // Type casting needed because I can't set the type on the client.get
-        posts.push({ data: JSON.parse(data) as unknown as PostContent, key });
-    }
+    const posts: Post[] = redisData.map(({ data }, i) => ({
+        data: JSON.parse(data) as unknown as PostContent,
+        key: data[i],
+    }));
 
     return {
         props: {
@@ -51,7 +51,7 @@ const MAX_CHARS = 256;
 const EXPIRE_AFTER_SECS = 60 * 60 * 24 * 5;
 
 const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
-    const [posts, setPosts] = useState(initialPosts);
+    const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [hasUser, setHasUser] = useState(isLoggedIn);
     const formRef = useRef<HTMLFormElement>(null);
 
