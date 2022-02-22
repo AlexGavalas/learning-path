@@ -72,7 +72,11 @@ export const ListItem = ({
                     - {name} at {postDate}
                 </p>
             </div>
-            <Dialog open={openEditDialog} size="md">
+            <Dialog
+                open={openEditDialog}
+                size="md"
+                onClickOutside={closeDialog}
+            >
                 <p className="m-0 mb-2">Make your changes</p>
                 <form onSubmit={updatePost}>
                     <Textarea name="newpost" defaultValue={post.post} />

@@ -22,10 +22,10 @@ const variants = {
 const FOCUSABLE_ELEMENTS =
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-export const Dialog: FC<DialogProps> = ({
-    children,
+const DialogContent: FC<DialogProps> = ({
     onClickOutside = () => {},
     size,
+    children,
     ...props
 }) => {
     const modalRef = useRef<HTMLDialogElement>(null);
@@ -49,6 +49,9 @@ export const Dialog: FC<DialogProps> = ({
 
     useEffect(() => {
         if (!modalRef.current) return;
+
+        // Disable body scroll
+        document.body.style.overflow = 'hidden';
 
         const focusableContent =
             modalRef.current.querySelectorAll(FOCUSABLE_ELEMENTS);
@@ -86,27 +89,34 @@ export const Dialog: FC<DialogProps> = ({
 
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
+
+            // Reset body scroll
+            document.body.style.overflow = 'auto';
         };
     }, [props.open, onClickOutside]);
 
     return (
+        <motion.dialog
+            ref={modalRef}
+            initial="hidden"
+            animate="enter"
+            exit="hidden"
+            variants={variants}
+            transition={{ type: 'linear' }}
+            className={`fixed inset-0 rounded bg-black ${
+                size === 'md' ? 'w-[75%]' : ''
+            }`}
+            {...props}
+        >
+            {children}
+        </motion.dialog>
+    );
+};
+
+export const Dialog: FC<DialogProps> = (props) => {
+    return (
         <AnimatePresence>
-            {props.open && (
-                <motion.dialog
-                    ref={modalRef}
-                    initial="hidden"
-                    animate="enter"
-                    exit="hidden"
-                    variants={variants}
-                    transition={{ type: 'linear' }}
-                    className={`inset-0 rounded bg-black ${
-                        size === 'md' ? 'w-[75%]' : ''
-                    }`}
-                    {...props}
-                >
-                    {children}
-                </motion.dialog>
-            )}
+            {props.open && <DialogContent {...props} />}
         </AnimatePresence>
     );
 };
