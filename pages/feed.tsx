@@ -13,6 +13,7 @@ import { useUser } from '@lib/use-user';
 import { Feed as FeedList } from '../features/feed';
 
 interface FeedProps {
+    posts: Post[];
     isLoggedIn: boolean;
 }
 
@@ -29,8 +30,22 @@ export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
 }) => {
     const { user } = await supabase.auth.api.getUserByCookie(req);
 
+    const { data: posts } = await fauna.query<QueryResult>(
+        q.Map(
+            q.Paginate(q.Match(q.Index('posts_by_ts'))),
+            q.Lambda(['ts', 'ref'], q.Get(q.Var('ref')))
+        )
+    );
+
+    const result = posts.map(({ data, ts, ref }) => ({
+        ...data,
+        ts: ts / 1000,
+        id: ref.id,
+    }));
+
     return {
         props: {
+            posts: result,
             isLoggedIn: !!user,
         },
     };
@@ -39,38 +54,13 @@ export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
 const MAX_CHARS = 256;
 const EXPIRE_AFTER_SECS = 60 * 60 * 24 * 5;
 
-const Feed: NextPage<FeedProps> = ({ isLoggedIn }) => {
-    const [posts, setPosts] = useState<Post[]>([]);
+const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
+    const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [hasUser, setHasUser] = useState(isLoggedIn);
     const [submitting, setSubmitting] = useState(false);
-    const [fetchingPosts, setFetchingPosts] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
 
     const { user, userLoaded } = useUser();
-
-    useEffect(() => {
-        const getPosts = async () => {
-            setFetchingPosts(true);
-
-            const { data: posts } = await fauna.query<QueryResult>(
-                q.Map(
-                    q.Paginate(q.Match(q.Index('posts_by_ts'))),
-                    q.Lambda(['ts', 'ref'], q.Get(q.Var('ref')))
-                )
-            );
-
-            const result = posts.map(({ data, ts, ref }) => ({
-                ...data,
-                ts: ts / 1000,
-                id: ref.id,
-            }));
-
-            setPosts(result);
-            setFetchingPosts(false);
-        };
-
-        getPosts();
-    }, []);
 
     const addNewNote: FormEventHandler<HTMLFormElement> = async (e) => {
         try {
@@ -189,15 +179,11 @@ const Feed: NextPage<FeedProps> = ({ isLoggedIn }) => {
                         </Button>
                     </div>
                 )}
-                {fetchingPosts ? (
-                    <Loader />
-                ) : (
-                    <FeedList
-                        posts={posts}
-                        onPostDelete={onPostDelete}
-                        onPostUpdate={onPostUpdate}
-                    />
-                )}
+                <FeedList
+                    posts={posts}
+                    onPostDelete={onPostDelete}
+                    onPostUpdate={onPostUpdate}
+                />
             </section>
         </Layout>
     );
