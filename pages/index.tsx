@@ -2,10 +2,10 @@ import type { NextPage, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import Date from '../components/date';
-import Layout from '../components/layout';
-import { SearchArea } from '../components/search-area';
-import { getSortedPosts, Post } from '../lib/posts';
+import Date from '@components/date';
+import Layout from '@components/layout';
+import { SearchArea } from '@components/search-area';
+import { getSortedPosts, Post } from '@lib/posts';
 
 export const getStaticProps: GetStaticProps = async () => {
     const allPosts = getSortedPosts();

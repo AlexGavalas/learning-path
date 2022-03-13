@@ -5,8 +5,8 @@ import { ThemeProvider } from 'next-themes';
 
 import '../styles/global.css';
 
-import { UserContextProvider } from '../lib/use-user';
-import { Header } from '../components/header';
+import { UserContextProvider } from '@lib/use-user';
+import { Header } from '@components/header';
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (

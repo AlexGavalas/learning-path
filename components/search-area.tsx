@@ -7,9 +7,9 @@ import type {
 
 import { useEffect, useState, useRef } from 'react';
 
-import type { Post } from '../lib/posts';
+import type { Post } from '@lib/posts';
 
-import { supabase } from '../lib/supabase';
+import { supabase } from '@lib/supabase';
 import { Button } from './button';
 import { Input } from './input';
 import { Loader } from './loader';

@@ -4,10 +4,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
 
-import Layout from '../../components/layout';
-import Date from '../../components/date';
-import { getAllPostIds, getPostData, Post } from '../../lib/posts';
-import { YoutubeIcon } from '../../components/icons';
+import Layout from '@components/layout';
+import Date from '@components/date';
+import { getAllPostIds, getPostData, Post } from '@lib/posts';
+import { YoutubeIcon } from '@components/icons';
 
 // Custom link component to use next's Link for internal routing
 const CustomLink = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState, createContext, useContext } from 'react';
-import { supabase } from './supabase';
 import { Session, User, AuthChangeEvent } from '@supabase/supabase-js';
+
+import { supabase } from './supabase';
 
 type UserContextType = {
     user: User | null;

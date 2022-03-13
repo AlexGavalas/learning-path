@@ -2,10 +2,10 @@ import { useState, FormEventHandler } from 'react';
 import { format } from 'date-fns';
 import { query as q } from 'faunadb';
 
-import { fauna } from '../../lib/fauna';
-import { Dialog } from '../../components/dialog';
-import { Button } from '../../components/button';
-import { Textarea } from '../../components/textarea';
+import { fauna } from '@lib/fauna';
+import { Dialog } from '@components/dialog';
+import { Button } from '@components/button';
+import { Textarea } from '@components/textarea';
 
 interface ListItemProps {
     post: Post;

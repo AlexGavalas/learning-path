@@ -1,10 +1,10 @@
 import { useState, useRef, useCallback } from 'react';
 import { query as q } from 'faunadb';
 
-import { fauna } from '../../lib/fauna';
-import { useUser } from '../../lib/use-user';
-import { Dialog } from '../../components/dialog';
-import { Button } from '../../components/button';
+import { fauna } from '@lib/fauna';
+import { useUser } from '@lib/use-user';
+import { Dialog } from '@components/dialog';
+import { Button } from '@components/button';
 import { ListItem } from './item';
 
 interface FeedProps {

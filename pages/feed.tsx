@@ -1,16 +1,16 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import { useState, FormEventHandler, useRef, useEffect } from 'react';
 import { intervalToDuration, add } from 'date-fns';
-import { query as q, Ref } from 'faunadb';
+import { query as q } from 'faunadb';
 
-import Layout from '../components/layout';
+import Layout from '@components/layout';
+import { Textarea } from '@components/textarea';
+import { Button } from '@components/button';
+import { Loader } from '@components/loader';
+import { supabase } from '@lib/supabase';
+import { fauna } from '@lib/fauna';
+import { useUser } from '@lib/use-user';
 import { Feed as FeedList } from '../features/feed';
-import { Textarea } from '../components/textarea';
-import { Button } from '../components/button';
-import { Loader } from '../components/loader';
-import { supabase } from '../lib/supabase';
-import { fauna } from '../lib/fauna';
-import { useUser } from '../lib/use-user';
 
 interface FeedProps {
     isLoggedIn: boolean;
