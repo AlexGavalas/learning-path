@@ -1,8 +1,6 @@
 import { useState, FormEventHandler } from 'react';
 import { format } from 'date-fns';
-import { query as q } from 'faunadb';
 
-import { fauna } from '@lib/fauna';
 import { Dialog } from '@components/dialog';
 import { Button } from '@components/button';
 import { Textarea } from '@components/textarea';
@@ -11,7 +9,7 @@ interface ListItemProps {
     post: Post;
     isMine: boolean;
     handleDelete: (id: string) => void;
-    onPostUpdate: (id: string, newPost: string) => void;
+    onPostUpdate: (id: string, newPost: string) => Promise<void>;
 }
 
 export const ListItem = ({
@@ -21,9 +19,9 @@ export const ListItem = ({
     onPostUpdate,
 }: ListItemProps) => {
     const [openEditDialog, setOpenEditDialog] = useState(false);
-    const { post: postData, name, id, ts: timestamp } = post;
+    const { post: postData, name, id, created_at } = post;
 
-    const postDate = format(new Date(timestamp), 'dd/MM/yyyy HH:mm');
+    const postDate = format(new Date(created_at), 'dd/MM/yyyy HH:mm');
 
     const closeDialog = () => setOpenEditDialog(false);
 
@@ -36,15 +34,7 @@ export const ListItem = ({
 
         if (!newPost) return;
 
-        await fauna.query(
-            q.Update(q.Ref(q.Collection('posts'), post.id), {
-                data: {
-                    post: newPost,
-                },
-            })
-        );
-
-        onPostUpdate(post.id, newPost);
+        await onPostUpdate(post.id, newPost);
 
         closeDialog();
     };

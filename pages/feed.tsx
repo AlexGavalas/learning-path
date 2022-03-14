@@ -1,14 +1,11 @@
-import type { NextPage, GetServerSideProps } from 'next';
-import { useState, FormEventHandler, useRef, useEffect } from 'react';
-import { intervalToDuration, add } from 'date-fns';
-import { query as q } from 'faunadb';
+import type { GetServerSideProps } from 'next';
+import { useState, FormEventHandler, useRef } from 'react';
 
 import Layout from '@components/layout';
 import { Textarea } from '@components/textarea';
 import { Button } from '@components/button';
 import { Loader } from '@components/loader';
 import { supabase } from '@lib/supabase';
-import { fauna } from '@lib/fauna';
 import { useUser } from '@lib/use-user';
 import { Feed as FeedList } from '../features/feed';
 
@@ -17,44 +14,27 @@ interface FeedProps {
     isLoggedIn: boolean;
 }
 
-type QueryResult = {
-    data: {
-        data: Post;
-        ts: number;
-        ref: { id: string };
-    }[];
-};
+const MAX_CHARS = 256;
 
 export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
     req,
 }) => {
     const { user } = await supabase.auth.api.getUserByCookie(req);
 
-    const { data: posts } = await fauna.query<QueryResult>(
-        q.Map(
-            q.Paginate(q.Match(q.Index('posts_by_ts'))),
-            q.Lambda(['ts', 'ref'], q.Get(q.Var('ref')))
-        )
-    );
-
-    const result = posts.map(({ data, ts, ref }) => ({
-        ...data,
-        ts: ts / 1000,
-        id: ref.id,
-    }));
+    const { data } = await supabase
+        .from<Post>('posts')
+        .select('*')
+        .order('created_at', { ascending: false });
 
     return {
         props: {
-            posts: result,
+            posts: data || [],
             isLoggedIn: !!user,
         },
     };
 };
 
-const MAX_CHARS = 256;
-const EXPIRE_AFTER_SECS = 60 * 60 * 24 * 5;
-
-const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
+const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [hasUser, setHasUser] = useState(isLoggedIn);
     const [submitting, setSubmitting] = useState(false);
@@ -63,59 +43,62 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
     const { user, userLoaded } = useUser();
 
     const addNewNote: FormEventHandler<HTMLFormElement> = async (e) => {
-        try {
-            setSubmitting(true);
+        setSubmitting(true);
 
-            e.preventDefault();
+        e.preventDefault();
 
-            if (!formRef.current) return;
+        if (!formRef.current) return;
 
-            const user = supabase.auth.user();
+        const user = supabase.auth.user();
 
-            const post = new FormData(formRef.current).get('post');
+        const post = new FormData(formRef.current).get('post');
 
-            if (!post || !user) return;
+        if (!post || !user) return;
 
-            const data = {
-                post: post.toString().slice(0, MAX_CHARS),
-                name: user.user_metadata.name,
-            };
+        const payload = {
+            post: post.toString().slice(0, MAX_CHARS),
+            name: user.user_metadata.name,
+        };
 
-            const newDoc = await fauna.query<Post & { ref: { id: string } }>(
-                q.Create(q.Collection('posts'), {
-                    data,
-                })
-            );
+        const { data, error } = await supabase
+            .from<Post>('posts')
+            .insert(payload);
 
+        if (!error) {
             formRef.current.reset();
 
+            const [newDoc] = data;
+
             // Optimistic state update
-            setPosts((prev) => [
-                {
-                    ...data,
-                    ts: Date.now(),
-                    id: newDoc.ref.id,
-                },
-                ...prev,
-            ]);
-        } catch (e) {
-        } finally {
-            setSubmitting(false);
+            setPosts((prev) => [newDoc, ...prev]);
         }
+
+        setSubmitting(false);
     };
 
     const userExists = Boolean(userLoaded && (user || hasUser));
 
-    const onPostDelete = (id: string) => {
-        setPosts((prev) => prev.filter((item) => item.id !== id));
+    const onPostDelete = async (id: string) => {
+        const { error } = await supabase.from('posts').delete().match({ id });
+
+        if (!error) {
+            setPosts((prev) => prev.filter((item) => item.id !== id));
+        }
     };
 
-    const onPostUpdate = (id: string, newPost: string) => {
-        setPosts((prev) =>
-            prev.map((item) =>
-                item.id === id ? { ...item, post: newPost } : item
-            )
-        );
+    const onPostUpdate = async (id: string, newPost: string) => {
+        const { error } = await supabase
+            .from<Post>('posts')
+            .update({ post: newPost })
+            .eq('id', id);
+
+        if (!error) {
+            setPosts((prev) =>
+                prev.map((item) =>
+                    item.id === id ? { ...item, post: newPost } : item
+                )
+            );
+        }
     };
 
     return (
@@ -124,16 +107,8 @@ const Feed: NextPage<FeedProps> = ({ posts: initialPosts, isLoggedIn }) => {
                 <h2 className="my-8 text-black dark:text-white">Feed</h2>
                 <p className="text-black dark:text-white">
                     Here you can post anything you find interesting for everyone
-                    to see. Any content will live for{' '}
-                    {
-                        intervalToDuration({
-                            start: new Date(),
-                            end: add(new Date(), {
-                                seconds: EXPIRE_AFTER_SECS,
-                            }),
-                        }).days
-                    }{' '}
-                    days . Use this section for stuff like TIL, etc...
+                    to see. Any content will live for 5 days . Use this section
+                    for stuff like TIL, etc...
                 </p>
                 {userExists ? (
                     <form

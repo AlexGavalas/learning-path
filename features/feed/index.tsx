@@ -1,7 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { query as q } from 'faunadb';
 
-import { fauna } from '@lib/fauna';
 import { useUser } from '@lib/use-user';
 import { Dialog } from '@components/dialog';
 import { Button } from '@components/button';
@@ -9,8 +7,8 @@ import { ListItem } from './item';
 
 interface FeedProps {
     posts: Post[];
-    onPostDelete: (id: string) => void;
-    onPostUpdate: (id: string, newPost: string) => void;
+    onPostDelete: (id: string) => Promise<void>;
+    onPostUpdate: (id: string, newPost: string) => Promise<void>;
 }
 
 export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
@@ -21,8 +19,8 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
     const closeDialog = useCallback(() => setOpenDialog(false), []);
 
     const handleDelete = (id: string) => {
-        setOpenDialog(true);
         idToDelete.current = id;
+        setOpenDialog(true);
     };
 
     const deleteCurrentId = async () => {
@@ -30,9 +28,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
 
         if (!id) return;
 
-        await fauna.query(q.Delete(q.Ref(q.Collection('posts'), id)));
-
-        onPostDelete(id);
+        await onPostDelete(id);
     };
 
     if (!posts.length) {
