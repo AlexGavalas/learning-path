@@ -77,7 +77,7 @@ const Post = ({ postData }: { postData: Post }) => {
                         Updated at <Date dateString={postData.updated} />
                     </p>
                 </div>
-                <div className="prose dark:prose-invert">
+                <div className="prose dark:prose-invert prose-headings:text-teal-500 dark:prose-headings:text-yellow-500 prose-li:marker:text-teal-500 dark:prose-li:marker:text-yellow-500">
                     <MDXRemote
                         {...postData.mdxSource}
                         components={components}
@@ -86,7 +86,9 @@ const Post = ({ postData }: { postData: Post }) => {
             </article>
             <div className="my-8">
                 <Link href="/">
-                    <a>← Back to home</a>
+                    <a className="text-teal-500 dark:text-yellow-500">
+                        &#x21dc; Back to home
+                    </a>
                 </Link>
             </div>
         </Layout>

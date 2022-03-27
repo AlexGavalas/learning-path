@@ -41,7 +41,7 @@ export const ListItem = ({
 
     return (
         <li className="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col">
-            <p className="border-solid border-0 border-l-2 border-l-[#4675aa] pl-4 break-words">
+            <p className="border-solid border-0 border-l-2 border-l-teal-500 dark:border-l-yellow-500 pl-4 break-words">
                 {postData}
             </p>
             <div className="self-end flex gap-4 items-center">

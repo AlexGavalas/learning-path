@@ -35,10 +35,12 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                         {posts.map(({ id, updated, title }) => (
                             <li className="my-6" key={id}>
                                 <Link href={`/posts/${id}`}>
-                                    <a>{title}</a>
+                                    <a className="text-teal-500 dark:text-yellow-500">
+                                        {title}
+                                    </a>
                                 </Link>
                                 <br />
-                                <small className="text-gray-400">
+                                <small className="text-gray-600 dark:text-gray-300">
                                     Updated: <Date dateString={updated} />
                                 </small>
                             </li>
