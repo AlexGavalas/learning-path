@@ -14,7 +14,6 @@ const App = ({ Component, pageProps }: AppProps) => {
             <div className="flex flex-col m-auto max-w-xl">
                 <UserContextProvider>
                     <Head>
-                        <link rel="icon" href="/favicon.ico" />
                         <title>Learning Path</title>
                     </Head>
                     <Header />

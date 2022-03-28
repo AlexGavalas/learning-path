@@ -20,6 +20,26 @@ class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
+                    <link
+                        rel="icon"
+                        href="/favicons/favicon-32x32.png"
+                        sizes="any"
+                    />
+
+                    <link
+                        rel="icon"
+                        href="/favicons/favicon.svg"
+                        type="image/svg+xml"
+                    />
+
+                    <link
+                        rel="apple-touch-icon"
+                        sizes="180x180"
+                        href="/favicons/apple-touch-icon.png"
+                    />
+
+                    <link rel="manifest" href="/site.webmanifest" />
+
                     <meta name="description" content={DESCRIPTION} />
 
                     <meta property="og:site_name" content={TITLE} />
@@ -43,8 +63,9 @@ class MyDocument extends Document {
                         content="/images/spash.jpg"
                     />
 
-                    <link rel="canonical" href="https://learning-path.dev" />
                     <meta name="theme-color" content="#121212" />
+
+                    <link rel="canonical" href="https://learning-path.dev" />
                 </Head>
                 <body className="bg-white dark:bg-[#121212]">
                     <Main />
