@@ -5,17 +5,6 @@ import { useTheme } from 'next-themes';
 
 import { Button } from './button';
 
-const NAV_LINKS = [
-    {
-        name: 'Notes',
-        href: '/',
-    },
-    {
-        name: 'Feed',
-        href: '/feed',
-    },
-];
-
 export const Header = () => {
     const [mounted, setIsMounted] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
@@ -60,15 +49,6 @@ export const Header = () => {
                     </div>
                 )}
             </header>
-            <nav className="flex mt-2 text-teal-500 dark:text-yellow-500">
-                {NAV_LINKS.map((navLink) => (
-                    <Link href={navLink.href} key={navLink.name}>
-                        <a className="text-inherit flex justify-center w-full dark:hover:bg-gray-800 hover:bg-gray-200 rounded hover:no-underline py-2">
-                            {navLink.name}
-                        </a>
-                    </Link>
-                ))}
-            </nav>
         </>
     );
 };
