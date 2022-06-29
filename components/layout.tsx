@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
 const variants = {
@@ -10,7 +10,7 @@ const variants = {
     },
 };
 
-const Layout: FC = ({ children }) => {
+const Layout: FC<{ children?: ReactNode }> = ({ children }) => {
     return (
         <motion.main
             initial="hidden"

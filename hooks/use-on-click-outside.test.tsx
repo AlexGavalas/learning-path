@@ -1,5 +1,4 @@
-import { fireEvent } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { fireEvent, renderHook } from '@testing-library/react';
 
 import { useOnClickOutside } from './use-on-click-outside';
 
@@ -19,7 +18,7 @@ describe('Use on click outside hook', () => {
 
         const callback = jest.fn();
 
-        renderHook(() => useOnClickOutside(ref, callback));
+        renderHook(() => useOnClickOutside(ref, callback), {});
 
         expect(callback).toHaveBeenCalledTimes(0);
 

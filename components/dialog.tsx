@@ -1,4 +1,4 @@
-import { FC, useRef, DialogHTMLAttributes, useEffect } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import { AnimatePresence, motion, HTMLMotionProps } from 'framer-motion';
 
 import { useOnClickOutside } from '../hooks/use-on-click-outside';

@@ -1,4 +1,12 @@
-import { FC, useEffect, useState, createContext, useContext } from 'react';
+import {
+    FC,
+    ReactNode,
+    useEffect,
+    useState,
+    createContext,
+    useContext,
+} from 'react';
+
 import { Session, User, AuthChangeEvent } from '@supabase/supabase-js';
 
 import { supabase } from './supabase';
@@ -24,7 +32,9 @@ const handleAuthChange = async (
     });
 };
 
-export const UserContextProvider: FC = ({ children }) => {
+export const UserContextProvider: FC<{ children?: ReactNode }> = ({
+    children,
+}) => {
     const [userLoaded, setUserLoaded] = useState(true);
     const [user, setUser] = useState<User | null>(null);
 
