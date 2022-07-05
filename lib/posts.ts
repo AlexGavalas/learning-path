@@ -5,6 +5,8 @@ import matter from 'gray-matter';
 import { compareDesc, parseISO } from 'date-fns';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypeExternalLinks from 'rehype-external-links';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeSlug from 'rehype-slug';
 
 const POSTS_DIR = path.join(process.cwd(), 'posts');
 
@@ -62,7 +64,11 @@ export const getPostData = async (id: string): Promise<Post> => {
     const mdxSource = await serialize(matterResult.content, {
         mdxOptions: {
             // Types for `rehypeExternalLinks` provided with the `unified` package.
-            rehypePlugins: [[rehypeExternalLinks, { target: '_blank' }]],
+            rehypePlugins: [
+                [rehypeExternalLinks, { target: '_blank' }],
+                [rehypeSlug],
+                [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+            ],
         },
     });
 

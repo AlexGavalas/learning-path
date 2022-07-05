@@ -77,7 +77,7 @@ const Post = ({ postData }: { postData: Post }) => {
                         Updated at <Date dateString={postData.updated} />
                     </p>
                 </div>
-                <div className="prose dark:prose-invert prose-headings:text-teal-500 dark:prose-headings:text-yellow-500 prose-li:marker:text-teal-500 dark:prose-li:marker:text-yellow-500">
+                <div className="prose dark:prose-invert prose-headings:text-teal-500 dark:prose-headings:text-yellow-500 prose-li:marker:text-teal-500 dark:prose-li:marker:text-yellow-500 heading dark:dark-heading">
                     <MDXRemote
                         {...postData.mdxSource}
                         components={components}
