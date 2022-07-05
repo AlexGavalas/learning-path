@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Date from '@components/date';
 import Layout from '@components/layout';
+import { ListItem } from '@components/list-item';
 import { SearchArea } from '@components/search-area';
 import { getSortedPosts, Post } from '@lib/posts';
 
@@ -19,6 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
     const [posts, setPosts] = useState(allPosts);
+    const [lines, setLines] = useState<Record<string, string[]>>({});
 
     return (
         <Layout>
@@ -28,7 +30,11 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                     interesting stuff I come across. Feel free to explore. It is
                     a WIP, so you can expect things to change.
                 </p>
-                <SearchArea posts={allPosts} setPosts={setPosts} />
+                <SearchArea
+                    posts={allPosts}
+                    setPosts={setPosts}
+                    setLines={setLines}
+                />
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>
                 {posts.length > 0 ? (
                     <ul className="list-none p-0">
@@ -43,6 +49,17 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                                 <small className="text-gray-600 dark:text-gray-300">
                                     Updated: <Date dateString={updated} />
                                 </small>
+                                {lines[title] && (
+                                    <ul>
+                                        {lines[title].map((line) => {
+                                            return (
+                                                <ListItem key={line}>
+                                                    {line}
+                                                </ListItem>
+                                            );
+                                        })}
+                                    </ul>
+                                )}
                             </li>
                         ))}
                     </ul>

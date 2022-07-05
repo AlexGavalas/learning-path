@@ -18,14 +18,17 @@ const QUERY_FIELD_NAME = 'query';
 
 interface Note {
     title: string;
+    line: string;
 }
 
 export const SearchArea = ({
     posts,
     setPosts,
+    setLines,
 }: {
     posts: Post[];
     setPosts: Dispatch<SetStateAction<Post[]>>;
+    setLines: Dispatch<SetStateAction<Record<string, string[]>>>;
 }) => {
     const queryEl = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState('');
@@ -60,13 +63,23 @@ export const SearchArea = ({
                 q: query,
             });
 
-            const postTitles = data?.map(({ title }) => title) || [];
+            const lines =
+                data?.reduce<Record<string, string[]>>(
+                    (acc, { title, line }) => {
+                        acc[title] = (acc[title] || []).concat(line);
+                        return acc;
+                    },
+                    {}
+                ) ?? {};
+
+            const postTitles = data?.map(({ title }) => title) ?? [];
 
             const filteredPosts = posts.filter(({ title }) =>
                 postTitles.includes(title)
             );
 
             setPosts(filteredPosts);
+            setLines(lines);
         } catch (e) {
             console.error(e);
         } finally {
@@ -77,6 +90,7 @@ export const SearchArea = ({
     const onClear: MouseEventHandler<HTMLButtonElement> = () => {
         setQuery('');
         setPosts(posts);
+        setLines({});
     };
 
     return (
