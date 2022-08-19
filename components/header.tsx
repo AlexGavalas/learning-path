@@ -13,8 +13,20 @@ export const Header = () => {
         setIsMounted(true);
     }, []);
 
-    const toggleTheme = () =>
+    const toggleTheme = () => {
         setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
+    };
+
+    const image =
+        resolvedTheme === 'light'
+            ? {
+                  src: '/moon.svg',
+                  alt: 'Moon',
+              }
+            : {
+                  src: '/sun.svg',
+                  alt: 'Sun',
+              };
 
     return (
         <>
@@ -29,21 +41,12 @@ export const Header = () => {
                 {mounted && (
                     <div className="mr-3">
                         <Button onClick={toggleTheme} variant="wrapper">
-                            {resolvedTheme === 'light' ? (
-                                <Image
-                                    src="/moon.svg"
-                                    alt="Moon"
-                                    width={1024}
-                                    height={1024}
-                                />
-                            ) : (
-                                <Image
-                                    src="/sun.svg"
-                                    alt="Sun"
-                                    width={20}
-                                    height={20}
-                                />
-                            )}
+                            <Image
+                                src={image.src}
+                                alt={image.alt}
+                                width={20}
+                                height={20}
+                            />
                         </Button>
                     </div>
                 )}
