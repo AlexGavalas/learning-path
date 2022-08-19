@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 import { Button } from './button';
@@ -31,14 +31,14 @@ export const Header = () => {
                     <div className="mr-3">
                         <Button onClick={toggleTheme} variant="wrapper">
                             {resolvedTheme === 'light' ? (
-                                <img
+                                <Image
                                     src="/moon.svg"
                                     alt="Moon"
-                                    width={20}
-                                    height={20}
+                                    width={1024}
+                                    height={1024}
                                 />
                             ) : (
-                                <img
+                                <Image
                                     src="/sun.svg"
                                     alt="Sun"
                                     width={20}
