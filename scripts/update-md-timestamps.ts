@@ -13,7 +13,12 @@ const writeFile = (file: string, data: string) =>
 const main = async () => {
     const output = await git.status(['posts']);
 
-    for (const file of output.modified) {
+    if (output.staged.length === 0) {
+        console.log('No posts in this commit.');
+        return;
+    }
+
+    for (const file of output.staged) {
         console.log(`Updating timestamp of ${file} ...`);
 
         const fileContents = await readFile(file);
@@ -26,6 +31,10 @@ const main = async () => {
     }
 
     console.log(`Updated ${output.modified.length} files.`);
+
+    await git.add(output.staged);
+
+    console.log('Added files to commit.');
 };
 
 main();

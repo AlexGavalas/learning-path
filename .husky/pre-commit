@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn update-md-timestamps && git add posts
+yarn update-md-timestamps
