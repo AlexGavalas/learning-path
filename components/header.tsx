@@ -13,9 +13,8 @@ export const Header = () => {
         setIsMounted(true);
     }, []);
 
-    const toggleTheme = () => {
+    const toggleTheme = () =>
         setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
-    };
 
     return (
         <>
