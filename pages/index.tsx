@@ -42,7 +42,7 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                             <li key={id}>
                                 <Link href={`/posts/${id}`}>
                                     <div className="group flex justify-between items-center cursor-pointer dark:hover:bg-neutral-800 hover:bg-gray-100 p-2">
-                                        <div className="flex gap-2 flex-col sm:flex-row">
+                                        <div className="flex gap-2 flex-col-reverse sm:flex-row">
                                             <Date
                                                 dateString={updated}
                                                 format="dd/MM/yy"
