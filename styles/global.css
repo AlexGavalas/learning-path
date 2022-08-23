@@ -9,6 +9,7 @@ body {
     line-height: 1.6;
     font-size: 1.1rem;
     scrollbar-gutter: stable both-edges;
+    overflow-y: auto;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
         Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
         sans-serif;
