@@ -1,9 +1,17 @@
-import { parseISO, format } from 'date-fns';
+import { parseISO, format as formatDate } from 'date-fns';
 
-const FormattedDate = ({ dateString }: { dateString: string }) => {
+interface FormattedDateProps {
+    dateString: string;
+    format?: string;
+}
+
+const FormattedDate = ({
+    dateString,
+    format = 'd LLL yyyy',
+}: FormattedDateProps) => {
     const date = parseISO(dateString);
 
-    return <time dateTime={dateString}>{format(date, 'd LLL yyyy')}</time>;
+    return <time dateTime={dateString}>{formatDate(date, format)}</time>;
 };
 
 export default FormattedDate;
