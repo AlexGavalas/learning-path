@@ -68,9 +68,10 @@ class MyDocument extends Document {
                     <link rel="canonical" href="https://learning-path.dev" />
 
                     <link
-                        type="application/opensearchdescription+xml"
                         rel="search"
-                        href="/osdd.xml"
+                        type="application/opensearchdescription+xml"
+                        title="Search Learning Path"
+                        href="/opensearch.xml"
                     />
                 </Head>
                 <body className="bg-white dark:bg-[#121212]">
