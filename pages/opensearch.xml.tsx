@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
             Description about your website search here
         </Description>
         <InputEncoding>UTF-8</InputEncoding>
-        <Url type="text/html" template="http://localhost:3000?q={searchTerms}" />
+        <Url type="text/html" template="https://learning-path.dev/?q={searchTerms}" />
     </OpenSearchDescription>
     `);
 
