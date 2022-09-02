@@ -1,4 +1,4 @@
-import type { NextPage, GetStaticProps } from 'next';
+import type { NextPage, GetStaticProps, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -8,7 +8,21 @@ import { ListItem } from '@components/list-item';
 import { SearchArea } from '@components/search-area';
 import { getSortedPosts, Post } from '@lib/posts';
 
-export const getStaticProps: GetStaticProps = async () => {
+// export const getStaticProps: GetStaticProps = async () => {
+//     const allPosts = getSortedPosts();
+
+//     return {
+//         props: {
+//             allPosts,
+//         },
+//     };
+// };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const query = context.query.q;
+
+    console.log({ query });
+
     const allPosts = getSortedPosts();
 
     return {
