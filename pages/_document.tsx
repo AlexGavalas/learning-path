@@ -66,13 +66,6 @@ class MyDocument extends Document {
                     <meta name="theme-color" content="#121212" />
 
                     <link rel="canonical" href="https://learning-path.dev" />
-
-                    <link
-                        rel="search"
-                        type="application/opensearchdescription+xml"
-                        title="Search Learning Path"
-                        href="/opensearch.xml"
-                    />
                 </Head>
                 <body className="bg-white dark:bg-[#121212]">
                     <Main />

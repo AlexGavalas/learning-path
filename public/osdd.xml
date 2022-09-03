@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-    <ShortName>Learning Path</ShortName>
-    <Description>
-        Description about your website search here
-    </Description>
-    <InputEncoding>UTF-8</InputEncoding>
-    <Url type="text/html" template="http://localhost:3000?q={searchTerms}" />
-</OpenSearchDescription>
