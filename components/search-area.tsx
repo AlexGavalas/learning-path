@@ -53,7 +53,10 @@ export const SearchArea = ({
         e.preventDefault();
 
         if (!query) {
-            return setPosts(posts);
+            setLines({});
+            setPosts(posts);
+
+            return;
         }
 
         setLoading(true);
