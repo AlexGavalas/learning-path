@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                     </Head>
                     <Header />
                     <AnimatePresence
-                        exitBeforeEnter
+                        mode="wait"
                         initial={false}
                         onExitComplete={() => window.scrollTo(0, 0)}
                     >
