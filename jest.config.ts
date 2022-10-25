@@ -7,7 +7,9 @@ const config: Config.InitialOptions = {
 
     testEnvironment: 'jsdom',
 
-    preset: 'ts-jest',
+    transform: {
+        '^.+\\.tsx?$': ['ts-jest', { tsconfig: './tsconfig.test.json' }],
+    },
 
     setupFilesAfterEnv: ['<rootDir>/setup-tests.ts'],
 };

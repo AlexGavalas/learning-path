@@ -40,16 +40,19 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                     <ul className="list-none p-0 divide-x-0 divide-y-2 divide-solid dark:divide-zinc-800 divide-zinc-300">
                         {posts.map(({ id, updated, title }) => (
                             <li key={id}>
-                                <Link href={`/posts/${id}`}>
-                                    <div className="group flex justify-between items-center cursor-pointer dark:hover:bg-neutral-800 hover:bg-gray-100 p-2">
+                                <Link
+                                    href={`/posts/${id}`}
+                                    className="hover:no-underline"
+                                >
+                                    <div className="group flex justify-between items-center cursor-pointer text-black dark:text-white dark:hover:bg-neutral-800 hover:bg-gray-100 p-2">
                                         <div className="flex gap-2 flex-col-reverse sm:flex-row">
                                             <Date
                                                 dateString={updated}
                                                 format="dd/MM/yy"
                                             />
-                                            <a className="text-teal-500 dark:text-yellow-500 hover:no-underline">
+                                            <span className="text-teal-500 dark:text-yellow-500 hover:no-underline">
                                                 {title}
-                                            </a>
+                                            </span>
                                         </div>
                                         <span className="opacity-0 group-hover:animate-pulse">
                                             &#x21dd;

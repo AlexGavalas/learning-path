@@ -18,8 +18,8 @@ const CustomLink = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {
 
     if (isInternalLink) {
         return (
-            <Link href={href}>
-                <a {...props}>{props.children}</a>
+            <Link href={href} {...props}>
+                {props.children}
             </Link>
         );
     }
@@ -85,10 +85,8 @@ const Post = ({ postData }: { postData: Post }) => {
                 </div>
             </article>
             <div className="my-8">
-                <Link href="/">
-                    <a className="text-teal-500 dark:text-yellow-500">
-                        &#x21dc; Back to home
-                    </a>
+                <Link href="/" className="text-teal-500 dark:text-yellow-500">
+                    &#x21dc; Back to home
                 </Link>
             </div>
         </Layout>
