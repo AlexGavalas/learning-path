@@ -10,6 +10,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "lint:types": "tsc --noEmit",
         "index-docs": "node -r esbuild-register -r dotenv/config scripts/index-docs.ts dotenv_config_path=.env.local",
         "update-md-timestamps": "node -r esbuild-register scripts/update-md-timestamps.ts",
         "test": "jest",
@@ -18,7 +19,7 @@
         "prepare": "husky install"
     },
     "dependencies": {
-        "@supabase/supabase-js": "1.35.6",
+        "@supabase/supabase-js": "2.0.4",
         "date-fns": "2.29.3",
         "framer-motion": "7.6.1",
         "gray-matter": "4.0.3",

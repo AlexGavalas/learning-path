@@ -16,13 +16,13 @@ interface FeedProps {
 
 const MAX_CHARS = 256;
 
-export const getServerSideProps: GetServerSideProps<FeedProps> = async ({
-    req,
-}) => {
-    const { user } = await supabase.auth.api.getUserByCookie(req);
+export const getServerSideProps: GetServerSideProps<FeedProps> = async () => {
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
 
     const { data } = await supabase
-        .from<Post>('posts')
+        .from('posts')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -49,8 +49,6 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
 
         if (!formRef.current) return;
 
-        const user = supabase.auth.user();
-
         const post = new FormData(formRef.current).get('post');
 
         if (!post || !user) return;
@@ -60,9 +58,7 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
             name: user.user_metadata.name,
         };
 
-        const { data, error } = await supabase
-            .from<Post>('posts')
-            .insert(payload);
+        const { data, error } = await supabase.from('posts').insert(payload).select();
 
         if (!error) {
             formRef.current.reset();
@@ -88,7 +84,7 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
 
     const onPostUpdate = async (id: string, newPost: string) => {
         const { error } = await supabase
-            .from<Post>('posts')
+            .from('posts')
             .update({ post: newPost })
             .eq('id', id);
 
@@ -142,12 +138,9 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                         </p>
                         <Button
                             onClick={() => {
-                                supabase.auth.signIn(
-                                    { provider: 'google' },
-                                    {
-                                        redirectTo: `${window.location.origin}/feed`,
-                                    }
-                                );
+                                supabase.auth.signInWithOAuth({
+                                    provider: 'google',
+                                });
                             }}
                         >
                             Login with Google

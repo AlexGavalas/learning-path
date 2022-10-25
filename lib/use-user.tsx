@@ -3,8 +3,8 @@ import {
     ReactNode,
     useEffect,
     useState,
-    createContext,
     useContext,
+    createContext,
 } from 'react';
 
 import { Session, User, AuthChangeEvent } from '@supabase/supabase-js';
@@ -16,9 +16,7 @@ type UserContextType = {
     userLoaded: boolean;
 };
 
-export const UserContext = createContext<UserContextType | undefined>(
-    undefined
-);
+export const UserContext = createContext<UserContextType | null>(null);
 
 const handleAuthChange = async (
     event: AuthChangeEvent,
@@ -39,20 +37,20 @@ export const UserContextProvider: FC<{ children?: ReactNode }> = ({
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        const session = supabase.auth.session();
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setUser(session?.user ?? null);
+            setUserLoaded(true);
+        });
 
-        setUser(session?.user ?? null);
-        setUserLoaded(true);
-
-        const { data: authListener } = supabase.auth.onAuthStateChange(
-            (event, session) => {
-                handleAuthChange(event, session);
-                setUser(session?.user ?? null);
-            }
-        );
+        const {
+            data: { subscription: authListener },
+        } = supabase.auth.onAuthStateChange((event, session) => {
+            handleAuthChange(event, session);
+            setUser(session?.user ?? null);
+        });
 
         return () => {
-            authListener?.unsubscribe();
+            authListener.unsubscribe();
         };
     }, []);
 
@@ -69,7 +67,7 @@ export const UserContextProvider: FC<{ children?: ReactNode }> = ({
 export const useUser = () => {
     const context = useContext(UserContext);
 
-    if (context === undefined) {
+    if (!context) {
         throw new Error(`useUser must be used within a UserContextProvider.`);
     }
 

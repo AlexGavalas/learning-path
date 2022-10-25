@@ -62,9 +62,7 @@ export const SearchArea = ({
         setLoading(true);
 
         try {
-            const { data } = await supabase.rpc<Note>('search_notes', {
-                q: query,
-            });
+            const { data } = await supabase.rpc('search_notes', { q: query });
 
             const lines =
                 data?.reduce<Record<string, string[]>>(
