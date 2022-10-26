@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@supabase/supabase-js": "2.0.4",
+        "@vercel/analytics": "0.1.1",
         "date-fns": "2.29.3",
         "framer-motion": "7.6.1",
         "gray-matter": "4.0.3",
