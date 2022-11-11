@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import Document, {
     Html,
     Head,
@@ -10,6 +11,23 @@ const DESCRIPTION = 'Learn stuff about software development';
 const TITLE = 'Learning Path';
 const SITE_URL = 'https://learning-path.dev/';
 
+const GoogleAnalytics = () => (
+    <>
+        <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-2CSN2TQ5R3"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+            {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-2CSN2TQ5R3');
+            `}
+        </Script>
+    </>
+);
+
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
@@ -20,6 +38,8 @@ class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
+                    <GoogleAnalytics />
+
                     <link
                         rel="icon"
                         href="/favicons/favicon-32x32.png"
