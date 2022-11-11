@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import Document, {
     Html,
     Head,
@@ -10,23 +9,6 @@ import Document, {
 const DESCRIPTION = 'Learn stuff about software development';
 const TITLE = 'Learning Path';
 const SITE_URL = 'https://learning-path.dev/';
-
-const GoogleAnalytics = () => (
-    <>
-        <Script
-            strategy="afterInteractive"
-            src="https://www.googletagmanager.com/gtag/js?id=G-2CSN2TQ5R3"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-            {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-2CSN2TQ5R3');
-            `}
-        </Script>
-    </>
-);
 
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
@@ -85,7 +67,6 @@ class MyDocument extends Document {
 
                     <link rel="canonical" href="https://learning-path.dev" />
                 </Head>
-                <GoogleAnalytics />
                 <body className="bg-white dark:bg-[#121212]">
                     <Main />
                     <NextScript />
