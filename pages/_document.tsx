@@ -38,8 +38,6 @@ class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
-                    <GoogleAnalytics />
-
                     <link
                         rel="icon"
                         href="/favicons/favicon-32x32.png"
@@ -87,6 +85,7 @@ class MyDocument extends Document {
 
                     <link rel="canonical" href="https://learning-path.dev" />
                 </Head>
+                <GoogleAnalytics />
                 <body className="bg-white dark:bg-[#121212]">
                     <Main />
                     <NextScript />
