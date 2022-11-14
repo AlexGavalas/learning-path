@@ -10,18 +10,20 @@ import '../styles/global.css';
 import { UserContextProvider } from '@lib/use-user';
 import { Header } from '@components/header';
 
+const GOOGLE_MEASUREMENT_ID = 'G-2CSN2TQ5R3';
+
 const GoogleAnalytics = () => (
     <>
         <Script
             strategy="afterInteractive"
-            src="https://www.googletagmanager.com/gtag/js?id=G-2CSN2TQ5R3"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_MEASUREMENT_ID}`}
         />
         <Script id="google-analytics" strategy="afterInteractive">
             {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', 'G-2CSN2TQ5R3');
+                gtag('config', '${GOOGLE_MEASUREMENT_ID}');
             `}
         </Script>
     </>
