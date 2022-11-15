@@ -19,9 +19,9 @@ const indexDocs = async () => {
     // Delete all records where the title is not empty, meaning all records
     const res = await supabase.from('note_contents').delete().neq('title', '');
 
-    if (res.status !== 200) {
-        console.log(`Could not delete previous note contents.`);
-        console.log(res.error);
+    if (res.error) {
+        console.log('Could not delete previous note contents.');
+        console.error(res.error);
 
         process.exit(1);
     }
