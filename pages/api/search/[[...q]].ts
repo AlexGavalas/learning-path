@@ -1,6 +1,6 @@
 import type { NextApiHandler } from 'next';
 
-import { supabase } from '@lib/supabase';
+import { supabase } from '~lib/supabase';
 
 const handler: NextApiHandler = async (req, res) => {
     const { q } = req.query;

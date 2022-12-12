@@ -1,8 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
 
-import { useUser } from '@lib/use-user';
-import { Dialog } from '@components/dialog';
-import { Button } from '@components/button';
+import { useUser } from '~lib/use-user';
+import { Dialog } from '~components/dialog';
+import { Button } from '~components/button';
 import { ListItem } from './item';
 
 interface FeedProps {
@@ -45,7 +45,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
                         <ListItem
                             key={post.id}
                             post={post}
-                            isMine={true}
+                            isMine={isMine}
                             handleDelete={handleDelete}
                             onPostUpdate={onPostUpdate}
                         />

@@ -1,12 +1,12 @@
 import type { GetServerSideProps } from 'next';
 import { useState, FormEventHandler, useRef } from 'react';
 
-import { Layout } from '@components/layout';
-import { Textarea } from '@components/textarea';
-import { Button } from '@components/button';
-import { Loader } from '@components/loader';
-import { supabase } from '@lib/supabase';
-import { useUser } from '@lib/use-user';
+import { Layout } from '~components/layout';
+import { Textarea } from '~components/textarea';
+import { Button } from '~components/button';
+import { Loader } from '~components/loader';
+import { supabase } from '~lib/supabase';
+import { useUser } from '~lib/use-user';
 import { Feed as FeedList } from '../features/feed';
 
 interface FeedProps {
@@ -152,14 +152,7 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                     </div>
                 )}
                 <FeedList
-                    posts={[
-                        {
-                            created_at: new Date().toString(),
-                            id: '1',
-                            name: 'a name',
-                            post: 'kajd lakjdlakjdlaksjdlkasjdlkasjd',
-                        },
-                    ]}
+                    posts={posts}
                     onPostDelete={onPostDelete}
                     onPostUpdate={onPostUpdate}
                 />

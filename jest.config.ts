@@ -1,4 +1,6 @@
 import type { Config } from '@jest/types';
+import { pathsToModuleNameMapper } from 'ts-jest';
+import { compilerOptions } from './tsconfig.json';
 
 const config: Config.InitialOptions = {
     collectCoverage: false,
@@ -21,6 +23,10 @@ const config: Config.InitialOptions = {
     },
 
     setupFilesAfterEnv: ['<rootDir>/setup-tests.ts'],
+
+    roots: ['<rootDir>'],
+    modulePaths: [compilerOptions.baseUrl],
+    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 };
 
 export default config;

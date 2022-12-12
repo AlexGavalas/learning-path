@@ -2,11 +2,11 @@ import type { NextPage, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { Layout } from '@components/layout';
-import { FormattedDate } from '@components/formatted-date';
-import { List, ListItem } from '@components/list';
-import { SearchArea } from '@components/search-area';
-import { getSortedPosts, Post } from '@lib/posts';
+import { Layout } from '~components/layout';
+import { FormattedDate } from '~components/formatted-date';
+import { List, ListItem } from '~components/list';
+import { SearchArea } from '~components/search-area';
+import { getSortedPosts, Post } from '~lib/posts';
 
 export const getStaticProps: GetStaticProps = async () => {
     const allPosts = getSortedPosts();
