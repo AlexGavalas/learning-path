@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> renders 1`] = `
+<div>
+  <label
+    class="w-full h-full flex flex-col"
+  >
+    <span>
+      a label
+    </span>
+    <input
+      class="pl-2 w-full h-1/2 border-[1px] dark:border-0 border-solid bg-transparent dark:bg-neutral-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
+    />
+  </label>
+</div>
+`;

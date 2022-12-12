@@ -1,63 +1,64 @@
-import { fireEvent, renderHook } from '@testing-library/react';
+import { ReactElement, useRef } from 'react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { useOnClickOutside } from './use-on-click-outside';
 
-const appendDivToBody = () => {
-    const el = document.createElement('div');
-    return document.body.appendChild(el);
+const setup = (ui: ReactElement) => ({
+    user: userEvent.setup(),
+    ...render(ui, {}),
+});
+
+type Callback = Parameters<typeof useOnClickOutside>[1];
+
+const Component = ({ callback }: { callback: Callback }) => {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useOnClickOutside(ref, callback);
+
+    return (
+        <div>
+            outside
+            <div ref={ref}>target</div>
+        </div>
+    );
 };
 
-describe('Use on click outside hook', () => {
-    test('should fire event', () => {
-        const target = appendDivToBody();
-        const outside = appendDivToBody();
+describe('useOnClickOutside', () => {
+    describe('when user clicks outside', () => {
+        test('calls callback', async () => {
+            const callback = jest.fn();
 
-        const ref = {
-            current: target,
-        };
+            const { user } = setup(<Component callback={callback} />);
 
-        const callback = jest.fn();
+            expect(callback).toHaveBeenCalledTimes(0);
 
-        renderHook(() => useOnClickOutside(ref, callback), {});
+            await user.click(screen.getByText('outside'));
 
-        expect(callback).toHaveBeenCalledTimes(0);
-
-        fireEvent.click(outside);
-
-        expect(callback).toHaveBeenCalledTimes(1);
+            expect(callback).toHaveBeenCalledTimes(1);
+        });
     });
 
-    test('should not fire event', () => {
-        const target = appendDivToBody();
+    describe('when user clicks the target', () => {
+        test('does not call the callback', async () => {
+            const callback = jest.fn();
 
-        const ref = {
-            current: target,
-        };
+            const { user } = setup(<Component callback={callback} />);
 
-        const callback = jest.fn();
+            expect(callback).toHaveBeenCalledTimes(0);
 
-        renderHook(() => useOnClickOutside(ref, callback));
+            await user.click(screen.getByText('target'));
 
-        expect(callback).toHaveBeenCalledTimes(0);
-
-        fireEvent.click(target);
-
-        expect(callback).toHaveBeenCalledTimes(0);
+            expect(callback).toHaveBeenCalledTimes(0);
+        });
     });
 
-    test('should remove event listener when unmounts', () => {
-        const target = appendDivToBody();
-        const outside = appendDivToBody();
-
-        const ref = {
-            current: target,
-        };
-
+    test('removes the event listener when unmounts', async () => {
         const callback = jest.fn();
 
         jest.spyOn(document, 'removeEventListener');
 
-        const { unmount } = renderHook(() => useOnClickOutside(ref, callback));
+        const { unmount } = setup(<Component callback={callback} />);
 
         expect(callback).toHaveBeenCalledTimes(0);
 
@@ -65,8 +66,16 @@ describe('Use on click outside hook', () => {
 
         expect(document.removeEventListener).toHaveBeenCalledTimes(2);
 
-        fireEvent.click(outside);
+        expect(document.removeEventListener).toHaveBeenNthCalledWith(
+            1,
+            'click',
+            expect.any(Function),
+        );
 
-        expect(callback).toHaveBeenCalledTimes(0);
+        expect(document.removeEventListener).toHaveBeenNthCalledWith(
+            2,
+            'touchstart',
+            expect.any(Function),
+        );
     });
 });

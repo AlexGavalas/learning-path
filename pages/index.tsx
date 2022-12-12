@@ -2,9 +2,9 @@ import type { NextPage, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import Date from '@components/date';
-import Layout from '@components/layout';
-import { ListItem } from '@components/list-item';
+import { Layout } from '@components/layout';
+import { FormattedDate } from '@components/formatted-date';
+import { List, ListItem } from '@components/list';
 import { SearchArea } from '@components/search-area';
 import { getSortedPosts, Post } from '@lib/posts';
 
@@ -46,7 +46,7 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                                 >
                                     <div className="group flex justify-between items-center cursor-pointer text-black dark:text-white dark:hover:bg-neutral-800 hover:bg-gray-100 p-2">
                                         <div className="flex gap-2 flex-col-reverse sm:flex-row">
-                                            <Date
+                                            <FormattedDate
                                                 dateString={updated}
                                                 format="dd/MM/yy"
                                             />
@@ -60,7 +60,7 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                                     </div>
                                 </Link>
                                 {lines[title] && (
-                                    <ul className="pb-4">
+                                    <List>
                                         {lines[title].map((line) => {
                                             return (
                                                 <ListItem key={line}>
@@ -68,7 +68,7 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
                                                 </ListItem>
                                             );
                                         })}
-                                    </ul>
+                                    </List>
                                 )}
                             </li>
                         ))}

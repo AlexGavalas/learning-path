@@ -45,7 +45,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
                         <ListItem
                             key={post.id}
                             post={post}
-                            isMine={isMine}
+                            isMine={true}
                             handleDelete={handleDelete}
                             onPostUpdate={onPostUpdate}
                         />

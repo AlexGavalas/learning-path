@@ -53,7 +53,12 @@ export const ListItem = ({
                         >
                             Delete
                         </Button>
-                        <Button onClick={() => setOpenEditDialog(true)}>
+                        <Button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setOpenEditDialog(true);
+                            }}
+                        >
                             Edit
                         </Button>
                     </div>
@@ -67,11 +72,18 @@ export const ListItem = ({
                 size="md"
                 onClickOutside={closeDialog}
             >
-                <p className="m-0 mb-2">Make your changes</p>
-                <form onSubmit={updatePost}>
-                    <Textarea name="newpost" defaultValue={post.post} />
+                <form onSubmit={updatePost} className="flex flex-col gap-2">
+                    <Textarea
+                        label="Make your changes"
+                        name="newpost"
+                        defaultValue={post.post}
+                    />
                     <div className="flex gap-2 justify-end">
-                        <Button onClick={closeDialog} variant="danger">
+                        <Button
+                            onClick={closeDialog}
+                            type="button"
+                            variant="danger"
+                        >
                             Cancel
                         </Button>
                         <Button>Save</Button>

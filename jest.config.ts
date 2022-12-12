@@ -5,6 +5,15 @@ const config: Config.InitialOptions = {
     coverageReporters: ['text'],
     collectCoverageFrom: ['**/*.tsx'],
 
+    coverageThreshold: {
+        global: {
+            statements: 14,
+            branches: 5,
+            functions: 15,
+            lines: 13,
+        },
+    },
+
     testEnvironment: 'jsdom',
 
     transform: {

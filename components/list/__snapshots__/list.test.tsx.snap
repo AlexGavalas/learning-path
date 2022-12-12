@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<List /> renders 1`] = `
+<div>
+  <ul
+    class="pb-4"
+  >
+    <li
+      class="marker:text-teal-500 dark:marker:text-yellow-500 list-disc text-[0.9em]"
+    >
+      list item
+    </li>
+  </ul>
+</div>
+`;

@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useEffect, MouseEventHandler } from 'react';
 import { AnimatePresence, motion, HTMLMotionProps } from 'framer-motion';
 
 import { useOnClickOutside } from '../hooks/use-on-click-outside';
@@ -103,20 +103,18 @@ const DialogContent: FC<DialogProps> = ({
             exit="hidden"
             variants={variants}
             transition={{ type: 'linear' }}
+            open={props.open}
             className={`fixed inset-0 rounded bg-black ${
                 size === 'md' ? 'w-[75%]' : ''
             }`}
-            {...props}
         >
             {children}
         </motion.dialog>
     );
 };
 
-export const Dialog: FC<DialogProps> = (props) => {
-    return (
-        <AnimatePresence>
-            {props.open && <DialogContent {...props} />}
-        </AnimatePresence>
-    );
-};
+export const Dialog: FC<DialogProps> = (props) => (
+    <AnimatePresence>
+        {props.open && <DialogContent {...props} />}
+    </AnimatePresence>
+);

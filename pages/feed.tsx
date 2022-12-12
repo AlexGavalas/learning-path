@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from 'next';
 import { useState, FormEventHandler, useRef } from 'react';
 
-import Layout from '@components/layout';
+import { Layout } from '@components/layout';
 import { Textarea } from '@components/textarea';
 import { Button } from '@components/button';
 import { Loader } from '@components/loader';
@@ -111,16 +111,17 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                 </p>
                 {userExists ? (
                     <form
-                        className="relative flex flex-col"
+                        className="relative flex flex-col gap-2"
                         onSubmit={addNewNote}
                         ref={formRef}
                     >
                         <Textarea
+                            label="Create a post"
                             name="post"
-                            placeholder={`Post anything (max ${MAX_CHARS} characters)`}
+                            placeholder={`Write here (max ${MAX_CHARS} characters)`}
                         />
                         {submitting && <Loader />}
-                        <div className="h-8 py-1 flex gap-2 justify-between">
+                        <div className="h-8 flex justify-between">
                             <Button
                                 type="button"
                                 variant="danger"
@@ -135,7 +136,7 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                         </div>
                     </form>
                 ) : (
-                    <div className="flex items-center gap-4 h-full">
+                    <div className="flex items-center gap-2 h-full">
                         <p className="m-0 text-black dark:text-white">
                             Login to be able to post
                         </p>
@@ -151,7 +152,14 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                     </div>
                 )}
                 <FeedList
-                    posts={posts}
+                    posts={[
+                        {
+                            created_at: new Date().toString(),
+                            id: '1',
+                            name: 'a name',
+                            post: 'kajd lakjdlakjdlaksjdlkasjdlkasjd',
+                        },
+                    ]}
                     onPostDelete={onPostDelete}
                     onPostUpdate={onPostUpdate}
                 />
