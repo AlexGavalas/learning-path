@@ -4,7 +4,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
 const InputComponent = (
     props: InputProps,
-    ref: ForwardedRef<HTMLInputElement>
+    ref: ForwardedRef<HTMLInputElement>,
 ) => {
     return (
         <input

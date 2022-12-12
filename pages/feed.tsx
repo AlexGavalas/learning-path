@@ -58,7 +58,10 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
             name: user.user_metadata.name,
         };
 
-        const { data, error } = await supabase.from('posts').insert(payload).select();
+        const { data, error } = await supabase
+            .from('posts')
+            .insert(payload)
+            .select();
 
         if (!error) {
             formRef.current.reset();
@@ -91,8 +94,8 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
         if (!error) {
             setPosts((prev) =>
                 prev.map((item) =>
-                    item.id === id ? { ...item, post: newPost } : item
-                )
+                    item.id === id ? { ...item, post: newPost } : item,
+                ),
             );
         }
     };

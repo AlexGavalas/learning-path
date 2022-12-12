@@ -4,7 +4,7 @@ type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 const TextareaComponent = (
     props: TextareaProps,
-    ref: ForwardedRef<HTMLTextAreaElement>
+    ref: ForwardedRef<HTMLTextAreaElement>,
 ) => {
     return (
         <textarea

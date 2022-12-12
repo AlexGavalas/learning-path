@@ -12,6 +12,7 @@
 /.next/
 /out/
 /.swc
+tsconfig.tsbuildinfo
 
 # production
 /build

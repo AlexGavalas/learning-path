@@ -21,9 +21,8 @@ export type Post = {
 export const getSortedPosts = () => {
     const fileNames = fs.readdirSync(POSTS_DIR);
 
-    // @ts-ignore
     // Can't type gray matter result yet
-    const allPostsData: Post[] = fileNames.map((fileName) => {
+    const allPostsData = fileNames.map((fileName) => {
         const id = fileName.replace(/\.mdx?$/, '');
 
         const filePath = path.join(POSTS_DIR, fileName);
@@ -32,13 +31,13 @@ export const getSortedPosts = () => {
 
         const { data } = matter(fileContents);
 
-        return { id, ...data };
+        return { id, ...data } as Post;
     });
 
     return allPostsData.sort(
         (a, b) =>
             compareDesc(parseISO(a.updated), parseISO(b.updated)) ||
-            a.title.localeCompare(b.title)
+            a.title.localeCompare(b.title),
     );
 };
 
@@ -72,11 +71,10 @@ export const getPostData = async (id: string): Promise<Post> => {
         },
     });
 
-    // @ts-ignore
     // Can't type gray matter result yet
     return {
         id,
         mdxSource,
         ...matterResult.data,
-    };
+    } as Post;
 };

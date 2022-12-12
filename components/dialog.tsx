@@ -23,7 +23,7 @@ const FOCUSABLE_ELEMENTS =
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 const DialogContent: FC<DialogProps> = ({
-    onClickOutside = () => {},
+    onClickOutside = () => void 0,
     size,
     children,
     ...props

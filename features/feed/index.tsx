@@ -34,7 +34,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
     if (!posts.length) {
         return <p className="text-center">No posts yet</p>;
     }
-    
+
     return (
         <>
             <ul className="mt-4">

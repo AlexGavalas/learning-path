@@ -20,7 +20,7 @@ export const UserContext = createContext<UserContextType | null>(null);
 
 const handleAuthChange = async (
     event: AuthChangeEvent,
-    session: Session | null
+    session: Session | null,
 ) => {
     await fetch('/api/auth', {
         body: JSON.stringify({ event, session }),

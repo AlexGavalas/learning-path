@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 
 const POSTS_DIR = path.join(process.cwd(), 'posts');
@@ -35,7 +35,7 @@ const indexDocs = async () => {
     for (const filename of notes) {
         const fileContents = await fs.readFile(
             `${POSTS_DIR}/${filename}`,
-            'utf-8'
+            'utf-8',
         );
 
         const { content, data } = await matter(fileContents);

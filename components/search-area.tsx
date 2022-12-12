@@ -16,11 +16,6 @@ import { Loader } from './loader';
 
 const QUERY_FIELD_NAME = 'query';
 
-interface Note {
-    title: string;
-    line: string;
-}
-
 export const SearchArea = ({
     posts,
     setPosts,
@@ -70,13 +65,13 @@ export const SearchArea = ({
                         acc[title] = (acc[title] || []).concat(line);
                         return acc;
                     },
-                    {}
+                    {},
                 ) ?? {};
 
             const postTitles = data?.map(({ title }) => title) ?? [];
 
             const filteredPosts = posts.filter(({ title }) =>
-                postTitles.includes(title)
+                postTitles.includes(title),
             );
 
             setPosts(filteredPosts);
