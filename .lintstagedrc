@@ -1,0 +1,3 @@
+{
+    "*.(md|mdx)": "node -r esbuild-register scripts/update-md-timestamps.ts"
+}
