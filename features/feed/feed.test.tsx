@@ -115,25 +115,61 @@ describe('<Feed />', () => {
                 jest.resetAllMocks();
             });
 
-            it('opens the confirm dialog', async () => {
-                const { user, mockPostDelete } = await act(async () =>
-                    renderFeed({ posts: POSTS }),
-                );
+            describe('when onPostDelete resolves', () => {
+                it('opens the confirm dialog', async () => {
+                    const { user, mockPostDelete } = await act(async () =>
+                        renderFeed({ posts: POSTS }),
+                    );
 
-                await user.click(screen.getByText(/delete/i));
+                    await user.click(screen.getByText(/delete/i));
 
-                expect(screen.getByRole('dialog')).toBeInTheDocument();
+                    expect(screen.getByRole('dialog')).toBeInTheDocument();
 
-                await user.click(screen.getByText(/yes/i));
+                    await user.click(screen.getByText(/yes/i));
 
-                expect(mockPostDelete).toHaveBeenCalledTimes(1);
-                expect(mockPostDelete).toHaveBeenCalledWith(POSTS[0].id);
+                    expect(mockPostDelete).toHaveBeenCalledTimes(1);
+                    expect(mockPostDelete).toHaveBeenCalledWith(POSTS[0].id);
 
-                await waitFor(() =>
+                    await waitFor(() =>
+                        expect(
+                            screen.queryByRole('dialog'),
+                        ).not.toBeInTheDocument(),
+                    );
+                });
+            });
+
+            describe('when onPostDelete rejects', () => {
+                it('shows the error message', async () => {
+                    const { user, mockPostDelete } = await act(async () =>
+                        renderFeed({ posts: POSTS }),
+                    );
+
+                    const errorMessage = 'error';
+
+                    mockPostDelete.mockRejectedValue(new Error(errorMessage));
+
+                    await user.click(screen.getByText(/delete/i));
+                    await user.click(screen.getByText(/yes/i));
+
+                    expect(screen.getByRole('dialog')).toBeInTheDocument();
+                    expect(screen.getByText(errorMessage)).toBeInTheDocument();
+                });
+
+                it('shows a generic error', async () => {
+                    const { user, mockPostDelete } = await act(async () =>
+                        renderFeed({ posts: POSTS }),
+                    );
+
+                    mockPostDelete.mockRejectedValue({});
+
+                    await user.click(screen.getByText(/delete/i));
+                    await user.click(screen.getByText(/yes/i));
+
+                    expect(screen.getByRole('dialog')).toBeInTheDocument();
                     expect(
-                        screen.queryByRole('dialog'),
-                    ).not.toBeInTheDocument(),
-                );
+                        screen.getByText(/unknown error/i),
+                    ).toBeInTheDocument();
+                });
             });
         });
     });

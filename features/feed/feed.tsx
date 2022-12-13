@@ -13,7 +13,7 @@ interface FeedProps {
 
 export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
     const [openDialog, setOpenDialog] = useState(false);
-    const [idToDelete, setIdToDelete] = useState<string>();
+    const [idToDelete, setIdToDelete] = useState('');
     const [error, setError] = useState<string>();
     const { user } = useUser();
 
@@ -26,16 +26,14 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
 
     const deleteCurrentId = async () => {
         try {
-            if (!idToDelete) return;
-
             await onPostDelete(idToDelete);
+
+            closeDialog();
         } catch (e) {
             const errorMessage =
                 e instanceof Error ? e.message : 'An unknown error occured';
 
             setError(errorMessage);
-        } finally {
-            closeDialog();
         }
     };
 
@@ -62,6 +60,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
             </ul>
             <Dialog open={openDialog} onClickOutside={closeDialog}>
                 <p>Are you sure you want to delete?</p>
+                {error && <span>{error}</span>}
                 <div className="flex gap-2 justify-end">
                     <Button onClick={closeDialog}>No</Button>
                     <Button onClick={deleteCurrentId}>Yes</Button>
