@@ -9,7 +9,7 @@ import {
 
 import { Session, User, AuthChangeEvent } from '@supabase/supabase-js';
 
-import { supabase } from './supabase';
+import { supabase } from '~lib/supabase';
 
 type UserContextType = {
     user: User | null;

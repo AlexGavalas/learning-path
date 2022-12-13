@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div>
+  <ul
+    class="mt-4"
+  >
+    <li
+      class="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col"
+    >
+      <p
+        class="border-solid border-0 border-l-2 border-l-teal-500 dark:border-l-yellow-500 pl-4 break-words"
+      >
+        post
+      </p>
+      <div
+        class="self-end flex gap-4 items-center"
+      >
+        <p
+          class="italic text-sm "
+        >
+          - 
+          name
+           at 
+          01/01/2022 02:00
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<Feed /> when posts are empty renders 1`] = `
+<div>
+  <p
+    class="text-center"
+  >
+    No posts yet
+  </p>
+</div>
+`;
