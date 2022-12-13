@@ -1,4 +1,5 @@
 export const supabase = {
+    rpc: jest.fn(),
     auth: {
         onAuthStateChange: jest.fn().mockReturnValue({
             data: {

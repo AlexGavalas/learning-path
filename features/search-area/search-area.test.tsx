@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react';
 import { render, RenderOptions, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import { supabase } from '~lib/supabase';
 
 import type { Post } from '~lib/posts';
 import { SearchArea } from './search-area';
@@ -72,15 +73,81 @@ describe('<SearchArea />', () => {
     });
 
     describe('when user types in search input', () => {
-        it('shows the clear button', async () => {
+        it('can clear the input', async () => {
             const { user } = renderSearchArea();
 
-            await user.keyboard('/');
-            await user.keyboard('abc');
+            const searchInput = screen.getByRole('textbox');
 
-            const clearButton = screen.getByText(/clear/i);
+            expect(searchInput).toHaveValue('');
 
-            expect(clearButton).toBeInTheDocument();
+            await user.keyboard('/abc');
+
+            expect(searchInput).toHaveValue('abc');
+
+            await user.click(screen.getByText(/clear/i));
+
+            expect(searchInput).toHaveValue('');
+        });
+
+        describe('when user clicks search', () => {
+            const mockRpc = jest.mocked(supabase.rpc);
+
+            beforeAll(() => {
+                mockRpc.mockResolvedValue({
+                    data: [{ id: 1, line: 'line', title: 'title' }],
+                    count: 1,
+                    error: null,
+                    status: 200,
+                    statusText: 'ok',
+                });
+
+                jest.spyOn(console, 'error').mockImplementation(() => void 0);
+            });
+
+            afterAll(() => {
+                jest.resetAllMocks();
+            });
+
+            it('does nothing when the search query is empty', async () => {
+                const { user } = renderSearchArea();
+
+                await user.click(
+                    screen.getByRole('button', { name: /search/i }),
+                );
+
+                expect(mockRpc).not.toHaveBeenCalled();
+            });
+
+            it('calls the supabase rpc when it has a query', async () => {
+                const { user } = renderSearchArea();
+                const searchQuery = 'abc';
+
+                await user.keyboard(`/${searchQuery}`);
+
+                await user.click(
+                    screen.getByRole('button', { name: /search/i }),
+                );
+
+                expect(mockRpc).toHaveBeenCalledTimes(1);
+                expect(mockRpc).toHaveBeenCalledWith('search_notes', {
+                    q: searchQuery,
+                });
+            });
+
+            it('handles errors', async () => {
+                mockRpc.mockRejectedValueOnce('error');
+
+                const { user } = renderSearchArea();
+                const searchQuery = 'abc';
+
+                await user.keyboard(`/${searchQuery}`);
+
+                await user.click(
+                    screen.getByRole('button', { name: /search/i }),
+                );
+
+                expect(console.error).toHaveBeenCalledTimes(1);
+            });
         });
     });
 });
