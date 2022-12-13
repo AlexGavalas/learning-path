@@ -6,7 +6,7 @@ import { Button } from '~components/button';
 import { ListItem } from './item';
 
 interface FeedProps {
-    posts: Post[];
+    posts: UserPost[];
     onPostDelete: (id: string) => Promise<void>;
     onPostUpdate: (id: string, newPost: string) => Promise<void>;
 }

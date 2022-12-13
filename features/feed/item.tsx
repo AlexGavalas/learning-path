@@ -6,7 +6,7 @@ import { Button } from '~components/button';
 import { Textarea } from '~components/textarea';
 
 interface ListItemProps {
-    post: Post;
+    post: UserPost;
     isMine: boolean;
     handleDelete: (id: string) => void;
     onPostUpdate: (id: string, newPost: string) => Promise<void>;

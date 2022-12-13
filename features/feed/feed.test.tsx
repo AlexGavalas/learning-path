@@ -13,7 +13,7 @@ const setup = (ui: ReactElement, options?: RenderOptions) => ({
     ...render(ui, options),
 });
 
-const POSTS: Post[] = [
+const POSTS: UserPost[] = [
     {
         id: '1',
         created_at: new Date('2022-01-01').toISOString(),
@@ -23,7 +23,7 @@ const POSTS: Post[] = [
 ];
 
 describe('<Feed />', () => {
-    const renderFeed = ({ posts }: { posts: Post[] }) => {
+    const renderFeed = ({ posts }: { posts: UserPost[] }) => {
         const mockPostDelete = jest.fn();
         const mockPostUpdate = jest.fn();
 

@@ -5,7 +5,7 @@ namespace NodeJS {
     }
 }
 
-interface Post {
+interface UserPost {
     id: string;
     created_at: string;
     post: string;

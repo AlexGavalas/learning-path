@@ -10,7 +10,7 @@ import { useUser } from '~lib/use-user';
 import { Feed as FeedList } from '../features/feed';
 
 interface FeedProps {
-    posts: Post[];
+    posts: UserPost[];
     isLoggedIn: boolean;
 }
 
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<FeedProps> = async () => {
 };
 
 const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
-    const [posts, setPosts] = useState<Post[]>(initialPosts);
+    const [posts, setPosts] = useState<UserPost[]>(initialPosts);
     const [hasUser, setHasUser] = useState(isLoggedIn);
     const [submitting, setSubmitting] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
