@@ -50,4 +50,39 @@ describe('<SearchArea />', () => {
 
         expect(a11yResults).toHaveNoViolations();
     });
+
+    describe('when search input is empty', () => {
+        it('clear button is hidden', () => {
+            renderSearchArea();
+
+            const clearButton = screen.queryByText(/clear/i);
+
+            expect(clearButton).not.toBeInTheDocument();
+        });
+    });
+
+    describe('when user presses "/"', () => {
+        it('search input receives focus', async () => {
+            const { user } = renderSearchArea();
+
+            expect(screen.getByRole('textbox')).not.toHaveFocus();
+
+            await user.keyboard('/');
+
+            expect(screen.getByRole('textbox')).toHaveFocus();
+        });
+    });
+
+    describe('when user types in search input', () => {
+        it('shows the clear button', async () => {
+            const { user } = renderSearchArea();
+
+            await user.keyboard('/');
+            await user.keyboard('abc');
+
+            const clearButton = screen.getByText(/clear/i);
+
+            expect(clearButton).toBeInTheDocument();
+        });
+    });
 });
