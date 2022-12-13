@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> renders 1`] = `
+<div>
+  <script>
+    !function(){try{var d=document.documentElement,c=d.classList;c.remove('light','dark');var e=localStorage.getItem('theme');if('system'===e||(!e&&true)){var t='(prefers-color-scheme: dark)',m=window.matchMedia(t);if(m.media!==t||m.matches){d.style.colorScheme = 'dark';c.add('dark')}else{d.style.colorScheme = 'light';c.add('light')}}else if(e){c.add(e|| '')}if(e==='light'||e==='dark')d.style.colorScheme=e}catch(e){}}()
+  </script>
+  <header
+    class="flex justify-between w-full items-center border-0 border-solid border-b dark:border-b-white"
+  >
+    <div
+      class="flex"
+    >
+      <a
+        href="/"
+      >
+        Learning Path
+      </a>
+    </div>
+    <div
+      class="mr-3"
+    >
+      <button
+        class="p-2 flex items-center rounded border-0 text-black dark:text-white bg-transparent hover:bg-gray-300 dark:hover:bg-gray-600"
+      >
+        <img
+          alt="Moon"
+          data-nimg="1"
+          decoding="async"
+          height="20"
+          loading="lazy"
+          src="/moon.svg"
+          srcset="/moon.svg 1x, /moon.svg 2x"
+          style="color: transparent;"
+          width="20"
+        />
+      </button>
+    </div>
+  </header>
+</div>
+`;

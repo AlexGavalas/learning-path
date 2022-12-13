@@ -8,7 +8,7 @@ import { ThemeProvider } from 'next-themes';
 import '../styles/global.css';
 
 import { UserContextProvider } from '~lib/use-user';
-import { Header } from '~components/header';
+import { Header } from '~features/header';
 
 const GOOGLE_MEASUREMENT_ID = 'G-2CSN2TQ5R3';
 

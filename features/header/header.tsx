@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-import { Button } from './button';
+import { Button } from '~components/button';
 
 export const Header = () => {
     const [mounted, setIsMounted] = useState(false);
@@ -53,5 +53,3 @@ export const Header = () => {
         </header>
     );
 };
-
-export default Header;

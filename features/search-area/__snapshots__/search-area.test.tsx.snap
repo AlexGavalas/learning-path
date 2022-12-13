@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchArea /> renders 1`] = `
+<div>
+  <form
+    class="relative h-16 flex items-center"
+  >
+    <label
+      class="w-full h-full flex flex-col"
+    >
+      <span>
+        Search notes
+      </span>
+      <input
+        autocomplete="off"
+        class="pl-2 w-full h-1/2 border-[1px] dark:border-0 border-solid bg-transparent dark:bg-neutral-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
+        name="query"
+        placeholder="Type here"
+        value=""
+      />
+    </label>
+    <div
+      class="absolute right-0 bottom-0 h-1/2 flex gap-2 p-1"
+    >
+      <button
+        class="p-2 flex items-center rounded border-0 text-black dark:text-white bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600"
+      >
+        Search
+      </button>
+    </div>
+  </form>
+</div>
+`;

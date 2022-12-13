@@ -10,21 +10,19 @@ import { useEffect, useState, useRef } from 'react';
 import type { Post } from '~lib/posts';
 
 import { supabase } from '~lib/supabase';
-import { Button } from './button';
-import { Input } from './input';
-import { Loader } from './loader';
+import { Button } from '~components/button';
+import { Input } from '~components/input';
+import { Loader } from '~components/loader';
 
 const QUERY_FIELD_NAME = 'query';
 
-export const SearchArea = ({
-    posts,
-    setPosts,
-    setLines,
-}: {
+type SearchAreaProps = {
     posts: Post[];
     setPosts: Dispatch<SetStateAction<Post[]>>;
     setLines: Dispatch<SetStateAction<Record<string, string[]>>>;
-}) => {
+};
+
+export const SearchArea = ({ posts, setPosts, setLines }: SearchAreaProps) => {
     const queryEl = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
