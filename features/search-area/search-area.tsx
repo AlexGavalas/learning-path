@@ -1,11 +1,12 @@
-import type {
+import {
     Dispatch,
     FormEventHandler,
     MouseEventHandler,
     SetStateAction,
+    useCallback,
 } from 'react';
 
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import type { Post } from '~lib/posts';
 
@@ -13,6 +14,7 @@ import { supabase } from '~lib/supabase';
 import { Button } from '~components/button';
 import { Input } from '~components/input';
 import { Loader } from '~components/loader';
+import { useKeypress } from '~hooks/use-keypress';
 
 const QUERY_FIELD_NAME = 'query';
 
@@ -27,20 +29,12 @@ export const SearchArea = ({ posts, setPosts, setLines }: SearchAreaProps) => {
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const handler = (e: KeyboardEvent) => {
-            if (e.key === '/') {
-                e.stopImmediatePropagation();
-                queryEl.current?.focus();
-            }
-        };
-
-        document.addEventListener('keyup', handler);
-
-        return () => {
-            document.removeEventListener('keyup', handler);
-        };
+    const keyPressHandler = useCallback((e: KeyboardEvent) => {
+        e.stopImmediatePropagation();
+        queryEl.current?.focus();
     }, []);
+
+    useKeypress('/', keyPressHandler);
 
     const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();

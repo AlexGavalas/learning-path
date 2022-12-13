@@ -5,14 +5,17 @@ import { compilerOptions } from './tsconfig.json';
 const config: Config.InitialOptions = {
     collectCoverage: false,
     coverageReporters: ['text'],
-    collectCoverageFrom: ['**/*.tsx'],
+    collectCoverageFrom: [
+        '{components,features,hooks}/**/*.{ts,tsx}',
+        '!**/index.ts',
+    ],
 
     coverageThreshold: {
         global: {
-            statements: 34,
-            branches: 27,
-            functions: 30,
-            lines: 34,
+            statements: 63,
+            branches: 48,
+            functions: 56,
+            lines: 63,
         },
     },
 
