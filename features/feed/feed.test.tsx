@@ -6,22 +6,7 @@ import { UserContextProvider } from '~lib/use-user';
 
 import { Feed } from './feed';
 
-jest.mock('~lib/supabase', () => ({
-    supabase: {
-        auth: {
-            onAuthStateChange: jest.fn().mockReturnValue({
-                data: {
-                    subscription: {
-                        unsubscribe: jest.fn(),
-                    },
-                },
-            }),
-            getSession: jest
-                .fn()
-                .mockResolvedValue({ data: { session: null } }),
-        },
-    },
-}));
+jest.mock('~lib/supabase');
 
 const setup = (ui: ReactElement, options?: RenderOptions) => ({
     user: userEvent.setup(),

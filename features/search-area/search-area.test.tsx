@@ -6,9 +6,7 @@ import { axe } from 'jest-axe';
 import type { Post } from '~lib/posts';
 import { SearchArea } from './search-area';
 
-jest.mock('~lib/supabase', () => ({
-    supabase: jest.fn(),
-}));
+jest.mock('~lib/supabase');
 
 const setup = (ui: ReactElement, options?: RenderOptions) => ({
     user: userEvent.setup(),
