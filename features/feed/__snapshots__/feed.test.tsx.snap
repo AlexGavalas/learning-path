@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`<Feed /> when posts are empty renders 1`] = `
+<div>
+  <p
+    class="text-center"
+  >
+    No posts yet
+  </p>
+</div>
+`;
+
+exports[`<Feed /> when posts exist renders 1`] = `
 <div>
   <ul
     class="mt-4"
@@ -27,15 +37,5 @@ exports[` 1`] = `
       </div>
     </li>
   </ul>
-</div>
-`;
-
-exports[`<Feed /> when posts are empty renders 1`] = `
-<div>
-  <p
-    class="text-center"
-  >
-    No posts yet
-  </p>
 </div>
 `;

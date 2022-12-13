@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 import { useUser } from '~lib/use-user';
 import { Dialog } from '~components/dialog';
@@ -13,22 +13,30 @@ interface FeedProps {
 
 export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
     const [openDialog, setOpenDialog] = useState(false);
-    const idToDelete = useRef<string>();
+    const [idToDelete, setIdToDelete] = useState<string>();
+    const [error, setError] = useState<string>();
     const { user } = useUser();
 
     const closeDialog = useCallback(() => setOpenDialog(false), []);
 
     const handleDelete = (id: string) => {
-        idToDelete.current = id;
+        setIdToDelete(id);
         setOpenDialog(true);
     };
 
     const deleteCurrentId = async () => {
-        const id = idToDelete.current;
+        try {
+            if (!idToDelete) return;
 
-        if (!id) return;
+            await onPostDelete(idToDelete);
+        } catch (e) {
+            const errorMessage =
+                e instanceof Error ? e.message : 'An unknown error occured';
 
-        await onPostDelete(id);
+            setError(errorMessage);
+        } finally {
+            closeDialog();
+        }
     };
 
     if (!posts.length) {
@@ -46,7 +54,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
                             key={post.id}
                             post={post}
                             isMine={isMine}
-                            handleDelete={handleDelete}
+                            onPostDelete={handleDelete}
                             onPostUpdate={onPostUpdate}
                         />
                     );
@@ -56,14 +64,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
                 <p>Are you sure you want to delete?</p>
                 <div className="flex gap-2 justify-end">
                     <Button onClick={closeDialog}>No</Button>
-                    <Button
-                        onClick={() => {
-                            deleteCurrentId();
-                            closeDialog();
-                        }}
-                    >
-                        Yes
-                    </Button>
+                    <Button onClick={deleteCurrentId}>Yes</Button>
                 </div>
             </Dialog>
         </>

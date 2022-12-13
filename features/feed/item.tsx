@@ -8,14 +8,14 @@ import { Textarea } from '~components/textarea';
 interface ListItemProps {
     post: UserPost;
     isMine: boolean;
-    handleDelete: (id: string) => void;
+    onPostDelete: (id: string) => void;
     onPostUpdate: (id: string, newPost: string) => Promise<void>;
 }
 
 export const ListItem = ({
     post,
     isMine,
-    handleDelete,
+    onPostDelete,
     onPostUpdate,
 }: ListItemProps) => {
     const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -49,7 +49,7 @@ export const ListItem = ({
                     <div className="flex gap-2 h-5">
                         <Button
                             variant="danger"
-                            onClick={() => handleDelete(id)}
+                            onClick={() => onPostDelete(id)}
                         >
                             Delete
                         </Button>
