@@ -1,11 +1,5 @@
 import { PropsWithChildren, ReactElement } from 'react';
-import {
-    render,
-    RenderOptions,
-    screen,
-    waitFor,
-    act,
-} from '@testing-library/react';
+import { render, RenderOptions, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { ThemeProvider } from 'next-themes';

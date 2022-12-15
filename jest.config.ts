@@ -6,7 +6,7 @@ const config: Config.InitialOptions = {
     collectCoverage: false,
     coverageReporters: ['text'],
     collectCoverageFrom: [
-        '{components,features,hooks}/**/*.{ts,tsx}',
+        'src/{components,features,hooks}/**/*.{ts,tsx}',
         '!**/index.ts',
     ],
 

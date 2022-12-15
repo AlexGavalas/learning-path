@@ -1,11 +1,10 @@
 import type { NextPage, GetStaticProps } from 'next';
-import Link from 'next/link';
 import { useState } from 'react';
 
 import { Layout } from '~components/layout';
-import { FormattedDate } from '~components/formatted-date';
-import { List, ListItem } from '~components/list';
 import { SearchArea } from '~features/search-area';
+import { Banner } from '~features/banner';
+import { PostsList } from '~features/posts-list';
 import { getSortedPosts, Post } from '~lib/posts';
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -25,57 +24,14 @@ const Home: NextPage<{ allPosts: Post[] }> = ({ allPosts }) => {
     return (
         <Layout>
             <section className="leading-8 text-xl">
-                <p className="text-center p-2">
-                    Hey there. 👋 This is a place where I keep all the
-                    interesting stuff I come across. Feel free to explore. It is
-                    a WIP, so you can expect things to change.
-                </p>
+                <Banner />
                 <SearchArea
                     posts={allPosts}
                     setPosts={setPosts}
                     setLines={setLines}
                 />
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>
-                {posts.length > 0 ? (
-                    <ul className="list-none p-0 divide-x-0 divide-y-2 divide-solid dark:divide-zinc-800 divide-zinc-300">
-                        {posts.map(({ id, updated, title }) => (
-                            <li key={id}>
-                                <Link
-                                    href={`/posts/${id}`}
-                                    className="hover:no-underline"
-                                >
-                                    <div className="group flex justify-between items-center cursor-pointer text-black dark:text-white dark:hover:bg-neutral-800 hover:bg-gray-100 p-2">
-                                        <div className="flex gap-2 flex-col-reverse sm:flex-row">
-                                            <FormattedDate
-                                                dateString={updated}
-                                                format="dd/MM/yy"
-                                            />
-                                            <span className="text-teal-500 dark:text-yellow-500 hover:no-underline">
-                                                {title}
-                                            </span>
-                                        </div>
-                                        <span className="opacity-0 group-hover:animate-pulse">
-                                            &#x21dd;
-                                        </span>
-                                    </div>
-                                </Link>
-                                {lines[title] && (
-                                    <List>
-                                        {lines[title].map((line) => {
-                                            return (
-                                                <ListItem key={line}>
-                                                    {line}
-                                                </ListItem>
-                                            );
-                                        })}
-                                    </List>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p className="text-center">No notes found</p>
-                )}
+                <PostsList lines={lines} posts={posts} />
             </section>
         </Layout>
     );
