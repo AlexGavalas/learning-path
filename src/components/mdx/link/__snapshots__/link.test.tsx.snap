@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomLink /> when href is "" renders 1`] = `
+<div>
+  <a
+    href=""
+  >
+    link
+  </a>
+</div>
+`;
+
+exports[`<CustomLink /> when href is "#" renders 1`] = `
+<div>
+  <a
+    href="#"
+  >
+    link
+  </a>
+</div>
+`;
+
+exports[`<CustomLink /> when href is "/" renders 1`] = `
+<div>
+  <a
+    href="/"
+  >
+    link
+  </a>
+</div>
+`;
+
+exports[`<CustomLink /> when href is "https://somewhere.else" renders 1`] = `
+<div>
+  <a
+    href="https://somewhere.else"
+  >
+    link
+  </a>
+</div>
+`;
