@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { CustomLink } from './link';
@@ -18,9 +18,12 @@ describe('<CustomLink />', () => {
                 <CustomLink href={href}>link</CustomLink>,
             );
 
-            const a11yResults = await axe(container);
+            // TODO: https://www.benmvp.com/blog/avoiding-react-act-warning-when-accessibility-testing-next-link-jest-axe/
+            await act(async () => {
+                const a11yResults = await axe(container);
 
-            expect(a11yResults).toHaveNoViolations();
+                expect(a11yResults).toHaveNoViolations();
+            });
         });
     });
 
