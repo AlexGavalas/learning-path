@@ -38,14 +38,10 @@ describe('<Dialog />', () => {
             const { user } = setup(
                 <Dialog open>
                     <input id="1" />
-                    <input id="2" />
+                    <input id="2" autoFocus />
                     <input id="3" />
                 </Dialog>,
             );
-
-            expect(document.activeElement?.id).toBe('1');
-
-            await user.tab();
 
             expect(document.activeElement?.id).toBe('2');
 
@@ -61,7 +57,7 @@ describe('<Dialog />', () => {
         it('can be navigated backwards using shift+tab', async () => {
             const { user } = setup(
                 <Dialog open>
-                    <input id="1" />
+                    <input id="1" autoFocus />
                     <input id="2" />
                     <input id="3" />
                 </Dialog>,

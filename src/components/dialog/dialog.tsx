@@ -1,9 +1,10 @@
-import { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion, HTMLMotionProps } from 'framer-motion';
 
 import { useOnClickOutside } from '~hooks/use-on-click-outside';
 import { variants } from './constants';
+import { useEventListener } from '~hooks/use-event-listener';
 
 type DialogSize = 'md';
 
@@ -14,6 +15,10 @@ interface DialogProps extends HTMLMotionProps<'dialog'> {
 
 const FOCUSABLE_ELEMENTS =
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+const preventDefault = (e: Event) => e.preventDefault();
+
+const isKeyboardEvent = (e: Event): e is KeyboardEvent => 'shiftKey' in e;
 
 const DialogContent: FC<DialogProps> = ({
     onClickOutside = () => void 0,
@@ -26,43 +31,21 @@ const DialogContent: FC<DialogProps> = ({
         document.activeElement as HTMLElement | null,
     );
 
-    useOnClickOutside(modalRef, onClickOutside);
+    const handleKeyPress = useCallback(
+        (e: Event) => {
+            if (!isKeyboardEvent(e)) return;
 
-    useEffect(() => {
-        const handler = (e: Event) => e.preventDefault();
-
-        document.addEventListener('scroll', handler, { passive: false });
-        document.addEventListener('wheel', handler, { passive: false });
-
-        return () => {
-            document.removeEventListener('scroll', handler);
-            document.removeEventListener('wheel', handler);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!props.open) return;
-
-        const rootDiv = document.body.firstChild as HTMLElement;
-
-        // Disable interactions with the rest of the app
-        rootDiv.inert = true;
-
-        const focusableContent =
-            modalRef.current?.querySelectorAll(FOCUSABLE_ELEMENTS) ?? [];
-
-        const firstFocusableEl = focusableContent[0];
-
-        const lastFocusableEl = focusableContent[focusableContent.length - 1];
-
-        const handleKeyPress = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
                 return onClickOutside(e);
             }
 
-            const isTabPressed = e.key === 'Tab';
+            if (e.key !== 'Tab') return;
 
-            if (!isTabPressed) return;
+            const [firstFocusableEl, ...rest] = Array.from(
+                modalRef.current?.querySelectorAll(FOCUSABLE_ELEMENTS) ?? [],
+            );
+
+            const lastFocusableEl = rest.at(-1);
 
             if (e.shiftKey) {
                 // if shift key pressed for shift + tab combination
@@ -75,17 +58,27 @@ const DialogContent: FC<DialogProps> = ({
                 (firstFocusableEl as HTMLElement).focus();
                 e.preventDefault();
             }
-        };
+        },
+        [onClickOutside],
+    );
 
-        document.addEventListener('keydown', handleKeyPress);
+    useOnClickOutside(modalRef, onClickOutside);
 
-        (firstFocusableEl as HTMLElement)?.focus();
+    useEventListener('scroll', preventDefault, { passive: false });
+    useEventListener('wheel', preventDefault, { passive: false });
+    useEventListener('keydown', handleKeyPress);
+
+    useEffect(() => {
+        if (!props.open) return;
+
+        const rootDiv = document.body.firstChild as HTMLElement;
+
+        // Disable interactions with the rest of the app
+        rootDiv.inert = true;
 
         const previousFocusedElement = previousFocusedElementRef.current;
 
         return () => {
-            document.removeEventListener('keydown', handleKeyPress);
-
             // Restore app interactivity
             rootDiv.inert = false;
 
@@ -96,7 +89,7 @@ const DialogContent: FC<DialogProps> = ({
                 previousFocusedElement?.focus();
             });
         };
-    }, [props.open, onClickOutside]);
+    }, [props.open]);
 
     return createPortal(
         <motion.dialog
