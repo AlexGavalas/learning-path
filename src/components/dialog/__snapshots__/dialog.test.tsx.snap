@@ -1,9 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Dialog /> when it is closed renders 1`] = `<div />`;
+exports[`<Dialog /> when it is closed renders 1`] = `
+<body>
+  <div />
+</body>
+`;
 
 exports[`<Dialog /> when it is open renders 1`] = `
-<div>
+<body>
+  <div />
   <dialog
     class="fixed inset-0 rounded bg-black "
     open=""
@@ -11,5 +16,5 @@ exports[`<Dialog /> when it is open renders 1`] = `
   >
     content
   </dialog>
-</div>
+</body>
 `;

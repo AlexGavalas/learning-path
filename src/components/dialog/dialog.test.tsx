@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -13,23 +13,23 @@ const setup = (ui: ReactElement) => ({
 describe('<Dialog />', () => {
     describe('when it is closed', () => {
         it('renders', () => {
-            const { container } = render(<Dialog>content</Dialog>);
+            render(<Dialog>content</Dialog>);
 
-            expect(container).toMatchSnapshot();
+            expect(document.body).toMatchSnapshot();
         });
     });
 
     describe('when it is open', () => {
         it('renders', () => {
-            const { container } = render(<Dialog open>content</Dialog>);
+            render(<Dialog open>content</Dialog>);
 
-            expect(container).toMatchSnapshot();
+            expect(document.body).toMatchSnapshot();
         });
 
         it('is accessible', async () => {
-            const { container } = render(<Dialog open>content</Dialog>);
+            render(<Dialog open>content</Dialog>);
 
-            const a11yResults = await axe(container);
+            const a11yResults = await axe(document.body);
 
             expect(a11yResults).toHaveNoViolations();
         });

@@ -1,4 +1,5 @@
 import { FC, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion, HTMLMotionProps } from 'framer-motion';
 
 import { useOnClickOutside } from '~hooks/use-on-click-outside';
@@ -7,7 +8,7 @@ import { variants } from './constants';
 type DialogSize = 'md';
 
 interface DialogProps extends HTMLMotionProps<'dialog'> {
-    onClickOutside?: () => void;
+    onClickOutside?: (event: MouseEvent | TouchEvent | KeyboardEvent) => void;
     size?: DialogSize;
 }
 
@@ -20,17 +21,32 @@ const DialogContent: FC<DialogProps> = ({
     children,
     ...props
 }) => {
-    const modalRef = useRef<HTMLDialogElement>(null);
+    const modalRef = useRef<HTMLDialogElement | null>(null);
+    const previousFocusedElementRef = useRef(
+        document.activeElement as HTMLElement | null,
+    );
 
     useOnClickOutside(modalRef, onClickOutside);
 
     useEffect(() => {
+        const handler = (e: Event) => e.preventDefault();
+
+        document.addEventListener('scroll', handler, { passive: false });
+        document.addEventListener('wheel', handler, { passive: false });
+
+        return () => {
+            document.removeEventListener('scroll', handler);
+            document.removeEventListener('wheel', handler);
+        };
+    }, []);
+
+    useEffect(() => {
         if (!props.open) return;
 
-        const previousFocusedElement = document.activeElement as HTMLElement;
+        const rootDiv = document.body.firstChild as HTMLElement;
 
-        // Disable body scroll
-        document.body.style.overflow = 'hidden';
+        // Disable interactions with the rest of the app
+        rootDiv.inert = true;
 
         const focusableContent =
             modalRef.current?.querySelectorAll(FOCUSABLE_ELEMENTS) ?? [];
@@ -41,7 +57,7 @@ const DialogContent: FC<DialogProps> = ({
 
         const handleKeyPress = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
-                return onClickOutside();
+                return onClickOutside(e);
             }
 
             const isTabPressed = e.key === 'Tab';
@@ -65,11 +81,13 @@ const DialogContent: FC<DialogProps> = ({
 
         (firstFocusableEl as HTMLElement)?.focus();
 
+        const previousFocusedElement = previousFocusedElementRef.current;
+
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
 
-            // Reset body scroll
-            document.body.style.overflow = 'auto';
+            // Restore app interactivity
+            rootDiv.inert = false;
 
             // Return focus to the trigger element
             // process.nextTick is used to focus the element
@@ -80,7 +98,7 @@ const DialogContent: FC<DialogProps> = ({
         };
     }, [props.open, onClickOutside]);
 
-    return (
+    return createPortal(
         <motion.dialog
             ref={modalRef}
             initial="hidden"
@@ -94,7 +112,8 @@ const DialogContent: FC<DialogProps> = ({
             }`}
         >
             {children}
-        </motion.dialog>
+        </motion.dialog>,
+        document.body,
     );
 };
 
