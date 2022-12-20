@@ -9,7 +9,6 @@ import {
 } from 'react';
 
 import { Button } from '~components/button';
-import { Dialog } from '~components/dialog';
 import { Input } from '~components/input';
 import { Loader } from '~components/loader';
 import { useKeypress } from '~hooks/use-keypress';
@@ -28,7 +27,6 @@ export const SearchArea = ({ posts, setPosts, setLines }: SearchAreaProps) => {
     const queryEl = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
-    const [open, setOpen] = useState(false);
 
     const keyPressHandler = useCallback((e: KeyboardEvent) => {
         e.stopImmediatePropagation();
@@ -99,50 +97,9 @@ export const SearchArea = ({ posts, setPosts, setLines }: SearchAreaProps) => {
                         Clear
                     </Button>
                 )}
-                <Button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setOpen(true);
-                    }}
-                >
-                    Search
-                </Button>
+                <Button>Search</Button>
             </div>
             {loading && <Loader />}
-            <Dialog
-                open={open}
-                onClickOutside={useCallback(() => {
-                    setOpen(false);
-                }, [])}
-            >
-                <Input
-                    label="Search notes"
-                    name={QUERY_FIELD_NAME}
-                    ref={queryEl}
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    autoComplete="off"
-                    placeholder="Type here"
-                />
-                <Input
-                    label="Search notes"
-                    name={QUERY_FIELD_NAME}
-                    ref={queryEl}
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    autoComplete="off"
-                    placeholder="Type here"
-                />
-                <Input
-                    label="Search notes"
-                    name={QUERY_FIELD_NAME}
-                    ref={queryEl}
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    autoComplete="off"
-                    placeholder="Type here"
-                />
-            </Dialog>
         </form>
     );
 };
