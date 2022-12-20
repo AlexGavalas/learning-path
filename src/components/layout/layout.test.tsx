@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react';
-
+import { renderWithUser } from '~test/helpers';
 import { Layout } from './layout';
 
 describe('<Layout />', () => {
     it('renders', () => {
-        const { container } = render(<Layout>content</Layout>);
+        const { container } = renderWithUser(<Layout>content</Layout>);
 
         expect(container).toMatchSnapshot();
     });

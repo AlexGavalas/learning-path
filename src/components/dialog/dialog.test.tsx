@@ -1,19 +1,12 @@
-import { ReactElement } from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
+import { renderWithUser, screen } from '~test/helpers';
 import { Dialog } from './dialog';
-
-const setup = (ui: ReactElement) => ({
-    user: userEvent.setup(),
-    ...render(ui, {}),
-});
 
 describe('<Dialog />', () => {
     describe('when it is closed', () => {
         it('renders', () => {
-            render(<Dialog>content</Dialog>);
+            renderWithUser(<Dialog>content</Dialog>);
 
             expect(document.body).toMatchSnapshot();
         });
@@ -21,13 +14,13 @@ describe('<Dialog />', () => {
 
     describe('when it is open', () => {
         it('renders', () => {
-            render(<Dialog open>content</Dialog>);
+            renderWithUser(<Dialog open>content</Dialog>);
 
             expect(document.body).toMatchSnapshot();
         });
 
         it('is accessible', async () => {
-            render(<Dialog open>content</Dialog>);
+            renderWithUser(<Dialog open>content</Dialog>);
 
             const a11yResults = await axe(document.body);
 
@@ -35,7 +28,7 @@ describe('<Dialog />', () => {
         });
 
         it('can be navigated using tab in a circular way', async () => {
-            const { user } = setup(
+            const { user } = renderWithUser(
                 <Dialog open>
                     <input id="1" />
                     <input id="2" autoFocus />
@@ -55,7 +48,7 @@ describe('<Dialog />', () => {
         });
 
         it('can be navigated backwards using shift+tab', async () => {
-            const { user } = setup(
+            const { user } = renderWithUser(
                 <Dialog open>
                     <input id="1" autoFocus />
                     <input id="2" />
@@ -75,7 +68,7 @@ describe('<Dialog />', () => {
             it('calls onClickoutside', async () => {
                 const mockOnClickoutside = jest.fn();
 
-                const { user } = setup(
+                const { user } = renderWithUser(
                     <Dialog onClickOutside={mockOnClickoutside} open>
                         content
                     </Dialog>,
@@ -91,13 +84,13 @@ describe('<Dialog />', () => {
             it('calls onClickoutside', async () => {
                 const mockOnClickoutside = jest.fn();
 
-                const { user, getByRole } = setup(
+                const { user } = renderWithUser(
                     <Dialog onClickOutside={mockOnClickoutside} open>
                         content
                     </Dialog>,
                 );
 
-                await user.click(getByRole('dialog'));
+                await user.click(screen.getByRole('dialog'));
 
                 expect(mockOnClickoutside).toHaveBeenCalledTimes(0);
 

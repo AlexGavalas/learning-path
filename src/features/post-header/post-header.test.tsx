@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
+import { renderWithUser } from '~test/helpers';
 import { PostHeader } from './post-header';
 import { Post } from '~lib/posts';
 
@@ -16,13 +16,13 @@ describe('<PostHeader />', () => {
     };
 
     it('renders', () => {
-        const { container } = render(<PostHeader post={post} />);
+        const { container } = renderWithUser(<PostHeader post={post} />);
 
         expect(container).toMatchSnapshot();
     });
 
     it('is accessible', async () => {
-        const { container } = render(<PostHeader post={post} />);
+        const { container } = renderWithUser(<PostHeader post={post} />);
 
         const a11yResults = await axe(container);
 

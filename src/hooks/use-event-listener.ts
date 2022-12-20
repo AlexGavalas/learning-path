@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-type Evt = Parameters<typeof addEventListener>;
-
 export const useEventListener = <K extends keyof WindowEventMap>(
     eventName: K,
     handler: EventListenerOrEventListenerObject,

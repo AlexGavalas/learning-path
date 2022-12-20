@@ -1,18 +1,13 @@
-import { ReactElement, useState } from 'react';
-import { render, RenderOptions, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 import { axe } from 'jest-axe';
-import { supabase } from '~lib/supabase';
 
 import type { Post } from '~lib/posts';
+
+import { renderWithUser, screen } from '~test/helpers';
+import { supabase } from '~lib/supabase';
 import { SearchArea } from './search-area';
 
 jest.mock('~lib/supabase');
-
-const setup = (ui: ReactElement, options?: RenderOptions) => ({
-    user: userEvent.setup(),
-    ...render(ui, options),
-});
 
 const POSTS: Post[] = [
     {
@@ -28,14 +23,14 @@ const POSTS: Post[] = [
 
 const TestComponent = () => {
     const [posts, setPosts] = useState(POSTS);
-    const [_, setLines] = useState({});
+    const [, setLines] = useState({});
 
     return <SearchArea posts={posts} setLines={setLines} setPosts={setPosts} />;
 };
 
-describe('<SearchArea />', () => {
-    const renderSearchArea = () => setup(<TestComponent />);
+const renderSearchArea = () => renderWithUser(<TestComponent />);
 
+describe('<SearchArea />', () => {
     it('renders', () => {
         const { container } = renderSearchArea();
 

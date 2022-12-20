@@ -1,12 +1,10 @@
-import { render } from '@testing-library/react';
-import { axe } from 'jest-axe';
-
+import { renderWithUser } from '~test/helpers';
 import { YoutubeIcon } from './icons';
 
 describe('<Icons />', () => {
     describe('<YoutubeIcon />', () => {
         it('renders', () => {
-            const { container } = render(<YoutubeIcon />);
+            const { container } = renderWithUser(<YoutubeIcon />);
 
             expect(container).toMatchSnapshot();
         });

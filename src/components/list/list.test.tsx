@@ -1,12 +1,12 @@
-import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
+import { renderWithUser } from '~test/helpers';
 import { List } from './list';
 import { ListItem } from './list-item';
 
 describe('<List />', () => {
     it('renders', () => {
-        const { container } = render(
+        const { container } = renderWithUser(
             <List>
                 <ListItem>list item</ListItem>
             </List>,
@@ -16,7 +16,7 @@ describe('<List />', () => {
     });
 
     it('is accessible', async () => {
-        const { container } = render(
+        const { container } = renderWithUser(
             <List>
                 <ListItem>list item</ListItem>
             </List>,

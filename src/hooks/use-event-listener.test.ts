@@ -1,15 +1,14 @@
-import { renderHook } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
+import { renderHookWithUser } from '~test/helpers';
 import { useEventListener } from './use-event-listener';
 
 describe('useEventListener', () => {
     it('calls handler when event is dispatched', async () => {
         const text = 'something';
         const mockHandler = jest.fn();
-        const user = userEvent.setup();
 
-        renderHook(() => useEventListener('keydown', mockHandler));
+        const { user } = renderHookWithUser(() =>
+            useEventListener('keydown', mockHandler),
+        );
 
         await user.keyboard(text);
 
@@ -18,9 +17,10 @@ describe('useEventListener', () => {
 
     it('does not call handler when another event occurs', async () => {
         const mockHandler = jest.fn();
-        const user = userEvent.setup();
 
-        renderHook(() => useEventListener('keydown', mockHandler));
+        const { user } = renderHookWithUser(() =>
+            useEventListener('keydown', mockHandler),
+        );
 
         await user.click(document.body);
 
@@ -29,9 +29,8 @@ describe('useEventListener', () => {
 
     it('cleanups on umount', async () => {
         const mockHandler = jest.fn();
-        const user = userEvent.setup();
 
-        const { unmount } = renderHook(() =>
+        const { unmount, user } = renderHookWithUser(() =>
             useEventListener('keydown', mockHandler),
         );
 

@@ -1,12 +1,12 @@
-import { render, act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
+import { act, renderWithUser } from '~test/helpers';
 import { CustomLink } from './link';
 
 describe('<CustomLink />', () => {
     describe.each(['/', '#'])('when href is "%s"', (href) => {
         it('renders', () => {
-            const { container } = render(
+            const { container } = renderWithUser(
                 <CustomLink href={href}>link</CustomLink>,
             );
 
@@ -14,7 +14,7 @@ describe('<CustomLink />', () => {
         });
 
         it('is accessible', async () => {
-            const { container } = render(
+            const { container } = renderWithUser(
                 <CustomLink href={href}>link</CustomLink>,
             );
 
@@ -31,7 +31,7 @@ describe('<CustomLink />', () => {
         'when href is "%s"',
         (href) => {
             it('renders', () => {
-                const { container } = render(
+                const { container } = renderWithUser(
                     <CustomLink href={href}>link</CustomLink>,
                 );
 
@@ -39,7 +39,7 @@ describe('<CustomLink />', () => {
             });
 
             it('is accessible', async () => {
-                const { container } = render(
+                const { container } = renderWithUser(
                     <CustomLink href={href}>link</CustomLink>,
                 );
 

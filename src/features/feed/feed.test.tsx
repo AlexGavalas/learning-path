@@ -1,24 +1,11 @@
-import { ReactElement } from 'react';
-import {
-    render,
-    RenderOptions,
-    screen,
-    act,
-    waitFor,
-} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
+import { renderWithUser, screen, act, waitFor } from '~test/helpers';
 import { UserContextProvider } from '~lib/use-user';
 import { supabase } from '~lib/supabase';
 import { Feed } from './feed';
 
 jest.mock('~lib/supabase');
-
-const setup = (ui: ReactElement, options?: RenderOptions) => ({
-    user: userEvent.setup(),
-    ...render(ui, options),
-});
 
 const POSTS: UserPost[] = [
     {
@@ -52,27 +39,27 @@ const sessionWithUser: GetSessionResponse = {
     },
 };
 
-describe('<Feed />', () => {
-    const renderFeed = ({ posts }: { posts: UserPost[] }) => {
-        const mockPostDelete = jest.fn();
-        const mockPostUpdate = jest.fn();
+const renderFeed = ({ posts }: { posts: UserPost[] }) => {
+    const mockPostDelete = jest.fn();
+    const mockPostUpdate = jest.fn();
 
-        const renderResult = setup(
-            <Feed
-                posts={posts}
-                onPostDelete={mockPostDelete}
-                onPostUpdate={mockPostUpdate}
-            />,
-            { wrapper: UserContextProvider },
-        );
+    const renderResult = renderWithUser(
+        <Feed
+            posts={posts}
+            onPostDelete={mockPostDelete}
+            onPostUpdate={mockPostUpdate}
+        />,
+        { wrapper: UserContextProvider },
+    );
 
-        return {
-            ...renderResult,
-            mockPostDelete,
-            mockPostUpdate,
-        };
+    return {
+        ...renderResult,
+        mockPostDelete,
+        mockPostUpdate,
     };
+};
 
+describe('<Feed />', () => {
     describe('when posts are empty', () => {
         it('renders', () => {
             const { container } = renderFeed({ posts: [] });

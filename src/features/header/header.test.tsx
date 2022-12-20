@@ -1,24 +1,18 @@
-import { PropsWithChildren, ReactElement } from 'react';
-import { render, RenderOptions, screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { PropsWithChildren } from 'react';
 import { axe } from 'jest-axe';
 import { ThemeProvider } from 'next-themes';
 
+import { renderWithUser, screen, act } from '~test/helpers';
 import { Header } from './header';
 
 const Wrapper = ({ children }: PropsWithChildren) => (
     <ThemeProvider attribute="class">{children}</ThemeProvider>
 );
 
-const setup = (ui: ReactElement, options: RenderOptions) => ({
-    user: userEvent.setup(),
-    ...render(ui, options),
-});
+const renderHeader = () => renderWithUser(<Header />, { wrapper: Wrapper });
 
 describe('<Header />', () => {
-    const renderHeader = () => setup(<Header />, { wrapper: Wrapper });
-
-    it('renders', async () => {
+    it('renders', () => {
         const { container } = renderHeader();
 
         expect(container).toMatchSnapshot();

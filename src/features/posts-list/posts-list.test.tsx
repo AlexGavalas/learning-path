@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
 import { ReactElement, cloneElement } from 'react';
+import { axe } from 'jest-axe';
 
+import { renderWithUser, screen } from '~test/helpers';
 import { Post } from '~lib/posts';
 import { PostsList } from './posts-list';
 
@@ -17,7 +17,7 @@ describe('<PostsList />', () => {
         const NO_LINES = {};
 
         it('renders', () => {
-            const { container } = render(
+            const { container } = renderWithUser(
                 <PostsList posts={NO_POSTS} lines={NO_LINES} />,
             );
 
@@ -25,7 +25,7 @@ describe('<PostsList />', () => {
         });
 
         it('is accessible', async () => {
-            const { container } = render(
+            const { container } = renderWithUser(
                 <PostsList posts={NO_POSTS} lines={NO_LINES} />,
             );
 
@@ -51,7 +51,7 @@ describe('<PostsList />', () => {
         const NO_LINES = {};
 
         it('renders', () => {
-            const { container } = render(
+            const { container } = renderWithUser(
                 <PostsList posts={POSTS} lines={NO_LINES} />,
             );
 
@@ -59,7 +59,7 @@ describe('<PostsList />', () => {
         });
 
         it('is accessible', async () => {
-            const { container } = render(
+            const { container } = renderWithUser(
                 <PostsList posts={POSTS} lines={NO_LINES} />,
             );
 
@@ -69,7 +69,7 @@ describe('<PostsList />', () => {
         });
 
         it('renders item in a link', () => {
-            render(<PostsList posts={POSTS} lines={NO_LINES} />);
+            renderWithUser(<PostsList posts={POSTS} lines={NO_LINES} />);
 
             const link = screen.getByRole('link', {
                 name: new RegExp(POSTS[0].title),
@@ -84,7 +84,7 @@ describe('<PostsList />', () => {
             };
 
             it('renders', () => {
-                const { container } = render(
+                const { container } = renderWithUser(
                     <PostsList posts={POSTS} lines={LINES} />,
                 );
 
@@ -92,7 +92,7 @@ describe('<PostsList />', () => {
             });
 
             it('is accessible', async () => {
-                const { container } = render(
+                const { container } = renderWithUser(
                     <PostsList posts={POSTS} lines={LINES} />,
                 );
 

@@ -1,13 +1,5 @@
-import { ReactElement } from 'react';
-import { render, RenderOptions, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
+import { renderWithUser, screen } from '~test/helpers';
 import { ListItem } from './item';
-
-const setup = (ui: ReactElement, options?: RenderOptions) => ({
-    user: userEvent.setup(),
-    ...render(ui, options),
-});
 
 const post: UserPost = {
     id: '1',
@@ -16,27 +8,27 @@ const post: UserPost = {
     post: 'post',
 };
 
-describe('<ListItem />', () => {
-    const renderListItem = ({ isMine }: { isMine: boolean }) => {
-        const mockOnPostDelete = jest.fn();
-        const mockOnPostUpdate = jest.fn();
+const renderListItem = ({ isMine }: { isMine: boolean }) => {
+    const mockOnPostDelete = jest.fn();
+    const mockOnPostUpdate = jest.fn();
 
-        const renderResult = setup(
-            <ListItem
-                post={post}
-                isMine={isMine}
-                onPostDelete={mockOnPostDelete}
-                onPostUpdate={mockOnPostUpdate}
-            />,
-        );
+    const renderResult = renderWithUser(
+        <ListItem
+            post={post}
+            isMine={isMine}
+            onPostDelete={mockOnPostDelete}
+            onPostUpdate={mockOnPostUpdate}
+        />,
+    );
 
-        return {
-            ...renderResult,
-            mockOnPostDelete,
-            mockOnPostUpdate,
-        };
+    return {
+        ...renderResult,
+        mockOnPostDelete,
+        mockOnPostUpdate,
     };
+};
 
+describe('<ListItem />', () => {
     describe('when the post is not mine', () => {
         it('renders', () => {
             const { container } = renderListItem({ isMine: false });

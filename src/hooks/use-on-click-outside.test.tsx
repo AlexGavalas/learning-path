@@ -1,13 +1,7 @@
-import { ReactElement, useRef } from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { useRef } from 'react';
 
+import { renderWithUser, screen } from '~test/helpers';
 import { useOnClickOutside } from './use-on-click-outside';
-
-const setup = (ui: ReactElement) => ({
-    user: userEvent.setup(),
-    ...render(ui, {}),
-});
 
 type Callback = Parameters<typeof useOnClickOutside>[1];
 
@@ -29,7 +23,7 @@ describe('useOnClickOutside', () => {
         test('calls callback', async () => {
             const callback = jest.fn();
 
-            const { user } = setup(<Component callback={callback} />);
+            const { user } = renderWithUser(<Component callback={callback} />);
 
             expect(callback).toHaveBeenCalledTimes(0);
 
@@ -43,7 +37,7 @@ describe('useOnClickOutside', () => {
         test('does not call the callback', async () => {
             const callback = jest.fn();
 
-            const { user } = setup(<Component callback={callback} />);
+            const { user } = renderWithUser(<Component callback={callback} />);
 
             expect(callback).toHaveBeenCalledTimes(0);
 
@@ -58,7 +52,7 @@ describe('useOnClickOutside', () => {
 
         jest.spyOn(document, 'removeEventListener');
 
-        const { unmount } = setup(<Component callback={callback} />);
+        const { unmount } = renderWithUser(<Component callback={callback} />);
 
         expect(callback).toHaveBeenCalledTimes(0);
 

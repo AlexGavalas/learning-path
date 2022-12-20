@@ -1,17 +1,17 @@
-import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
+import { renderWithUser } from '~test/helpers';
 import { ListItem } from './list-item';
 
 describe('<ListItem />', () => {
     it('renders', () => {
-        const { container } = render(<ListItem>list item</ListItem>);
+        const { container } = renderWithUser(<ListItem>list item</ListItem>);
 
         expect(container).toMatchSnapshot();
     });
 
     it('is accessible', async () => {
-        const { container } = render(
+        const { container } = renderWithUser(
             <ul>
                 <ListItem>list item</ListItem>
             </ul>,

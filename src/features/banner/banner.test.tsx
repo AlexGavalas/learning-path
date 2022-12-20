@@ -1,17 +1,17 @@
-import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
+import { renderWithUser } from '~test/helpers';
 import { Banner } from './banner';
 
 describe('<Banner />', () => {
     it('renders', () => {
-        const { container } = render(<Banner />);
+        const { container } = renderWithUser(<Banner />);
 
         expect(container).toMatchSnapshot();
     });
 
     it('is accessible', async () => {
-        const { container } = render(<Banner />);
+        const { container } = renderWithUser(<Banner />);
 
         const a11yResults = await axe(container);
 
