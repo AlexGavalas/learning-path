@@ -1,5 +1,5 @@
 import { FormattedDate } from '~components/formatted-date';
-import { Post } from '~lib/posts';
+import { type Post } from '~lib/posts';
 
 type PostHeaderProps = {
     post: Post;

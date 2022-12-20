@@ -1,8 +1,9 @@
 import { axe } from 'jest-axe';
 
+import { type Post } from '~lib/posts';
 import { renderWithUser } from '~test/helpers';
+
 import { PostHeader } from './post-header';
-import { Post } from '~lib/posts';
 
 describe('<PostHeader />', () => {
     const post: Post = {

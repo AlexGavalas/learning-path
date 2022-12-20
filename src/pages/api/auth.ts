@@ -1,4 +1,4 @@
-import type { NextApiHandler } from 'next';
+import { type NextApiHandler } from 'next';
 
 import { supabase } from '~lib/supabase';
 

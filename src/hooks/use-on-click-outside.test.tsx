@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import { renderWithUser, screen } from '~test/helpers';
+
 import { useOnClickOutside } from './use-on-click-outside';
 
 type Callback = Parameters<typeof useOnClickOutside>[1];

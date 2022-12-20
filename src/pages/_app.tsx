@@ -1,14 +1,14 @@
-import type { AppProps } from 'next/app';
-import Head from 'next/head';
-import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
+import { type AppProps } from 'next/app';
+import Head from 'next/head';
+import Script from 'next/script';
+
+import { Header } from '~features/header';
+import { UserContextProvider } from '~lib/use-user';
 
 import '../styles/global.css';
-
-import { UserContextProvider } from '~lib/use-user';
-import { Header } from '~features/header';
 
 const GOOGLE_MEASUREMENT_ID = 'G-2CSN2TQ5R3';
 

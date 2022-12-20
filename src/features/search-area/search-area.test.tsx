@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { axe } from 'jest-axe';
+import { useState } from 'react';
 
-import type { Post } from '~lib/posts';
-
-import { renderWithUser, screen } from '~test/helpers';
+import { type Post } from '~lib/posts';
 import { supabase } from '~lib/supabase';
+import { renderWithUser, screen } from '~test/helpers';
+
 import { SearchArea } from './search-area';
 
 jest.mock('~lib/supabase');

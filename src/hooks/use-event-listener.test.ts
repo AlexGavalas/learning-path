@@ -1,4 +1,5 @@
 import { renderHookWithUser } from '~test/helpers';
+
 import { useEventListener } from './use-event-listener';
 
 describe('useEventListener', () => {

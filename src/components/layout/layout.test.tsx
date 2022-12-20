@@ -1,4 +1,5 @@
 import { renderWithUser } from '~test/helpers';
+
 import { Layout } from './layout';
 
 describe('<Layout />', () => {

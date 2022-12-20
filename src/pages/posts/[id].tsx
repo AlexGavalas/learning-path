@@ -1,12 +1,12 @@
-import type { GetStaticProps, GetStaticPaths } from 'next';
+import { type GetStaticPaths, type GetStaticProps } from 'next';
+import { MDXRemote } from 'next-mdx-remote';
 import Head from 'next/head';
 import Link from 'next/link';
-import { MDXRemote } from 'next-mdx-remote';
 
 import { Layout } from '~components/layout';
 import { components } from '~components/mdx';
-import { getAllPostIds, getPostData, Post } from '~lib/posts';
 import { PostHeader } from '~features/post-header';
+import { type Post, getAllPostIds, getPostData } from '~lib/posts';
 
 export const getStaticProps: GetStaticProps<
     { post: Post },

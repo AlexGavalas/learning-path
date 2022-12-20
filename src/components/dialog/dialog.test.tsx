@@ -1,6 +1,7 @@
 import { axe } from 'jest-axe';
 
 import { renderWithUser, screen } from '~test/helpers';
+
 import { Dialog } from './dialog';
 
 describe('<Dialog />', () => {

@@ -1,8 +1,9 @@
 import { axe } from 'jest-axe';
 
-import { renderWithUser, screen, act, waitFor } from '~test/helpers';
-import { UserContextProvider } from '~lib/use-user';
 import { supabase } from '~lib/supabase';
+import { UserContextProvider } from '~lib/use-user';
+import { act, renderWithUser, screen, waitFor } from '~test/helpers';
+
 import { Feed } from './feed';
 
 jest.mock('~lib/supabase');

@@ -1,10 +1,11 @@
-import { FC, useRef, useEffect, useCallback } from 'react';
+import { AnimatePresence, type HTMLMotionProps, motion } from 'framer-motion';
+import { type FC, useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { AnimatePresence, motion, HTMLMotionProps } from 'framer-motion';
 
-import { useOnClickOutside } from '~hooks/use-on-click-outside';
-import { variants } from './constants';
 import { useEventListener } from '~hooks/use-event-listener';
+import { useOnClickOutside } from '~hooks/use-on-click-outside';
+
+import { variants } from './constants';
 
 type DialogSize = 'md';
 

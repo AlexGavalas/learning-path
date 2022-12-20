@@ -1,6 +1,7 @@
 import { axe } from 'jest-axe';
 
 import { renderWithUser } from '~test/helpers';
+
 import { Button } from './button';
 
 describe('<Button />', () => {

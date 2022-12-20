@@ -1,6 +1,7 @@
 import { axe } from 'jest-axe';
 
 import { act, renderWithUser } from '~test/helpers';
+
 import { CustomLink } from './link';
 
 describe('<CustomLink />', () => {

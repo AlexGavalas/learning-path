@@ -1,4 +1,4 @@
-import type { FC, ButtonHTMLAttributes } from 'react';
+import { type ButtonHTMLAttributes, type FC } from 'react';
 
 type ButtonVariant = 'danger' | 'wrapper' | 'default';
 

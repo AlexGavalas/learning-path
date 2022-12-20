@@ -1,8 +1,9 @@
-import { PropsWithChildren } from 'react';
 import { axe } from 'jest-axe';
 import { ThemeProvider } from 'next-themes';
+import { type PropsWithChildren } from 'react';
 
-import { renderWithUser, screen, act } from '~test/helpers';
+import { act, renderWithUser, screen } from '~test/helpers';
+
 import { Header } from './header';
 
 const Wrapper = ({ children }: PropsWithChildren) => (

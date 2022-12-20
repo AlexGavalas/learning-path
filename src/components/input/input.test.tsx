@@ -1,6 +1,7 @@
 import { axe } from 'jest-axe';
 
 import { renderWithUser } from '~test/helpers';
+
 import { Input } from './input';
 
 describe('<Input />', () => {

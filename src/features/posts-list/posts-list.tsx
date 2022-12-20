@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { FormattedDate } from '~components/formatted-date';
 import { List, ListItem } from '~components/list';
-import { Post } from '~lib/posts';
+import { type Post } from '~lib/posts';
 
 type PostsListProps = {
     posts: Post[];

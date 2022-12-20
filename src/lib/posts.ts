@@ -1,11 +1,11 @@
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import { compareDesc, parseISO } from 'date-fns';
+import fs from 'fs';
+import matter from 'gray-matter';
+import { type MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import rehypeExternalLinks from 'rehype-external-links';
+import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 
 const POSTS_DIR = path.join(process.cwd(), 'posts');

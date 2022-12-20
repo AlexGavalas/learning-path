@@ -1,5 +1,5 @@
-import type { FC, ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import { type FC, type ReactNode } from 'react';
 
 import { variants } from './constants';
 

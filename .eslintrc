@@ -15,5 +15,14 @@
     "env": {
         "node": true,
         "browser": true
+    },
+    "rules": {
+        "@typescript-eslint/consistent-type-imports": [
+            "warn",
+            {
+                "prefer": "type-imports",
+                "fixStyle": "inline-type-imports"
+            }
+        ]
     }
 }

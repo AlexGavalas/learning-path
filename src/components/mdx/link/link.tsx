@@ -1,5 +1,5 @@
-import { AnchorHTMLAttributes } from 'react';
 import Link from 'next/link';
+import { type AnchorHTMLAttributes } from 'react';
 
 // Custom link component to use next's Link for internal routing
 export const CustomLink = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {

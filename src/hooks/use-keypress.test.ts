@@ -1,4 +1,5 @@
 import { renderHookWithUser } from '~test/helpers';
+
 import { useKeypress } from './use-keypress';
 
 describe('useKeypress', () => {

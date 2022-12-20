@@ -1,4 +1,5 @@
 import { renderWithUser } from '~test/helpers';
+
 import { YoutubeIcon } from './icons';
 
 describe('<Icons />', () => {

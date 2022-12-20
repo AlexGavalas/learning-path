@@ -1,13 +1,13 @@
-import type { GetServerSideProps } from 'next';
-import { useState, FormEventHandler, useRef } from 'react';
+import { type GetServerSideProps } from 'next';
+import { type FormEventHandler, useRef, useState } from 'react';
 
-import { Layout } from '~components/layout';
-import { Textarea } from '~components/textarea';
 import { Button } from '~components/button';
+import { Layout } from '~components/layout';
 import { Loader } from '~components/loader';
+import { Textarea } from '~components/textarea';
+import { Feed as FeedList } from '~features/feed';
 import { supabase } from '~lib/supabase';
 import { useUser } from '~lib/use-user';
-import { Feed as FeedList } from '../features/feed';
 
 interface FeedProps {
     posts: UserPost[];

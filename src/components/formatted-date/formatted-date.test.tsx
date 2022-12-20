@@ -1,6 +1,7 @@
 import { axe } from 'jest-axe';
 
 import { renderWithUser, screen } from '~test/helpers';
+
 import { FormattedDate } from './formatted-date';
 
 const mockDate = new Date('2022-01-01');

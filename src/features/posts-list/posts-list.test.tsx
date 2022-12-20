@@ -1,8 +1,9 @@
-import { ReactElement, cloneElement } from 'react';
 import { axe } from 'jest-axe';
+import { type ReactElement, cloneElement } from 'react';
 
+import { type Post } from '~lib/posts';
 import { renderWithUser, screen } from '~test/helpers';
-import { Post } from '~lib/posts';
+
 import { PostsList } from './posts-list';
 
 jest.mock(

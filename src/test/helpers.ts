@@ -1,11 +1,11 @@
-import type { ReactElement } from 'react';
 import {
+    type RenderHookOptions,
+    type RenderOptions,
     render,
     renderHook,
-    RenderOptions,
-    RenderHookOptions,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { type ReactElement } from 'react';
 
 export * from '@testing-library/react';
 

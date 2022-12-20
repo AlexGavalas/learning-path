@@ -1,11 +1,11 @@
-import type { NextPage, GetStaticProps } from 'next';
+import { type GetStaticProps, type NextPage } from 'next';
 import { useState } from 'react';
 
 import { Layout } from '~components/layout';
-import { SearchArea } from '~features/search-area';
 import { Banner } from '~features/banner';
 import { PostsList } from '~features/posts-list';
-import { getSortedPosts, Post } from '~lib/posts';
+import { SearchArea } from '~features/search-area';
+import { type Post, getSortedPosts } from '~lib/posts';
 
 export const getStaticProps: GetStaticProps = async () => {
     const allPosts = getSortedPosts();

@@ -1,4 +1,4 @@
-import { parseISO, format as formatDate } from 'date-fns';
+import { format as formatDate, parseISO } from 'date-fns';
 
 interface DateProps {
     dateString: string;

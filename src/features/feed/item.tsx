@@ -1,8 +1,8 @@
-import { useState, FormEventHandler } from 'react';
 import { format } from 'date-fns';
+import { type FormEventHandler, useState } from 'react';
 
-import { Dialog } from '~components/dialog';
 import { Button } from '~components/button';
+import { Dialog } from '~components/dialog';
 import { Textarea } from '~components/textarea';
 
 interface ListItemProps {

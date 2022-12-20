@@ -1,9 +1,9 @@
 import Document, {
-    Html,
+    type DocumentContext,
     Head,
+    Html,
     Main,
     NextScript,
-    DocumentContext,
 } from 'next/document';
 
 const DESCRIPTION = 'Learn stuff about software development';

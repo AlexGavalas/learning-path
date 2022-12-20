@@ -1,13 +1,16 @@
 import {
-    FC,
-    ReactNode,
+    type AuthChangeEvent,
+    type Session,
+    type User,
+} from '@supabase/supabase-js';
+import {
+    type FC,
+    type ReactNode,
+    createContext,
+    useContext,
     useEffect,
     useState,
-    useContext,
-    createContext,
 } from 'react';
-
-import { Session, User, AuthChangeEvent } from '@supabase/supabase-js';
 
 import { supabase } from '~lib/supabase';
 

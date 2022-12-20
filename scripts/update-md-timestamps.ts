@@ -1,6 +1,6 @@
+import { format } from 'date-fns';
 import fs from 'fs';
 import matter from 'gray-matter';
-import { format } from 'date-fns';
 
 const readFile = (file: string) => fs.promises.readFile(file, 'utf8');
 

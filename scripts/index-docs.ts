@@ -1,7 +1,7 @@
-import fs from 'fs/promises';
-import path from 'path';
-import matter from 'gray-matter';
 import { createClient } from '@supabase/supabase-js';
+import fs from 'fs/promises';
+import matter from 'gray-matter';
+import path from 'path';
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
