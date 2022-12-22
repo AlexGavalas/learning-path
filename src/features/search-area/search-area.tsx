@@ -1,9 +1,9 @@
+import { useRouter } from 'next/router';
 import {
-    type Dispatch,
     type FormEventHandler,
     type MouseEventHandler,
-    type SetStateAction,
     useCallback,
+    useEffect,
     useRef,
     useState,
 } from 'react';
@@ -12,18 +12,11 @@ import { Button } from '~components/button';
 import { Input } from '~components/input';
 import { Loader } from '~components/loader';
 import { useKeypress } from '~hooks/use-keypress';
-import { type Post } from '~lib/posts';
-import { supabase } from '~lib/supabase';
 
-const QUERY_FIELD_NAME = 'query';
+const QUERY_FIELD_NAME = 'q';
 
-type SearchAreaProps = {
-    posts: Post[];
-    setPosts: Dispatch<SetStateAction<Post[]>>;
-    setLines: Dispatch<SetStateAction<Record<string, string[]>>>;
-};
-
-export const SearchArea = ({ posts, setPosts, setLines }: SearchAreaProps) => {
+export const SearchArea = () => {
+    const router = useRouter();
     const queryEl = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
@@ -33,51 +26,40 @@ export const SearchArea = ({ posts, setPosts, setLines }: SearchAreaProps) => {
         queryEl.current?.focus();
     }, []);
 
+    useEffect(() => {
+        setLoading(false);
+
+        const q = router.query[QUERY_FIELD_NAME]?.toString();
+
+        if (q) {
+            setQuery(q);
+        }
+    }, [router.asPath, router.query]);
+
     useKeypress('/', keyPressHandler);
 
-    const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-
-        if (!query) {
-            setLines({});
-            setPosts(posts);
-
-            return;
-        }
 
         setLoading(true);
 
-        try {
-            const { data } = await supabase.rpc('search_notes', { q: query });
+        const url = new URL(location.href);
 
-            const lines =
-                data?.reduce<Record<string, string[]>>(
-                    (acc, { title, line }) => {
-                        acc[title] = (acc[title] || []).concat(line);
-                        return acc;
-                    },
-                    {},
-                ) ?? {};
-
-            const postTitles = data?.map(({ title }) => title) ?? [];
-
-            const filteredPosts = posts.filter(({ title }) =>
-                postTitles.includes(title),
-            );
-
-            setPosts(filteredPosts);
-            setLines(lines);
-        } catch (e) {
-            console.error(e);
-        } finally {
-            setLoading(false);
+        if (query) {
+            url.searchParams.set(QUERY_FIELD_NAME, query);
         }
+
+        router.push(url);
     };
 
     const onClear: MouseEventHandler<HTMLButtonElement> = () => {
         setQuery('');
-        setPosts(posts);
-        setLines({});
+
+        const url = new URL(location.href);
+
+        url.searchParams.delete(QUERY_FIELD_NAME);
+
+        router.push(url);
     };
 
     return (

@@ -1,34 +1,32 @@
 import { axe } from 'jest-axe';
-import { useState } from 'react';
 
-import { type Post } from '~lib/posts';
-import { supabase } from '~lib/supabase';
 import { renderWithUser, screen } from '~test/helpers';
 
 import { SearchArea } from './search-area';
 
-jest.mock('~lib/supabase');
+const mockPush = jest.fn();
 
-const POSTS: Post[] = [
-    {
-        id: '1',
-        date: '2022-01-01',
-        mdxSource: {
-            compiledSource: 'markdown',
-        },
-        title: 'title',
-        updated: '2022-01-01',
+jest.mock('next/router', () => ({
+    useRouter() {
+        return {
+            route: '',
+            pathname: '',
+            query: '',
+            asPath: '',
+            push: mockPush,
+            events: {
+                on: jest.fn(),
+                off: jest.fn(),
+            },
+            beforePopState: jest.fn(() => null),
+            prefetch: jest.fn(() => null),
+        };
     },
-];
+}));
 
-const TestComponent = () => {
-    const [posts, setPosts] = useState(POSTS);
-    const [, setLines] = useState({});
+const renderSearchArea = () => renderWithUser(<SearchArea />);
 
-    return <SearchArea posts={posts} setLines={setLines} setPosts={setPosts} />;
-};
-
-const renderSearchArea = () => renderWithUser(<TestComponent />);
+const baseURL = new URL('http://localhost/');
 
 describe('<SearchArea />', () => {
     it('renders', () => {
@@ -82,27 +80,15 @@ describe('<SearchArea />', () => {
             await user.click(screen.getByText(/clear/i));
 
             expect(searchInput).toHaveValue('');
+
+            const url = new URL(baseURL);
+            url.searchParams.delete('q');
+
+            expect(mockPush).toHaveBeenCalledTimes(1);
+            expect(mockPush).toHaveBeenCalledWith(url);
         });
 
         describe('when user clicks search', () => {
-            const mockRpc = jest.mocked(supabase.rpc);
-
-            beforeAll(() => {
-                mockRpc.mockResolvedValue({
-                    data: [{ id: 1, line: 'line', title: 'title' }],
-                    count: 1,
-                    error: null,
-                    status: 200,
-                    statusText: 'ok',
-                });
-
-                jest.spyOn(console, 'error').mockImplementation(() => void 0);
-            });
-
-            afterAll(() => {
-                jest.resetAllMocks();
-            });
-
             it('does nothing when the search query is empty', async () => {
                 const { user } = renderSearchArea();
 
@@ -110,7 +96,8 @@ describe('<SearchArea />', () => {
                     screen.getByRole('button', { name: /search/i }),
                 );
 
-                expect(mockRpc).not.toHaveBeenCalled();
+                expect(mockPush).toHaveBeenCalledTimes(1);
+                expect(mockPush).toHaveBeenCalledWith(baseURL);
             });
 
             it('calls the supabase rpc when it has a query', async () => {
@@ -123,25 +110,11 @@ describe('<SearchArea />', () => {
                     screen.getByRole('button', { name: /search/i }),
                 );
 
-                expect(mockRpc).toHaveBeenCalledTimes(1);
-                expect(mockRpc).toHaveBeenCalledWith('search_notes', {
-                    q: searchQuery,
-                });
-            });
+                const url = new URL(baseURL);
+                url.searchParams.set('q', searchQuery);
 
-            it('handles errors', async () => {
-                mockRpc.mockRejectedValueOnce('error');
-
-                const { user } = renderSearchArea();
-                const searchQuery = 'abc';
-
-                await user.keyboard(`/${searchQuery}`);
-
-                await user.click(
-                    screen.getByRole('button', { name: /search/i }),
-                );
-
-                expect(console.error).toHaveBeenCalledTimes(1);
+                expect(mockPush).toHaveBeenCalledTimes(1);
+                expect(mockPush).toHaveBeenCalledWith(url);
             });
         });
     });

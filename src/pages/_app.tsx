@@ -31,7 +31,11 @@ const GoogleAnalytics = () => (
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps, router }: AppProps) => {
+    const q = router.query.q?.toString();
+
+    const title = `Learning Path${q && ` - ${q}`}`;
+
     return (
         <>
             {isProd && <GoogleAnalytics />}
@@ -39,7 +43,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <ThemeProvider attribute="class">
                 <UserContextProvider>
                     <Head>
-                        <title>Learning Path</title>
+                        <title>{title}</title>
                         <meta
                             name="viewport"
                             content="width=device-width, initial-scale=1"

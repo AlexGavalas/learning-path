@@ -14,7 +14,7 @@ exports[`<SearchArea /> renders 1`] = `
       <input
         autocomplete="off"
         class="pl-2 w-full h-1/2 border-[1px] dark:border-0 border-solid bg-transparent dark:bg-neutral-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
-        name="query"
+        name="q"
         placeholder="Type here"
         value=""
       />
