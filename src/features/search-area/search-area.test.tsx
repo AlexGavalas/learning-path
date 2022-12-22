@@ -80,6 +80,7 @@ describe('<SearchArea />', () => {
             await user.click(screen.getByText(/clear/i));
 
             expect(searchInput).toHaveValue('');
+            expect(searchInput).toHaveFocus();
 
             const url = new URL(baseURL);
             url.searchParams.delete('q');

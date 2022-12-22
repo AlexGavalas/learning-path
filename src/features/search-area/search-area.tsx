@@ -62,6 +62,8 @@ export const SearchArea = () => {
         url.searchParams.delete(QUERY_FIELD_NAME);
 
         router.push(url);
+
+        queryEl.current?.focus();
     };
 
     return (
