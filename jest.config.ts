@@ -4,6 +4,8 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 
 const config: Config.InitialOptions = {
+    clearMocks: true,
+
     collectCoverage: false,
     coverageReporters: ['text'],
     collectCoverageFrom: [
