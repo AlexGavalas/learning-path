@@ -47,6 +47,8 @@ export const SearchArea = () => {
 
         if (query) {
             url.searchParams.set(QUERY_FIELD_NAME, query);
+        } else {
+            url.searchParams.delete(QUERY_FIELD_NAME);
         }
 
         router.push(url);

@@ -96,8 +96,11 @@ describe('<SearchArea />', () => {
                     screen.getByRole('button', { name: /search/i }),
                 );
 
+                const url = new URL(baseURL);
+                url.searchParams.delete('q');
+
                 expect(mockPush).toHaveBeenCalledTimes(1);
-                expect(mockPush).toHaveBeenCalledWith(baseURL);
+                expect(mockPush).toHaveBeenCalledWith(url);
             });
 
             it('calls the supabase rpc when it has a query', async () => {
