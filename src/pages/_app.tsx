@@ -30,10 +30,12 @@ const GoogleAnalytics = () => (
 
 const isProd = process.env.NODE_ENV === 'production';
 
+const BASE_URL = 'Learning Path';
+
 const App = ({ Component, pageProps, router }: AppProps) => {
     const q = router.query.q?.toString();
 
-    const title = `Learning Path${q && ` - ${q}`}`;
+    const title = q ? `${BASE_URL} - ${q}` : BASE_URL;
 
     return (
         <>
