@@ -50,7 +50,6 @@ button:focus-visible {
     outline: 2px auto -webkit-focus-ring-color;
 }
 
-/* Added to utilities layer to support tailwind modifiers */
 @layer utilities {
     .heading h2 a {
         @apply text-teal-500;
@@ -58,5 +57,9 @@ button:focus-visible {
 
     .dark-heading h2 a {
         @apply text-yellow-500;
+    }
+
+    .prose svg {
+        @apply mb-0;
     }
 }
