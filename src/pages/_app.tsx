@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { type AppProps } from 'next/app';
@@ -39,7 +38,6 @@ const App = ({ Component, pageProps, router }: AppProps) => {
     return (
         <>
             {isProd && <GoogleAnalytics />}
-            {isProd && <Analytics />}
             <ThemeProvider attribute="class">
                 <UserContextProvider>
                     <Head>

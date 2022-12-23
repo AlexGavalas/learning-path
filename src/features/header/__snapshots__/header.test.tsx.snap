@@ -12,6 +12,7 @@ exports[`<Header /> renders 1`] = `
       class="flex"
     >
       <a
+        class="cursor-pointer hover:no-underline font-[700] p-2 m-2 text-3xl text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-800"
         href="/"
       >
         Learning Path
