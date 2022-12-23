@@ -2,7 +2,7 @@ import { type GetServerSideProps, type NextPage, type PageConfig } from 'next';
 
 import { Layout } from '~components/layout';
 import { Banner } from '~features/banner';
-import { PostsList } from '~features/posts-list';
+import { NotesList } from '~features/notes-list';
 import { SearchArea } from '~features/search-area';
 import { supabase } from '~lib/supabase';
 
@@ -11,7 +11,7 @@ import { type Note } from '../../types/notes.types';
 type Lines = Record<string, string[]>;
 
 type HomeProps = {
-    posts: Note[];
+    notes: Note[];
     lines: Lines;
     error?: boolean;
 };
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
 }) => {
     const { data } = await supabase.rpc('get_notes_meta');
 
-    const allPosts = data ?? [];
+    const allNotes = data ?? [];
 
     const q = query.q?.toString();
 
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
         if (error) {
             return {
                 props: {
-                    posts: [],
+                    notes: [],
                     lines: {},
                     error: true,
                 },
@@ -47,15 +47,15 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
             return acc;
         }, {});
 
-        const postTitles = new Set(data.map(({ title }) => title));
+        const noteTitles = new Set(data.map(({ title }) => title));
 
-        const filteredPosts = allPosts.filter(({ title }) =>
-            postTitles.has(title),
+        const filteredNotes = allNotes.filter(({ title }) =>
+            noteTitles.has(title),
         );
 
         return {
             props: {
-                posts: filteredPosts,
+                notes: filteredNotes,
                 lines,
             },
         };
@@ -63,20 +63,20 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
 
     return {
         props: {
-            posts: allPosts,
+            notes: allNotes,
             lines: {},
         },
     };
 };
 
-const Home: NextPage<HomeProps> = ({ posts, lines }) => {
+const Home: NextPage<HomeProps> = ({ notes, lines }) => {
     return (
         <Layout>
             <section className="leading-8 text-xl">
                 <Banner />
                 <SearchArea />
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>
-                <PostsList lines={lines} posts={posts} />
+                <NotesList lines={lines} notes={notes} />
             </section>
         </Layout>
     );

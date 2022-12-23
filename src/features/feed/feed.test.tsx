@@ -9,7 +9,7 @@ import { Feed } from './feed';
 
 jest.mock('~lib/supabase');
 
-const POSTS: UserPost[] = [
+const USER_POSTS: UserPost[] = [
     {
         id: '1',
         created_at: new Date('2022-01-01').toISOString(),
@@ -80,13 +80,13 @@ describe('<Feed />', () => {
 
     describe('when posts exist', () => {
         it('renders', () => {
-            const { container } = renderFeed({ posts: POSTS });
+            const { container } = renderFeed({ posts: USER_POSTS });
 
             expect(container).toMatchSnapshot();
         });
 
         it('is accessible', async () => {
-            const { container } = renderFeed({ posts: POSTS });
+            const { container } = renderFeed({ posts: USER_POSTS });
 
             const a11yResults = await axe(container);
 
@@ -107,7 +107,7 @@ describe('<Feed />', () => {
             describe('when onPostDelete resolves', () => {
                 it('opens the confirm dialog', async () => {
                     const { user, mockPostDelete } = await act(async () =>
-                        renderFeed({ posts: POSTS }),
+                        renderFeed({ posts: USER_POSTS }),
                     );
 
                     await user.click(screen.getByText(/delete/i));
@@ -117,7 +117,9 @@ describe('<Feed />', () => {
                     await user.click(screen.getByText(/yes/i));
 
                     expect(mockPostDelete).toHaveBeenCalledTimes(1);
-                    expect(mockPostDelete).toHaveBeenCalledWith(POSTS[0].id);
+                    expect(mockPostDelete).toHaveBeenCalledWith(
+                        USER_POSTS[0].id,
+                    );
 
                     await waitFor(() =>
                         expect(
@@ -130,7 +132,7 @@ describe('<Feed />', () => {
             describe('when onPostDelete rejects', () => {
                 it('shows the error message', async () => {
                     const { user, mockPostDelete } = await act(async () =>
-                        renderFeed({ posts: POSTS }),
+                        renderFeed({ posts: USER_POSTS }),
                     );
 
                     const errorMessage = 'error';
@@ -146,7 +148,7 @@ describe('<Feed />', () => {
 
                 it('shows a generic error', async () => {
                     const { user, mockPostDelete } = await act(async () =>
-                        renderFeed({ posts: POSTS }),
+                        renderFeed({ posts: USER_POSTS }),
                     );
 
                     mockPostDelete.mockRejectedValue({});

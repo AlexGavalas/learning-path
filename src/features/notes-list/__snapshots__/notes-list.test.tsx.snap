@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NotesList /> when there are no notes renders 1`] = `
+<div>
+  <p
+    class="text-center"
+  >
+    No notes found
+  </p>
+</div>
+`;
+
+exports[`<NotesList /> when there are notes renders 1`] = `
+<div>
+  <ul
+    class="list-none p-0 divide-x-0 divide-y-2 divide-solid dark:divide-zinc-800 divide-zinc-300"
+  >
+    <li>
+      <div
+        class="hover:no-underline"
+        href="/notes/filename"
+        role="link"
+      >
+        <div
+          class="flex gap-2 flex-col-reverse sm:flex-row"
+        >
+          <time
+            datetime="2022-01-01"
+          >
+            01/01/22
+          </time>
+          <span
+            class="text-teal-500 dark:text-yellow-500 hover:no-underline"
+          >
+            title
+          </span>
+        </div>
+        <span
+          class="opacity-0 group-hover:animate-pulse"
+        >
+          ⇝
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<NotesList /> when there are notes when there are lines renders 1`] = `
+<div>
+  <ul
+    class="list-none p-0 divide-x-0 divide-y-2 divide-solid dark:divide-zinc-800 divide-zinc-300"
+  >
+    <li>
+      <div
+        class="hover:no-underline"
+        href="/notes/filename"
+        role="link"
+      >
+        <div
+          class="flex gap-2 flex-col-reverse sm:flex-row"
+        >
+          <time
+            datetime="2022-01-01"
+          >
+            01/01/22
+          </time>
+          <span
+            class="text-teal-500 dark:text-yellow-500 hover:no-underline"
+          >
+            title
+          </span>
+        </div>
+        <span
+          class="opacity-0 group-hover:animate-pulse"
+        >
+          ⇝
+        </span>
+      </div>
+      <ul
+        class="pb-4"
+      >
+        <li
+          class="marker:text-teal-500 dark:marker:text-yellow-500 list-disc text-[0.9em]"
+        >
+          line
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+`;

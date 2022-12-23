@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoteHeader /> renders 1`] = `
+<div>
+  <h1
+    class="my-8"
+  >
+    title
+  </h1>
+  <div
+    class="text-gray-500 flex gap-2 mb-4"
+  >
+    <p>
+      Created at 
+      <time
+        datetime="2022-01-01"
+      >
+        1 Jan 2022
+      </time>
+    </p>
+    <p>
+       / 
+    </p>
+    <p>
+      Updated at 
+      <time
+        datetime="2022-01-01"
+      >
+        1 Jan 2022
+      </time>
+    </p>
+  </div>
+</div>
+`;

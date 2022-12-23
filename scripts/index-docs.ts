@@ -11,7 +11,7 @@ const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 
-const POSTS_DIR = path.join(process.cwd(), 'posts');
+const NOTES_DIR = path.join(process.cwd(), 'notes');
 
 const DELETE_LABEL = 'Delete took: ';
 const INDEX_LABEL = 'Indexing took: ';
@@ -34,13 +34,13 @@ const indexDocs = async () => {
 
     console.timeEnd(DELETE_LABEL);
 
-    const notes = await fs.readdir(POSTS_DIR);
+    const notes = await fs.readdir(NOTES_DIR);
 
     console.time(INDEX_LABEL);
 
     for (const filename of notes) {
         const fileContents = await fs.readFile(
-            `${POSTS_DIR}/${filename}`,
+            `${NOTES_DIR}/${filename}`,
             'utf-8',
         );
 
