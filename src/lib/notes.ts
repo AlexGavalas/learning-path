@@ -43,6 +43,5 @@ export const getNoteData = async (filename: string): Promise<NoteMDX> => {
     return {
         mdxSource,
         ...matterResult.data,
-        created: matterResult.data.date,
     } as NoteMDX;
 };

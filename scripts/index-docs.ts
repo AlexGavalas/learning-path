@@ -57,7 +57,7 @@ const indexDocs = async () => {
             title: data.title,
             line,
             filename: filename.replace(/\.mdx?$/, ''),
-            created: toISOString(data.date),
+            created: toISOString(data.created),
             updated: toISOString(data.updated),
         }));
 
