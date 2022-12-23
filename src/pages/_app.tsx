@@ -51,11 +51,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
                     </Head>
                     <div className="flex flex-col m-auto max-w-xl">
                         <Header />
-                        <AnimatePresence
-                            mode="wait"
-                            initial={false}
-                            onExitComplete={() => window.scrollTo(0, 0)}
-                        >
+                        <AnimatePresence mode="wait" initial={false}>
                             <Component {...pageProps} />
                         </AnimatePresence>
                     </div>
