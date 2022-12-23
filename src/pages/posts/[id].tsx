@@ -1,15 +1,20 @@
-import { type GetStaticPaths, type GetStaticProps } from 'next';
+import { type GetStaticPaths, type GetStaticProps, type NextPage } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Head from 'next/head';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
+import { Button } from '~components/button';
 import { Layout } from '~components/layout';
 import { components } from '~components/mdx';
 import { PostHeader } from '~features/post-header';
 import { type Post, getAllPostIds, getPostData } from '~lib/posts';
 
+type PostPageProps = {
+    post: Post;
+};
+
 export const getStaticProps: GetStaticProps<
-    { post: Post },
+    PostPageProps,
     { id: string }
 > = async ({ params }) => {
     if (!params?.id) {
@@ -36,7 +41,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-const PostPage = ({ post }: { post: Post }) => {
+const PostPage: NextPage<PostPageProps> = ({ post }) => {
+    const router = useRouter();
+
     return (
         <Layout>
             <Head>
@@ -48,13 +55,9 @@ const PostPage = ({ post }: { post: Post }) => {
                     <MDXRemote {...post.mdxSource} components={components} />
                 </div>
             </article>
-            <Link
-                href="/"
-                className="inline-block my-8 text-teal-500 dark:text-yellow-500"
-                role="link"
-            >
+            <Button variant="link" onClick={router.back}>
                 &#x21dc; Back to home
-            </Link>
+            </Button>
         </Layout>
     );
 };
