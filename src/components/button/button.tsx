@@ -1,22 +1,24 @@
 import { type ButtonHTMLAttributes, type FC } from 'react';
 
-type ButtonVariant = 'danger' | 'wrapper' | 'default';
+type ButtonVariant = 'danger' | 'wrapper' | 'default' | 'link';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant;
 }
 
 const bgClassNamesPerVariant: Record<ButtonVariant, string> = {
-    danger: 'bg-red-500 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-700',
+    danger: 'p-2 flex bg-red-500 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-700',
     default:
-        'bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600',
-    wrapper: 'bg-transparent hover:bg-gray-300 dark:hover:bg-gray-600',
+        'p-2 flex bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600',
+    wrapper: 'p-2 flex bg-transparent hover:bg-gray-300 dark:hover:bg-gray-600',
+    link: 'p-0 my-8 inline-block bg-transparent hover:underline cursor-pointer',
 };
 
 const textClassesPerVariant: Record<ButtonVariant, string> = {
     danger: 'text-white',
     default: 'text-black dark:text-white',
     wrapper: 'text-black dark:text-white',
+    link: 'text-lg text-teal-500 dark:text-yellow-500',
 };
 
 export const Button: FC<ButtonProps> = ({
@@ -30,7 +32,7 @@ export const Button: FC<ButtonProps> = ({
     return (
         <button
             {...rest}
-            className={`p-2 flex items-center rounded border-0 ${textClass} ${bgClass}`}
+            className={`items-center rounded border-0 ${textClass} ${bgClass}`}
         >
             {children}
         </button>
