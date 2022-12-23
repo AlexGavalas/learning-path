@@ -2,10 +2,11 @@ import Link from 'next/link';
 
 import { FormattedDate } from '~components/formatted-date';
 import { List, ListItem } from '~components/list';
-import { type Post } from '~lib/posts';
+
+import { type Note } from '../../../types/notes.types';
 
 type PostsListProps = {
-    posts: Post[];
+    posts: Note[];
     lines: Record<string, string[]>;
 };
 
@@ -16,10 +17,10 @@ export const PostsList = ({ posts, lines }: PostsListProps) => {
 
     return (
         <ul className="list-none p-0 divide-x-0 divide-y-2 divide-solid dark:divide-zinc-800 divide-zinc-300">
-            {posts.map(({ id, updated, title }) => (
-                <li key={id}>
+            {posts.map(({ filename, updated, title }) => (
+                <li key={filename}>
                     <Link
-                        href={`/posts/${id}`}
+                        href={`/posts/${filename}`}
                         className="hover:no-underline"
                         role="link"
                     >

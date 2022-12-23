@@ -1,5 +1,6 @@
 import { renderWithUser, screen } from '~test/helpers';
 
+import { type UserPost } from '../../../types/notes.types';
 import { ListItem } from './item';
 
 const post: UserPost = {

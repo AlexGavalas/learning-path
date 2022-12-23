@@ -1,24 +1,31 @@
-import { type GetServerSideProps, type NextPage } from 'next';
+import { type GetServerSideProps, type NextPage, type PageConfig } from 'next';
 
 import { Layout } from '~components/layout';
 import { Banner } from '~features/banner';
 import { PostsList } from '~features/posts-list';
 import { SearchArea } from '~features/search-area';
-import { type Post, getSortedPosts } from '~lib/posts';
 import { supabase } from '~lib/supabase';
+
+import { type Note } from '../../types/notes.types';
 
 type Lines = Record<string, string[]>;
 
 type HomeProps = {
-    posts: Post[];
+    posts: Note[];
     lines: Lines;
     error?: boolean;
+};
+
+export const config: PageConfig = {
+    runtime: 'experimental-edge',
 };
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
     query,
 }) => {
-    const allPosts = getSortedPosts();
+    const { data } = await supabase.rpc('get_notes_meta');
+
+    const allPosts = data ?? [];
 
     const q = query.q?.toString();
 

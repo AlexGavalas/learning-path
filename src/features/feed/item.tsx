@@ -5,6 +5,8 @@ import { Button } from '~components/button';
 import { Dialog } from '~components/dialog';
 import { Textarea } from '~components/textarea';
 
+import { type UserPost } from '../../../types/notes.types';
+
 interface ListItemProps {
     post: UserPost;
     isMine: boolean;

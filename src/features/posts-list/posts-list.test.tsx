@@ -1,9 +1,9 @@
 import { axe } from 'jest-axe';
 import { type ReactElement, cloneElement } from 'react';
 
-import { type Post } from '~lib/posts';
 import { renderWithUser, screen } from '~test/helpers';
 
+import { type Note } from '../../../types/notes.types';
 import { PostsList } from './posts-list';
 
 jest.mock(
@@ -14,7 +14,7 @@ jest.mock(
 );
 describe('<PostsList />', () => {
     describe('when there are no posts', () => {
-        const NO_POSTS: Post[] = [];
+        const NO_POSTS: Note[] = [];
         const NO_LINES = {};
 
         it('renders', () => {
@@ -37,13 +37,12 @@ describe('<PostsList />', () => {
     });
 
     describe('when there are posts', () => {
-        const POSTS: Post[] = [
+        const POSTS: Note[] = [
             {
-                date: '2022-01-01',
-                id: '1',
-                mdxSource: {
-                    compiledSource: '',
-                },
+                created: '2022-01-01',
+                id: 1,
+                filename: 'filename',
+                line: 'line',
                 title: 'title',
                 updated: '2022-01-01',
             },

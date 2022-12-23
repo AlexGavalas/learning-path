@@ -26,6 +26,32 @@ export interface Database {
                     title?: string;
                 };
             };
+            notes: {
+                Row: {
+                    id: number;
+                    title: string;
+                    line: string;
+                    created: string;
+                    filename: string;
+                    updated: string;
+                };
+                Insert: {
+                    id?: number;
+                    title: string;
+                    line: string;
+                    created: string;
+                    filename: string;
+                    updated: string;
+                };
+                Update: {
+                    id?: number;
+                    title?: string;
+                    line?: string;
+                    created?: string;
+                    filename?: string;
+                    updated?: string;
+                };
+            };
             posts: {
                 Row: {
                     id: string;
@@ -51,6 +77,10 @@ export interface Database {
             [_ in never]: never;
         };
         Functions: {
+            get_notes_meta: {
+                Args: Record<PropertyKey, never>;
+                Returns: Database['public']['Tables']['notes']['Row'];
+            };
             search_notes: {
                 Args: { q: string };
                 Returns: Database['public']['Tables']['note_contents']['Row'];

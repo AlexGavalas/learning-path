@@ -9,6 +9,8 @@ import { Feed as FeedList } from '~features/feed';
 import { supabase } from '~lib/supabase';
 import { useUser } from '~lib/use-user';
 
+import { type UserPost } from '../../types/notes.types';
+
 interface FeedProps {
     posts: UserPost[];
     isLoggedIn: boolean;

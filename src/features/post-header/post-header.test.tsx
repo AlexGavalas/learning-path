@@ -1,14 +1,16 @@
 import { axe } from 'jest-axe';
 
-import { type Post } from '~lib/posts';
 import { renderWithUser } from '~test/helpers';
 
+import { type NoteMDX } from '../../../types/notes.types';
 import { PostHeader } from './post-header';
 
 describe('<PostHeader />', () => {
-    const post: Post = {
-        date: '2022-01-01',
-        id: '1',
+    const post: NoteMDX = {
+        created: '2022-01-01',
+        id: 1,
+        line: 'line',
+        filename: 'filename',
         mdxSource: {
             compiledSource: '',
         },

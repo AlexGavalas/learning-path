@@ -1,8 +1,9 @@
 import { FormattedDate } from '~components/formatted-date';
-import { type Post } from '~lib/posts';
+
+import { type NoteMDX } from '../../../types/notes.types';
 
 type PostHeaderProps = {
-    post: Post;
+    post: NoteMDX;
 };
 
 export const PostHeader = ({ post }: PostHeaderProps) => (
@@ -10,7 +11,7 @@ export const PostHeader = ({ post }: PostHeaderProps) => (
         <h1 className="my-8">{post.title}</h1>
         <div className="text-gray-500 flex gap-2 mb-4">
             <p>
-                Created at <FormattedDate dateString={post.date} />
+                Created at <FormattedDate dateString={post.created} />
             </p>
             <p> / </p>
             <p>

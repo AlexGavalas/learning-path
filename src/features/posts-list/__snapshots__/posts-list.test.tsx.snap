@@ -18,7 +18,7 @@ exports[`<PostsList /> when there are posts renders 1`] = `
     <li>
       <div
         class="hover:no-underline"
-        href="/posts/1"
+        href="/posts/filename"
         role="link"
       >
         <div
@@ -54,7 +54,7 @@ exports[`<PostsList /> when there are posts when there are lines renders 1`] = `
     <li>
       <div
         class="hover:no-underline"
-        href="/posts/1"
+        href="/posts/filename"
         role="link"
       >
         <div

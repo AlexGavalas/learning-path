@@ -7,10 +7,12 @@ import { Button } from '~components/button';
 import { Layout } from '~components/layout';
 import { components } from '~components/mdx';
 import { PostHeader } from '~features/post-header';
-import { type Post, getAllPostIds, getPostData } from '~lib/posts';
+import { getAllPostIds, getPostData } from '~lib/posts';
+
+import { type NoteMDX } from '../../../types/notes.types';
 
 type PostPageProps = {
-    post: Post;
+    post: NoteMDX;
 };
 
 export const getStaticProps: GetStaticProps<
