@@ -29,11 +29,9 @@ export const SearchArea = () => {
     useEffect(() => {
         setLoading(false);
 
-        const q = router.query[QUERY_FIELD_NAME]?.toString();
+        const q = router.query[QUERY_FIELD_NAME]?.toString() ?? '';
 
-        if (q) {
-            setQuery(q);
-        }
+        setQuery(q);
     }, [router.asPath, router.query]);
 
     useKeypress('/', keyPressHandler);
