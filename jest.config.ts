@@ -28,7 +28,7 @@ const config: Config.InitialOptions = {
         '^.+\\.tsx?$': ['ts-jest', { tsconfig: './tsconfig.test.json' }],
     },
 
-    setupFilesAfterEnv: ['<rootDir>/setup-tests.ts'],
+    setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
 
     roots: ['<rootDir>'],
     modulePaths: [compilerOptions.baseUrl],
