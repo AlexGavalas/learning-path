@@ -25,7 +25,7 @@ exports[`<NotesList /> when there are notes renders 1`] = `
           class="flex flex-col-reverse gap-2 sm:flex-row"
         >
           <time
-            datetime="2022-01-01"
+            datetime="2021-12-31T22:00:00.000Z"
           >
             01/01/22
           </time>
@@ -61,7 +61,7 @@ exports[`<NotesList /> when there are notes when there are lines renders 1`] = `
           class="flex flex-col-reverse gap-2 sm:flex-row"
         >
           <time
-            datetime="2022-01-01"
+            datetime="2021-12-31T22:00:00.000Z"
           >
             01/01/22
           </time>

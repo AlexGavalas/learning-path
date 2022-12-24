@@ -1,4 +1,4 @@
-import { format as formatDate, toDate } from 'date-fns-tz';
+import { format as formatDate, utcToZonedTime, toDate } from 'date-fns-tz';
 
 interface DateProps {
     dateString: string;
@@ -9,11 +9,9 @@ export const FormattedDate = ({
     dateString,
     format = 'd LLL yyyy',
 }: DateProps) => {
-    const date = toDate(dateString);
+    const date = utcToZonedTime(toDate(dateString), 'Europe/Athens');
 
     return (
-        <time dateTime={dateString}>
-            {formatDate(date, format, { timeZone: 'Europe/Athens' })}
-        </time>
+        <time dateTime={date.toISOString()}>{formatDate(date, format)}</time>
     );
 };
