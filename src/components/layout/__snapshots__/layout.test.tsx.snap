@@ -3,7 +3,7 @@
 exports[`<Layout /> renders 1`] = `
 <div>
   <main
-    class="px-2 mt-4"
+    class="mt-4 px-2"
     style="opacity: 0;"
   >
     content

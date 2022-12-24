@@ -16,18 +16,18 @@ exports[`<Feed /> when posts exist renders 1`] = `
     class="mt-4"
   >
     <li
-      class="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col"
+      class="flex list-none flex-col border-0 border-solid py-6 last:border-b-0"
     >
       <p
-        class="border-solid border-0 border-l-2 border-l-teal-500 dark:border-l-yellow-500 pl-4 break-words"
+        class="break-words border-0 border-l-2 border-solid border-l-teal-500 pl-4 dark:border-l-yellow-500"
       >
         post
       </p>
       <div
-        class="self-end flex gap-4 items-center"
+        class="flex items-center gap-4 self-end"
       >
         <p
-          class="italic text-sm "
+          class="text-sm italic "
         >
           - 
           name

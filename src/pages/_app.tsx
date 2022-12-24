@@ -49,7 +49,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
                             content="width=device-width, initial-scale=1"
                         />
                     </Head>
-                    <div className="flex flex-col m-auto max-w-xl">
+                    <div className="m-auto flex max-w-xl flex-col">
                         <Header />
                         <AnimatePresence mode="wait" initial={false}>
                             <Component {...pageProps} />

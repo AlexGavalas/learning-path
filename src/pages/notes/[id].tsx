@@ -53,7 +53,7 @@ const NotePage: NextPage<NotePageProps> = ({ note }) => {
             </Head>
             <article>
                 <NoteHeader note={note} />
-                <div className="prose dark:prose-invert prose-headings:text-teal-500 dark:prose-headings:text-yellow-500 prose-li:marker:text-teal-500 dark:prose-li:marker:text-yellow-500 heading dark:dark-heading">
+                <div className="heading dark:dark-heading prose prose-headings:text-teal-500 prose-li:marker:text-teal-500 dark:prose-invert dark:prose-headings:text-yellow-500 dark:prose-li:marker:text-yellow-500">
                     <MDXRemote {...note.mdxSource} components={components} />
                 </div>
             </article>

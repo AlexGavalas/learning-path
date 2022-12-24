@@ -72,7 +72,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
 const Home: NextPage<HomeProps> = ({ notes, lines }) => {
     return (
         <Layout>
-            <section className="leading-8 text-xl">
+            <section className="text-xl leading-8">
                 <Banner />
                 <SearchArea />
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>

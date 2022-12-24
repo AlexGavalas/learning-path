@@ -29,11 +29,11 @@ export const Header = () => {
               };
 
     return (
-        <header className="flex justify-between w-full items-center border-0 border-solid border-b dark:border-b-white">
+        <header className="flex w-full items-center justify-between border-0 border-b border-solid dark:border-b-white">
             <div className="flex">
                 <Link
                     href="/"
-                    className="cursor-pointer hover:no-underline font-[700] p-2 m-2 text-3xl text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-800"
+                    className="m-2 cursor-pointer rounded-lg p-2 text-3xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800"
                 >
                     Learning Path
                 </Link>

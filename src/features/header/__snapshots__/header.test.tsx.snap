@@ -6,13 +6,13 @@ exports[`<Header /> renders 1`] = `
     !function(){try{var d=document.documentElement,c=d.classList;c.remove('light','dark');var e=localStorage.getItem('theme');if('system'===e||(!e&&true)){var t='(prefers-color-scheme: dark)',m=window.matchMedia(t);if(m.media!==t||m.matches){d.style.colorScheme = 'dark';c.add('dark')}else{d.style.colorScheme = 'light';c.add('light')}}else if(e){c.add(e|| '')}if(e==='light'||e==='dark')d.style.colorScheme=e}catch(e){}}()
   </script>
   <header
-    class="flex justify-between w-full items-center border-0 border-solid border-b dark:border-b-white"
+    class="flex w-full items-center justify-between border-0 border-b border-solid dark:border-b-white"
   >
     <div
       class="flex"
     >
       <a
-        class="cursor-pointer hover:no-underline font-[700] p-2 m-2 text-3xl text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-800"
+        class="m-2 cursor-pointer rounded-lg p-2 text-3xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800"
         href="/"
       >
         Learning Path

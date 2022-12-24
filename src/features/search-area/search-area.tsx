@@ -65,7 +65,7 @@ export const SearchArea = () => {
     };
 
     return (
-        <form onSubmit={onSubmit} className="relative h-16 flex items-center">
+        <form onSubmit={onSubmit} className="relative flex h-16 items-center">
             <Input
                 label="Search notes"
                 name={QUERY_FIELD_NAME}
@@ -75,7 +75,7 @@ export const SearchArea = () => {
                 autoComplete="off"
                 placeholder="Type here"
             />
-            <div className="absolute right-0 bottom-0 h-1/2 flex gap-2 p-1">
+            <div className="absolute right-0 bottom-0 flex h-1/2 gap-2 p-1">
                 {query && (
                     <Button onClick={onClear} type="button">
                         Clear

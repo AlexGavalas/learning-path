@@ -3,7 +3,7 @@
 exports[`<ListItem /> renders 1`] = `
 <div>
   <li
-    class="marker:text-teal-500 dark:marker:text-yellow-500 list-disc text-[0.9em]"
+    class="list-disc text-[0.9em] marker:text-teal-500 dark:marker:text-yellow-500"
   >
     list item
   </li>

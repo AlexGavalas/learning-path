@@ -16,7 +16,7 @@ export const NotesList = ({ notes, lines }: NotesListProps) => {
     }
 
     return (
-        <ul className="list-none p-0 divide-x-0 divide-y-2 divide-solid dark:divide-zinc-800 divide-zinc-300">
+        <ul className="list-none divide-x-0 divide-y-2 divide-solid divide-zinc-300 p-0 dark:divide-zinc-800">
             {notes.map(({ filename, updated, title }) => (
                 <li key={filename}>
                     <Link
@@ -24,13 +24,13 @@ export const NotesList = ({ notes, lines }: NotesListProps) => {
                         className="hover:no-underline"
                         role="link"
                     >
-                        <div className="group flex justify-between items-center cursor-pointer text-black dark:text-white dark:hover:bg-neutral-800 hover:bg-gray-100 p-2">
-                            <div className="flex gap-2 flex-col-reverse sm:flex-row">
+                        <div className="group flex cursor-pointer items-center justify-between p-2 text-black hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-800">
+                            <div className="flex flex-col-reverse gap-2 sm:flex-row">
                                 <FormattedDate
                                     dateString={updated}
                                     format="dd/MM/yy"
                                 />
-                                <span className="text-teal-500 dark:text-yellow-500 hover:no-underline">
+                                <span className="text-teal-500 hover:no-underline dark:text-yellow-500">
                                     {title}
                                 </span>
                             </div>

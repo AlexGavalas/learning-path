@@ -3,18 +3,18 @@
 exports[`<ListItem /> when the post is mine renders 1`] = `
 <div>
   <li
-    class="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col"
+    class="flex list-none flex-col border-0 border-solid py-6 last:border-b-0"
   >
     <p
-      class="border-solid border-0 border-l-2 border-l-teal-500 dark:border-l-yellow-500 pl-4 break-words"
+      class="break-words border-0 border-l-2 border-solid border-l-teal-500 pl-4 dark:border-l-yellow-500"
     >
       post
     </p>
     <div
-      class="self-end flex gap-4 items-center"
+      class="flex items-center gap-4 self-end"
     >
       <div
-        class="flex gap-2 h-5"
+        class="flex h-5 gap-2"
       >
         <button
           class="items-center rounded border-0 text-white p-2 flex bg-red-500 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-700"
@@ -28,7 +28,7 @@ exports[`<ListItem /> when the post is mine renders 1`] = `
         </button>
       </div>
       <p
-        class="italic text-sm "
+        class="text-sm italic "
       >
         - 
         name
@@ -43,18 +43,18 @@ exports[`<ListItem /> when the post is mine renders 1`] = `
 exports[`<ListItem /> when the post is not mine renders 1`] = `
 <div>
   <li
-    class="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col"
+    class="flex list-none flex-col border-0 border-solid py-6 last:border-b-0"
   >
     <p
-      class="border-solid border-0 border-l-2 border-l-teal-500 dark:border-l-yellow-500 pl-4 break-words"
+      class="break-words border-0 border-l-2 border-solid border-l-teal-500 pl-4 dark:border-l-yellow-500"
     >
       post
     </p>
     <div
-      class="self-end flex gap-4 items-center"
+      class="flex items-center gap-4 self-end"
     >
       <p
-        class="italic text-sm "
+        class="text-sm italic "
       >
         - 
         name

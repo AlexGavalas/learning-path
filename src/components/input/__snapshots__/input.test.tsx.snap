@@ -3,13 +3,13 @@
 exports[`<Input /> renders 1`] = `
 <div>
   <label
-    class="w-full h-full flex flex-col"
+    class="flex h-full w-full flex-col"
   >
     <span>
       a label
     </span>
     <input
-      class="pl-2 w-full h-1/2 border-[1px] dark:border-0 border-solid bg-transparent dark:bg-neutral-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
+      class="h-1/2 w-full rounded border-[1px] border-solid bg-transparent pl-2 dark:border-0 dark:bg-neutral-800 dark:placeholder-gray-300 dark:placeholder-opacity-50"
     />
   </label>
 </div>

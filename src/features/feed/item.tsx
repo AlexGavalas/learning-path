@@ -42,13 +42,13 @@ export const ListItem = ({
     };
 
     return (
-        <li className="list-none py-6 border-0 border-solid last:border-b-0 flex flex-col">
-            <p className="border-solid border-0 border-l-2 border-l-teal-500 dark:border-l-yellow-500 pl-4 break-words">
+        <li className="flex list-none flex-col border-0 border-solid py-6 last:border-b-0">
+            <p className="break-words border-0 border-l-2 border-solid border-l-teal-500 pl-4 dark:border-l-yellow-500">
                 {postData}
             </p>
-            <div className="self-end flex gap-4 items-center">
+            <div className="flex items-center gap-4 self-end">
                 {isMine && (
-                    <div className="flex gap-2 h-5">
+                    <div className="flex h-5 gap-2">
                         <Button
                             variant="danger"
                             onClick={() => onPostDelete(id)}
@@ -65,7 +65,7 @@ export const ListItem = ({
                         </Button>
                     </div>
                 )}
-                <p className="italic text-sm ">
+                <p className="text-sm italic ">
                     - {name} at {postDate}
                 </p>
             </div>
@@ -80,7 +80,7 @@ export const ListItem = ({
                         name="newpost"
                         defaultValue={post.post}
                     />
-                    <div className="flex gap-2 justify-end">
+                    <div className="flex justify-end gap-2">
                         <Button
                             onClick={closeDialog}
                             type="button"

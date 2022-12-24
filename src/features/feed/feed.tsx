@@ -63,7 +63,7 @@ export const Feed = ({ posts, onPostDelete, onPostUpdate }: FeedProps) => {
             <Dialog open={openDialog} onClickOutside={closeDialog}>
                 <p>Are you sure you want to delete?</p>
                 {error && <span>{error}</span>}
-                <div className="flex gap-2 justify-end">
+                <div className="flex justify-end gap-2">
                     <Button onClick={closeDialog}>No</Button>
                     <Button onClick={deleteCurrentId}>Yes</Button>
                 </div>

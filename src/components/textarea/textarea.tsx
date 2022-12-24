@@ -18,7 +18,7 @@ const TextareaComponent = (
             <textarea
                 {...props}
                 ref={ref}
-                className="resize-none p-2 w-full h-24 border-[1px] dark:border-0 border-solid bg-transparent dark:bg-neutral-800 rounded dark:placeholder-gray-300 dark:placeholder-opacity-50"
+                className="h-24 w-full resize-none rounded border-[1px] border-solid bg-transparent p-2 dark:border-0 dark:bg-neutral-800 dark:placeholder-gray-300 dark:placeholder-opacity-50"
             />
         </label>
     );

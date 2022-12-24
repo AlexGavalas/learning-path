@@ -104,7 +104,7 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
 
     return (
         <Layout>
-            <section className="leading-8 text-xl relative">
+            <section className="relative text-xl leading-8">
                 <h2 className="my-8 text-black dark:text-white">Feed</h2>
                 <p className="text-black dark:text-white">
                     Here you can post anything you find interesting for everyone
@@ -123,7 +123,7 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                             placeholder={`Write here (max ${MAX_CHARS} characters)`}
                         />
                         {submitting && <Loader />}
-                        <div className="h-8 flex justify-between">
+                        <div className="flex h-8 justify-between">
                             <Button
                                 type="button"
                                 variant="danger"
@@ -138,7 +138,7 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                         </div>
                     </form>
                 ) : (
-                    <div className="flex items-center gap-2 h-full">
+                    <div className="flex h-full items-center gap-2">
                         <p className="m-0 text-black dark:text-white">
                             Login to be able to post
                         </p>

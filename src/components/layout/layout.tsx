@@ -10,7 +10,7 @@ export const Layout: FC<{ children?: ReactNode }> = ({ children }) => (
         exit="hidden"
         variants={variants}
         transition={{ type: 'linear' }}
-        className="px-2 mt-4"
+        className="mt-4 px-2"
     >
         {children}
     </motion.main>
