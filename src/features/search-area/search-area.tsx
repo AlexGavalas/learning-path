@@ -29,10 +29,12 @@ export const SearchArea = () => {
     useEffect(() => {
         setLoading(false);
 
-        const q = router.query[QUERY_FIELD_NAME]?.toString() ?? '';
+        const url = new URL(window.location.href);
+
+        const q = url.searchParams.get(QUERY_FIELD_NAME) ?? '';
 
         setQuery(q);
-    }, [router.asPath, router.query]);
+    }, [router.asPath]);
 
     useKeypress('/', keyPressHandler);
 

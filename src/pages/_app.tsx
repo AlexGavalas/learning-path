@@ -6,6 +6,7 @@ import Script from 'next/script';
 
 import { Header } from '~features/header';
 import { UserContextProvider } from '~lib/use-user';
+import { Head as HTMLHead } from '~components/head';
 
 import '../styles/global.css';
 
@@ -35,7 +36,7 @@ const BASE_URL = 'Learning Path';
 const App = ({ Component, pageProps, router }: AppProps) => {
     const q = router.query.q?.toString();
 
-    const title = q ? `${BASE_URL} - ${q}` : BASE_URL;
+    const title = q ? `${q} | ${BASE_URL}` : BASE_URL;
 
     return (
         <>
@@ -43,13 +44,10 @@ const App = ({ Component, pageProps, router }: AppProps) => {
             <ThemeProvider attribute="class">
                 <UserContextProvider>
                     <Head>
+                        <HTMLHead />
                         <title>{title}</title>
-                        <meta
-                            name="viewport"
-                            content="width=device-width, initial-scale=1"
-                        />
                     </Head>
-                    <div className="m-auto flex max-w-xl flex-col">
+                    <div className="m-auto flex max-w-xl flex-col bg-white dark:bg-[#121212]">
                         <Header />
                         <AnimatePresence mode="wait" initial={false}>
                             <Component {...pageProps} />
