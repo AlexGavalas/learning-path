@@ -1,4 +1,4 @@
-import { type GetServerSideProps, type NextPage, type PageConfig } from 'next';
+import { type GetServerSideProps, type NextPage } from 'next';
 
 import { Layout } from '~components/layout';
 import { Banner } from '~features/banner';
@@ -14,10 +14,6 @@ type HomeProps = {
     notes: Note[];
     lines: Lines;
     error?: boolean;
-};
-
-export const config: PageConfig = {
-    runtime: 'experimental-edge',
 };
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
