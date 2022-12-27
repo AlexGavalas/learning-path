@@ -4,7 +4,6 @@
 const nextConfig = {
     experimental: {
         scrollRestoration: true,
-        runtime: 'experimental-edge',
     },
 };
 

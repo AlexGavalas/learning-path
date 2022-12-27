@@ -7,12 +7,12 @@ import { Button } from '~components/button';
 import { Layout } from '~components/layout';
 import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
-// import { getAllNoteIds, getNoteData } from '~lib/notes';
+import { getAllNoteIds, getNoteData } from '~lib/notes';
 
 import { type NoteMDX } from '../../../types/notes.types';
 
 type NotePageProps = {
-    note?: NoteMDX;
+    note: NoteMDX;
 };
 
 export const getStaticProps: GetStaticProps<
@@ -25,28 +25,26 @@ export const getStaticProps: GetStaticProps<
         };
     }
 
-    // const note = await getNoteData(params.id);
+    const note = await getNoteData(params.id);
 
     return {
         props: {
-            // note,
+            note,
         },
     };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    // const paths = getAllNoteIds();
+    const paths = getAllNoteIds();
 
     return {
-        paths: [],
+        paths,
         fallback: false,
     };
 };
 
 const NotePage: NextPage<NotePageProps> = ({ note }) => {
     const router = useRouter();
-
-    if (!note) return null;
 
     return (
         <Layout>
