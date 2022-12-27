@@ -3,5 +3,6 @@
     "files.associations": {
         "*.css": "tailwindcss"
     },
-    "jest.jestCommandLine": "echo 1"
+    "jest.jestCommandLine": "source ~/.zshrc && yarn test",
+    "jest.shell": "/bin/zsh"
 }
