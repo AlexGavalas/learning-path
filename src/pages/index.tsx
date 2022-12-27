@@ -16,9 +16,9 @@ type HomeProps = {
     error?: boolean;
 };
 
-// export const config: PageConfig = {
-//     runtime: 'experimental-edge',
-// };
+export const config: PageConfig = {
+    runtime: 'experimental-edge',
+};
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
     query,
