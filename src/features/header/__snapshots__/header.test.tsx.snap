@@ -31,7 +31,6 @@ exports[`<Header /> renders 1`] = `
           height="20"
           loading="lazy"
           src="/moon.svg"
-          srcset="/moon.svg 1x, /moon.svg 2x"
           style="color: transparent;"
           width="20"
         />
