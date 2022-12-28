@@ -18,7 +18,9 @@ const QUERY_FIELD_NAME = 'q';
 export const SearchArea = () => {
     const router = useRouter();
     const queryEl = useRef<HTMLInputElement>(null);
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState(
+        () => router.query[QUERY_FIELD_NAME]?.toString() ?? '',
+    );
     const [loading, setLoading] = useState(false);
 
     const keyPressHandler = useCallback((e: KeyboardEvent) => {
@@ -29,12 +31,8 @@ export const SearchArea = () => {
     useEffect(() => {
         setLoading(false);
 
-        const url = new URL(window.location.href);
-
-        const q = url.searchParams.get(QUERY_FIELD_NAME) ?? '';
-
-        setQuery(q);
-    }, [router.asPath]);
+        setQuery(router.query[QUERY_FIELD_NAME]?.toString() ?? '');
+    }, [router.asPath, router.query]);
 
     useKeypress('/', keyPressHandler);
 
