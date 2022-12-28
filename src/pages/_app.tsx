@@ -3,6 +3,7 @@ import { ThemeProvider } from 'next-themes';
 import { type AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
+import { useEffect } from 'react';
 
 import { Head as HTMLHead } from '~components/head';
 import { Header } from '~features/header';
@@ -37,6 +38,10 @@ const App = ({ Component, pageProps, router }: AppProps) => {
     const q = router.query.q?.toString();
 
     const title = q ? `${q} | ${BASE_URL}` : BASE_URL;
+
+    useEffect(() => {
+        document.documentElement.lang = 'en';
+    }, []);
 
     return (
         <>
