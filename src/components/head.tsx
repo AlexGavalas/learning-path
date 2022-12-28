@@ -5,11 +5,6 @@ const SITE_URL = 'https://learning-path.dev/';
 export const Head = () => {
     return (
         <>
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1"
-            />
-
             <link rel="icon" href="/favicons/favicon-32x32.png" sizes="any" />
 
             <link
@@ -43,8 +38,6 @@ export const Head = () => {
             <meta name="theme-color" content="#121212" />
 
             <link rel="canonical" href="https://learning-path.dev" />
-
-            <title>{TITLE}</title>
         </>
     );
 };

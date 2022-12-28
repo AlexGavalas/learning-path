@@ -1,4 +1,4 @@
-import { format as formatDate, utcToZonedTime, toDate } from 'date-fns-tz';
+import { format as formatDate, toDate, utcToZonedTime } from 'date-fns-tz';
 
 interface DateProps {
     dateString: string;
