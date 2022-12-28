@@ -1,6 +1,3 @@
----
-updated: '2022-12-28'
----
 # Learning Path
 
 ### Open tasks
