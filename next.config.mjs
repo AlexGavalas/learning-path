@@ -5,7 +5,14 @@ const nextConfig = {
     i18n: {
         locales: ['en'],
         defaultLocale: 'en',
-        localeDetection: false,
+    },
+    async rewrites() {
+        return [
+            {
+                source: '/',
+                destination: '/index',
+            },
+        ];
     },
     experimental: {
         scrollRestoration: true,
