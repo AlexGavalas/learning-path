@@ -4,9 +4,9 @@ import { type AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 
+import { Head as HTMLHead } from '~components/head';
 import { Header } from '~features/header';
 import { UserContextProvider } from '~lib/use-user';
-import { Head as HTMLHead } from '~components/head';
 
 import '../styles/global.css';
 
