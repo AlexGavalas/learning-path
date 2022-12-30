@@ -10,7 +10,7 @@ const mockPush = jest.fn();
 const mockRouter: ReturnType<typeof useRouter> = {
     asPath: '/',
     back: jest.fn(),
-    basePath: '/',
+    basePath: '',
     beforePopState: jest.fn(),
     events: { emit: jest.fn(), off: jest.fn(), on: jest.fn() },
     forward: jest.fn(),
@@ -18,7 +18,7 @@ const mockRouter: ReturnType<typeof useRouter> = {
     isLocaleDomain: false,
     isPreview: false,
     isReady: true,
-    pathname: '',
+    pathname: '/',
     prefetch: jest.fn(),
     push: mockPush,
     query: {},
