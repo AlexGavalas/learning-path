@@ -8,7 +8,7 @@ const handler: NextApiHandler = async () => {
     } = await supabase.auth.getSession();
 
     if (session) {
-        supabase.auth.setSession(session);
+        await supabase.auth.setSession(session);
     }
 };
 

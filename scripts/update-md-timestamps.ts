@@ -27,4 +27,6 @@ const main = async () => {
     console.log(`Updated ${files.length} files.`);
 };
 
-main();
+main().catch((e) => {
+    console.error(e);
+});

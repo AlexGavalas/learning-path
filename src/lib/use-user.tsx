@@ -40,16 +40,21 @@ export const UserContextProvider: FC<{ children?: ReactNode }> = ({
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null);
-            setUserLoaded(true);
-        });
+        supabase.auth
+            .getSession()
+            .then(({ data: { session } }) => {
+                setUser(session?.user ?? null);
+                setUserLoaded(true);
+            })
+            .catch(() => {
+                // TODO: Handle error
+            });
 
         const {
             data: { subscription: authListener },
-        } = supabase.auth.onAuthStateChange((event, session) => {
-            handleAuthChange(event, session);
+        } = supabase.auth.onAuthStateChange(async (event, session) => {
             setUser(session?.user ?? null);
+            await handleAuthChange(event, session);
         });
 
         return () => {

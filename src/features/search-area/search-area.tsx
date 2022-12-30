@@ -36,7 +36,7 @@ export const SearchArea = () => {
 
     useKeypress('/', keyPressHandler);
 
-    const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
 
         setLoading(true);
@@ -49,19 +49,21 @@ export const SearchArea = () => {
             url.searchParams.delete(QUERY_FIELD_NAME);
         }
 
-        router.push(url);
+        await router.push(url);
     };
 
-    const onClear: MouseEventHandler<HTMLButtonElement> = () => {
+    const onClear: MouseEventHandler<HTMLButtonElement> = async () => {
         setQuery('');
 
-        const url = new URL(location.href);
-
-        url.searchParams.delete(QUERY_FIELD_NAME);
-
-        router.push(url);
-
         queryEl.current?.focus();
+
+        if (router.query[QUERY_FIELD_NAME]?.toString()) {
+            const url = new URL(location.href);
+
+            url.searchParams.delete(QUERY_FIELD_NAME);
+
+            await router.push(url);
+        }
     };
 
     return (

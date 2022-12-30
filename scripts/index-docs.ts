@@ -73,4 +73,6 @@ const indexDocs = async () => {
     console.timeEnd(INDEX_LABEL);
 };
 
-indexDocs();
+indexDocs().catch((e) => {
+    console.error(e);
+});

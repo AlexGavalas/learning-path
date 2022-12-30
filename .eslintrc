@@ -17,6 +17,7 @@
         "browser": true
     },
     "rules": {
+        "@typescript-eslint/no-floating-promises": ["error"],
         "@typescript-eslint/consistent-type-imports": [
             "warn",
             {

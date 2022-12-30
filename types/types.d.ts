@@ -4,3 +4,4 @@ declare namespace NodeJS {
         NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
     }
 }
+declare module 'react-countup';

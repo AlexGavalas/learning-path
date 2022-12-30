@@ -127,9 +127,9 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                             <Button
                                 type="button"
                                 variant="danger"
-                                onClick={() => {
+                                onClick={async () => {
                                     setHasUser(false);
-                                    supabase.auth.signOut();
+                                    await supabase.auth.signOut();
                                 }}
                             >
                                 Sign out
@@ -143,8 +143,8 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
                             Login to be able to post
                         </p>
                         <Button
-                            onClick={() => {
-                                supabase.auth.signInWithOAuth({
+                            onClick={async () => {
+                                await supabase.auth.signInWithOAuth({
                                     provider: 'google',
                                 });
                             }}
