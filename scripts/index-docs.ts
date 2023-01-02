@@ -71,6 +71,40 @@ const indexDocs = async () => {
     console.log('Indexed all docs ...');
 
     console.timeEnd(INDEX_LABEL);
+
+    const { data, error } = await supabase.rpc('get_notes_meta');
+
+    if (error) {
+        console.error(error);
+        process.exit(1);
+    }
+
+    try {
+        const url = `https://api.vercel.com/v1/edge-config/${process.env.EDGE_CONFIG_ID}/items`;
+
+        const res = await fetch(url, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                items: [
+                    {
+                        operation: 'update',
+                        key: 'meta',
+                        value: data,
+                    },
+                ],
+            }),
+            headers: {
+                Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const responseData = await res.json();
+
+        console.log('Update Edge Config response', responseData);
+    } catch (e) {
+        console.error(e);
+    }
 };
 
 indexDocs().catch((e) => {

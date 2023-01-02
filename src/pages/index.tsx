@@ -1,3 +1,4 @@
+import { get } from '@vercel/edge-config';
 import { type GetServerSideProps, type NextPage, type PageConfig } from 'next';
 
 import { Layout } from '~components/layout';
@@ -23,7 +24,7 @@ export const config: PageConfig = {
 export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
     query,
 }) => {
-    const { data } = await supabase.rpc('get_notes_meta');
+    const data = (await get('meta')) as Note[];
 
     const allNotes = data ?? [];
 
