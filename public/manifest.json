@@ -1,7 +1,15 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Learning Path",
+    "short_name": "LP",
+    "omnibox": {
+        "keyword": "https://learning-path.dev"
+    },
     "icons": [
+        {
+            "src": "/favicons/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
         {
             "src": "/favicons/android-chrome-192x192.png",
             "sizes": "192x192",

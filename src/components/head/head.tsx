@@ -19,7 +19,7 @@ export const Head = () => {
                 href="/favicons/apple-touch-icon.png"
             />
 
-            <link rel="manifest" href="/site.webmanifest" />
+            <link rel="manifest" href="/manifest.json" />
 
             <meta name="description" content={DESCRIPTION} />
 
@@ -38,6 +38,13 @@ export const Head = () => {
             <meta name="theme-color" content="#121212" />
 
             <link rel="canonical" href="https://learning-path.dev" />
+
+            <link
+                rel="search"
+                type="application/opensearchdescription+xml"
+                href="/opensearch.xml"
+                title="Note search"
+            />
         </>
     );
 };

@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+    <ShortName>Learning Path</ShortName>
+    <Description>Learning Path's Search></Description>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Url type="text/html" template="https://learning-path.dev/?q={searchTerms}"/>
+</OpenSearchDescription>
