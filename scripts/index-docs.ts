@@ -46,6 +46,12 @@ const indexDocs = async () => {
 
         const { content, data } = matter(fileContents);
 
+        if (!data.published) {
+            console.log(`Skipping ${filename} as it is not published yet ...`);
+
+            continue;
+        }
+
         const parsedContents = content
             .split('\n')
             .filter(Boolean)
