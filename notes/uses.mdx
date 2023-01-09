@@ -1,0 +1,50 @@
+---
+title: Uses
+created: '2023-01-05'
+updated: '2023-01-05'
+published: false
+---
+
+# Shell
+
+Unix alternatives I have come to like and use are:
+
+-   [bat](https://github.com/sharkdp/bat)
+-   [exa](https://github.com/ogham/exa) or [lsd](https://github.com/Peltoche/lsd)
+-   [jq](https://github.com/stedolan/jq)
+
+`.zshrc`
+
+```zsh
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+zstyle ':omz:update' mode reminder  # Remind me to update when it's time
+zstyle ':omz:update' frequency 14   # Once every 14 days
+
+# Disable auto-setting terminal title.
+DISABLE_AUTO_TITLE="true"
+
+plugins=(git nvm deno)
+
+zstyle ':omz:plugins:nvm' autoload yes
+
+source $ZSH/oh-my-zsh.sh
+source ~/.zshrc.pre-oh-my-zsh
+
+export EDITOR='vim'
+
+# Enables interactive shell comments
+setopt interactivecomments
+
+# Set aliases
+alias ls="lsd"
+alias l="ls -l"
+alias sort_size="du -hcd1 | sort -hr"
+alias notify="osascript -e 'display notification \"Done\" with title \"Task\"'"
+
+# Init staship (needs to be the last command)
+eval "$(starship init zsh)"
+```
+
+# Apps
