@@ -31,10 +31,6 @@ export const getNoteData = async (filename: string): Promise<NoteMDX> => {
 
     const mdxSource = await serialize(matterResult.content, {
         mdxOptions: {
-            // next-mdx-remote does not yet support Next 13.
-            // Temporary workaround is `development: false`
-            // https://github.com/hashicorp/next-mdx-remote/issues/307#issuecomment-1363415249
-            development: false,
             rehypePlugins: [
                 [rehypeExternalLinks, { target: '_blank' }],
                 [rehypeSlug],
