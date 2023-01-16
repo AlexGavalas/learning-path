@@ -2,7 +2,7 @@
 title: Testing
 created: '2023-01-09'
 updated: '2023-01-16'
-published: false
+published: true
 ---
 
 Find [here](https://github.com/goldbergyoni/javascript-testing-best-practices) and
@@ -27,6 +27,7 @@ This is the simplest form of testing. Its purpose is to test individual "units" 
 -   [Intern](https://github.com/theintern/intern)
 -   [Unexpected](https://github.com/unexpectedjs/unexpected)
 -   [Tape](https://github.com/ljharb/tape)
+-   [Japa](https://github.com/japa/runner)
 
 ## E2E
 
@@ -40,12 +41,46 @@ E2E (End To End) is a software testing method that validates the entire software
 -   [QA Wolf](https://github.com/qawolf/qawolf)
 -   [Webdriver](https://github.com/webdriverio/webdriverio)
 
+## Benchmarking
+
+Benchmark testing measures a repeatable set of quantifiable results that serves as a point of reference against which units/services can be compared.
+
+-   [tinybench](https://github.com/tinylibs/tinybench)
+
+## Property based
+
+As stated in the <cite>[fast-check repo](https://github.com/dubzzz/fast-check)</cite>,
+"property based testing frameworks check the truthfulness of properties.
+A property is a statement like: for all (x, y, ...) such that precondition(x, y, ...) holds predicate(x, y, ...) is true".
+
+-   [fast-check](https://github.com/dubzzz/fast-check)
+
 ## Mutation
 
 Bugs, or "mutants", are automatically inserted into the code. The tests are run for each mutant.
 If the tests fail then the mutant is killed. The higher the percentage of mutants killed, the more effective the tests are.
 
 -   [Stryker Mutator](https://github.com/stryker-mutator/stryker-js)
+
+---
+
+# HTTP
+
+Frameworks and libraries to help you test Node.js HTTP servers.
+
+-   [supertest](https://github.com/ladjs/supertest)
+-   [superwstest](https://github.com/davidje13/superwstest)
+-   [nock](https://github.com/nock/nock)
+-   [node-mocks-http](https://github.com/howardabrams/node-mocks-http)
+-   [OpenAPI Validators](https://github.com/openapi-library/OpenAPIValidators)
+-   [pact](https://github.com/pact-foundation/pact-js)
+
+## Benchmarking
+
+-   [autocannon](https://github.com/mcollina/autocannon)
+-   [oha](https://github.com/hatoo/oha)
+-   [api-benchmark](https://github.com/matteofigus/api-benchmark)
+-   [artillery](https://github.com/artilleryio/artillery)
 
 ---
 
@@ -57,7 +92,7 @@ If the tests fail then the mutant is killed. The higher the percentage of mutant
 -   [Mirage](https://github.com/miragejs/miragejs)
 -   [Sinon](https://github.com/sinonjs/sinon)
 
-## Jest
+## Jest specific
 
 -   [Jest Axe](https://github.com/nickcolley/jest-axe)
 -   [Jest Fetch Mock](https://github.com/jefflau/jest-fetch-mock)
@@ -68,4 +103,6 @@ If the tests fail then the mutant is killed. The higher the percentage of mutant
 
 ## Misc
 
+-   [Faker](https://github.com/faker-js/faker/)
+-   [JSON Schema Faker](https://github.com/json-schema-faker/json-schema-faker)
 -   [Test Data Bot](https://github.com/jackfranklin/test-data-bot)
