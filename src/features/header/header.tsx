@@ -33,7 +33,7 @@ export const Header = () => {
             <div className="flex">
                 <Link
                     href="/"
-                    className="m-2 cursor-pointer rounded-lg p-2 text-3xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800"
+                    className="my-2 cursor-pointer rounded-lg p-2 text-3xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800"
                 >
                     Learning Path
                 </Link>

@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors');
+
 module.exports = {
     content: ['./src/**/*.tsx'],
     darkMode: 'class',
@@ -11,6 +13,14 @@ module.exports = {
                     to: {
                         'background-size': '100% 100%',
                     },
+                },
+            },
+            colors: {
+                dark: {
+                    primary: colors.yellow[500],
+                },
+                light: {
+                    primary: colors.teal[700],
                 },
             },
         },

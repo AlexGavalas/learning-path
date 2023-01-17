@@ -6,7 +6,7 @@ exports[`<List /> renders 1`] = `
     class="pb-4"
   >
     <li
-      class="list-disc text-[0.9em] marker:text-teal-500 dark:marker:text-yellow-500"
+      class="list-disc text-[0.9em] marker:text-light-primary dark:marker:text-dark-primary"
     >
       list item
     </li>

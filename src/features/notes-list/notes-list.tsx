@@ -30,7 +30,7 @@ export const NotesList = ({ notes, lines }: NotesListProps) => {
                                     dateString={updated}
                                     format="dd/MM/yy"
                                 />
-                                <span className="text-teal-500 hover:no-underline dark:text-yellow-500">
+                                <span className="text-light-primary hover:no-underline dark:text-dark-primary">
                                     {title}
                                 </span>
                             </div>

@@ -18,7 +18,7 @@ const textClassesPerVariant: Record<ButtonVariant, string> = {
     danger: 'text-white',
     default: 'text-black dark:text-white',
     wrapper: 'text-black dark:text-white',
-    link: 'text-lg text-teal-500 dark:text-yellow-500',
+    link: 'text-lg text-light-primary dark:text-dark-primary',
 };
 
 export const Button: FC<ButtonProps> = ({
