@@ -1,4 +1,4 @@
 {
     "*.(ts|tsx)": "yarn test --findRelatedTests --passWithNoTests",
-    "!(README)*.(md|mdx)": "node -r esbuild-register scripts/update-md-timestamps.ts"
+    "!(README)*.(md|mdx)": "node -r tsm scripts/update-md-timestamps.ts"
 }
