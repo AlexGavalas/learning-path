@@ -1,3 +1,4 @@
+const { fontFamily } = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
@@ -14,6 +15,9 @@ module.exports = {
                         'background-size': '100% 100%',
                     },
                 },
+            },
+            fontFamily: {
+                sans: ['var(--font-zilla-slab)', ...fontFamily.sans],
             },
             colors: {
                 dark: {
