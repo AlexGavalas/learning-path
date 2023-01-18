@@ -17,6 +17,14 @@ body {
     font-family: inherit;
 }
 
+*:focus-visible {
+    @apply outline-light-primary;
+}
+
+.dark *:focus-visible {
+    @apply outline-dark-primary;
+}
+
 a {
     text-decoration: none;
 }
@@ -35,12 +43,6 @@ figure,
 blockquote {
     padding: 0;
     margin: 0;
-}
-
-button:focus,
-button:focus-visible {
-    outline: auto 2px Highlight;
-    outline: 2px auto -webkit-focus-ring-color;
 }
 
 @layer utilities {
