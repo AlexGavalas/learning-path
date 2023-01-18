@@ -1,6 +1,5 @@
 import { FormattedDate } from '~components/formatted-date';
-
-import { type NoteMDX } from '../../../types/notes.types';
+import { type NoteMDX } from '~types/notes.types';
 
 type NoteHeaderProps = {
     note: NoteMDX;

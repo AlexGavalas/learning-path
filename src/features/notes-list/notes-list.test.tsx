@@ -2,8 +2,8 @@ import { axe } from 'jest-axe';
 import { type ReactElement, cloneElement } from 'react';
 
 import { renderWithUser, screen } from '~test/helpers';
+import { type Note } from '~types/notes.types';
 
-import { type Note } from '../../../types/notes.types';
 import { NotesList } from './notes-list';
 
 jest.mock(

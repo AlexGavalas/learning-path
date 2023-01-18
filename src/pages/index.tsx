@@ -6,8 +6,7 @@ import { Banner } from '~features/banner';
 import { NotesList } from '~features/notes-list';
 import { SearchArea } from '~features/search-area';
 import { supabase } from '~lib/supabase';
-
-import { type Note } from '../../types/notes.types';
+import { type Note } from '~types/notes.types';
 
 type Lines = Record<string, string[]>;
 

@@ -6,7 +6,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 
-import { type NoteMDX } from '../../types/notes.types';
+import { type NoteMDX } from '~types/notes.types';
 
 const NOTES_DIR = path.join(process.cwd(), 'notes');
 

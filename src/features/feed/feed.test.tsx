@@ -3,8 +3,8 @@ import { axe } from 'jest-axe';
 import { supabase } from '~lib/supabase';
 import { UserContextProvider } from '~lib/use-user';
 import { act, renderWithUser, screen, waitFor } from '~test/helpers';
+import { type UserPost } from '~types/notes.types';
 
-import { type UserPost } from '../../../types/notes.types';
 import { Feed } from './feed';
 
 jest.mock('~lib/supabase');

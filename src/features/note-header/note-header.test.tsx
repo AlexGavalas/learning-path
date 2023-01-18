@@ -1,8 +1,8 @@
 import { axe } from 'jest-axe';
 
 import { renderWithUser } from '~test/helpers';
+import { type NoteMDX } from '~types/notes.types';
 
-import { type NoteMDX } from '../../../types/notes.types';
 import { NoteHeader } from './note-header';
 
 describe('<NoteHeader />', () => {

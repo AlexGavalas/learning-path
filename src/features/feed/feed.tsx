@@ -3,8 +3,8 @@ import { useCallback, useState } from 'react';
 import { Button } from '~components/button';
 import { Dialog } from '~components/dialog';
 import { useUser } from '~lib/use-user';
+import { type UserPost } from '~types/notes.types';
 
-import { type UserPost } from '../../../types/notes.types';
 import { ListItem } from './item';
 
 interface FeedProps {

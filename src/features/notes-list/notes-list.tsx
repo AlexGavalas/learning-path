@@ -2,8 +2,7 @@ import Link from 'next/link';
 
 import { FormattedDate } from '~components/formatted-date';
 import { List, ListItem } from '~components/list';
-
-import { type Note } from '../../../types/notes.types';
+import { type Note } from '~types/notes.types';
 
 type NotesListProps = {
     notes: Note[];

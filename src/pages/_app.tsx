@@ -9,8 +9,7 @@ import { useEffect } from 'react';
 import { Head as HTMLHead } from '~components/head';
 import { Header } from '~features/header';
 import { UserContextProvider } from '~lib/use-user';
-
-import '../styles/global.css';
+import '~styles/global.css';
 
 const GOOGLE_MEASUREMENT_ID = 'G-2CSN2TQ5R3';
 

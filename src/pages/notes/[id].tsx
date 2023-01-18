@@ -8,8 +8,7 @@ import { Layout } from '~components/layout';
 import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
 import { getAllNoteIds, getNoteData } from '~lib/notes';
-
-import { type NoteMDX } from '../../../types/notes.types';
+import { type NoteMDX } from '~types/notes.types';
 
 type NotePageProps = {
     note: NoteMDX;

@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
 
-import { type Database } from '../types/database.types';
+import { type Database } from '~types/database.types';
 
 const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,

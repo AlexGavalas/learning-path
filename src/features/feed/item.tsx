@@ -4,8 +4,7 @@ import { type FormEventHandler, useState } from 'react';
 import { Button } from '~components/button';
 import { Dialog } from '~components/dialog';
 import { Textarea } from '~components/textarea';
-
-import { type UserPost } from '../../../types/notes.types';
+import { type UserPost } from '~types/notes.types';
 
 interface ListItemProps {
     post: UserPost;
