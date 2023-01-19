@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { type AppProps } from 'next/app';
 import Head from 'next/head';
-import Script from 'next/script';
+// import Script from 'next/script';
 import { useEffect } from 'react';
 
 import { Head as HTMLHead } from '~components/head';
@@ -11,26 +11,26 @@ import { Header } from '~features/header';
 import { UserContextProvider } from '~lib/use-user';
 import '~styles/global.css';
 
-const GOOGLE_MEASUREMENT_ID = 'G-2CSN2TQ5R3';
+// const GOOGLE_MEASUREMENT_ID = 'G-2CSN2TQ5R3';
 
-const GoogleAnalytics = () => (
-    <>
-        <Script
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_MEASUREMENT_ID}`}
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-            {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GOOGLE_MEASUREMENT_ID}');
-            `}
-        </Script>
-    </>
-);
+// const GoogleAnalytics = () => (
+//     <>
+//         <Script
+//             strategy="afterInteractive"
+//             src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_MEASUREMENT_ID}`}
+//         />
+//         <Script id="google-analytics" strategy="afterInteractive">
+//             {`
+//                 window.dataLayer = window.dataLayer || [];
+//                 function gtag(){dataLayer.push(arguments);}
+//                 gtag('js', new Date());
+//                 gtag('config', '${GOOGLE_MEASUREMENT_ID}');
+//             `}
+//         </Script>
+//     </>
+// );
 
-const isProd = process.env.NODE_ENV === 'production';
+// const isProd = process.env.NODE_ENV === 'production';
 
 const BASE_URL = 'Learning Path';
 
@@ -52,7 +52,6 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 
     return (
         <>
-            {isProd && <GoogleAnalytics />}
             <ThemeProvider attribute="class">
                 <UserContextProvider>
                     <Head>
