@@ -27,7 +27,7 @@ const DialogContent: FC<DialogProps> = ({
     children,
     ...props
 }) => {
-    const modalRef = useRef<HTMLDialogElement | null>(null);
+    const modalRef = useRef<HTMLDialogElement>(null);
     const previousFocusedElementRef = useRef(
         document.activeElement as HTMLElement | null,
     );
