@@ -1,5 +1,5 @@
 const globalSetup = () => {
-    process.env.TZ = 'Europe/Athens';
+    process.env.TZ = 'UTC';
 };
 
 export default globalSetup;

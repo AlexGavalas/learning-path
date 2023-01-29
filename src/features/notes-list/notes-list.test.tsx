@@ -1,7 +1,7 @@
 import { axe } from 'jest-axe';
 import { type ReactElement, cloneElement } from 'react';
 
-import { renderWithUser, screen } from '~test/helpers';
+import { getTimeZone, renderWithUser, screen } from '~test/helpers';
 import { type Note } from '~types/notes.types';
 
 import { NotesList } from './notes-list';
@@ -12,6 +12,9 @@ jest.mock(
         ({ children, ...rest }: { children: ReactElement }) =>
             cloneElement(children, { ...rest }),
 );
+
+const timeZone = getTimeZone();
+
 describe('<NotesList />', () => {
     describe('when there are no notes', () => {
         const NO_NOTES: Note[] = [];
@@ -19,7 +22,11 @@ describe('<NotesList />', () => {
 
         it('renders', () => {
             const { container } = renderWithUser(
-                <NotesList notes={NO_NOTES} lines={NO_LINES} />,
+                <NotesList
+                    notes={NO_NOTES}
+                    lines={NO_LINES}
+                    timeZone={timeZone}
+                />,
             );
 
             expect(container).toMatchSnapshot();
@@ -27,7 +34,11 @@ describe('<NotesList />', () => {
 
         it('is accessible', async () => {
             const { container } = renderWithUser(
-                <NotesList notes={NO_NOTES} lines={NO_LINES} />,
+                <NotesList
+                    notes={NO_NOTES}
+                    lines={NO_LINES}
+                    timeZone={timeZone}
+                />,
             );
 
             const a11yResults = await axe(container);
@@ -52,7 +63,11 @@ describe('<NotesList />', () => {
 
         it('renders', () => {
             const { container } = renderWithUser(
-                <NotesList notes={NOTES} lines={NO_LINES} />,
+                <NotesList
+                    notes={NOTES}
+                    lines={NO_LINES}
+                    timeZone={timeZone}
+                />,
             );
 
             expect(container).toMatchSnapshot();
@@ -60,7 +75,11 @@ describe('<NotesList />', () => {
 
         it('is accessible', async () => {
             const { container } = renderWithUser(
-                <NotesList notes={NOTES} lines={NO_LINES} />,
+                <NotesList
+                    notes={NOTES}
+                    lines={NO_LINES}
+                    timeZone={timeZone}
+                />,
             );
 
             const a11yResults = await axe(container);
@@ -69,7 +88,13 @@ describe('<NotesList />', () => {
         });
 
         it('renders item in a link', () => {
-            renderWithUser(<NotesList notes={NOTES} lines={NO_LINES} />);
+            renderWithUser(
+                <NotesList
+                    notes={NOTES}
+                    lines={NO_LINES}
+                    timeZone={timeZone}
+                />,
+            );
 
             const link = screen.getByRole('link', {
                 name: new RegExp(NOTES[0].title),
@@ -85,7 +110,11 @@ describe('<NotesList />', () => {
 
             it('renders', () => {
                 const { container } = renderWithUser(
-                    <NotesList notes={NOTES} lines={LINES} />,
+                    <NotesList
+                        notes={NOTES}
+                        lines={LINES}
+                        timeZone={timeZone}
+                    />,
                 );
 
                 expect(container).toMatchSnapshot();
@@ -93,7 +122,11 @@ describe('<NotesList />', () => {
 
             it('is accessible', async () => {
                 const { container } = renderWithUser(
-                    <NotesList notes={NOTES} lines={LINES} />,
+                    <NotesList
+                        notes={NOTES}
+                        lines={LINES}
+                        timeZone={timeZone}
+                    />,
                 );
 
                 const a11yResults = await axe(container);

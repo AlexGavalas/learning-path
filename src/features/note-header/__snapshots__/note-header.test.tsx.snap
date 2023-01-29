@@ -11,9 +11,10 @@ exports[`<NoteHeader /> renders 1`] = `
     class="mb-4 flex gap-2 text-gray-500"
   >
     <p>
-      Created at 
+      Created at
+       
       <time
-        datetime="2021-12-31T22:00:00.000Z"
+        datetime="2022-01-01T00:00:00.000Z"
       >
         1 Jan 2022
       </time>
@@ -22,9 +23,10 @@ exports[`<NoteHeader /> renders 1`] = `
        / 
     </p>
     <p>
-      Updated at 
+      Updated at
+       
       <time
-        datetime="2021-12-31T22:00:00.000Z"
+        datetime="2022-01-01T00:00:00.000Z"
       >
         1 Jan 2022
       </time>

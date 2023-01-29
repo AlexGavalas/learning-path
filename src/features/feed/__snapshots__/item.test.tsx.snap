@@ -33,7 +33,7 @@ exports[`<ListItem /> when the post is mine renders 1`] = `
         - 
         name
          at 
-        01/01/2022 02:00
+        01/01/2022 00:00
       </p>
     </div>
   </li>
@@ -59,7 +59,7 @@ exports[`<ListItem /> when the post is not mine renders 1`] = `
         - 
         name
          at 
-        01/01/2022 02:00
+        01/01/2022 00:00
       </p>
     </div>
   </li>

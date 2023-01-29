@@ -7,9 +7,10 @@ import { type Note } from '~types/notes.types';
 type NotesListProps = {
     notes: Note[];
     lines: Record<string, string[]>;
+    timeZone: string;
 };
 
-export const NotesList = ({ notes, lines }: NotesListProps) => {
+export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
     if (!notes.length) {
         return <p className="text-center">No notes found</p>;
     }
@@ -28,6 +29,7 @@ export const NotesList = ({ notes, lines }: NotesListProps) => {
                                 <FormattedDate
                                     dateString={updated}
                                     format="dd/MM/yy"
+                                    timeZone={timeZone}
                                 />
                                 <span className="text-light-primary hover:no-underline dark:text-dark-primary">
                                     {title}

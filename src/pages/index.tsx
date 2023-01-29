@@ -76,7 +76,11 @@ const Home: NextPage<HomeProps> = ({ notes, lines }) => {
                 <Banner />
                 <SearchArea />
                 <h2 className="my-8 text-black dark:text-white">Notes</h2>
-                <NotesList lines={lines} notes={notes} />
+                <NotesList
+                    lines={lines}
+                    notes={notes}
+                    timeZone="Europe/Athens"
+                />
             </section>
         </Layout>
     );

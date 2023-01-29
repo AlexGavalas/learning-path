@@ -15,3 +15,13 @@ export const renderHookWithUser = (...props: RenderHookParams) => ({
     user: userEvent.setup(),
     ...renderHook(...props),
 });
+
+export const getTimeZone = () => {
+    const timeZone = process.env.TZ;
+
+    if (!timeZone) {
+        throw new Error('Timezone has not been defined! Set env var TZ!');
+    }
+
+    return timeZone;
+};

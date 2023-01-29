@@ -51,7 +51,7 @@ const NotePage: NextPage<NotePageProps> = ({ note }) => {
                 <title>{note.title}</title>
             </Head>
             <article>
-                <NoteHeader note={note} />
+                <NoteHeader note={note} timeZone="Europe/Athens" />
                 <div className="heading dark:dark-heading prose prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-invert dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary">
                     <MDXRemote {...note.mdxSource} components={components} />
                 </div>

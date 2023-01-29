@@ -1,9 +1,11 @@
 import { axe } from 'jest-axe';
 
-import { renderWithUser } from '~test/helpers';
+import { getTimeZone, renderWithUser } from '~test/helpers';
 import { type NoteMDX } from '~types/notes.types';
 
 import { NoteHeader } from './note-header';
+
+const timeZone = getTimeZone();
 
 describe('<NoteHeader />', () => {
     const note: NoteMDX = {
@@ -19,13 +21,17 @@ describe('<NoteHeader />', () => {
     };
 
     it('renders', () => {
-        const { container } = renderWithUser(<NoteHeader note={note} />);
+        const { container } = renderWithUser(
+            <NoteHeader note={note} timeZone={timeZone} />,
+        );
 
         expect(container).toMatchSnapshot();
     });
 
     it('is accessible', async () => {
-        const { container } = renderWithUser(<NoteHeader note={note} />);
+        const { container } = renderWithUser(
+            <NoteHeader note={note} timeZone={timeZone} />,
+        );
 
         const a11yResults = await axe(container);
 

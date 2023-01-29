@@ -32,7 +32,7 @@ exports[`<Feed /> when posts exist renders 1`] = `
           - 
           name
            at 
-          01/01/2022 02:00
+          01/01/2022 00:00
         </p>
       </div>
     </li>
