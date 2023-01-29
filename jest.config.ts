@@ -34,6 +34,7 @@ const config: Config.InitialOptions = {
         ],
     },
 
+    globalSetup: '<rootDir>/src/test/setup-global.ts',
     setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
 
     roots: ['<rootDir>'],
