@@ -14,6 +14,8 @@ describe('<NoteHeader />', () => {
         line: 'line',
         filename: 'filename',
         mdxSource: {
+            scope: {},
+            frontmatter: {},
             compiledSource: '',
         },
         title: 'title',

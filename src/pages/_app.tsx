@@ -1,7 +1,7 @@
-import { Zilla_Slab } from '@next/font/google';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { type AppProps } from 'next/app';
+import { Zilla_Slab } from 'next/font/google';
 import Head from 'next/head';
 // import Script from 'next/script';
 import { useEffect } from 'react';
