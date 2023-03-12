@@ -29,10 +29,6 @@ a {
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
 img {
     max-width: 100%;
     display: block;
@@ -61,5 +57,13 @@ blockquote {
 
     .prose svg {
         @apply mb-0;
+    }
+
+    .prose :where(a) {
+        @apply decoration-light-primary decoration-2 underline-offset-2;
+    }
+
+    .dark .prose :where(a) {
+        @apply decoration-dark-primary;
     }
 }
