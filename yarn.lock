@@ -6791,10 +6791,10 @@ styled-jsx@5.1.1:
   dependencies:
     client-only "0.0.1"
 
-supabase@1.42.6:
-  version "1.42.6"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.42.6.tgz#4e6aaffe00e1049bd11de17971d69a53d136cff4"
-  integrity sha512-HRrADbLMA8nRB5VsWChdR1L3tCHTVwIjMHWh4+M8GepX654C693jHJEVSb09eu59N2T2OsxfDvf5+kvIkzh3kg==
+supabase@1.42.7:
+  version "1.42.7"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.42.7.tgz#d6767200590b2ad134cfabcf51b13b18aee3007c"
+  integrity sha512-wBdb5MDqsB9J7IYf9Pilat4Q0NSehTs3iC1ghPSfxrzIhlwHelN2AT+5FDy0CBgHcFSdj4OoKCFDARKSvWst9w==
   dependencies:
     bin-links "^4.0.1"
     node-fetch "^3.2.10"
