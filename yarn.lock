@@ -3410,10 +3410,10 @@ fraction.js@^4.2.0:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.2.0.tgz#448e5109a313a3527f5a3ab2119ec4cf0e0e2950"
   integrity sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==
 
-framer-motion@10.3.4:
-  version "10.3.4"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-10.3.4.tgz#1e459f327ae6e396ffeb273a3c9ed90669c438c2"
-  integrity sha512-JuvIMpEN0VxpgSiLPcY/edX3sQBdHzDQBnwFNf5hbr7Iwl0NTm7sMF9NUoKVR4geP/ICfBkZFVmjMLVPQZj+dA==
+framer-motion@10.4.0:
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-10.4.0.tgz#df383e37c633e2e77619423c6994758fcc1bc18e"
+  integrity sha512-nhQTbtRxaE7eoNuFeDpp0CdDMHWV5WIKZtV1CSD+zbVZzp5I0vmagOdCTivgBVKgA3ErJH5fIFf8l9FILTYKHQ==
   dependencies:
     tslib "^2.4.0"
   optionalDependencies:
