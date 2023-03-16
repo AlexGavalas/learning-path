@@ -23,7 +23,7 @@
         "validate": "yarn lint && yarn check:format && yarn check:types"
     },
     "dependencies": {
-        "@supabase/supabase-js": "2.10.0",
+        "@supabase/supabase-js": "2.11.0",
         "@vercel/edge-config": "0.1.1",
         "date-fns": "2.29.3",
         "framer-motion": "10.3.2",
