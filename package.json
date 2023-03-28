@@ -26,7 +26,7 @@
         "@supabase/supabase-js": "2.12.1",
         "@vercel/edge-config": "0.1.5",
         "date-fns": "2.29.3",
-        "framer-motion": "10.9.1",
+        "framer-motion": "10.9.2",
         "gray-matter": "4.0.3",
         "next": "13.2.4",
         "next-mdx-remote": "4.4.1",
