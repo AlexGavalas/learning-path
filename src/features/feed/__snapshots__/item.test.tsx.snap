@@ -6,7 +6,7 @@ exports[`<ListItem /> when the post is mine renders 1`] = `
     class="flex list-none flex-col border-0 border-solid py-6 last:border-b-0"
   >
     <p
-      class="break-words border-0 border-l-2 border-solid border-l-light-primary pl-4 dark:border-l-dark-primary"
+      class="border-l-light-primary dark:border-l-dark-primary break-words border-0 border-l-2 border-solid pl-4"
     >
       post
     </p>
@@ -46,7 +46,7 @@ exports[`<ListItem /> when the post is not mine renders 1`] = `
     class="flex list-none flex-col border-0 border-solid py-6 last:border-b-0"
   >
     <p
-      class="break-words border-0 border-l-2 border-solid border-l-light-primary pl-4 dark:border-l-dark-primary"
+      class="border-l-light-primary dark:border-l-dark-primary break-words border-0 border-l-2 border-solid pl-4"
     >
       post
     </p>

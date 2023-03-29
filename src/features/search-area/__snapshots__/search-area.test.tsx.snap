@@ -20,7 +20,7 @@ exports[`<SearchArea /> renders 1`] = `
       />
     </label>
     <div
-      class="absolute right-0 bottom-0 flex h-1/2 gap-2 p-1"
+      class="absolute bottom-0 right-0 flex h-1/2 gap-2 p-1"
     >
       <button
         class="items-center rounded border-0 text-black dark:text-white p-2 flex bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600"
