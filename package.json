@@ -70,7 +70,7 @@
         "ts-jest": "29.0.5",
         "ts-node": "10.9.1",
         "tsm": "2.3.0",
-        "typescript": "5.0.2",
+        "typescript": "5.0.3",
         "unified": "10.1.2"
     }
 }
