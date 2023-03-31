@@ -6819,10 +6819,10 @@ sucrase@^3.29.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@1.46.4:
-  version "1.46.4"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.46.4.tgz#e6572009a6a13089bf7e04fdd305517fec315ead"
-  integrity sha512-MG+lsu8MrCyqAyArMKtHuzYDxO1JLeKX7myKpONHHv4lgIJBuO5C8OsjBF0HknrRHHCF9u7KveSxLMLfYoYy8w==
+supabase@1.46.5:
+  version "1.46.5"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.46.5.tgz#6f01fcfccabc443678b8882590b4bb34c1dfd305"
+  integrity sha512-N1BObR6JYubMqjacpvJ9/WixEBsPS6KSCqVxg4D+X3SLcqP3p05ppjF2he/m9b48KwNgohZ2eno5Hes8GxtNtg==
   dependencies:
     bin-links "^4.0.1"
     node-fetch "^3.2.10"
