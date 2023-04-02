@@ -30,7 +30,7 @@ exports[`<NotesList /> when there are notes renders 1`] = `
             01/01/22
           </time>
           <span
-            class="text-light-primary dark:text-dark-primary hover:no-underline"
+            class="text-light-primary hover:no-underline dark:text-dark-primary"
           >
             title
           </span>
@@ -66,7 +66,7 @@ exports[`<NotesList /> when there are notes when there are lines renders 1`] = `
             01/01/22
           </time>
           <span
-            class="text-light-primary dark:text-dark-primary hover:no-underline"
+            class="text-light-primary hover:no-underline dark:text-dark-primary"
           >
             title
           </span>
@@ -81,7 +81,7 @@ exports[`<NotesList /> when there are notes when there are lines renders 1`] = `
         class="pb-4"
       >
         <li
-          class="marker:text-light-primary dark:marker:text-dark-primary list-disc text-[0.9em]"
+          class="list-disc text-[0.9em] marker:text-light-primary dark:marker:text-dark-primary"
         >
           line
         </li>

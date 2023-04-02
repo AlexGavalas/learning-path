@@ -31,7 +31,7 @@ export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
                                     format="dd/MM/yy"
                                     timeZone={timeZone}
                                 />
-                                <span className="text-light-primary dark:text-dark-primary hover:no-underline">
+                                <span className="text-light-primary hover:no-underline dark:text-dark-primary">
                                     {title}
                                 </span>
                             </div>
