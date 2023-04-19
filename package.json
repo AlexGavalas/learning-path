@@ -62,7 +62,7 @@
         "jest-axe": "7.0.1",
         "jest-environment-jsdom": "29.5.0",
         "lint-staged": "13.2.1",
-        "postcss": "8.4.22",
+        "postcss": "8.4.23",
         "prettier": "2.8.7",
         "prettier-plugin-tailwindcss": "0.2.7",
         "supabase": "1.50.9",
