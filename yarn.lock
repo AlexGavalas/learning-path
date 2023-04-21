@@ -6822,10 +6822,10 @@ sucrase@^3.29.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@1.50.10:
-  version "1.50.10"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.50.10.tgz#f7a1525ca803724c086f968be498df5a372ffe27"
-  integrity sha512-nv3Otpsk6okpni1HaNf6RdkQgR9Urso1yX/yLCBYpKjrXNTwO4Zv6B3suYdiBFQvA1Ae6p7LqzmUQT0AnZKiaw==
+supabase@1.50.11:
+  version "1.50.11"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.50.11.tgz#882206ec3ad09eaf1ecaaa5ec59632f13211c5c4"
+  integrity sha512-70L23rGRm3TpE8WMZHrvkDK6xXlnftFdKmRb2qdS69wtqkjN0pWq1YXmNaNEdSunUdsc8B+kraJaH1MosGrxfg==
   dependencies:
     bin-links "^4.0.1"
     node-fetch "^3.2.10"
