@@ -25,7 +25,7 @@
     "dependencies": {
         "@supabase/supabase-js": "2.21.0",
         "@vercel/edge-config": "0.1.8",
-        "date-fns": "2.29.3",
+        "date-fns": "2.30.0",
         "framer-motion": "10.12.4",
         "gray-matter": "4.0.3",
         "next": "13.3.1",
