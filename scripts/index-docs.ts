@@ -56,7 +56,7 @@ const indexDocs = async () => {
             .split('\n')
             .filter(Boolean)
             // Remove some markdown syntax
-            .filter((line) => line !== '---')
+            .filter((line) => line !== '---' && !/^#+\s/.test(line))
             .map((line) => line.replace('-   ', ''));
 
         const values = parsedContents.map((line) => ({
