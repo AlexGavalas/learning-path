@@ -9,67 +9,50 @@ export type Json =
 export interface Database {
     public: {
         Tables: {
-            note_contents: {
-                Row: {
-                    line: string;
-                    id: number;
-                    title: string;
-                };
-                Insert: {
-                    line: string;
-                    id?: number;
-                    title: string;
-                };
-                Update: {
-                    line?: string;
-                    id?: number;
-                    title?: string;
-                };
-            };
             notes: {
                 Row: {
-                    id: number;
-                    title: string;
-                    line: string;
                     created: string;
                     filename: string;
+                    id: number;
+                    line: string;
+                    title: string;
                     updated: string;
                 };
                 Insert: {
-                    id?: number;
-                    title: string;
-                    line: string;
                     created: string;
                     filename: string;
+                    id?: number;
+                    line: string;
+                    title: string;
                     updated: string;
                 };
                 Update: {
-                    id?: number;
-                    title?: string;
-                    line?: string;
                     created?: string;
                     filename?: string;
+                    id?: number;
+                    line?: string;
+                    title?: string;
                     updated?: string;
                 };
             };
             posts: {
                 Row: {
-                    id: string;
                     created_at: string;
-                    post: string;
+                    id: string;
                     name: string;
+                    post: string;
                 };
                 Insert: {
-                    id?: string;
                     created_at?: string;
-                    post: string;
+                    id?: string;
                     name: string;
+                    post: string;
                 };
                 Update: {
-                    id?: string;
                     created_at?: string;
-                    post?: string;
+                    id?: string;
                     name?: string;
+                    post?: string;
                 };
             };
         };
@@ -79,18 +62,27 @@ export interface Database {
         Functions: {
             get_notes_meta: {
                 Args: Record<PropertyKey, never>;
-                Returns: Database['public']['Tables']['notes']['Row'];
+                Returns: {
+                    title: string;
+                    updated: string;
+                    filename: string;
+                    created: string;
+                }[];
             };
             search_notes: {
-                Args: { q: string };
-                Returns: Database['public']['Tables']['note_contents']['Row'];
-            };
-            search_notes_test: {
-                Args: { q: string };
-                Returns: Database['public']['Tables']['note_contents']['Row'];
+                Args: {
+                    q: string;
+                };
+                Returns: {
+                    title: string;
+                    line: string;
+                }[];
             };
         };
         Enums: {
+            [_ in never]: never;
+        };
+        CompositeTypes: {
             [_ in never]: never;
         };
     };
