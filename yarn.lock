@@ -6681,10 +6681,10 @@ sucrase@^3.32.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@1.55.1:
-  version "1.55.1"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.55.1.tgz#4ab56aaa3a3354ecd7229d4e628403d2ab51faf1"
-  integrity sha512-LPm9zkMPdRhwsFlb5UBzMe7hPHLAVVA4yrInQUarfgJ+iFjQfedkYS+BT/LlHVe+9JpjIcnQJPXeVZ7bD1ootw==
+supabase@1.57.0:
+  version "1.57.0"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.57.0.tgz#a82bd791f12ddc1de118efa3a3c7d7106036dbb8"
+  integrity sha512-uP9NQ1KRSpnwjSR4koRASzJI4mN2VhtD1y9oXHG06QMt5uniHqecJ2JN60G+i1JypoGYWeJr3Czu6LT+UZ7+WA==
   dependencies:
     bin-links "^4.0.1"
     node-fetch "^3.2.10"
