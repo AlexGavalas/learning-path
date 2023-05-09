@@ -7,6 +7,7 @@ import { Loader } from '~components/loader';
 import { Textarea } from '~components/textarea';
 import { Feed as FeedList } from '~features/feed';
 import { supabase } from '~lib/supabase';
+import { UserContextProvider } from '~lib/use-user';
 import { useUser } from '~lib/use-user';
 import { type UserPost } from '~types/notes.types';
 
@@ -18,6 +19,10 @@ interface FeedProps {
 const MAX_CHARS = 256;
 
 export const getServerSideProps: GetServerSideProps<FeedProps> = async () => {
+    if (process.env.NODE_ENV === 'production') {
+        return { notFound: true };
+    }
+
     const {
         data: { user },
     } = await supabase.auth.getUser();
@@ -162,4 +167,10 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
     );
 };
 
-export default Feed;
+const WithUser = (props: FeedProps) => (
+    <UserContextProvider>
+        <Feed {...props} />
+    </UserContextProvider>
+);
+
+export default WithUser;
