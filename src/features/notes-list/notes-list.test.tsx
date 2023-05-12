@@ -9,8 +9,15 @@ import { NotesList } from './notes-list';
 jest.mock(
     'next/link',
     () =>
-        ({ children, ...rest }: { children: ReactElement }) =>
-            cloneElement(children, { ...rest }),
+        ({
+            children,
+            prefetch,
+            ...rest
+        }: {
+            prefetch: boolean;
+            children: ReactElement;
+        }) =>
+            cloneElement(children, { prefetch: prefetch?.toString(), ...rest }),
 );
 
 const timeZone = getTimeZone();

@@ -1,5 +1,4 @@
 import { compileMDX } from 'next-mdx-remote/rsc';
-import Head from 'next/head';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -37,9 +36,7 @@ const NotePage = async ({ params }: { params: { id?: string } }) => {
 
     return (
         <Layout>
-            <Head>
-                <title>{compiledMDX.frontmatter.title}</title>
-            </Head>
+            <title>{compiledMDX.frontmatter.title}</title>
             <article>
                 <NoteHeader
                     title={compiledMDX.frontmatter.title}

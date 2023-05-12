@@ -23,6 +23,7 @@ export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
                         href={`/notes/${filename}`}
                         className="hover:no-underline"
                         role="link"
+                        prefetch={false}
                     >
                         <div className="group flex cursor-pointer items-center justify-between p-2 text-black hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-800">
                             <div className="flex flex-col-reverse gap-2 sm:flex-row">
