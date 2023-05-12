@@ -30,7 +30,7 @@ export default function RootLayout({
                         className={`${zillaSlab.variable} m-auto flex max-w-xl flex-col bg-white font-sans dark:bg-[#121212]`}
                     >
                         <Header />
-                        {children}
+                        <main className="mt-4 px-2">{children}</main>
                     </div>
                 </ThemeProvider>
             </body>
