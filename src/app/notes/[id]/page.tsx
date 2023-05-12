@@ -6,7 +6,6 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 
 import { Button } from '~components/button';
-import { Layout } from '~components/layout';
 import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
 import { getNoteData } from '~lib/notes';
@@ -35,7 +34,7 @@ const NotePage = async ({ params }: { params: { id?: string } }) => {
     });
 
     return (
-        <Layout>
+        <>
             <title>{compiledMDX.frontmatter.title}</title>
             <article>
                 <NoteHeader
@@ -51,7 +50,7 @@ const NotePage = async ({ params }: { params: { id?: string } }) => {
             <Button variant="link">
                 <Link href="/">&#x21dc; Back to home</Link>
             </Button>
-        </Layout>
+        </>
     );
 };
 

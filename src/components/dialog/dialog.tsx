@@ -1,15 +1,18 @@
-import { AnimatePresence, type HTMLMotionProps, motion } from 'framer-motion';
-import { type FC, useCallback, useEffect, useRef } from 'react';
+import {
+    type DialogHTMLAttributes,
+    type FC,
+    useCallback,
+    useEffect,
+    useRef,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 import { useEventListener } from '~hooks/use-event-listener';
 import { useOnClickOutside } from '~hooks/use-on-click-outside';
 
-import { variants } from './constants';
-
 type DialogSize = 'md';
 
-interface DialogProps extends HTMLMotionProps<'dialog'> {
+interface DialogProps extends DialogHTMLAttributes<HTMLDialogElement> {
     onClickOutside?: (event: MouseEvent | TouchEvent | KeyboardEvent) => void;
     size?: DialogSize;
 }
@@ -85,7 +88,7 @@ const DialogContent: FC<DialogProps> = ({
 
             // Return focus to the trigger element
             // process.nextTick is used to focus the element
-            // after framer-motion finishes the exit animation
+            // the exit animation is finished
             process.nextTick(() => {
                 previousFocusedElement?.focus();
             });
@@ -93,26 +96,19 @@ const DialogContent: FC<DialogProps> = ({
     }, [props.open]);
 
     return createPortal(
-        <motion.dialog
+        <dialog
             ref={modalRef}
-            initial="hidden"
-            animate="enter"
-            exit="hidden"
-            variants={variants}
-            transition={{ type: 'linear' }}
             open={props.open}
             className={`fixed inset-0 rounded bg-black ${
                 size === 'md' ? 'w-[75%]' : ''
             }`}
         >
             {children}
-        </motion.dialog>,
+        </dialog>,
         document.body,
     );
 };
 
 export const Dialog: FC<DialogProps> = (props) => (
-    <AnimatePresence>
-        {props.open && <DialogContent {...props} />}
-    </AnimatePresence>
+    <>{props.open && <DialogContent {...props} />}</>
 );

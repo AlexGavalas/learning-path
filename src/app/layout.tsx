@@ -1,6 +1,5 @@
 'use client';
 
-import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { Zilla_Slab } from 'next/font/google';
 
@@ -31,9 +30,7 @@ export default function RootLayout({
                         className={`${zillaSlab.variable} m-auto flex max-w-xl flex-col bg-white font-sans dark:bg-[#121212]`}
                     >
                         <Header />
-                        <AnimatePresence mode="wait" initial={false}>
-                            {children}
-                        </AnimatePresence>
+                        {children}
                     </div>
                 </ThemeProvider>
             </body>

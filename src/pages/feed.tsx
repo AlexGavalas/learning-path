@@ -2,7 +2,6 @@ import { type GetServerSideProps } from 'next';
 import { type FormEventHandler, useRef, useState } from 'react';
 
 import { Button } from '~components/button';
-import { Layout } from '~components/layout';
 import { Loader } from '~components/loader';
 import { Textarea } from '~components/textarea';
 import { Feed as FeedList } from '~features/feed';
@@ -107,63 +106,61 @@ const Feed = ({ posts: initialPosts, isLoggedIn }: FeedProps) => {
     };
 
     return (
-        <Layout>
-            <section className="relative text-xl leading-8">
-                <h2 className="my-8 text-black dark:text-white">Feed</h2>
-                <p className="text-black dark:text-white">
-                    Here you can post anything you find interesting for everyone
-                    to see. Any content will live for 5 days . Use this section
-                    for stuff like TIL, etc...
-                </p>
-                {userExists ? (
-                    <form
-                        className="relative flex flex-col gap-2"
-                        onSubmit={addNewNote}
-                        ref={formRef}
-                    >
-                        <Textarea
-                            label="Create a post"
-                            name="post"
-                            placeholder={`Write here (max ${MAX_CHARS} characters)`}
-                        />
-                        {submitting && <Loader />}
-                        <div className="flex h-8 justify-between">
-                            <Button
-                                type="button"
-                                variant="danger"
-                                onClick={async () => {
-                                    setHasUser(false);
-                                    await supabase.auth.signOut();
-                                }}
-                            >
-                                Sign out
-                            </Button>
-                            <Button>Post it</Button>
-                        </div>
-                    </form>
-                ) : (
-                    <div className="flex h-full items-center gap-2">
-                        <p className="m-0 text-black dark:text-white">
-                            Login to be able to post
-                        </p>
+        <section className="relative text-xl leading-8">
+            <h2 className="my-8 text-black dark:text-white">Feed</h2>
+            <p className="text-black dark:text-white">
+                Here you can post anything you find interesting for everyone to
+                see. Any content will live for 5 days . Use this section for
+                stuff like TIL, etc...
+            </p>
+            {userExists ? (
+                <form
+                    className="relative flex flex-col gap-2"
+                    onSubmit={addNewNote}
+                    ref={formRef}
+                >
+                    <Textarea
+                        label="Create a post"
+                        name="post"
+                        placeholder={`Write here (max ${MAX_CHARS} characters)`}
+                    />
+                    {submitting && <Loader />}
+                    <div className="flex h-8 justify-between">
                         <Button
+                            type="button"
+                            variant="danger"
                             onClick={async () => {
-                                await supabase.auth.signInWithOAuth({
-                                    provider: 'google',
-                                });
+                                setHasUser(false);
+                                await supabase.auth.signOut();
                             }}
                         >
-                            Login with Google
+                            Sign out
                         </Button>
+                        <Button>Post it</Button>
                     </div>
-                )}
-                <FeedList
-                    posts={posts}
-                    onPostDelete={onPostDelete}
-                    onPostUpdate={onPostUpdate}
-                />
-            </section>
-        </Layout>
+                </form>
+            ) : (
+                <div className="flex h-full items-center gap-2">
+                    <p className="m-0 text-black dark:text-white">
+                        Login to be able to post
+                    </p>
+                    <Button
+                        onClick={async () => {
+                            await supabase.auth.signInWithOAuth({
+                                provider: 'google',
+                            });
+                        }}
+                    >
+                        Login with Google
+                    </Button>
+                </div>
+            )}
+            <FeedList
+                posts={posts}
+                onPostDelete={onPostDelete}
+                onPostUpdate={onPostUpdate}
+            />
+        </section>
     );
 };
 

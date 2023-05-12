@@ -1,6 +1,5 @@
 import { get } from '@vercel/edge-config';
 
-import { Layout } from '~components/layout';
 import { Banner } from '~features/banner';
 import { NotesList } from '~features/notes-list';
 import { SearchArea } from '~features/search-area';
@@ -60,7 +59,7 @@ const Home = async ({ searchParams }: { searchParams: { q?: string } }) => {
     const title = searchParams.q ? `${searchParams.q} | ${BASE_URL}` : BASE_URL;
 
     return (
-        <Layout>
+        <>
             <title>{title}</title>
             <section className="text-xl leading-8">
                 <Banner />
@@ -72,7 +71,7 @@ const Home = async ({ searchParams }: { searchParams: { q?: string } }) => {
                     timeZone="Europe/Athens"
                 />
             </section>
-        </Layout>
+        </>
     );
 };
 

@@ -12,7 +12,6 @@ exports[`<Dialog /> when it is open renders 1`] = `
   <dialog
     class="fixed inset-0 rounded bg-black "
     open=""
-    style="opacity: 0;"
   >
     content
   </dialog>
