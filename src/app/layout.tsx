@@ -3,7 +3,6 @@
 import { ThemeProvider } from 'next-themes';
 import { Zilla_Slab } from 'next/font/google';
 
-import { Head } from '~components/head';
 import { Header } from '~features/header';
 import '~styles/global.css';
 
@@ -21,9 +20,6 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <head>
-                <Head />
-            </head>
             <body>
                 <ThemeProvider attribute="class">
                     <div

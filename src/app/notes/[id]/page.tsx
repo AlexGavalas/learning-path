@@ -1,3 +1,4 @@
+import { type Metadata } from 'next';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -10,6 +11,29 @@ import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
 import { getNoteData } from '~lib/notes';
 import { type NoteMDX } from '~types/notes.types';
+
+import { staticMetadata } from '../../constants';
+
+export const generateMetadata = async ({
+    params,
+}: {
+    params: { id?: string };
+}): Promise<Metadata> => {
+    if (!params.id) {
+        notFound();
+    }
+
+    const note = await getNoteData(params.id);
+
+    const noteMdx = await compileMDX<NoteMDX>({
+        source: note,
+    });
+
+    return {
+        ...staticMetadata,
+        title: noteMdx.frontmatter.title,
+    };
+};
 
 const NotePage = async ({ params }: { params: { id?: string } }) => {
     if (!params.id) {
@@ -35,7 +59,6 @@ const NotePage = async ({ params }: { params: { id?: string } }) => {
 
     return (
         <>
-            <title>{compiledMDX.frontmatter.title}</title>
             <article>
                 <NoteHeader
                     title={compiledMDX.frontmatter.title}

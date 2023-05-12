@@ -1,4 +1,5 @@
 import { get } from '@vercel/edge-config';
+import { type Metadata } from 'next';
 
 import { Banner } from '~features/banner';
 import { NotesList } from '~features/notes-list';
@@ -6,11 +7,26 @@ import { SearchArea } from '~features/search-area';
 import { supabase } from '~lib/supabase';
 import { type Note } from '~types/notes.types';
 
+import { TITLE, staticMetadata } from './constants';
+
 type Lines = Record<string, string[]>;
 
 // export const config: PageConfig = {
 //     runtime: 'experimental-edge',
 // };
+
+export const generateMetadata = ({
+    searchParams,
+}: {
+    searchParams: { q?: string };
+}): Metadata => {
+    const title = searchParams.q ? `${searchParams.q} | ${TITLE}` : TITLE;
+
+    return {
+        title,
+        ...staticMetadata,
+    };
+};
 
 const fetchNotes = async (q?: string) => {
     const data = (await get('meta')) as Note[];
@@ -51,27 +67,16 @@ const fetchNotes = async (q?: string) => {
     };
 };
 
-const BASE_URL = 'Learning Path';
-
 const Home = async ({ searchParams }: { searchParams: { q?: string } }) => {
     const { notes, lines } = await fetchNotes(searchParams.q);
 
-    const title = searchParams.q ? `${searchParams.q} | ${BASE_URL}` : BASE_URL;
-
     return (
-        <>
-            <title>{title}</title>
-            <section className="text-xl leading-8">
-                <Banner />
-                <SearchArea />
-                <h2 className="my-8 text-black dark:text-white">Notes</h2>
-                <NotesList
-                    lines={lines}
-                    notes={notes}
-                    timeZone="Europe/Athens"
-                />
-            </section>
-        </>
+        <section className="text-xl leading-8">
+            <Banner />
+            <SearchArea />
+            <h2 className="my-8 text-black dark:text-white">Notes</h2>
+            <NotesList lines={lines} notes={notes} timeZone="Europe/Athens" />
+        </section>
     );
 };
 
