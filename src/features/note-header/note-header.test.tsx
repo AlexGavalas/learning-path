@@ -24,7 +24,7 @@ describe('<NoteHeader />', () => {
 
     it('renders', () => {
         const { container } = renderWithUser(
-            <NoteHeader note={note} timeZone={timeZone} />,
+            <NoteHeader {...note} timeZone={timeZone} />,
         );
 
         expect(container).toMatchSnapshot();
@@ -32,7 +32,7 @@ describe('<NoteHeader />', () => {
 
     it('is accessible', async () => {
         const { container } = renderWithUser(
-            <NoteHeader note={note} timeZone={timeZone} />,
+            <NoteHeader {...note} timeZone={timeZone} />,
         );
 
         const a11yResults = await axe(container);

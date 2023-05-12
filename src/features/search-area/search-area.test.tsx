@@ -1,5 +1,9 @@
 import { axe } from 'jest-axe';
-import { useRouter } from 'next/router';
+import {
+    type ReadonlyURLSearchParams,
+    type useRouter,
+    useSearchParams,
+} from 'next/navigation';
 
 import { renderWithUser, screen } from '~test/helpers';
 
@@ -8,28 +12,22 @@ import { SearchArea } from './search-area';
 const mockPush = jest.fn();
 
 const mockRouter: ReturnType<typeof useRouter> = {
-    asPath: '/',
     back: jest.fn(),
-    basePath: '',
-    beforePopState: jest.fn(),
-    events: { emit: jest.fn(), off: jest.fn(), on: jest.fn() },
     forward: jest.fn(),
-    isFallback: false,
-    isLocaleDomain: false,
-    isPreview: false,
-    isReady: true,
-    pathname: '/',
     prefetch: jest.fn(),
     push: mockPush,
-    query: {},
-    reload: jest.fn(),
     replace: jest.fn(),
-    route: '/',
+    refresh: jest.fn(),
 };
 
-jest.mock('next/router', () => ({
-    useRouter: jest.fn(() => mockRouter),
-}));
+jest.mock('next/navigation', () => {
+    const searchParams = new URLSearchParams();
+
+    return {
+        useRouter: jest.fn(() => mockRouter),
+        useSearchParams: jest.fn(() => searchParams),
+    };
+});
 
 const renderSearchArea = () => renderWithUser(<SearchArea />);
 
@@ -103,7 +101,7 @@ describe('<SearchArea />', () => {
                 url.searchParams.delete('q');
 
                 expect(mockPush).toHaveBeenCalledTimes(1);
-                expect(mockPush).toHaveBeenCalledWith(url);
+                expect(mockPush).toHaveBeenCalledWith(url.toString());
             });
 
             it('navigates the user when it has a query', async () => {
@@ -120,7 +118,7 @@ describe('<SearchArea />', () => {
                 url.searchParams.set('q', searchQuery);
 
                 expect(mockPush).toHaveBeenCalledTimes(1);
-                expect(mockPush).toHaveBeenCalledWith(url);
+                expect(mockPush).toHaveBeenCalledWith(url.toString());
             });
         });
     });
@@ -129,11 +127,11 @@ describe('<SearchArea />', () => {
         const searchQuery = 'abc';
 
         beforeAll(() => {
-            jest.mocked(useRouter).mockReturnValueOnce({
-                ...mockRouter,
-                asPath: `/?q=${searchQuery}`,
-                query: { q: searchQuery },
-            });
+            const searchParams = new URLSearchParams([['q', searchQuery]]);
+
+            jest.mocked(useSearchParams).mockReturnValueOnce(
+                searchParams as unknown as ReadonlyURLSearchParams,
+            );
         });
 
         it('can clear the input and navigate', async () => {
@@ -149,7 +147,7 @@ describe('<SearchArea />', () => {
             url.searchParams.delete('q');
 
             expect(mockPush).toHaveBeenCalledTimes(1);
-            expect(mockPush).toHaveBeenCalledWith(url);
+            expect(mockPush).toHaveBeenCalledWith(url.toString());
         });
     });
 });

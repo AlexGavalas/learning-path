@@ -1,5 +1,4 @@
 import { get } from '@vercel/edge-config';
-import { type GetServerSideProps, type NextPage, type PageConfig } from 'next';
 
 import { Layout } from '~components/layout';
 import { Banner } from '~features/banner';
@@ -10,35 +9,23 @@ import { type Note } from '~types/notes.types';
 
 type Lines = Record<string, string[]>;
 
-type HomeProps = {
-    notes: Note[];
-    lines: Lines;
-    error?: boolean;
-};
+// export const config: PageConfig = {
+//     runtime: 'experimental-edge',
+// };
 
-export const config: PageConfig = {
-    runtime: 'experimental-edge',
-};
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
-    query,
-}) => {
+const fetchNotes = async (q?: string) => {
     const data = (await get('meta')) as Note[];
 
     const allNotes = data ?? [];
-
-    const q = query.q?.toString();
 
     if (q) {
         const { data, error } = await supabase.rpc('search_notes', { q });
 
         if (error) {
             return {
-                props: {
-                    notes: [],
-                    lines: {},
-                    error: true,
-                },
+                notes: [],
+                lines: {},
+                error: true,
             };
         }
 
@@ -54,24 +41,27 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
         );
 
         return {
-            props: {
-                notes: filteredNotes,
-                lines,
-            },
+            notes: filteredNotes,
+            lines,
         };
     }
 
     return {
-        props: {
-            notes: allNotes,
-            lines: {},
-        },
+        notes: allNotes,
+        lines: {},
     };
 };
 
-const Home: NextPage<HomeProps> = ({ notes, lines }) => {
+const BASE_URL = 'Learning Path';
+
+const Home = async ({ searchParams }: { searchParams: { q?: string } }) => {
+    const { notes, lines } = await fetchNotes(searchParams.q);
+
+    const title = searchParams.q ? `${searchParams.q} | ${BASE_URL}` : BASE_URL;
+
     return (
         <Layout>
+            <title>{title}</title>
             <section className="text-xl leading-8">
                 <Banner />
                 <SearchArea />

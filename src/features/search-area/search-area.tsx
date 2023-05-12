@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
     type FormEventHandler,
     type MouseEventHandler,
@@ -18,8 +20,10 @@ const QUERY_FIELD_NAME = 'q';
 export const SearchArea = () => {
     const router = useRouter();
     const queryEl = useRef<HTMLInputElement>(null);
+    const searchParams = useSearchParams();
+
     const [query, setQuery] = useState(
-        () => router.query[QUERY_FIELD_NAME]?.toString() ?? '',
+        () => searchParams?.get(QUERY_FIELD_NAME)?.toString() ?? '',
     );
     const [loading, setLoading] = useState(false);
 
@@ -31,8 +35,8 @@ export const SearchArea = () => {
     useEffect(() => {
         setLoading(false);
 
-        setQuery(router.query[QUERY_FIELD_NAME]?.toString() ?? '');
-    }, [router.asPath, router.query]);
+        setQuery(searchParams?.get(QUERY_FIELD_NAME)?.toString() ?? '');
+    }, [searchParams]);
 
     useKeypress('/', keyPressHandler);
 
@@ -49,7 +53,7 @@ export const SearchArea = () => {
             url.searchParams.delete(QUERY_FIELD_NAME);
         }
 
-        await router.push(url);
+        router.push(url.toString());
     };
 
     const onClear: MouseEventHandler<HTMLButtonElement> = async () => {
@@ -57,12 +61,12 @@ export const SearchArea = () => {
 
         queryEl.current?.focus();
 
-        if (router.query[QUERY_FIELD_NAME]?.toString()) {
+        if (searchParams?.get(QUERY_FIELD_NAME)?.toString()) {
             const url = new URL(location.href);
 
             url.searchParams.delete(QUERY_FIELD_NAME);
 
-            await router.push(url);
+            router.push(url.toString());
         }
     };
 
