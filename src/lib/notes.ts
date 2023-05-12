@@ -1,11 +1,4 @@
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeExternalLinks from 'rehype-external-links';
-import rehypeSlug from 'rehype-slug';
-
 import { supabase } from '~lib/supabase';
-import { type NoteMDX } from '~types/notes.types';
 
 export const getAllNoteIds = async () => {
     const { data: fileNames, error } = await supabase.storage
@@ -25,7 +18,7 @@ export const getAllNoteIds = async () => {
     });
 };
 
-export const getNoteData = async (filename: string): Promise<NoteMDX> => {
+export const getNoteData = async (filename: string) => {
     const filePath = `${filename}.mdx`;
 
     const { data: fileContents, error } = await supabase.storage
@@ -36,21 +29,5 @@ export const getNoteData = async (filename: string): Promise<NoteMDX> => {
         throw error;
     }
 
-    const matterResult = matter(await fileContents.text());
-
-    const mdxSource = await serialize(matterResult.content, {
-        mdxOptions: {
-            rehypePlugins: [
-                [rehypeExternalLinks, { target: '_blank' }],
-                [rehypeSlug],
-                [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-            ],
-        },
-    });
-
-    // Can't type gray matter result yet
-    return {
-        mdxSource,
-        ...matterResult.data,
-    } as NoteMDX;
+    return await fileContents.text();
 };

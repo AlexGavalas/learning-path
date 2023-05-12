@@ -19,6 +19,7 @@ exports[`<NotesList /> when there are notes renders 1`] = `
       <div
         class="hover:no-underline"
         href="/notes/filename"
+        prefetch="false"
         role="link"
       >
         <div
@@ -55,6 +56,7 @@ exports[`<NotesList /> when there are notes when there are lines renders 1`] = `
       <div
         class="hover:no-underline"
         href="/notes/filename"
+        prefetch="false"
         role="link"
       >
         <div
