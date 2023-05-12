@@ -67,6 +67,17 @@ const indexDocs = async () => {
             updated: toISOString(data.updated),
         }));
 
+        process.stdout.write(`Writing file ${filename} in storage ...`);
+
+        await supabase.storage
+            .from('notes_test_1')
+            .upload(filename, fileContents, {
+                contentType: 'text/markdown',
+                upsert: true,
+            });
+
+        process.stdout.write(' [OK]\n');
+
         process.stdout.write(`Indexing contents of ${filename} ...`);
 
         await supabase.from('notes').upsert(values);

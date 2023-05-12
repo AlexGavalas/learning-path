@@ -1,9 +1,8 @@
 import { type GetStaticPaths, type GetStaticProps, type NextPage } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-import { Button } from '~components/button';
 import { Layout } from '~components/layout';
 import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
@@ -34,7 +33,7 @@ export const getStaticProps: GetStaticProps<
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = getAllNoteIds();
+    const paths = await getAllNoteIds();
 
     return {
         paths,
@@ -43,8 +42,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const NotePage: NextPage<NotePageProps> = ({ note }) => {
-    const router = useRouter();
-
     return (
         <Layout>
             <Head>
@@ -56,9 +53,7 @@ const NotePage: NextPage<NotePageProps> = ({ note }) => {
                     <MDXRemote {...note.mdxSource} components={components} />
                 </div>
             </article>
-            <Button variant="link" onClick={router.back}>
-                &#x21dc; Back to home
-            </Button>
+            <Link href="/">&#x21dc; Back to home</Link>
         </Layout>
     );
 };

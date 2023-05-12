@@ -1,33 +1,42 @@
-import fs from 'fs';
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
-import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 
+import { supabase } from '~lib/supabase';
 import { type NoteMDX } from '~types/notes.types';
 
-const NOTES_DIR = path.join(process.cwd(), 'notes');
+export const getAllNoteIds = async () => {
+    const { data: fileNames, error } = await supabase.storage
+        .from('notes_test_1')
+        .list();
 
-export const getAllNoteIds = () => {
-    const fileNames = fs.readdirSync(NOTES_DIR);
+    if (error) {
+        throw error;
+    }
 
-    return fileNames.map((fileName) => {
+    return fileNames.map((file) => {
         return {
             params: {
-                id: fileName.replace(/\.mdx$/, ''),
+                id: file.name.replace(/\.mdx$/, ''),
             },
         };
     });
 };
 
 export const getNoteData = async (filename: string): Promise<NoteMDX> => {
-    const filePath = path.join(NOTES_DIR, `${filename}.mdx`);
+    const filePath = `${filename}.mdx`;
 
-    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data: fileContents, error } = await supabase.storage
+        .from('notes_test_1')
+        .download(filePath);
 
-    const matterResult = matter(fileContents);
+    if (error) {
+        throw error;
+    }
+
+    const matterResult = matter(await fileContents.text());
 
     const mdxSource = await serialize(matterResult.content, {
         mdxOptions: {
