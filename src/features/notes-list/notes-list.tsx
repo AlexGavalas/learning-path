@@ -1,7 +1,4 @@
-'use client';
-
 import Link from 'next/link';
-import { useState } from 'react';
 
 import { FormattedDate } from '~components/formatted-date';
 import { List, ListItem } from '~components/list';
@@ -14,8 +11,6 @@ type NotesListProps = {
 };
 
 export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
-    const [hoveredOver, setHoveredOver] = useState<Record<string, boolean>>({});
-
     if (!notes.length) {
         return <p className="text-center">No notes found</p>;
     }
@@ -28,13 +23,7 @@ export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
                         href={`/notes/${filename}`}
                         className="hover:no-underline"
                         role="link"
-                        prefetch={hoveredOver[filename] ?? false}
-                        onMouseEnter={() => {
-                            setHoveredOver((prev) => ({
-                                ...prev,
-                                [filename]: true,
-                            }));
-                        }}
+                        prefetch={false}
                     >
                         <div className="group flex cursor-pointer items-center justify-between p-2 text-black hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-800">
                             <div className="flex flex-col-reverse gap-2 sm:flex-row">
