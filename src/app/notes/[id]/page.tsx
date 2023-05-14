@@ -6,13 +6,12 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 
-import { Button } from '~components/button';
 import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
 import { getNoteData } from '~lib/notes';
 import { type NoteMDX } from '~types/notes.types';
 
-import { staticMetadata } from '../../constants';
+import { TITLE, staticMetadata } from '../../constants';
 
 export const generateMetadata = async ({
     params,
@@ -27,11 +26,14 @@ export const generateMetadata = async ({
 
     const noteMdx = await compileMDX<NoteMDX>({
         source: note,
+        options: {
+            parseFrontmatter: true,
+        },
     });
 
     return {
         ...staticMetadata,
-        title: noteMdx.frontmatter.title,
+        title: `${noteMdx.frontmatter.title} | ${TITLE}`,
     };
 };
 
@@ -70,9 +72,12 @@ const NotePage = async ({ params }: { params: { id?: string } }) => {
                     {compiledMDX.content}
                 </div>
             </article>
-            <Button variant="link">
-                <Link href="/">&#x21dc; Back to home</Link>
-            </Button>
+            <Link
+                href="/"
+                className="my-8 inline-block cursor-pointer bg-transparent p-0 text-lg text-light-primary hover:underline dark:text-dark-primary"
+            >
+                &#x21dc; Back to home
+            </Link>
         </>
     );
 };
