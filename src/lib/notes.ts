@@ -11,13 +11,9 @@ export const getAllNoteIds = async () => {
         return null;
     }
 
-    return fileNames.map((file) => {
-        return {
-            params: {
-                id: file.name.replace(/\.mdx$/, ''),
-            },
-        };
-    });
+    return fileNames.map((file) => ({
+        id: file.name.replace(/\.mdx$/, ''),
+    }));
 };
 
 export const getNoteData = async (filename: string) => {

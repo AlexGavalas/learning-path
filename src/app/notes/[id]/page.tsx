@@ -8,10 +8,16 @@ import rehypeSlug from 'rehype-slug';
 
 import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
-import { getNoteData } from '~lib/notes';
+import { getAllNoteIds, getNoteData } from '~lib/notes';
 import { type NoteMDX } from '~types/notes.types';
 
 import { TITLE, staticMetadata } from '../../constants';
+
+export const generateStaticParams = async () => {
+    const ids = await getAllNoteIds();
+
+    return ids ?? [];
+};
 
 export const generateMetadata = async ({
     params,
