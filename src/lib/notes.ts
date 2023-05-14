@@ -6,7 +6,9 @@ export const getAllNoteIds = async () => {
         .list();
 
     if (error) {
-        throw error;
+        console.error(error);
+
+        return null;
     }
 
     return fileNames.map((file) => {
@@ -26,7 +28,9 @@ export const getNoteData = async (filename: string) => {
         .download(filePath);
 
     if (error) {
-        throw error;
+        console.error(error);
+
+        return null;
     }
 
     return await fileContents.text();

@@ -24,6 +24,10 @@ export const generateMetadata = async ({
 
     const note = await getNoteData(params.id);
 
+    if (!note) {
+        notFound();
+    }
+
     const noteMdx = await compileMDX<NoteMDX>({
         source: note,
         options: {
@@ -43,6 +47,10 @@ const NotePage = async ({ params }: { params: { id?: string } }) => {
     }
 
     const note = await getNoteData(params.id);
+
+    if (!note) {
+        notFound();
+    }
 
     const compiledMDX = await compileMDX<NoteMDX>({
         source: note,
