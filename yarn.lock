@@ -1291,10 +1291,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.3.tgz#6bda7819aae6ea0b386ebc5b24bdf602f1b42b01"
   integrity sha512-OPs5WnnT1xkCBiuQrZA4+YAV4HEJejmHneyraIaxsbev5yCEr6KMwINNFP9wQeFIw8FWcoTqF3vQsa5CDaI+8Q==
 
-"@types/node@18.16.8":
-  version "18.16.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.8.tgz#fcd9bd0a793aba2701caff4aeae7c988d4da6ce5"
-  integrity sha512-p0iAXcfWCOTCBbsExHIDFCfwsqFwBTgETJveKMT+Ci3LY9YqQCI91F5S+TB20+aRCXpcWfvx5Qr5EccnwCm2NA==
+"@types/node@18.16.9":
+  version "18.16.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.9.tgz#e79416d778a8714597342bb87efb5a6e914f7a73"
+  integrity sha512-IeB32oIV4oGArLrd7znD2rkHQ6EDCM+2Sr76dJnrHwv9OHBTTM6nuDLK9bmikXzPa0ZlWMWtRGo/Uw4mrzQedA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -1323,10 +1323,19 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@18.2.5", "@types/react@>=16":
+"@types/react@*", "@types/react@>=16":
   version "18.2.5"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.5.tgz#f9403e1113b12b53f7edcdd9a900c10dd4b49a59"
   integrity sha512-RuoMedzJ5AOh23Dvws13LU9jpZHIc/k90AgmK7CecAYeWmSr3553L4u5rk4sWAPBuQosfT7HmTfG4Rg5o4nGEA==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@18.2.6":
+  version "18.2.6"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.6.tgz#5cd53ee0d30ffc193b159d3516c8c8ad2f19d571"
+  integrity sha512-wRZClXn//zxCFW+ye/D2qY65UsYP1Fpex2YXorHc8awoNamkMZSvBxwxdYVInsHOZZd2Ppq8isnSzJL5Mpf8OA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -6704,10 +6713,10 @@ sucrase@^3.32.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@1.58.0:
-  version "1.58.0"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.58.0.tgz#2f17e0a7022bc38bdd3e011ce06019a1ed42522e"
-  integrity sha512-FRtCedJ9c6py7T+PTsrrf9HniqnBkOHemrvJohpt0eDqrXJAvP+UjxNChwk82E0dX6ChWeUOkRR+ZRiR9XFACQ==
+supabase@1.58.1:
+  version "1.58.1"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.58.1.tgz#6e428b424c8a1fd865abf18ed7873c3df58126a2"
+  integrity sha512-yynYiOhz2TrT2Fo3U3cN27OaXNKeiC2P+fC/zSFl4NchmKF01w1YEWACbhpInGhhCBziMr50JThbONrD9nOGdA==
   dependencies:
     bin-links "^4.0.1"
     node-fetch "^3.2.10"
