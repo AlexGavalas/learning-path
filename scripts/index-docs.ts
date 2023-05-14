@@ -70,7 +70,7 @@ const indexDocs = async () => {
         process.stdout.write(`Writing file ${filename} in storage ...`);
 
         await supabase.storage
-            .from('notes_test_1')
+            .from('notes_md_files')
             .upload(filename, fileContents, {
                 contentType: 'text/markdown',
                 upsert: true,
