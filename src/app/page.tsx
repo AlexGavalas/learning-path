@@ -11,9 +11,7 @@ import { TITLE, staticMetadata } from './constants';
 
 type Lines = Record<string, string[]>;
 
-// export const config: PageConfig = {
-//     runtime: 'experimental-edge',
-// };
+export const runtime = 'edge';
 
 export const generateMetadata = ({
     searchParams,

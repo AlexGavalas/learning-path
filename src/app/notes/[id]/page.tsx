@@ -8,16 +8,18 @@ import rehypeSlug from 'rehype-slug';
 
 import { components } from '~components/mdx';
 import { NoteHeader } from '~features/note-header';
-import { getAllNoteIds, getNoteData } from '~lib/notes';
+import { getNoteData } from '~lib/notes';
 import { type NoteMDX } from '~types/notes.types';
 
 import { TITLE, staticMetadata } from '../../constants';
 
-export const generateStaticParams = async () => {
-    const ids = await getAllNoteIds();
+// export const generateStaticParams = async () => {
+//     const ids = await getAllNoteIds();
 
-    return ids ?? [];
-};
+//     return ids ?? [];
+// };
+
+export const runtime = 'edge';
 
 export const generateMetadata = async ({
     params,
@@ -74,25 +76,23 @@ const NotePage = async ({ params }: { params: { id?: string } }) => {
     });
 
     return (
-        <>
-            <article>
-                <NoteHeader
-                    title={compiledMDX.frontmatter.title}
-                    created={compiledMDX.frontmatter.created}
-                    updated={compiledMDX.frontmatter.updated}
-                    timeZone="Europe/Athens"
-                />
-                <div className="heading dark:dark-heading prose dark:prose-invert prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary">
-                    {compiledMDX.content}
-                </div>
-            </article>
+        <article>
+            <NoteHeader
+                title={compiledMDX.frontmatter.title}
+                created={compiledMDX.frontmatter.created}
+                updated={compiledMDX.frontmatter.updated}
+                timeZone="Europe/Athens"
+            />
+            <div className="heading dark:dark-heading prose dark:prose-invert prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary">
+                {compiledMDX.content}
+            </div>
             <Link
                 href="/"
                 className="my-8 inline-block cursor-pointer bg-transparent p-0 text-lg text-light-primary hover:underline dark:text-dark-primary"
             >
                 &#x21dc; Back to home
             </Link>
-        </>
+        </article>
     );
 };
 
