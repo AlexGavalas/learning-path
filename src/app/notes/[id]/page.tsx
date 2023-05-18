@@ -19,8 +19,6 @@ import { TITLE, staticMetadata } from '../../constants';
 //     return ids ?? [];
 // };
 
-export const runtime = 'edge';
-
 export const generateMetadata = async ({
     params,
 }: {
