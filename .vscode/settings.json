@@ -2,7 +2,5 @@
     "editor.formatOnSave": true,
     "files.associations": {
         "*.css": "tailwindcss"
-    },
-    "jest.jestCommandLine": "source ~/.zshrc && yarn test",
-    "jest.shell": "/bin/zsh"
+    }
 }

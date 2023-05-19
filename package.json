@@ -15,12 +15,12 @@
         "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
         "test:watch": "jest --watch",
         "lint": "eslint --ignore-path .gitignore .",
-        "prettier": "prettier --ignore-path .gitignore .",
-        "check:format": "yarn prettier --list-different",
+        "prettier": "prettier .",
+        "check:format": "pnpm prettier --list-different",
         "check:types": "tsc --noEmit",
-        "format": "yarn prettier --write",
+        "format": "pnpm prettier --write",
         "prepare": "husky install",
-        "validate": "yarn lint && yarn check:format && yarn check:types"
+        "validate": "pnpm lint && pnpm check:format && pnpm check:types"
     },
     "dependencies": {
         "@supabase/supabase-js": "2.22.0",
