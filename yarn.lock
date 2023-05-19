@@ -6708,14 +6708,14 @@ sucrase@^3.32.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@1.61.0:
-  version "1.61.0"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.61.0.tgz#51ea17c8e3cef8958c3018afcc45c0ad0dbad5e4"
-  integrity sha512-/HHsTpKxHvGToTfhKx8yLZTK8ggDcqOnZJK6xB/4s3XpaOYWBU4xAhmUHm2CgU60KbgDIvsDgheCBOT6T8C4pw==
+supabase@1.62.1:
+  version "1.62.1"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.62.1.tgz#0e5295b997e711e708527a84a03583c1951d1dc9"
+  integrity sha512-XmRHRmk6BWDJL4UfiqKiuZQkgS3m7Q71Cn105wI99VK7J2IJEzcSNs8KzvzVZQvxWrw5CpV6gqALi2Y2MEBG5w==
   dependencies:
     bin-links "^4.0.1"
     node-fetch "^3.2.10"
-    tar "6.1.14"
+    tar "6.1.15"
 
 supports-color@^5.3.0:
   version "5.5.0"
@@ -6790,10 +6790,10 @@ tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-tar@6.1.14:
-  version "6.1.14"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.14.tgz#e87926bec1cfe7c9e783a77a79f3e81c1cfa3b66"
-  integrity sha512-piERznXu0U7/pW7cdSn7hjqySIVTYT6F76icmFk7ptU7dDYlXTm5r9A6K04R2vU3olYgoKeo1Cg3eeu5nhftAw==
+tar@6.1.15:
+  version "6.1.15"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.15.tgz#c9738b0b98845a3b344d334b8fa3041aaba53a69"
+  integrity sha512-/zKt9UyngnxIT/EAGYuxaMYgOIJiP81ab9ZfkILq4oNLPFX50qyYmu7jRj9qeXoxmJHjGlbH0+cm2uy1WCs10A==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
