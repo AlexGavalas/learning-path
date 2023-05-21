@@ -11,7 +11,7 @@ const main = async () => {
     const files = process.argv.slice(2);
 
     for (const file of files) {
-        const friendlyName = file.match(/(notes\/.*)/)?.[0];
+        const friendlyName = file.match(/((notes|summaries)\/.*)/)?.[0];
 
         console.log(`Updating timestamp of ${friendlyName} ...`);
 
