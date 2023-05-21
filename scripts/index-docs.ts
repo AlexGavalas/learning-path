@@ -12,6 +12,7 @@ const supabase = createClient<Database>(
 );
 
 const NOTES_DIR = path.join(process.cwd(), 'notes');
+const SUMMARIES_DIR = path.join(process.cwd(), 'summaries');
 
 const DELETE_LABEL = 'Delete took: ';
 const INDEX_LABEL = 'Indexing took: ';
@@ -59,12 +60,16 @@ const indexDocs = async () => {
             .filter((line) => line !== '---' && !/^#+\s/.test(line))
             .map((line) => line.replace('-   ', ''));
 
+        const fname = filename.replace(/\.mdx?$/, '');
+        const created = toISOString(data.created);
+        const updated = toISOString(data.updated);
+
         const values = parsedContents.map((line) => ({
             title: data.title,
             line,
-            filename: filename.replace(/\.mdx?$/, ''),
-            created: toISOString(data.created),
-            updated: toISOString(data.updated),
+            filename: fname,
+            created,
+            updated,
         }));
 
         process.stdout.write(`Writing file ${filename} in storage ...`);
@@ -124,6 +129,30 @@ const indexDocs = async () => {
     }
 };
 
-indexDocs().catch((e) => {
-    console.error(e);
-});
+const indexSummaries = async () => {
+    const summaries = await fs.readdir(SUMMARIES_DIR);
+
+    for (const filename of summaries) {
+        process.stdout.write(`Uploading contents of ${filename} ...`);
+
+        const fileContents = await fs.readFile(
+            `${SUMMARIES_DIR}/${filename}`,
+            'utf-8',
+        );
+
+        await supabase.storage
+            .from('summaries_md_files')
+            .upload(filename, fileContents, {
+                contentType: 'text/markdown',
+                upsert: true,
+            });
+
+        process.stdout.write(' [OK]\n');
+    }
+};
+
+indexDocs()
+    .then(indexSummaries)
+    .catch((e) => {
+        console.error(e);
+    });
