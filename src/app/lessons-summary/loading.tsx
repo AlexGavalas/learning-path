@@ -1,6 +1,6 @@
 import { CicurlarLoader } from '~components/loader';
 
-import { TITLE } from './constants';
+import { TITLE } from '../constants';
 
 const Loading = () => (
     <div className="flex h-40 w-full items-center justify-center">
