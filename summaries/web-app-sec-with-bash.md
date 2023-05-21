@@ -1,6 +1,6 @@
 ---
 title: Web application security with bash
-created: '2022-05-20'
+created: '2023-05-20'
 updated: '2023-05-21'
 published: true
 ---
