@@ -2,6 +2,7 @@ import { Zilla_Slab } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 import { Header } from '~features/header';
+import { Navigation } from '~features/nav';
 import '~styles/global.css';
 
 import { Providers } from './provider';
@@ -22,7 +23,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         className={`${zillaSlab.variable} m-auto flex max-w-xl flex-col bg-white font-sans dark:bg-[#121212]`}
                     >
                         <Header />
-                        <main className="mt-4 px-2">{children}</main>
+                        <Navigation
+                            links={[
+                                {
+                                    href: '/',
+                                    label: 'Notes',
+                                },
+                                {
+                                    href: '/lessons-summary',
+                                    label: 'Lessons summaries',
+                                },
+                            ]}
+                        />
+                        <main className="px-2">{children}</main>
                     </div>
                 </Providers>
             </body>
