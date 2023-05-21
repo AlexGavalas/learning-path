@@ -1,1 +1,2 @@
-export * from './loader';
+export { Loader } from './loader';
+export { CicurlarLoader } from './circular-loader';
