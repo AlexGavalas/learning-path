@@ -1,7 +1,6 @@
 import { compileMDX } from 'next-mdx-remote/rsc';
-import Link from 'next/link';
 
-import { FormattedDate } from '~components/formatted-date';
+import { NotesList } from '~features/notes-list';
 import { supabase } from '~lib/supabase';
 import { type NoteMDX } from '~types/notes.types';
 
@@ -29,7 +28,9 @@ const getFiles = async (filenames: StorageApiData) => {
             });
 
             return {
-                name: name.replace(/\.md$/, ''),
+                filename: name.replace(/\.md$/, ''),
+                updated: markdown.frontmatter.updated,
+                title: markdown.frontmatter.title,
                 markdown,
                 content,
             };
@@ -51,38 +52,21 @@ const LessonsSummaryPage = async () => {
     const files = await getFiles(summaries);
 
     return (
-        <div>
+        <section className="text-xl leading-8">
             <h2 className="my-8 text-black dark:text-white">
                 Lessons Summaries
             </h2>
-            <ul className="list-none divide-x-0 divide-y-2 divide-solid divide-zinc-300 p-0 dark:divide-zinc-800">
-                {files.map(({ markdown, name }) => (
-                    <Link
-                        key={name}
-                        href={`/lessons-summary/${name}`}
-                        className="hover:no-underline"
-                        role="link"
-                        prefetch={false}
-                    >
-                        <div className="group flex cursor-pointer items-center justify-between p-2 text-black hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-800">
-                            <div className="flex flex-col-reverse gap-2 sm:flex-row">
-                                <FormattedDate
-                                    dateString={markdown.frontmatter.updated}
-                                    format="dd/MM/yy"
-                                    timeZone="Europe/Athens"
-                                />
-                                <span className="text-light-primary hover:no-underline dark:text-dark-primary">
-                                    {markdown.frontmatter.title}
-                                </span>
-                            </div>
-                            <span className="opacity-0 group-hover:animate-pulse">
-                                &#x21dd;
-                            </span>
-                        </div>
-                    </Link>
-                ))}
-            </ul>
-        </div>
+            <p className="p-2 text-center">
+                This is where I will try to summarise the things I learn. Either
+                from online courses or from an interesting article I read, I
+                keep the things I find interesting here.
+            </p>
+            <NotesList
+                baseUrl="lessons-summary"
+                notes={files}
+                timeZone="Europe/Athens"
+            />
+        </section>
     );
 };
 

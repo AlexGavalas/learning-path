@@ -5,6 +5,7 @@ export const TITLE = 'Learning Path';
 export const SITE_URL = 'https://learning-path.dev/';
 
 export const staticMetadata: Metadata = {
+    metadataBase: new URL(SITE_URL),
     icons: [
         {
             rel: 'icon',

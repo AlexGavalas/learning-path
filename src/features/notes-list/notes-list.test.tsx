@@ -30,6 +30,7 @@ describe('<NotesList />', () => {
         it('renders', () => {
             const { container } = renderWithUser(
                 <NotesList
+                    baseUrl="notes"
                     notes={NO_NOTES}
                     lines={NO_LINES}
                     timeZone={timeZone}
@@ -42,6 +43,7 @@ describe('<NotesList />', () => {
         it('is accessible', async () => {
             const { container } = renderWithUser(
                 <NotesList
+                    baseUrl="notes"
                     notes={NO_NOTES}
                     lines={NO_LINES}
                     timeZone={timeZone}
@@ -71,6 +73,7 @@ describe('<NotesList />', () => {
         it('renders', () => {
             const { container } = renderWithUser(
                 <NotesList
+                    baseUrl="notes"
                     notes={NOTES}
                     lines={NO_LINES}
                     timeZone={timeZone}
@@ -83,6 +86,7 @@ describe('<NotesList />', () => {
         it('is accessible', async () => {
             const { container } = renderWithUser(
                 <NotesList
+                    baseUrl="notes"
                     notes={NOTES}
                     lines={NO_LINES}
                     timeZone={timeZone}
@@ -97,6 +101,7 @@ describe('<NotesList />', () => {
         it('renders item in a link', () => {
             renderWithUser(
                 <NotesList
+                    baseUrl="notes"
                     notes={NOTES}
                     lines={NO_LINES}
                     timeZone={timeZone}
@@ -118,6 +123,7 @@ describe('<NotesList />', () => {
             it('renders', () => {
                 const { container } = renderWithUser(
                     <NotesList
+                        baseUrl="notes"
                         notes={NOTES}
                         lines={LINES}
                         timeZone={timeZone}
@@ -130,6 +136,7 @@ describe('<NotesList />', () => {
             it('is accessible', async () => {
                 const { container } = renderWithUser(
                     <NotesList
+                        baseUrl="notes"
                         notes={NOTES}
                         lines={LINES}
                         timeZone={timeZone}

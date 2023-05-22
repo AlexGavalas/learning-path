@@ -73,7 +73,12 @@ const Home = async ({ searchParams }: { searchParams: { q?: string } }) => {
             <Banner />
             <SearchArea />
             <h2 className="my-8 text-black dark:text-white">Notes</h2>
-            <NotesList lines={lines} notes={notes} timeZone="Europe/Athens" />
+            <NotesList
+                lines={lines}
+                notes={notes}
+                baseUrl="notes"
+                timeZone="Europe/Athens"
+            />
         </section>
     );
 };

@@ -15,6 +15,7 @@ export type MarkdownMeta = {
     title: string;
     updated: string;
     date: string;
+    published: boolean;
 };
 
 export type NoteMDX = Note & {

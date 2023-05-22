@@ -4,13 +4,21 @@ import { FormattedDate } from '~components/formatted-date';
 import { List, ListItem } from '~components/list';
 import { type Note } from '~types/notes.types';
 
+type _Note = Pick<Note, 'filename' | 'updated' | 'title'>;
+
 type NotesListProps = {
-    notes: Note[];
-    lines: Record<string, string[]>;
+    notes: _Note[];
+    lines?: Record<string, string[]>;
     timeZone: string;
+    baseUrl: string;
 };
 
-export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
+export const NotesList = ({
+    notes,
+    lines,
+    timeZone,
+    baseUrl,
+}: NotesListProps) => {
     if (!notes.length) {
         return <p className="text-center">No notes found</p>;
     }
@@ -20,7 +28,7 @@ export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
             {notes.map(({ filename, updated, title }) => (
                 <li key={filename}>
                     <Link
-                        href={`/notes/${filename}`}
+                        href={`/${baseUrl}/${filename}`}
                         className="hover:no-underline"
                         role="link"
                         prefetch={false}
@@ -41,7 +49,7 @@ export const NotesList = ({ notes, lines, timeZone }: NotesListProps) => {
                             </span>
                         </div>
                     </Link>
-                    {lines[title] && (
+                    {lines?.[title] && (
                         <List>
                             {lines[title].map((line) => (
                                 <ListItem key={line}>{line}</ListItem>
