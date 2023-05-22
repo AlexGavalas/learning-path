@@ -7,14 +7,12 @@ type NavigationProps = {
     }[];
 };
 
-export const Navigation = ({ links }: NavigationProps) => {
-    return (
-        <nav className="flex items-center justify-center gap-5 p-4">
-            {links.map((link) => (
-                <Link key={link.href} href={link.href}>
-                    {link.label}
-                </Link>
-            ))}
-        </nav>
-    );
-};
+export const Navigation = ({ links }: NavigationProps) => (
+    <nav className="flex items-center justify-center gap-10 p-4 pt-6">
+        {links.map((link) => (
+            <Link key={link.href} href={link.href} className="my-0">
+                {link.label}
+            </Link>
+        ))}
+    </nav>
+);

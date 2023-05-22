@@ -3,9 +3,14 @@ import { type AnchorHTMLAttributes } from 'react';
 
 type LinkProps = NextLinkProps & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export const Link = ({ children, ...props }: LinkProps) => (
+export const Link = ({ children, className, ...props }: LinkProps) => (
     <NextLink
-        className="my-8 inline-block cursor-pointer bg-transparent p-0 text-lg text-light-primary hover:underline dark:text-dark-primary"
+        className={[
+            'inline-block cursor-pointer bg-transparent text-lg text-light-primary hover:underline dark:text-dark-primary',
+            className,
+        ]
+            .filter(Boolean)
+            .join(' ')}
         {...props}
     >
         {children}
