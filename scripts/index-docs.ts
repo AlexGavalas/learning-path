@@ -149,6 +149,23 @@ const indexSummaries = async () => {
 
         process.stdout.write(' [OK]\n');
     }
+
+    const url = new URL(
+        'https://learning-path.dev/lessons-summary/api/revalidate',
+    );
+
+    url.searchParams.set('secret', process.env.REVALIDATE_SECRET);
+    url.searchParams.set('path', '/lessons-summary');
+
+    const response = await fetch(url);
+
+    if (response.ok) {
+        const data = await response.json();
+
+        console.log('Revalidation successful', data);
+    } else {
+        console.error('Revalidation failed', response);
+    }
 };
 
 indexDocs()
