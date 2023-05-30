@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': 17.6.3
   '@commitlint/config-conventional': 17.6.3
-  '@supabase/supabase-js': 2.23.0
+  '@supabase/supabase-js': 2.24.0
   '@tailwindcss/typography': 0.5.9
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0
@@ -50,7 +50,7 @@ specifiers:
   unified: 10.1.2
 
 dependencies:
-  '@supabase/supabase-js': 2.23.0_encoding@0.1.13
+  '@supabase/supabase-js': 2.24.0_encoding@0.1.13
   '@vercel/edge-config': 0.2.0
   date-fns: 2.30.0
   gray-matter: 4.0.3
@@ -1238,8 +1238,8 @@ packages:
       - encoding
     dev: false
 
-  /@supabase/supabase-js/2.23.0_encoding@0.1.13:
-    resolution: {integrity: sha512-mlkzAQ3aLmcyJtlEdrkLNeq4MbnWcr/W+PjWZwBfxnrakoQqT97eRt/XZ1bXcWbmA9NKG8wHsLiTEOJmWW6CcQ==}
+  /@supabase/supabase-js/2.24.0_encoding@0.1.13:
+    resolution: {integrity: sha512-zrAm+hp6DBICqZ7xVPk+KofmlfjJWQzXuf2sHAyPz8XVjpha84z2OVWcow2aI10YkMOrPwhRtBBQYJOnh/fx2w==}
     dependencies:
       '@supabase/functions-js': 2.1.1_encoding@0.1.13
       '@supabase/gotrue-js': 2.27.0_encoding@0.1.13
