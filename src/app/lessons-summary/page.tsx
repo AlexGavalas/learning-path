@@ -2,7 +2,7 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 
 import { NotesList } from '~features/notes-list';
 import { supabase } from '~lib/supabase';
-import { type NoteMDX } from '~types/notes.types';
+import { type MarkdownMeta } from '~types/notes.types';
 
 import { staticMetadata } from '../constants';
 
@@ -13,6 +13,10 @@ export const metadata = staticMetadata;
 type StorageApi = ReturnType<typeof supabase.storage.from>;
 type StorageApiData = Awaited<ReturnType<StorageApi['list']>>['data'];
 
+function nonNullable<T>(value: T): value is NonNullable<T> {
+    return value !== null && value !== undefined;
+}
+
 const getFiles = async (filenames: StorageApiData) => {
     const files = await Promise.all(
         filenames?.map(async ({ name }) => {
@@ -20,12 +24,16 @@ const getFiles = async (filenames: StorageApiData) => {
                 .from('summaries_md_files')
                 .download(name);
 
-            const markdown = await compileMDX<NoteMDX>({
+            const markdown = await compileMDX<MarkdownMeta>({
                 source: (await content.data?.text()) || '',
                 options: {
                     parseFrontmatter: true,
                 },
             });
+
+            if (!markdown.frontmatter.published) {
+                return;
+            }
 
             return {
                 filename: name.replace(/\.md$/, ''),
@@ -37,7 +45,7 @@ const getFiles = async (filenames: StorageApiData) => {
         }) ?? [],
     );
 
-    return files;
+    return files.filter(nonNullable);
 };
 
 const LessonsSummaryPage = async () => {
