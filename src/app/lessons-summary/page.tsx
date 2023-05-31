@@ -51,7 +51,7 @@ const getFiles = async (filenames: StorageApiData) => {
 const LessonsSummaryPage = async () => {
     const { data: summaries, error } = await supabase.storage
         .from('summaries_md_files')
-        .list();
+        .list(undefined, { sortBy: { column: 'updated_at', order: 'desc' } });
 
     if (error) {
         throw error;
