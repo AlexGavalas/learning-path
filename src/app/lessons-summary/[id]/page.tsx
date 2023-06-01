@@ -1,4 +1,5 @@
-import { compileMDX } from 'next-mdx-remote/rsc';
+import { type Metadata } from 'next';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -7,49 +8,82 @@ import rehypeSlug from 'rehype-slug';
 
 import { NoteHeader } from '~features/note-header';
 import { supabase } from '~lib/supabase';
-import { type NoteMDX } from '~types/notes.types';
 
-import { staticMetadata } from '../../constants';
+import { TITLE, staticMetadata } from '../../constants';
 
-export const metadata = staticMetadata;
+export const generateMetadata = async ({
+    params,
+}: {
+    params: { id?: string };
+}): Promise<Metadata> => {
+    if (!params.id) {
+        notFound();
+    }
+
+    const { data: summaryMetadata, error: metaDataError } = await supabase
+        .from('lesson_summaries_meta')
+        .select('title')
+        .eq('filename', params.id)
+        .single();
+
+    if (!summaryMetadata) {
+        notFound();
+    }
+
+    if (metaDataError) {
+        throw metaDataError;
+    }
+
+    return {
+        ...staticMetadata,
+        title: `${summaryMetadata.title} | ${TITLE}`,
+    };
+};
 
 const LessonsSummary = async ({ params }: { params: { id?: string } }) => {
     if (!params.id) {
         notFound();
     }
 
+    const filename = `${params.id}.md`;
+
+    const { data: summaryMetadata, error: metaDataError } = await supabase
+        .from('lesson_summaries_meta')
+        .select('title, created, updated')
+        .eq('filename', params.id)
+        .single();
+
     const content = await supabase.storage
         .from('summaries_md_files')
-        .download(params.id + '.md');
+        .download(filename);
 
-    if (content.error) {
-        notFound();
+    if (content.error || metaDataError) {
+        throw content.error || metaDataError;
     }
-
-    const markdown = await compileMDX<NoteMDX>({
-        source: await content.data.text(),
-        options: {
-            parseFrontmatter: true,
-            mdxOptions: {
-                rehypePlugins: [
-                    [rehypeExternalLinks, { target: '_blank' }],
-                    [rehypeSlug],
-                    [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-                ],
-            },
-        },
-    });
 
     return (
         <article>
             <NoteHeader
-                title={markdown.frontmatter.title}
-                created={markdown.frontmatter.created}
-                updated={markdown.frontmatter.updated}
+                title={summaryMetadata.title}
+                created={summaryMetadata.created}
+                updated={summaryMetadata.updated}
                 timeZone="Europe/Athens"
             />
             <div className="heading dark:dark-heading prose dark:prose-invert prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary">
-                {markdown.content}
+                {/* @ts-expect-error React async component */}
+                <MDXRemote
+                    source={await content.data.text()}
+                    options={{
+                        parseFrontmatter: true,
+                        mdxOptions: {
+                            rehypePlugins: [
+                                [rehypeExternalLinks, { target: '_blank' }],
+                                [rehypeSlug],
+                                [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+                            ],
+                        },
+                    }}
+                />
             </div>
             <Link
                 href="/lessons-summary"

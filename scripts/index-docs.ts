@@ -140,9 +140,18 @@ const indexSummaries = async () => {
             'utf-8',
         );
 
+        const { content, data: frontmatter } = matter(fileContents);
+
+        await supabase.from('lesson_summaries_meta').upsert({
+            filename: filename.replace(/\.md?$/, ''),
+            title: frontmatter.title,
+            created: toISOString(frontmatter.created),
+            updated: toISOString(frontmatter.updated),
+        });
+
         await supabase.storage
             .from('summaries_md_files')
-            .upload(filename, fileContents, {
+            .upload(filename, content, {
                 contentType: 'text/markdown',
                 upsert: true,
             });

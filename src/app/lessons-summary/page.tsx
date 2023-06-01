@@ -1,63 +1,24 @@
-import { compileMDX } from 'next-mdx-remote/rsc';
-
 import { NotesList } from '~features/notes-list';
 import { supabase } from '~lib/supabase';
-import { type MarkdownMeta } from '~types/notes.types';
 
-import { staticMetadata } from '../constants';
+import { TITLE, staticMetadata } from '../constants';
 
-// export const runtime = 'edge';
+export const runtime = 'edge';
 
-export const metadata = staticMetadata;
-
-type StorageApi = ReturnType<typeof supabase.storage.from>;
-type StorageApiData = Awaited<ReturnType<StorageApi['list']>>['data'];
-
-function nonNullable<T>(value: T): value is NonNullable<T> {
-    return value !== null && value !== undefined;
-}
-
-const getFiles = async (filenames: StorageApiData) => {
-    const files = await Promise.all(
-        filenames?.map(async ({ name }) => {
-            const content = await supabase.storage
-                .from('summaries_md_files')
-                .download(name);
-
-            const markdown = await compileMDX<MarkdownMeta>({
-                source: (await content.data?.text()) || '',
-                options: {
-                    parseFrontmatter: true,
-                },
-            });
-
-            if (!markdown.frontmatter.published) {
-                return;
-            }
-
-            return {
-                filename: name.replace(/\.md$/, ''),
-                updated: markdown.frontmatter.updated,
-                title: markdown.frontmatter.title,
-                markdown,
-                content,
-            };
-        }) ?? [],
-    );
-
-    return files.filter(nonNullable);
+export const metadata = {
+    ...staticMetadata,
+    title: `Lessons summaries | ${TITLE}`,
 };
 
 const LessonsSummaryPage = async () => {
-    const { data: summaries, error } = await supabase.storage
-        .from('summaries_md_files')
-        .list(undefined, { sortBy: { column: 'updated_at', order: 'desc' } });
+    const { data: summaries, error } = await supabase
+        .from('lesson_summaries_meta')
+        .select('*')
+        .order('updated', { ascending: false });
 
     if (error) {
         throw error;
     }
-
-    const files = await getFiles(summaries);
 
     return (
         <section className="text-xl leading-8">
@@ -71,7 +32,7 @@ const LessonsSummaryPage = async () => {
             </p>
             <NotesList
                 baseUrl="lessons-summary"
-                notes={files}
+                notes={summaries}
                 timeZone="Europe/Athens"
             />
         </section>

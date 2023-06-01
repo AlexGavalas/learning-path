@@ -9,6 +9,32 @@ export type Json =
 export interface Database {
     public: {
         Tables: {
+            lesson_summaries_meta: {
+                Row: {
+                    created: string;
+                    created_at: string;
+                    filename: string;
+                    id: number;
+                    title: string;
+                    updated: string;
+                };
+                Insert: {
+                    created: string;
+                    created_at?: string;
+                    filename: string;
+                    id?: number;
+                    title: string;
+                    updated: string;
+                };
+                Update: {
+                    created?: string;
+                    created_at?: string;
+                    filename?: string;
+                    id?: number;
+                    title?: string;
+                    updated?: string;
+                };
+            };
             notes: {
                 Row: {
                     created: string;
