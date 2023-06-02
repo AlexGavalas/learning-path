@@ -1,10 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
-import { parse } from 'date-fns';
 import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
 
 import { type Database } from '~types/database.types';
+
+import { toISOString } from './helpers';
 
 const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -12,13 +13,9 @@ const supabase = createClient<Database>(
 );
 
 const NOTES_DIR = path.join(process.cwd(), 'notes');
-const SUMMARIES_DIR = path.join(process.cwd(), 'summaries');
 
 const DELETE_LABEL = 'Delete took: ';
 const INDEX_LABEL = 'Indexing took: ';
-
-const toISOString = (date: string) =>
-    parse(date, 'yyyy-MM-dd', new Date()).toISOString();
 
 const indexDocs = async () => {
     console.time(DELETE_LABEL);
@@ -129,56 +126,6 @@ const indexDocs = async () => {
     }
 };
 
-const indexSummaries = async () => {
-    const summaries = await fs.readdir(SUMMARIES_DIR);
-
-    for (const filename of summaries) {
-        process.stdout.write(`Uploading contents of ${filename} ...`);
-
-        const fileContents = await fs.readFile(
-            `${SUMMARIES_DIR}/${filename}`,
-            'utf-8',
-        );
-
-        const { content, data: frontmatter } = matter(fileContents);
-
-        await supabase.from('lesson_summaries_meta').upsert({
-            filename: filename.replace(/\.md?$/, ''),
-            title: frontmatter.title,
-            created: toISOString(frontmatter.created),
-            updated: toISOString(frontmatter.updated),
-        });
-
-        await supabase.storage
-            .from('summaries_md_files')
-            .upload(filename, content, {
-                contentType: 'text/markdown',
-                upsert: true,
-            });
-
-        process.stdout.write(' [OK]\n');
-    }
-
-    const url = new URL(
-        'https://learning-path.dev/lessons-summary/api/revalidate',
-    );
-
-    url.searchParams.set('secret', process.env.REVALIDATE_SECRET);
-    url.searchParams.set('path', '/lessons-summary');
-
-    const response = await fetch(url);
-
-    if (response.ok) {
-        const data = await response.json();
-
-        console.log('Revalidation successful', data);
-    } else {
-        console.error('Revalidation failed', response);
-    }
-};
-
-indexDocs()
-    .then(indexSummaries)
-    .catch((e) => {
-        console.error(e);
-    });
+indexDocs().catch((e) => {
+    console.error(e);
+});
