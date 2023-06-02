@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                 },
                                 {
                                     href: '/lessons-summary',
-                                    label: 'Lessons summaries',
+                                    label: 'Lesson summaries',
                                 },
                             ]}
                         />

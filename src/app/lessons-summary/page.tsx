@@ -7,7 +7,7 @@ export const runtime = 'edge';
 
 export const metadata = {
     ...staticMetadata,
-    title: `Lessons summaries | ${TITLE}`,
+    title: `Lesson summaries | ${TITLE}`,
 };
 
 const LessonsSummaryPage = async () => {
@@ -23,7 +23,7 @@ const LessonsSummaryPage = async () => {
     return (
         <section className="text-xl leading-8">
             <h2 className="my-8 text-black dark:text-white">
-                Lessons Summaries
+                Lesson Summaries
             </h2>
             <p className="p-2 text-center">
                 This is where I will try to summarise the things I learn. Either
