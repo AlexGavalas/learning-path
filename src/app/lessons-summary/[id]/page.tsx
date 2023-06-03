@@ -53,9 +53,11 @@ const LessonsSummary = async ({ params }: { params: { id?: string } }) => {
         .eq('filename', params.id)
         .single();
 
+    console.time('download');
     const content = await supabase.storage
         .from('summaries_md_files')
         .download(filename);
+    console.timeEnd('download');
 
     if (content.error || metaDataError) {
         throw content.error || metaDataError;
