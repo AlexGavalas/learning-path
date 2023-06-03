@@ -48,19 +48,28 @@ const LessonsSummary = async ({ params }: { params: { id?: string } }) => {
 
     const filename = `${params.id}.md`;
 
-    const { data: summaryMetadata, error: metaDataError } = await supabase
+    const dbPromise = supabase
         .from('lesson_summaries_meta')
         .select('title, created, updated')
         .eq('filename', params.id)
         .single();
 
+    const fileServerPromise = axios.get<string>(
+        `${process.env.FILE_SERVER_URL}/summaries/${filename}`,
+    );
+
+    const [dbResult, fileServerReult] = await Promise.all([
+        dbPromise,
+        fileServerPromise,
+    ]);
+
+    const { data: summaryMetadata, error: metaDataError } = dbResult;
+
+    const { data } = fileServerReult;
+
     if (metaDataError) {
         throw metaDataError;
     }
-
-    const { data } = await axios.get<string>(
-        `${process.env.FILE_SERVER_URL}/summaries/${filename}`,
-    );
 
     return (
         <article>
