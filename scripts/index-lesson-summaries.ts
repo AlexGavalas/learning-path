@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import axios from 'axios';
 import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
@@ -34,6 +35,19 @@ const indexSummaries = async () => {
             updated: toISOString(frontmatter.updated),
         });
 
+        try {
+            const form = new FormData();
+            form.append('md_file', new Blob([content]), filename);
+
+            await axios.postForm(
+                `${process.env.FILE_SERVER_URL}/summaries/upload`,
+                form,
+            );
+        } catch (e) {
+            console.error(e);
+        }
+
+        // Keep the old storage for now
         await supabase.storage
             .from('summaries_md_files')
             .upload(filename, content, {
