@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { type Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
@@ -53,15 +54,13 @@ const LessonsSummary = async ({ params }: { params: { id?: string } }) => {
         .eq('filename', params.id)
         .single();
 
-    console.time('download');
-    const content = await supabase.storage
-        .from('summaries_md_files')
-        .download(filename);
-    console.timeEnd('download');
-
-    if (content.error || metaDataError) {
-        throw content.error || metaDataError;
+    if (metaDataError) {
+        throw metaDataError;
     }
+
+    const { data } = await axios.get<string>(
+        `${process.env.FILE_SERVER_URL}/summaries/${filename}`,
+    );
 
     return (
         <article>
@@ -74,7 +73,7 @@ const LessonsSummary = async ({ params }: { params: { id?: string } }) => {
             <div className="heading dark:dark-heading prose dark:prose-invert prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary">
                 {/* @ts-expect-error React async component */}
                 <MDXRemote
-                    source={await content.data.text()}
+                    source={data}
                     options={{
                         parseFrontmatter: true,
                         mdxOptions: {
