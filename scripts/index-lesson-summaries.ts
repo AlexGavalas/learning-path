@@ -9,6 +9,7 @@ import { type Database } from '~types/database.types';
 import { toISOString } from './helpers';
 
 const SUMMARIES_DIR = path.join(process.cwd(), 'summaries');
+const UPLOAD_URL = `${process.env.FILE_SERVER_URL}/summaries/upload`;
 
 const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -39,10 +40,7 @@ const indexSummaries = async () => {
             const form = new FormData();
             form.append('md_file', new Blob([content]), filename);
 
-            await axios.postForm(
-                `${process.env.FILE_SERVER_URL}/summaries/upload`,
-                form,
-            );
+            await axios.postForm(UPLOAD_URL, form);
         } catch (e) {
             console.error(e);
         }
