@@ -1,11 +1,15 @@
-// TODO: Replace with <Link> component, does not seem to work at the momemnt
+import Link from 'next/link';
 
 const NotFound = () => {
     return (
         <div className="flex h-full items-center justify-center">
             <p className="text-center">
                 Looks like you reached a dead end ... Maybe try the path from
-                the <a href="/">start</a>?
+                the{' '}
+                <Link href="/" replace>
+                    start
+                </Link>
+                ?
             </p>
         </div>
     );
