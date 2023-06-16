@@ -20,7 +20,7 @@ specifiers:
   axios: 1.4.0
   date-fns: 2.30.0
   date-fns-tz: 2.0.0
-  dotenv: 16.1.1
+  dotenv: 16.2.0
   encoding: 0.1.13
   eslint: 8.42.0
   eslint-config-next: 13.4.5
@@ -81,7 +81,7 @@ devDependencies:
   autoprefixer: 10.4.14_postcss@8.4.23
   axios: 1.4.0
   date-fns-tz: 2.0.0_date-fns@2.30.0
-  dotenv: 16.1.1
+  dotenv: 16.2.0
   encoding: 0.1.13
   eslint: 8.42.0
   eslint-config-next: 13.4.5_tizxnkcvjrb4cldxgwq5h3lj5u
@@ -2749,8 +2749,8 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /dotenv/16.1.1:
-    resolution: {integrity: sha512-UGmzIqXU/4b6Vb3R1Vrfd/4vGgVlB+mO+vEixOdfRhLeppkyW2BMhuK7TL8d0el+q9c4lW9qK2wZYhNLFhXYLA==}
+  /dotenv/16.2.0:
+    resolution: {integrity: sha512-jcq2vR1DY1+QA+vH58RIrWLDZOifTGmyQJWzP9arDUbgZcySdzuBb1WvhWZzZtiXgfm+GW2pjBqStqlfpzq7wQ==}
     engines: {node: '>=12'}
     dev: true
 
