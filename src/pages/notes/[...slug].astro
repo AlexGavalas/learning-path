@@ -1,0 +1,60 @@
+---
+import type { NotesCollection } from '~types/notes.types';
+import NotesLayout from '~layouts/note.astro';
+import { getAllNoteIds, getNoteData, getNoteMetadata } from '~api/notes';
+import { Markdown } from '~components/markdown';
+
+type Content = Awaited<ReturnType<typeof getNoteData>>;
+
+export async function getStaticPaths() {
+    const posts = await getAllNoteIds();
+
+    if (!posts) {
+        throw new Error('No posts found');
+    }
+
+    const removeFrontmatter = (s?: string) =>
+        s?.replace(/\s*---(.|\s)*?---\s*/, '');
+
+    return await Promise.all(
+        posts.map(async (post) => {
+            const metaPromise = getNoteMetadata(post.slug);
+            const contentPromise = getNoteData(post.slug);
+
+            const [meta, content] = await Promise.all([
+                metaPromise,
+                contentPromise,
+            ]);
+
+            return {
+                params: {
+                    slug: post.slug,
+                },
+                props: {
+                    content: import.meta.env.PROD
+                        ? removeFrontmatter(content?.toString()) ?? ''
+                        : content ?? '',
+                    meta,
+                },
+            };
+        }),
+    );
+}
+
+type Props = {
+    content: Content;
+    meta: NotesCollection['data'];
+};
+
+const { content, meta } = Astro.props;
+---
+
+<NotesLayout {...meta}>
+    {
+        typeof content === 'string' ? (
+            <Markdown content={content} />
+        ) : (
+            content && <content.Content />
+        )
+    }
+</NotesLayout>

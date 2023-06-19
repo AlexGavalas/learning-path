@@ -1,0 +1,30 @@
+---
+import GlobalLayout from '~layouts/global.astro';
+import Banner from '~components/banner.astro';
+import NotesList from '~components/notes-list.astro';
+import { SearchArea } from '~components/search-area';
+import { fetchNotes } from '~api/notes';
+import { QUERY_FIELD_NAME, TITLE } from '~constants';
+
+export const prerender = false;
+
+const q = Astro.url.searchParams.get(QUERY_FIELD_NAME) ?? '';
+
+const { notes, lines } = await fetchNotes(q);
+
+const title = q ? `${q} | ${TITLE}` : TITLE;
+---
+
+<GlobalLayout title={title}>
+    <section class="text-xl leading-8 grid gap-6">
+        <Banner />
+        <SearchArea client:load q={q} />
+        <h2 class="text-black dark:text-white">Notes</h2>
+        <NotesList
+            lines={lines}
+            notes={notes}
+            baseUrl="notes"
+            timeZone="Europe/Athens"
+        />
+    </section>
+</GlobalLayout>
