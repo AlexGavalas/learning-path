@@ -1,4 +1,4 @@
-export const CicurlarLoader = () => (
+export const CicurlarLoader = (): JSX.Element => (
     <svg
         aria-hidden="true"
         className="h-8 w-8 animate-spin fill-light-primary text-gray-300 dark:fill-dark-primary dark:text-gray-700"

@@ -1,0 +1,25 @@
+---
+export type Props = {
+    links: {
+        href: string;
+        label: string;
+    }[];
+};
+
+const { links } = Astro.props;
+---
+
+<nav
+    class="flex items-center justify-center gap-10 px-4 text-light-primary dark:text-dark-primary"
+>
+    {
+        links.map((link) => (
+            <a
+                href={link.href}
+                class="hover:underline decoration-2 underline-offset-2"
+            >
+                {link.label}
+            </a>
+        ))
+    }
+</nav>

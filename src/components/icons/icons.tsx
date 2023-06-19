@@ -1,4 +1,4 @@
-export const YoutubeIcon = () => (
+export const YoutubeIcon = (): JSX.Element => (
     <svg
         style={{
             fillRule: 'evenodd',

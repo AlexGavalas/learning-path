@@ -1,0 +1,58 @@
+---
+import List from '~components/list.astro';
+import ListItem from '~components/list-item.astro';
+import FormattedDate from '~components/formatted-date.astro';
+import type { Note } from '~types/notes.types';
+
+type _Note = Pick<Note, 'filename' | 'updated' | 'title'>;
+
+export type Props = {
+    notes: _Note[];
+    lines?: Record<string, string[]>;
+    timeZone: string;
+    baseUrl: string;
+};
+
+const { notes, lines, timeZone, baseUrl } = Astro.props;
+const hasNotes = notes.length > 0;
+---
+
+{
+    hasNotes ? (
+        <ul class="list-none divide-x-0 divide-y-2 divide-solid divide-zinc-300 p-0 dark:divide-zinc-800">
+            {notes.map(({ filename, updated, title }) => (
+                <li>
+                    <a
+                        href={`/${baseUrl}/${filename}`}
+                        class="hover:no-underline"
+                    >
+                        <div class="group flex cursor-pointer items-center justify-between p-2 text-black hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-800">
+                            <div class="flex gap-2">
+                                <FormattedDate
+                                    dateString={updated}
+                                    timeZone={timeZone}
+                                    format="dd/MM/yy"
+                                />
+                                <span class="text-light-primary hover:no-underline dark:text-dark-primary">
+                                    {title}
+                                </span>
+                            </div>
+                            <span class="opacity-0 group-hover:animate-pulse">
+                                &#x21dd;
+                            </span>
+                        </div>
+                    </a>
+                    {lines?.[title] && (
+                        <List>
+                            {lines[title].map((line) => (
+                                <ListItem key={line}>{line}</ListItem>
+                            ))}
+                        </List>
+                    )}
+                </li>
+            ))}
+        </ul>
+    ) : (
+        <p class="text-center">No notes found</p>
+    )
+}
