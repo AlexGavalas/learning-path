@@ -6,9 +6,8 @@ import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel/edge';
 import { defineConfig } from 'astro/config';
 import 'dotenv/config';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeExternalLinks from 'rehype-external-links';
-import rehypeSlug from 'rehype-slug';
+
+import { REHYPE_PLUGINS } from './src/config/markdown';
 
 const isProd = import.meta.env.PROD;
 const isLocalBuild = process.env.LOCAL === 'true';
@@ -18,21 +17,7 @@ export default defineConfig({
     integrations: [mdx(), sitemap(), react(), tailwind()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:3000',
     markdown: {
-        rehypePlugins: [
-            [
-                rehypeExternalLinks,
-                {
-                    target: '_blank',
-                },
-            ],
-            rehypeSlug,
-            [
-                rehypeAutolinkHeadings,
-                {
-                    behavior: 'wrap',
-                },
-            ],
-        ],
+        rehypePlugins: REHYPE_PLUGINS,
     },
     output: 'hybrid',
     adapter: isLocalBuild ? node({ mode: 'standalone' }) : vercel(),

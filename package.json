@@ -13,7 +13,7 @@
         "preview": "astro preview",
         "astro": "astro",
         "index:notes": "tsm scripts/index-notes.ts",
-        "index:summaries": "node --no-warnings -r tsm -r dotenv/config scripts/index-lesson-summaries.ts dotenv_config_path=.env.local",
+        "index:summaries": "tsm scripts/index-lesson-summaries.ts",
         "sync:types:supabase": "supabase gen types typescript --project-id cxftalfhgyhwkiwnyqjh --schema public > src/types/database.types.ts && pnpm format",
         "test": "jest",
         "test:coverage": "jest --coverage",

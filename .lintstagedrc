@@ -1,4 +1,4 @@
 {
     "*.(ts|tsx)": "pnpm test -- --findRelatedTests --passWithNoTests",
-    "!(README)*.(md|mdx)": "node -r tsm scripts/update-md-timestamps.ts"
+    "!(README)*.(md|mdx)": "tsm scripts/update-md-timestamps.ts"
 }

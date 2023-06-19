@@ -1,35 +1,25 @@
 {
+    "extends": "astro/tsconfigs/strict",
     "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": true,
+        "strictNullChecks": true,
         "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "incremental": true,
-        "jsx": "preserve",
+        "jsx": "react-jsx",
+        "jsxImportSource": "react",
         "baseUrl": "./src",
         "paths": {
-            "~lib/*": ["lib/*"],
+            "~api/*": ["api/*"],
             "~components/*": ["components/*"],
+            "~config/*": ["config/*"],
+            "~content/*": ["content/*"],
             "~hooks/*": ["hooks/*"],
-            "~features/*": ["features/*"],
+            "~layouts/*": ["layouts/*"],
+            "~lib/*": ["lib/*"],
+            "~pages/*": ["pages/*"],
+            "~scripts/*": ["scripts/*"],
             "~styles/*": ["styles/*"],
             "~test/*": ["test/*"],
-            "~types/*": ["types/*"]
-        },
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ]
-    },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-    "exclude": ["node_modules"]
+            "~types/*": ["types/*"],
+            "~constants": ["constants.ts"]
+        }
+    }
 }
