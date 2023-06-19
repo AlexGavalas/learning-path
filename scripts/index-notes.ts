@@ -1,36 +1,75 @@
-import { createClient } from '@supabase/supabase-js';
+import 'dotenv/config';
 import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
 
-import { type Database } from '~types/database.types';
+import { supabase } from '~lib/supabase';
+import type { NoteFrontmatter } from '~types/notes.types';
 
-import { toISOString } from './helpers';
+import { getEnvVariable, toISOString } from './helpers';
 
-const supabase = createClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-);
-
-const NOTES_DIR = path.join(process.cwd(), 'notes');
+const NOTES_DIR = path.join(process.cwd(), 'src/content/notes');
 
 const DELETE_LABEL = 'Delete took: ';
 const INDEX_LABEL = 'Indexing took: ';
 
-const indexDocs = async () => {
+const dropNotesTable = async (): Promise<void> => {
     console.time(DELETE_LABEL);
 
     // Delete all records where the title is not empty, meaning all records
-    const res = await supabase.from('notes').delete().neq('title', '');
+    const { error } = await supabase.from('notes').delete().neq('title', '');
 
-    if (res.error) {
+    if (error !== null) {
         console.error('Could not delete previous notes.');
-        console.error(res.error);
+        console.error(error);
 
         process.exit(1);
     }
 
     console.timeEnd(DELETE_LABEL);
+};
+
+const updateEdgeConfig = async (): Promise<void> => {
+    const { data, error } = await supabase.rpc('get_notes_meta');
+
+    if (error !== null) {
+        console.error(error);
+        process.exit(1);
+    }
+
+    try {
+        const edgeConfig = getEnvVariable('EDGE_CONFIG_ID');
+        const vercelAccessToken = getEnvVariable('VERCEL_ACCESS_TOKEN');
+
+        const url = `https://api.vercel.com/v1/edge-config/${edgeConfig}/items`;
+
+        const res = await fetch(url, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                items: [
+                    {
+                        operation: 'update',
+                        key: 'meta',
+                        value: data,
+                    },
+                ],
+            }),
+            headers: {
+                Authorization: `Bearer ${vercelAccessToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const responseData = await res.json();
+
+        console.log('Update Edge Config response', responseData);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+const indexDocs = async (): Promise<void> => {
+    await dropNotesTable();
 
     const notes = await fs.readdir(NOTES_DIR);
 
@@ -42,9 +81,12 @@ const indexDocs = async () => {
             'utf-8',
         );
 
-        const { content, data } = matter(fileContents);
+        const { content, data } = matter(fileContents) as unknown as {
+            content: string;
+            data: NoteFrontmatter;
+        };
 
-        if (!data.published) {
+        if (data.published === false) {
             console.log(`Skipping ${filename} as it is not published yet ...`);
 
             continue;
@@ -91,39 +133,7 @@ const indexDocs = async () => {
 
     console.timeEnd(INDEX_LABEL);
 
-    const { data, error } = await supabase.rpc('get_notes_meta');
-
-    if (error) {
-        console.error(error);
-        process.exit(1);
-    }
-
-    try {
-        const url = `https://api.vercel.com/v1/edge-config/${process.env.EDGE_CONFIG_ID}/items`;
-
-        const res = await fetch(url, {
-            method: 'PATCH',
-            body: JSON.stringify({
-                items: [
-                    {
-                        operation: 'update',
-                        key: 'meta',
-                        value: data,
-                    },
-                ],
-            }),
-            headers: {
-                Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
-                'Content-Type': 'application/json',
-            },
-        });
-
-        const responseData = await res.json();
-
-        console.log('Update Edge Config response', responseData);
-    } catch (e) {
-        console.error(e);
-    }
+    await updateEdgeConfig();
 };
 
 indexDocs().catch((e) => {
