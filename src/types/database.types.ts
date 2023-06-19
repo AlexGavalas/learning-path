@@ -34,6 +34,7 @@ export interface Database {
                     title?: string;
                     updated?: string;
                 };
+                Relationships: [];
             };
             notes: {
                 Row: {
@@ -60,6 +61,7 @@ export interface Database {
                     title?: string;
                     updated?: string;
                 };
+                Relationships: [];
             };
             posts: {
                 Row: {
@@ -80,6 +82,7 @@ export interface Database {
                     name?: string;
                     post?: string;
                 };
+                Relationships: [];
             };
         };
         Views: {
