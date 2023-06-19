@@ -1,0 +1,40 @@
+---
+import BaseHead from '~components/base-head.astro';
+import Theme from '~scripts/theme.astro';
+import Nav from '~components/nav.astro';
+import { Header } from '~components/header';
+
+export type Props = {
+    title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <BaseHead title={title} />
+        <Theme />
+    </head>
+    <body>
+        <div class="m-auto flex max-w-xl flex-col bg-white dark:bg-[#121212]">
+            <main class="px-4 grid gap-6">
+                <Header client:idle />
+                <Nav
+                    links={[
+                        {
+                            href: '/',
+                            label: 'Notes',
+                        },
+                        {
+                            href: '/lessons-summary',
+                            label: 'Lesson summaries',
+                        },
+                    ]}
+                />
+                <slot />
+            </main>
+        </div>
+    </body>
+</html>
