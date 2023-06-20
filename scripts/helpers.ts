@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { parse } from 'date-fns';
 import fs from 'fs/promises';
 
@@ -22,4 +23,19 @@ export const getEnvVariable = (envVar: string): string => {
     }
 
     return value;
+};
+
+export const uploadFile = async (
+    url: string,
+    content: string,
+    filename: string,
+): Promise<void> => {
+    try {
+        const form = new FormData();
+        form.append('md_file', new Blob([content]), filename);
+
+        await axios.postForm(url, form);
+    } catch (e) {
+        console.error(e);
+    }
 };

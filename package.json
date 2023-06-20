@@ -13,7 +13,7 @@
         "preview": "astro preview",
         "astro": "astro",
         "index:notes": "tsm scripts/index-notes.ts",
-        "index:summaries": "tsm scripts/index-lesson-summaries.ts",
+        "index:summaries": "tsm scripts/index-lesson-summaries.runner.ts",
         "sync:types:supabase": "supabase gen types typescript --project-id cxftalfhgyhwkiwnyqjh --schema public > src/types/database.types.ts && pnpm format",
         "test": "jest",
         "test:coverage": "jest --coverage",

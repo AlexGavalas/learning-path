@@ -1,13 +1,9 @@
 export const supabase = {
     rpc: jest.fn(),
-    auth: {
-        onAuthStateChange: jest.fn().mockReturnValue({
-            data: {
-                subscription: {
-                    unsubscribe: jest.fn(),
-                },
-            },
+    upsert: jest.fn(),
+    from: jest.fn().mockReturnValue({
+        upsert: jest.fn().mockReturnValue({
+            error: null,
         }),
-        getSession: jest.fn().mockResolvedValue({ data: { session: null } }),
-    },
+    }),
 };

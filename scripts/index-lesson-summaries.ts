@@ -1,4 +1,3 @@
-import axios from 'axios';
 import 'dotenv/config';
 import fs from 'fs/promises';
 import matter from 'gray-matter';
@@ -6,46 +5,38 @@ import path from 'path';
 
 import { supabase } from '~lib/supabase';
 
-import { getEnvVariable, toISOString } from './helpers';
+import { getEnvVariable, readFile, toISOString, uploadFile } from './helpers';
 
-const SUMMARIES_DIR = path.join(process.cwd(), 'summaries');
-const UPLOAD_URL = `${getEnvVariable(
-    'PUBLIC_FILE_SERVER_URL',
-)}/summaries/upload`;
+export const indexLessonSummaries = async (): Promise<void> => {
+    const SUMMARIES_DIR = path.join(process.cwd(), 'summaries');
 
-const indexSummaries = async (): Promise<void> => {
     const summaries = await fs.readdir(SUMMARIES_DIR);
 
     for (const filename of summaries) {
         process.stdout.write(`Uploading contents of ${filename} ...`);
 
-        const fileContents = await fs.readFile(
-            `${SUMMARIES_DIR}/${filename}`,
-            'utf-8',
-        );
+        const fileContents = await readFile(`${SUMMARIES_DIR}/${filename}`);
 
         const { content, data: frontmatter } = matter(fileContents);
 
-        await supabase.from('lesson_summaries_meta').upsert({
+        const { error } = await supabase.from('lesson_summaries_meta').upsert({
             filename: filename.replace(/\.md?$/, ''),
             title: frontmatter.title,
             created: toISOString(frontmatter.created),
             updated: toISOString(frontmatter.updated),
         });
 
-        try {
-            const form = new FormData();
-            form.append('md_file', new Blob([content]), filename);
-
-            await axios.postForm(UPLOAD_URL, form);
-        } catch (e) {
-            console.error(e);
+        if (error !== null) {
+            console.error(error);
         }
+
+        const UPLOAD_URL = `${getEnvVariable(
+            'PUBLIC_FILE_SERVER_URL',
+        )}/summaries/upload`;
+
+        // Content is uploaded without the frontmatter
+        await uploadFile(UPLOAD_URL, filename, content);
 
         process.stdout.write(' [OK]\n');
     }
 };
-
-indexSummaries().catch((e) => {
-    console.error(e);
-});

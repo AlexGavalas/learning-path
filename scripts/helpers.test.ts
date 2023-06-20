@@ -1,8 +1,16 @@
+import axios from 'axios';
 import fs from 'fs/promises';
 
-import { getEnvVariable, readFile, toISOString, writeFile } from './helpers';
+import {
+    getEnvVariable,
+    readFile,
+    toISOString,
+    uploadFile,
+    writeFile,
+} from './helpers';
 
 jest.mock('fs/promises');
+jest.mock('axios');
 
 describe('getEnvVariable', () => {
     const envVar = 'TEST_ENV_VAR';
@@ -99,5 +107,18 @@ describe('writeFile', () => {
             'contents',
             'utf8',
         );
+    });
+});
+
+describe('uploadFile', () => {
+    const url = 'test-url';
+    const content = 'test-content';
+    const filename = 'test-filename';
+
+    it('calls postForm from axios with the correct arguments', async () => {
+        await uploadFile(url, content, filename);
+
+        expect(axios.postForm).toHaveBeenCalledTimes(1);
+        expect(axios.postForm).toHaveBeenCalledWith(url, expect.any(FormData));
     });
 });
