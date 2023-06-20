@@ -3,7 +3,7 @@ import matter from 'gray-matter';
 
 import { readFile, writeFile } from './helpers';
 
-const main = async (): Promise<void> => {
+export const updateMdTimestamps = async (): Promise<void> => {
     const files = process.argv.slice(2);
 
     for (const file of files) {
@@ -27,7 +27,3 @@ const main = async (): Promise<void> => {
 
     console.log('Updated timestamps.');
 };
-
-main().catch((e) => {
-    console.error(e);
-});
