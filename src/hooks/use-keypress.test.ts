@@ -7,9 +7,9 @@ describe('useKeypress', () => {
         const triggerKey = 'a';
         const mockHandler = jest.fn();
 
-        const { user } = renderHookWithUser(() =>
-            useKeypress(triggerKey, mockHandler),
-        );
+        const { user } = renderHookWithUser(() => {
+            useKeypress(triggerKey, mockHandler);
+        });
 
         await user.keyboard(triggerKey);
 
@@ -23,9 +23,9 @@ describe('useKeypress', () => {
 
         expect(triggerKey).not.toBe(targetkey);
 
-        const { user } = renderHookWithUser(() =>
-            useKeypress(triggerKey, mockHandler),
-        );
+        const { user } = renderHookWithUser(() => {
+            useKeypress(triggerKey, mockHandler);
+        });
 
         await user.keyboard(targetkey);
 
@@ -36,9 +36,9 @@ describe('useKeypress', () => {
         const triggerKey = 'a';
         const mockHandler = jest.fn();
 
-        const { unmount, user } = renderHookWithUser(() =>
-            useKeypress(triggerKey, mockHandler),
-        );
+        const { unmount, user } = renderHookWithUser(() => {
+            useKeypress(triggerKey, mockHandler);
+        });
 
         unmount();
 

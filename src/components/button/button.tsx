@@ -1,10 +1,10 @@
-import { type ButtonHTMLAttributes, type FC } from 'react';
+import type { ButtonHTMLAttributes, FC } from 'react';
 
 type ButtonVariant = 'danger' | 'wrapper' | 'default' | 'link';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: ButtonVariant;
-}
+};
 
 const bgClassNamesPerVariant: Record<ButtonVariant, string> = {
     danger: 'p-2 flex bg-red-500 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-700',

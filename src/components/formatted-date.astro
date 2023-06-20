@@ -1,0 +1,19 @@
+---
+import { format as formatDate, toDate, utcToZonedTime } from 'date-fns-tz';
+
+export type Props = {
+    dateString: string;
+    timeZone?: string;
+    format?: string;
+};
+
+const {
+    dateString,
+    format = 'd LLL yyyy',
+    timeZone = 'Europe/Athens',
+} = Astro.props;
+
+const date = utcToZonedTime(toDate(dateString), timeZone);
+---
+
+<time datetime={date.toISOString()}>{formatDate(date, format)}</time>

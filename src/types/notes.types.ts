@@ -1,23 +1,9 @@
-import { type MDXRemoteSerializeResult } from 'next-mdx-remote';
+import type { CollectionEntry } from 'astro:content';
 
-import { type Database } from './database.types';
-
-export type UserPost = {
-    id: string;
-    created_at: string;
-    post: string;
-    name: string;
-};
+import type { Database } from '~types/database.types';
 
 export type Note = Database['public']['Tables']['notes']['Row'];
 
-export type MarkdownMeta = {
-    title: string;
-    updated: string;
-    date: string;
-    published: boolean;
-};
+export type NotesCollection = CollectionEntry<'notes'>;
 
-export type NoteMDX = Note & {
-    mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;
-};
+export type NoteFrontmatter = NotesCollection['data'];

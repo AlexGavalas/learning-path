@@ -1,0 +1,34 @@
+---
+import type { NotesCollection } from '~types/notes.types';
+import NoteHeader from '~components/note-header.astro';
+import GlobalLayout from '~layouts/global.astro';
+import { TITLE } from '~constants';
+
+type Props = NotesCollection['data'];
+
+const { title, created, updated } = Astro.props;
+
+const documentTitle = `${title} | ${TITLE}`;
+---
+
+<GlobalLayout title={documentTitle}>
+    <article class="w-full overflow-hidden">
+        <NoteHeader
+            title={title}
+            created={created}
+            updated={updated}
+            timeZone="Europe/Athens"
+        />
+        <div
+            class="heading dark:dark-heading prose dark:prose-invert prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary"
+        >
+            <slot />
+        </div>
+        <a
+            href="/"
+            class="my-8 inline-block cursor-pointer bg-transparent p-0 text-lg text-light-primary hover:underline dark:text-dark-primary"
+        >
+            &#x21dc; Back to home
+        </a>
+    </article>
+</GlobalLayout>

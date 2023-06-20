@@ -1,22 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
+import 'dotenv/config';
 import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
 
-import { type Database } from '~types/database.types';
+import { supabase } from '~lib/supabase';
 
-import { toISOString } from './helpers';
+import { getEnvVariable, toISOString } from './helpers';
 
 const SUMMARIES_DIR = path.join(process.cwd(), 'summaries');
-const UPLOAD_URL = `${process.env.FILE_SERVER_URL}/summaries/upload`;
+const UPLOAD_URL = `${getEnvVariable(
+    'PUBLIC_FILE_SERVER_URL',
+)}/summaries/upload`;
 
-const supabase = createClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-);
-
-const indexSummaries = async () => {
+const indexSummaries = async (): Promise<void> => {
     const summaries = await fs.readdir(SUMMARIES_DIR);
 
     for (const filename of summaries) {
@@ -45,32 +42,7 @@ const indexSummaries = async () => {
             console.error(e);
         }
 
-        // Keep the old storage for now
-        await supabase.storage
-            .from('summaries_md_files')
-            .upload(filename, content, {
-                contentType: 'text/markdown',
-                upsert: true,
-            });
-
         process.stdout.write(' [OK]\n');
-    }
-
-    const url = new URL(
-        'https://learning-path.dev/lessons-summary/api/revalidate',
-    );
-
-    url.searchParams.set('secret', process.env.REVALIDATE_SECRET);
-    url.searchParams.set('path', '/lessons-summary');
-
-    const response = await fetch(url);
-
-    if (response.ok) {
-        const data = await response.json();
-
-        console.log('Revalidation successful', data);
-    } else {
-        console.error('Revalidation failed', response);
     }
 };
 

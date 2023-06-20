@@ -1,0 +1,55 @@
+---
+import type { NotesCollection } from '~types/notes.types';
+import NotesLayout from '~layouts/note.astro';
+import {
+    getLessonSummaries,
+    getLessonSummaryData,
+} from '~api/lesson-summaries';
+import { Markdown } from '~components/markdown';
+
+type Content = Awaited<ReturnType<typeof getLessonSummaryData>>;
+
+export async function getStaticPaths() {
+    const summaries = await getLessonSummaries();
+
+    if (summaries === null) {
+        throw new Error('Could not get lesson summaries');
+    }
+
+    const removeFrontmatter = (s?: string) =>
+        s?.replace(/\s*---(.|\s)*?---\s*/, '');
+
+    return await Promise.all(
+        summaries.map(async (summary) => {
+            const data = await getLessonSummaryData(summary.filename);
+
+            return {
+                params: {
+                    slug: summary.filename.replace(/\.md$/, ''),
+                },
+                props: {
+                    content: data,
+                    meta: summary,
+                },
+            };
+        }),
+    );
+}
+
+type Props = {
+    content: Content;
+    meta: NotesCollection['data'];
+};
+
+const { content, meta } = Astro.props;
+---
+
+<NotesLayout {...meta}>
+    {
+        typeof content === 'string' ? (
+            <Markdown content={content} />
+        ) : (
+            content && <content.Content />
+        )
+    }
+</NotesLayout>
