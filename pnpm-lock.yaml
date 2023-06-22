@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/mdx': 0.19.7
-  '@astrojs/node': 5.2.0
+  '@astrojs/node': 5.3.0
   '@astrojs/react': 2.2.1
   '@astrojs/sitemap': 1.3.3
   '@astrojs/tailwind': 4.0.0
@@ -63,7 +63,7 @@ specifiers:
 
 dependencies:
   '@astrojs/mdx': 0.19.7_astro@2.6.5
-  '@astrojs/node': 5.2.0_astro@2.6.5
+  '@astrojs/node': 5.3.0_astro@2.6.5
   '@astrojs/react': 2.2.1_vhkbq7lv4nisozptmwfiixclrm
   '@astrojs/sitemap': 1.3.3
   '@astrojs/tailwind': 4.0.0_rc7tzv2x76ynfzjxrzgy5lojoy
@@ -218,10 +218,10 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/node/5.2.0_astro@2.6.5:
-    resolution: {integrity: sha512-WWrQuxvdrD2Jd9np8vpS8/zCNEm0JnGv+oaojXzbfW36R8/09L827t/acYxLuguLufiV3U16QAqEwpS8VFS9TA==}
+  /@astrojs/node/5.3.0_astro@2.6.5:
+    resolution: {integrity: sha512-q7gJEPSZzC4FIRNmq3ks6mw0Jby4irXTfRhbOPOS4HRmbu4FDANnRqnZBOGe96cfBQTgDC3/FhQccDQtx+n4pg==}
     peerDependencies:
-      astro: ^2.6.0
+      astro: ^2.7.0
     dependencies:
       '@astrojs/webapi': 2.2.0
       astro: 2.6.5_@types+node@18.16.9
