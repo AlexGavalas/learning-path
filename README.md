@@ -8,4 +8,4 @@ Hey there. 👋 This is a place where I keep all the interesting stuff I come ac
 -   TIR = Today I Read section / TIL
 -   Get keywords from head meta to use in db
 -   Use git diff to update db
--   Checkout [Code hike](https://codehike.org/) for code highlighting in markdown
+-   Add a logger lib

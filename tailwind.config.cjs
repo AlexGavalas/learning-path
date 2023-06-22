@@ -53,6 +53,13 @@ module.exports = {
                     textDecorationThickness: '0.125rem',
                     textUnderlineOffset: '0.125rem',
                 },
+                '.prose pre:has(pre)': {
+                    padding: '0',
+                },
+                '.prose pre > pre': {
+                    marginTop: '0 !important',
+                    marginBottom: '0 !important',
+                },
             });
         },
     ],
