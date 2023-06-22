@@ -8,7 +8,10 @@ import { supabase } from '~lib/supabase';
 import { getEnvVariable, readFile, toISOString, uploadFile } from './helpers';
 
 export const indexLessonSummaries = async (): Promise<void> => {
-    const SUMMARIES_DIR = path.join(process.cwd(), 'summaries');
+    const SUMMARIES_DIR = path.join(
+        process.cwd(),
+        'src/content/lesson-summaries',
+    );
 
     const summaries = await fs.readdir(SUMMARIES_DIR);
 

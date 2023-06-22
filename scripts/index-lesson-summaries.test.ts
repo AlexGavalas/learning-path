@@ -29,7 +29,9 @@ describe('indexLessonSummaries', () => {
         await indexLessonSummaries();
 
         expect(fs.readdir).toHaveBeenCalledTimes(1);
-        expect(fs.readdir).toHaveBeenCalledWith('/Users/me/project/summaries');
+        expect(fs.readdir).toHaveBeenCalledWith(
+            '/Users/me/project/src/content/lesson-summaries',
+        );
     });
 
     it('calls supabase.from', async () => {

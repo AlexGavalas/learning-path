@@ -12,8 +12,8 @@
         "build": "astro build",
         "preview": "astro preview",
         "astro": "astro",
-        "index:notes": "tsm scripts/index-notes.ts",
-        "index:summaries": "tsm scripts/index-lesson-summaries.runner.ts",
+        "index:notes": "tsx scripts/index-notes.ts",
+        "index:summaries": "tsx scripts/index-lesson-summaries.runner.ts",
         "sync:types:supabase": "supabase gen types typescript --project-id cxftalfhgyhwkiwnyqjh --schema public > src/types/database.types.ts && pnpm format",
         "test": "jest",
         "test:coverage": "jest --coverage",
@@ -87,7 +87,7 @@
         "supabase": "1.68.6",
         "ts-jest": "29.1.0",
         "ts-node": "10.9.1",
-        "tsm": "2.3.0",
+        "tsx": "3.12.7",
         "typescript": "5.0.4"
     }
 }
