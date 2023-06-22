@@ -10,13 +10,13 @@ const { links } = Astro.props;
 ---
 
 <nav
-    class="flex items-center justify-center gap-10 px-4 text-light-primary dark:text-dark-primary"
+    class="flex items-center flex-col gap-2 xs:flex-row justify-center xs:gap-10 px-4 text-light-primary dark:text-dark-primary"
 >
     {
         links.map((link) => (
             <a
                 href={link.href}
-                class="hover:underline decoration-2 underline-offset-2"
+                class="decoration-2 underline-offset-2 hover:underline"
             >
                 {link.label}
             </a>

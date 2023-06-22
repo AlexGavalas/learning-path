@@ -20,10 +20,17 @@ module.exports = {
             colors: {
                 dark: {
                     primary: colors.yellow[500],
+                    background: '#121212',
+                    border: colors.white,
                 },
                 light: {
                     primary: colors.teal[700],
+                    background: '#ececec',
+                    border: colors.slate[400],
                 },
+            },
+            screens: {
+                xs: '320px',
             },
         },
     },

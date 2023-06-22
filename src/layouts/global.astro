@@ -17,24 +17,22 @@ const { title } = Astro.props;
         <BaseHead title={title} />
         <Theme />
     </head>
-    <body>
-        <div class="mx-auto max-w-xl bg-white dark:bg-[#121212]">
-            <main class="px-4 grid gap-6">
-                <Header client:idle />
-                <Nav
-                    links={[
-                        {
-                            href: '/',
-                            label: 'Notes',
-                        },
-                        {
-                            href: '/lessons-summary',
-                            label: 'Lesson summaries',
-                        },
-                    ]}
-                />
-                <slot />
-            </main>
-        </div>
+    <body class="bg-light-background dark:bg-dark-background">
+        <main class="mx-auto max-w-xl px-4 grid gap-6">
+            <Header client:idle />
+            <Nav
+                links={[
+                    {
+                        href: '/',
+                        label: 'Notes',
+                    },
+                    {
+                        href: '/lessons-summary',
+                        label: 'Lesson summaries',
+                    },
+                ]}
+            />
+            <slot />
+        </main>
     </body>
 </html>

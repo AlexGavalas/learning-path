@@ -1,11 +1,9 @@
 ---
 title: Advanced git tips and tricks
 created: '2023-05-21'
-updated: '2023-05-23'
+updated: '2023-06-23'
 published: true
 ---
-
-# Advanced git tips and tricks
 
 Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/git-advanced-tips-tricks/table-of-contents)).
 

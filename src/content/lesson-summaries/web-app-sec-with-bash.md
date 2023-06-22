@@ -1,11 +1,9 @@
 ---
 title: Web application security with bash
 created: '2023-05-20'
-updated: '2023-06-01'
+updated: '2023-06-23'
 published: true
 ---
-
-# Scan web applications with bash
 
 Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/bash-scan-web-applications/table-of-contents)).
 

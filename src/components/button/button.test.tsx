@@ -18,14 +18,4 @@ describe('<Button />', () => {
 
         expect(a11yResults).toHaveNoViolations();
     });
-
-    describe('with danger variant', () => {
-        it('renders a danger button', () => {
-            const { container } = renderWithUser(
-                <Button variant="danger">click me</Button>,
-            );
-
-            expect(container).toMatchSnapshot();
-        });
-    });
 });

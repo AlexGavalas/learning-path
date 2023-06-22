@@ -13,7 +13,7 @@ exports[`<SearchArea /> renders 1`] = `
       </span>
       <input
         autocomplete="off"
-        class="h-1/2 w-full rounded border-[1px] border-solid bg-transparent pl-2 text-sm dark:border-0 dark:bg-neutral-800 dark:placeholder-gray-300 dark:placeholder-opacity-50"
+        class="h-1/2 rounded border-[1px] border-solid border-light-border bg-transparent pl-2 text-sm dark:border-0  dark:bg-neutral-800 dark:placeholder-gray-300 dark:placeholder-opacity-60"
         name="q"
         placeholder="Type here"
         value=""
@@ -23,7 +23,7 @@ exports[`<SearchArea /> renders 1`] = `
       class="absolute bottom-0 right-0 flex h-1/2 gap-2 p-1 text-sm"
     >
       <button
-        class="items-center rounded border-0 text-black dark:text-white p-2 flex bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600"
+        class="flex items-center rounded border-0 p-2 bg-slate-300 hover:bg-slate-300/75 dark:bg-slate-600 dark:hover:bg-slate-600/75"
       >
         Search
       </button>

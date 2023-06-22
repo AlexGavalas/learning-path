@@ -1,15 +1,11 @@
 ---
 title: Practical Design Patterns in JavaScript
 created: '2023-05-24'
-updated: '2023-06-01'
+updated: '2023-06-23'
 published: false
 ---
 
-# Practical Design Patterns in JavaScript
-
 Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/javascript-practical-design-patterns/table-of-contents)).
-
----
 
 The name came from Christofer Alexander's [A pattern language](https://www.patternlanguage.com/) in the architecture world.
 

@@ -8,26 +8,31 @@ export const Markdown = ({ content }: { content: string }): JSX.Element => (
     <ReactMarkdown
         rehypePlugins={REHYPE_PLUGINS}
         components={{
-            code({ node, inline, className = '', children, ...props }) {
+            code({ node, inline = false, className = '', children, ...props }) {
                 const language = /language-(\w+)/.exec(className)?.[1] ?? '';
 
                 const lines = String(children).split('\n');
 
                 if (lines.at(-1) === '') lines.pop();
 
-                return language.length > 0 ? (
+                const shouldHighlight = !inline && language.length > 0;
+
+                return shouldHighlight ? (
                     <SyntaxHighlighter
                         style={style}
                         language={language}
                         className={className}
-                        showLineNumbers={true}
+                        showLineNumbers={lines.length > 2}
                     >
                         {lines.join('\n')}
                     </SyntaxHighlighter>
                 ) : (
-                    <code className={className} {...props}>
+                    <span
+                        className="rounded bg-slate-200 px-1 dark:bg-slate-700"
+                        {...props}
+                    >
                         {children}
-                    </code>
+                    </span>
                 );
             },
         }}

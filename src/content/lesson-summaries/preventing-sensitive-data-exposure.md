@@ -1,11 +1,9 @@
 ---
 title: Secure Coding - Preventing Sensitive Data Exposure
 created: '2023-05-22'
-updated: '2023-05-24'
+updated: '2023-06-23'
 published: true
 ---
-
-# Secure Coding - Preventing Sensitive Data Exposure
 
 Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/secure-coding-preventing-sensitive-data-exposure/table-of-contents)).
 

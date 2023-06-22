@@ -3,23 +3,19 @@
 exports[`<Header /> renders 1`] = `
 <div>
   <header
-    class="flex w-full items-center justify-between border-0 border-b border-solid dark:border-b-white"
+    class="flex w-full items-center justify-between border-b border-solid border-b-light-border dark:border-b-dark-border"
   >
-    <div
-      class="flex"
+    <a
+      class="my-2 cursor-pointer rounded-lg p-2 text-2xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800 xs:text-3xl"
+      href="/"
     >
-      <a
-        class="my-2 cursor-pointer rounded-lg p-2 text-3xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800"
-        href="/"
-      >
-        Learning Path
-      </a>
-    </div>
+      Learning Path
+    </a>
     <div
       class="mr-3"
     >
       <button
-        class="items-center rounded border-0 text-black dark:text-white p-2 flex bg-transparent hover:bg-gray-300 dark:hover:bg-gray-600"
+        class="flex items-center rounded border-0 p-2 bg-transparent hover:bg-slate-300 dark:hover:bg-slate-600"
       >
         <img
           alt="Moon"

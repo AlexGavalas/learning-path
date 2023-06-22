@@ -4,8 +4,6 @@ import NotesList from '~components/notes-list.astro';
 import { getLessonSummaries } from '~api/lesson-summaries';
 import { TITLE } from '~constants';
 
-export const prerender = false;
-
 const summaries = await getLessonSummaries();
 
 if (summaries === null) {
