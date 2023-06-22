@@ -38,7 +38,7 @@ export const indexLessonSummaries = async (): Promise<void> => {
         )}/summaries/upload`;
 
         // Content is uploaded without the frontmatter
-        await uploadFile(UPLOAD_URL, filename, content);
+        await uploadFile(UPLOAD_URL, content, filename);
 
         process.stdout.write(' [OK]\n');
     }

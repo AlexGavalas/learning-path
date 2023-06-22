@@ -61,8 +61,8 @@ describe('indexLessonSummaries', () => {
         expect(uploadFile).toHaveBeenCalledTimes(1);
         expect(uploadFile).toHaveBeenCalledWith(
             `http://localhost:3000/summaries/upload`,
-            'test-file',
             '\n# Test',
+            'test-file',
         );
     });
 });
