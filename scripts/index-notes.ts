@@ -6,7 +6,7 @@ import path from 'path';
 import { supabase } from '~lib/supabase';
 import type { NoteFrontmatter } from '~types/notes.types';
 
-import { getEnvVariable, toISOString } from './helpers';
+import { getEnvVariable, toISOString, uploadFile } from './helpers';
 
 const NOTES_DIR = path.join(process.cwd(), 'src/content/notes');
 
@@ -113,12 +113,11 @@ const indexDocs = async (): Promise<void> => {
 
         process.stdout.write(`Writing file ${filename} in storage ...`);
 
-        await supabase.storage
-            .from('notes_md_files')
-            .upload(filename, fileContents, {
-                contentType: 'text/markdown',
-                upsert: true,
-            });
+        const UPLOAD_URL = `${getEnvVariable(
+            'PUBLIC_FILE_SERVER_URL',
+        )}/notes/upload`;
+
+        await uploadFile({ content, filename, url: UPLOAD_URL });
 
         process.stdout.write(' [OK]\n');
 

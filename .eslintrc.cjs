@@ -27,6 +27,10 @@ module.exports = {
             },
             rules: {
                 '@typescript-eslint/array-type': 'off',
+                '@typescript-eslint/consistent-type-definitions': [
+                    'error',
+                    'type',
+                ],
             },
         },
         {
@@ -40,7 +44,7 @@ module.exports = {
             },
         },
     ],
-    ignorePatterns: ['env.d.ts'],
+    ignorePatterns: ['env.d.ts', 'database.types.ts'],
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',

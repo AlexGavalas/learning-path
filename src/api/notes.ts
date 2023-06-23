@@ -1,9 +1,5 @@
 import { createClient } from '@vercel/edge-config';
-import {
-    type CollectionEntry,
-    getCollection,
-    getEntryBySlug,
-} from 'astro:content';
+import { getCollection, getEntryBySlug } from 'astro:content';
 
 import { supabase } from '~lib/supabase';
 import type { Note, NotesCollection } from '~types/notes.types';
@@ -57,18 +53,15 @@ export const fetchNotes = async (
 type NoteSlugs = { slug: string }[];
 
 const getSlugsFromStorage = async (): Promise<NoteSlugs | null> => {
-    const { data: fileNames, error } = await supabase.storage
-        .from('notes_md_files')
-        .list();
+    const data = await edgeConfig.get<Note[]>('meta');
 
-    if (error !== null) {
-        console.error(error);
-
+    if (data === undefined) {
+        console.error('No data found in Edge Config');
         return null;
     }
 
-    return fileNames.map((file) => ({
-        slug: file.name.replace(/\.mdx?$/, ''),
+    return data.map((file) => ({
+        slug: file.filename,
     }));
 };
 
@@ -84,29 +77,17 @@ export const getAllNoteIds = async (): Promise<{ slug: string }[] | null> => {
 
 // Gets note data
 
-type AstroRenderResult = Awaited<
-    ReturnType<CollectionEntry<'notes'>['render']>
->;
+const getNoteDataFromStorage = async (filePath: string): Promise<string> => {
+    const fileServerUrl = String(import.meta.env.PUBLIC_FILE_SERVER_URL);
 
-const getNoteDataFromStorage = async (
-    filePath: string,
-): Promise<string | null> => {
-    const { data: fileContents, error } = await supabase.storage
-        .from('notes_md_files')
-        .download(filePath);
+    const response = await fetch(`${fileServerUrl}/notes/${filePath}`);
 
-    if (error !== null) {
-        console.error(error);
+    const fileContents = await response.text();
 
-        return null;
-    }
-
-    return await fileContents.text();
+    return fileContents;
 };
 
-export const getNoteData = async (
-    filename: string,
-): Promise<AstroRenderResult | string | null> => {
+export const getNoteData = async (filename: string): Promise<string> => {
     const isProd = import.meta.env.PROD;
 
     if (isProd) {
@@ -117,7 +98,7 @@ export const getNoteData = async (
 
     const note = await getEntryBySlug('notes', filename);
 
-    return (await note?.render()) ?? '';
+    return note?.body ?? '';
 };
 
 // Gets note metadata

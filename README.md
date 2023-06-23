@@ -9,3 +9,4 @@ Hey there. 👋 This is a place where I keep all the interesting stuff I come ac
 -   Get keywords from head meta to use in db
 -   Use git diff to update db
 -   Add a logger lib
+-   Get new date with timezone in update md timestamps scripts
