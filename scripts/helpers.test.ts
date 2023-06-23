@@ -116,7 +116,7 @@ describe('uploadFile', () => {
     const filename = 'test-filename';
 
     it('calls postForm from axios with the correct arguments', async () => {
-        await uploadFile(url, content, filename);
+        await uploadFile({ url, content, filename });
 
         expect(axios.postForm).toHaveBeenCalledTimes(1);
         expect(axios.postForm).toHaveBeenCalledWith(url, expect.any(FormData));

@@ -25,11 +25,17 @@ export const getEnvVariable = (envVar: string): string => {
     return value;
 };
 
-export const uploadFile = async (
-    url: string,
-    content: string,
-    filename: string,
-): Promise<void> => {
+type UploadFileProps = {
+    url: string;
+    content: string;
+    filename: string;
+};
+
+export const uploadFile = async ({
+    url,
+    content,
+    filename,
+}: UploadFileProps): Promise<void> => {
     try {
         const form = new FormData();
         form.append('md_file', new Blob([content]), filename);

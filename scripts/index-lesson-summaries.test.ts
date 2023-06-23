@@ -59,10 +59,10 @@ describe('indexLessonSummaries', () => {
         await indexLessonSummaries();
 
         expect(uploadFile).toHaveBeenCalledTimes(1);
-        expect(uploadFile).toHaveBeenCalledWith(
-            `http://localhost:3000/summaries/upload`,
-            '\n# Test',
-            'test-file',
-        );
+        expect(uploadFile).toHaveBeenCalledWith({
+            url: `http://localhost:3000/summaries/upload`,
+            content: '\n# Test',
+            filename: 'test-file',
+        });
     });
 });
