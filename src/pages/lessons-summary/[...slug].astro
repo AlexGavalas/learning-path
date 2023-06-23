@@ -41,6 +41,6 @@ type Props = {
 const { content, meta } = Astro.props;
 ---
 
-<NotesLayout {...meta}>
+<NotesLayout {...meta} backUrl="/lessons-summary">
     <Markdown content={content} />
 </NotesLayout>
