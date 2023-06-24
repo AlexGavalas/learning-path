@@ -1,4 +1,6 @@
 <script>
+    import { onMount } from 'svelte';
+
     import Button from '~components/button.svelte';
     import { DEFAULT_THEME, STORAGE_KEY, THEME } from '~constants';
 
@@ -12,6 +14,7 @@
         alt: 'Sun',
     };
 
+    let mounted = false;
     let theme =
         typeof localStorage !== 'undefined'
             ? localStorage.getItem(STORAGE_KEY.THEME) ?? DEFAULT_THEME
@@ -33,8 +36,14 @@
     };
 
     $: image = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
+
+    onMount(() => {
+        mounted = true;
+    });
 </script>
 
-<Button on:click={toggleTheme} variant="wrapper">
-    <img src={image.src} alt={image.alt} width={20} height={20} />
-</Button>
+{#if mounted}
+    <Button on:click={toggleTheme} variant="wrapper">
+        <img src={image.src} alt={image.alt} width={20} height={20} />
+    </Button>
+{/if}
