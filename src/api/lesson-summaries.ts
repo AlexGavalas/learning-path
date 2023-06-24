@@ -3,6 +3,8 @@ import { getEntryBySlug } from 'astro:content';
 import { supabase } from '~lib/supabase';
 import type { LessonSummary } from '~types/lesson-summaries.types';
 
+import { fetchFileFromStorage } from './helpers';
+
 export const getLessonSummaries = async (): Promise<LessonSummary[] | null> => {
     const { data: summaries, error } = await supabase
         .from('lesson_summaries_meta')
@@ -16,32 +18,16 @@ export const getLessonSummaries = async (): Promise<LessonSummary[] | null> => {
     return summaries;
 };
 
-// Gets note data
-
-const getNoteDataFromStorage = async (
-    filePath: string,
-): Promise<string | null> => {
-    const fileServerUrl = String(import.meta.env.PUBLIC_FILE_SERVER_URL);
-
-    const response = await fetch(`${fileServerUrl}/summaries/${filePath}`);
-
-    const fileContents = await response.text();
-
-    return fileContents;
-};
-
-export const getLessonSummaryData = async (
-    filename: string,
-): Promise<string> => {
-    const isProd = import.meta.env.PROD;
+export const getLessonSummaryData = async (slug: string): Promise<string> => {
+    const isProd = process.env.PROD === 'true';
 
     if (isProd) {
-        const filePath = `${filename}.md`;
+        const filePath = `${slug}.md`;
 
-        return (await getNoteDataFromStorage(filePath)) ?? '';
+        return await fetchFileFromStorage(`summaries/${filePath}`);
     }
 
-    const lessonSummary = await getEntryBySlug('lesson-summaries', filename);
+    const lessonSummary = await getEntryBySlug('lesson-summaries', slug);
 
     return lessonSummary?.body ?? '';
 };

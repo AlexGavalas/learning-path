@@ -9,7 +9,7 @@ import 'dotenv/config';
 
 import { REHYPE_PLUGINS } from './src/config/markdown';
 
-const isProd = import.meta.env.PROD;
+const isProd = process.env.PROD === 'true';
 const isLocalBuild = process.env.LOCAL === 'true';
 
 // https://astro.build/config

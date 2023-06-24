@@ -4,9 +4,11 @@ import { getCollection, getEntryBySlug } from 'astro:content';
 import { supabase } from '~lib/supabase';
 import type { Note, NotesCollection } from '~types/notes.types';
 
+import { fetchFileFromStorage } from './helpers';
+
 type Lines = Record<string, string[]>;
 
-const edgeConfig = createClient(import.meta.env.PUBLIC_EDGE_CONFIG);
+const edgeConfig = createClient(process.env.PUBLIC_EDGE_CONFIG);
 
 export const fetchNotes = async (
     q: string,
@@ -48,15 +50,12 @@ export const fetchNotes = async (
     };
 };
 
-// Gets all note slugs
-
 type NoteSlugs = { slug: string }[];
 
 const getSlugsFromStorage = async (): Promise<NoteSlugs | null> => {
     const data = await edgeConfig.get<Note[]>('meta');
 
     if (data === undefined) {
-        console.error('No data found in Edge Config');
         return null;
     }
 
@@ -66,7 +65,7 @@ const getSlugsFromStorage = async (): Promise<NoteSlugs | null> => {
 };
 
 export const getAllNoteIds = async (): Promise<{ slug: string }[] | null> => {
-    const isProd = import.meta.env.PROD;
+    const isProd = process.env.PROD === 'true';
 
     if (isProd) {
         return await getSlugsFromStorage();
@@ -75,33 +74,19 @@ export const getAllNoteIds = async (): Promise<{ slug: string }[] | null> => {
     return await getCollection('notes');
 };
 
-// Gets note data
-
-const getNoteDataFromStorage = async (filePath: string): Promise<string> => {
-    const fileServerUrl = String(import.meta.env.PUBLIC_FILE_SERVER_URL);
-
-    const response = await fetch(`${fileServerUrl}/notes/${filePath}`);
-
-    const fileContents = await response.text();
-
-    return fileContents;
-};
-
 export const getNoteData = async (filename: string): Promise<string> => {
-    const isProd = import.meta.env.PROD;
+    const isProd = process.env.PROD === 'true';
 
     if (isProd) {
         const filePath = `${filename}.mdx`;
 
-        return await getNoteDataFromStorage(filePath);
+        return await fetchFileFromStorage(`notes/${filePath}`);
     }
 
     const note = await getEntryBySlug('notes', filename);
 
     return note?.body ?? '';
 };
-
-// Gets note metadata
 
 export const getNoteMetadata = async (
     filename: string,
@@ -114,8 +99,6 @@ export const getNoteMetadata = async (
         .maybeSingle();
 
     if (error !== null) {
-        console.error(error);
-
         return null;
     }
 
