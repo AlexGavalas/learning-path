@@ -23,6 +23,7 @@ export const Markdown = ({ content }: { content: string }): JSX.Element => (
                         language={language}
                         className={className}
                         showLineNumbers={lines.length > 2}
+                        customStyle={{ marginTop: 0, marginBottom: 0 }}
                     >
                         {lines.join('\n')}
                     </SyntaxHighlighter>
