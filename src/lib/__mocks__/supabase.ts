@@ -1,14 +1,10 @@
 export const supabase = {
     rpc: jest.fn(),
-    upsert: jest.fn(),
-    from: jest.fn().mockReturnValue({
-        upsert: jest.fn().mockReturnValue({
-            error: null,
-        }),
-        select: jest.fn().mockReturnValue({
-            order: jest.fn().mockReturnValue({
-                error: null,
-            }),
-        }),
-    }),
+    upsert: jest.fn().mockReturnThis(),
+    from: jest.fn().mockReturnThis(),
+    select: jest.fn().mockReturnThis(),
+    eq: jest.fn().mockReturnThis(),
+    limit: jest.fn().mockReturnThis(),
+    maybeSingle: jest.fn().mockReturnThis(),
+    order: jest.fn().mockReturnThis(),
 };
