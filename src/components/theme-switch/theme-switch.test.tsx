@@ -2,17 +2,17 @@ import { axe } from 'jest-axe';
 
 import { renderWithUser, screen } from '~test/helpers';
 
-import { Header } from './header';
+import { ThemeSwitch } from './theme-switch';
 
-describe('<Header />', () => {
+describe('<ThemeSwitch />', () => {
     it('renders', () => {
-        const { container } = renderWithUser(<Header />);
+        const { container } = renderWithUser(<ThemeSwitch />);
 
         expect(container).toMatchSnapshot();
     });
 
     it('is accessible', async () => {
-        const { container } = renderWithUser(<Header />);
+        const { container } = renderWithUser(<ThemeSwitch />);
 
         const a11yResults = await axe(container);
 
@@ -21,7 +21,7 @@ describe('<Header />', () => {
 
     describe('when user toggles theme', () => {
         it('changes theme', async () => {
-            const { user } = renderWithUser(<Header />);
+            const { user } = renderWithUser(<ThemeSwitch />);
 
             const button = screen.getByRole('button', { name: 'Moon' });
 

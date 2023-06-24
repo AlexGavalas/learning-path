@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ThemeSwitch /> renders 1`] = `
+<div>
+  <button
+    class="flex items-center rounded border-0 p-2 bg-transparent hover:bg-slate-300 dark:hover:bg-slate-600"
+  >
+    <img
+      alt="Moon"
+      height="20"
+      src="/moon.svg"
+      width="20"
+    />
+  </button>
+</div>
+`;

@@ -1,0 +1,17 @@
+---
+import { ThemeSwitch } from '~components/theme-switch';
+---
+
+<header
+    class="flex w-full items-center justify-between border-b border-solid border-b-light-border dark:border-b-dark-border"
+>
+    <a
+        href="/"
+        class="my-2 cursor-pointer rounded-lg p-2 text-2xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800 xs:text-3xl"
+    >
+        Learning Path
+    </a>
+    <div class="mr-3">
+        <ThemeSwitch client:idle />
+    </div>
+</header>

@@ -2,7 +2,7 @@
 import BaseHead from '~components/base-head.astro';
 import Theme from '~scripts/theme.astro';
 import Nav from '~components/nav.astro';
-import { Header } from '~components/header';
+import Header from '~components/header.astro';
 
 export type Props = {
     title: string;
@@ -19,7 +19,7 @@ const { title } = Astro.props;
     </head>
     <body class="bg-light-background dark:bg-dark-background">
         <main class="mx-auto max-w-xl px-4 grid gap-6">
-            <Header client:idle />
+            <Header />
             <Nav
                 links={[
                     {
