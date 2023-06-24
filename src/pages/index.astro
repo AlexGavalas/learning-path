@@ -2,7 +2,7 @@
 import GlobalLayout from '~layouts/global.astro';
 import Banner from '~components/banner.astro';
 import NotesList from '~components/notes-list.astro';
-import { SearchArea } from '~components/search-area';
+import SearchArea from '~components/search-area.svelte';
 import { fetchNotes } from '~api/notes';
 import { QUERY_FIELD_NAME, TITLE } from '~constants';
 
@@ -18,7 +18,7 @@ const title = q ? `${q} | ${TITLE}` : TITLE;
 <GlobalLayout title={title}>
     <section class="text-xl leading-8 grid gap-6">
         <Banner />
-        <SearchArea client:load q={q} />
+        <SearchArea client:idle q={q} />
         <h2 class="text-black dark:text-white">Notes</h2>
         <NotesList
             lines={lines}
