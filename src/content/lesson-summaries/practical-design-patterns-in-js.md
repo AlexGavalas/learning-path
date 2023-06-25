@@ -1,7 +1,7 @@
 ---
 title: Practical Design Patterns in JavaScript
 created: '2023-05-24'
-updated: '2023-06-25'
+updated: '2023-06-26'
 published: false
 ---
 
@@ -23,7 +23,7 @@ Some types of patterns are:
 
 -   Creational: constructor, module, factory, singleton
 -   Structural: decorator, facade, flyweight
--   Behavioral: command, mediator, observer
+-   Behavioural: command, mediator, observer
 
 ## Creational design patterns
 
@@ -409,4 +409,198 @@ console.log('FlyweightTaskService');
 console.log(`${FlyweightTaskService.countTasks()} tasks created`);
 console.log(`${FlyweightFactory.countFlyweights()} flyweights created`);
 console.log(`Used memory: ${usedMemoryFlyweight} MB`);
+```
+
+## Behavioural design patterns
+
+Concerned with the assignment of responsibilities between objects and how they communicate. They help objects cooperate towards the goal.
+
+### Observer pattern
+
+With this pattern, objects can watch and be notified of changes on an object.
+
+Example
+
+```js
+class Task {
+    constructor(description) {
+        this.description = description;
+    }
+
+    save() {
+        console.log(`Saving task: ${this.description}`);
+    }
+}
+
+class NotificationService {
+    constructor() {
+        this.type = '[Notification]';
+    }
+
+    next(task) {
+        console.log(`${this.type}: task changed - ${task.description}`);
+    }
+}
+
+class ObserverList {
+    observers = new Set();
+
+    subscribe(observer) {
+        this.observers.add(observer);
+
+        return () => {
+            this.observers.delete(observer);
+        };
+    }
+
+    notifyAll(task) {
+        this.observers.forEach((observer) => observer.next(task));
+    }
+}
+
+class ObservableTask extends Task {
+    constructor(description) {
+        super(description);
+        this.observers = new ObserverList();
+    }
+
+    save() {
+        super.save();
+        this.notify();
+    }
+
+    notify() {
+        this.observers.notifyAll(this);
+    }
+
+    subscribeObserver(observer) {
+        return this.observers.subscribe(observer);
+    }
+}
+
+const notificationService = new NotificationService();
+const task = new ObservableTask('Learn design patterns');
+
+const unsubscribe = task.subscribeObserver(notificationService);
+task.save();
+unsubscribe();
+task.save();
+```
+
+### Mediator pattern
+
+With this pattern we can control the communication between objects, so neither has to be coupled with others.
+
+Example
+
+```js
+class Task {
+    constructor(description) {
+        this.description = description;
+    }
+
+    save() {
+        console.log(`Saving task: ${this.description}`);
+    }
+}
+
+class NotificationService {
+    constructor() {
+        this.type = '[Notification]';
+    }
+
+    next(task) {
+        console.log(`${this.type}: task changed - ${task.description}`);
+    }
+}
+
+class Mediator {
+    channels = {};
+
+    subscribe({ channel, context, subscriber }) {
+        if (!this.channels[channel]) {
+            this.channels[channel] = new Set();
+        }
+
+        this.channels[channel].add({ context, subscriber });
+    }
+
+    publish(channel, ...args) {
+        this.channels[channel]?.forEach(({ subscriber, context }) =>
+            subscriber.apply(context, args),
+        );
+    }
+}
+
+const mediator = new Mediator();
+const notificationService = new NotificationService();
+
+mediator.subscribe({
+    channel: 'task:changed',
+    context: notificationService,
+    subscriber: notificationService.next,
+});
+
+const task = new Task('Learn design patterns');
+
+// Decorate task.save method
+task.save = new Proxy(task.save, {
+    apply(target, thisArg, argumentsList) {
+        mediator.publish('task:changed', task);
+        return target.apply(thisArg, argumentsList);
+    },
+});
+
+task.save();
+```
+
+### Command pattern
+
+This pattern turns a request into a stand-alone object that contains all information about the request. This transformation lets us pass requests as method arguments, delay or queue a request’s execution, and support undoable operations. It fully decouples the execution from the implementation, thus allowing less fragile implementations.
+
+Example
+
+```js
+const repo = {
+    tasks: {},
+    commands: [],
+    get() {
+        console.log('Getting stuff from the database...');
+    },
+    save(task) {
+        console.log(`Saving task ${task.id} to the database...`);
+        repo.tasks[task.id] = task;
+    },
+    replay() {
+        repo.commands.forEach(({ name, obj }) => {
+            repo.executeNoLog(name, obj);
+        });
+    },
+};
+
+repo.execute = (name, ...args) => {
+    repo.commands.push({
+        name,
+        obj: args[0],
+    });
+
+    return repo[name]?.apply(repo, args);
+};
+
+repo.executeNoLog = (name, ...args) => {
+    return repo[name]?.apply(repo, args);
+};
+
+repo.execute('save', { id: 1, name: 'Task 1', completed: false });
+repo.execute('save', { id: 2, name: 'Task 2', completed: false });
+
+console.log('Tasks after saving', repo.tasks);
+
+repo.tasks = {};
+
+console.log('Tasks after clearing', repo.tasks);
+
+repo.replay();
+
+console.log('Tasks after replaying', repo.tasks);
 ```
