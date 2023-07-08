@@ -5,7 +5,6 @@ import {
     getLessonSummaries,
     getLessonSummaryData,
 } from '~api/lesson-summaries';
-import { Markdown } from '~components/markdown';
 
 type Content = Awaited<ReturnType<typeof getLessonSummaryData>>;
 
@@ -42,5 +41,13 @@ const { content, meta } = Astro.props;
 ---
 
 <NotesLayout {...meta} backUrl="/lessons-summary">
-    <Markdown content={content} />
+    {
+        typeof content === 'string' ? (
+            <>
+                <p>🚧 Remote markdown under construction 🚧</p>
+            </>
+        ) : (
+            <content.Content />
+        )
+    }
 </NotesLayout>

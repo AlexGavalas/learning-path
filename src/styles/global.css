@@ -32,3 +32,19 @@ blockquote {
 .prose svg {
     margin-bottom: 0;
 }
+
+.prose code .line {
+    counter-increment: line;
+}
+
+.prose code .line::before {
+    content: counter(line);
+    display: inline-block;
+    width: 2em;
+    user-select: none;
+    opacity: 0.3;
+}
+
+.prose code .line:only-child::before {
+    content: none;
+}

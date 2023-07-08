@@ -13,12 +13,15 @@ import { REHYPE_PLUGINS } from './src/config/markdown';
 const isProd = process.env.PROD === 'true';
 const isLocalBuild = process.env.LOCAL === 'true';
 
-// https://astro.build/config
 export default defineConfig({
     integrations: [mdx(), sitemap(), react(), tailwind(), svelte()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:3000',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,
+        syntaxHighlight: 'shiki',
+        shikiConfig: {
+            theme: 'monokai',
+        },
     },
     output: 'hybrid',
     adapter: isLocalBuild

@@ -14,7 +14,12 @@ jest.mock('@vercel/edge-config', () => ({
 jest.mock(
     'astro:content',
     () => ({
-        getEntryBySlug: jest.fn().mockResolvedValue({ body: 'test body' }),
+        getEntryBySlug: jest.fn().mockResolvedValue({
+            body: 'test body',
+            render: jest.fn().mockReturnValue({
+                Content: jest.fn().mockReturnValue('<div>test body</div>'),
+            }),
+        }),
         getCollection: jest.fn().mockResolvedValue([{ slug: 'test' }]),
     }),
     {
@@ -96,6 +101,8 @@ describe('getNoteData', () => {
 
         beforeAll(() => {
             process.env.PROD = 'true';
+            process.env.PUBLIC_FILE_SERVER_ENABLED = 'true';
+
             jest.mocked(fetchFileFromStorage).mockResolvedValue('test body');
         });
 
@@ -144,7 +151,9 @@ describe('getNoteData', () => {
         it('returns the body', async () => {
             const body = await getNoteData('test');
 
-            expect(body).toBe('test body');
+            expect(body).toEqual(
+                expect.objectContaining({ Content: expect.any(Function) }),
+            );
         });
 
         it('does not call fetchFileFromStorage', async () => {

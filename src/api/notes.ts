@@ -2,7 +2,11 @@ import { createClient } from '@vercel/edge-config';
 import { getCollection, getEntryBySlug } from 'astro:content';
 
 import { supabase } from '~lib/supabase';
-import type { Note, NotesCollection } from '~types/notes.types';
+import type {
+    Note,
+    NoteRenderResult,
+    NotesCollection,
+} from '~types/notes.types';
 
 import { fetchFileFromStorage } from './helpers';
 
@@ -74,10 +78,14 @@ export const getAllNoteIds = async (): Promise<{ slug: string }[] | null> => {
     return await getCollection('notes');
 };
 
-export const getNoteData = async (filename: string): Promise<string> => {
+export const getNoteData = async (
+    filename: string,
+): Promise<string | NoteRenderResult> => {
     const isProd = process.env.PROD === 'true';
+    const isPublicFileServerEnabled =
+        process.env.PUBLIC_FILE_SERVER_ENABLED === 'true';
 
-    if (isProd) {
+    if (isProd && isPublicFileServerEnabled) {
         const filePath = `${filename}.mdx`;
 
         return await fetchFileFromStorage(`notes/${filePath}`);
@@ -85,7 +93,7 @@ export const getNoteData = async (filename: string): Promise<string> => {
 
     const note = await getEntryBySlug('notes', filename);
 
-    return note?.body ?? '';
+    return (await note?.render()) ?? '';
 };
 
 export const getNoteMetadata = async (

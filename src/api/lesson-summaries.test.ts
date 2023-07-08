@@ -8,7 +8,12 @@ import { getLessonSummaries, getLessonSummaryData } from './lesson-summaries';
 jest.mock(
     'astro:content',
     () => ({
-        getEntryBySlug: jest.fn().mockResolvedValue({ body: 'test body' }),
+        getEntryBySlug: jest.fn().mockResolvedValue({
+            body: 'test body',
+            render: jest.fn().mockReturnValue({
+                Content: jest.fn().mockReturnValue('<div>test body</div>'),
+            }),
+        }),
     }),
     {
         virtual: true,
@@ -47,7 +52,9 @@ describe('getLessonSummaryData', () => {
         it('returns the body', async () => {
             const body = await getLessonSummaryData('test');
 
-            expect(body).toBe('test body');
+            expect(body).toEqual(
+                expect.objectContaining({ Content: expect.any(Function) }),
+            );
         });
 
         it('does not call fetchFileFromStorage', async () => {
@@ -60,6 +67,7 @@ describe('getLessonSummaryData', () => {
     describe('when in production', () => {
         beforeAll(() => {
             process.env.PROD = 'true';
+            process.env.PUBLIC_FILE_SERVER_ENABLED = 'true';
 
             jest.mocked(fetchFileFromStorage).mockResolvedValue('test body');
         });

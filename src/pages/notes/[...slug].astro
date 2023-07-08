@@ -2,7 +2,6 @@
 import type { NotesCollection } from '~types/notes.types';
 import NotesLayout from '~layouts/note.astro';
 import { getAllNoteIds, getNoteData, getNoteMetadata } from '~api/notes';
-import { Markdown } from '~components/markdown';
 
 type Content = Awaited<ReturnType<typeof getNoteData>>;
 
@@ -45,5 +44,13 @@ const { content, meta } = Astro.props;
 ---
 
 <NotesLayout {...meta}>
-    <Markdown content={content} />
+    {
+        typeof content === 'string' ? (
+            <>
+                <p>🚧 Remote markdown under construction 🚧</p>
+            </>
+        ) : (
+            <content.Content />
+        )
+    }
 </NotesLayout>

@@ -1,7 +1,10 @@
 import { getEntryBySlug } from 'astro:content';
 
 import { supabase } from '~lib/supabase';
-import type { LessonSummary } from '~types/lesson-summaries.types';
+import type {
+    LessonSummary,
+    LessonSummaryRenderResult,
+} from '~types/lesson-summaries.types';
 
 import { fetchFileFromStorage } from './helpers';
 
@@ -18,10 +21,14 @@ export const getLessonSummaries = async (): Promise<LessonSummary[] | null> => {
     return summaries;
 };
 
-export const getLessonSummaryData = async (slug: string): Promise<string> => {
+export const getLessonSummaryData = async (
+    slug: string,
+): Promise<string | LessonSummaryRenderResult> => {
     const isProd = process.env.PROD === 'true';
+    const isPublicFileServerEnabled =
+        process.env.PUBLIC_FILE_SERVER_ENABLED === 'true';
 
-    if (isProd) {
+    if (isProd && isPublicFileServerEnabled) {
         const filePath = `${slug}.md`;
 
         return await fetchFileFromStorage(`summaries/${filePath}`);
@@ -29,5 +36,5 @@ export const getLessonSummaryData = async (slug: string): Promise<string> => {
 
     const lessonSummary = await getEntryBySlug('lesson-summaries', slug);
 
-    return lessonSummary?.body ?? '';
+    return (await lessonSummary?.render()) ?? '';
 };
