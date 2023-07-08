@@ -31,6 +31,7 @@ module.exports = {
                     'error',
                     'type',
                 ],
+                '@typescript-eslint/no-confusing-void-expression': 'off',
             },
         },
         {
