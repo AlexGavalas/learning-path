@@ -1,23 +1,13 @@
-name: 'Tests E2E'
+name: Run e2e tests
 
 on:
-    push:
-        branches:
-            - master
-    pull_request:
-        branches:
-            - master
+    deployment_status:
 
 jobs:
     tests_e2e:
         name: Run end-to-end tests
+        if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
         runs-on: ubuntu-latest
-        env:
-            PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
-            PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
-            PUBLIC_EDGE_CONFIG: ${{ secrets.PUBLIC_EDGE_CONFIG }}
-            PUBLIC_FILE_SERVER_URL: ${{ secrets.PUBLIC_FILE_SERVER_URL }}
-            LOCAL: ${{ secrets.LOCAL }}
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
@@ -43,8 +33,9 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-pnpm-store-
             - name: Install Dependencies
-              run: pnpm install
-            - name: Install playwright browsers
-              run: pnpm playwright install --with-deps
+              run: pnpm install && pnpm playwright install --with-deps
             - name: Run e2e script
               run: pnpm test:e2e
+              env:
+                  CI: true
+                  PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
