@@ -1,17 +1,18 @@
 ---
 title: Practical Design Patterns in JavaScript
 created: '2023-05-24'
-updated: '2023-06-26'
-published: false
+updated: '2023-07-09'
+published: true
 ---
 
 Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/javascript-practical-design-patterns/table-of-contents)).
 
-The name came from Christofer Alexander's ["A pattern language"](https://www.patternlanguage.com/) in the architecture world.
+This is **not** a deep dive into the topic, rather a short introduction to the design patterns mentioned in the course.
+A deep dive may follow in a future piece.
 
-A pattern is a way to solve a problem. The Gang of Four took this analogy and provided some common patterns to solve common developer problems.
+Design patterns have emerged as solutions to common programming challenges and best practices for structuring and organizing code. The concept of design patterns originated from Christopher Alexander's architectural work (["A pattern language"](https://www.patternlanguage.com/)) and was later adapted to software development by the Gang of Four in their book **"Design Patterns: Elements of Reusable Object-Oriented Software"**. JavaScript design patterns gained popularity as developers sought ways to address the language's unique features and limitations, ultimately leading to the creation of patterns like constructor, module, factory, singleton, and more. These patterns have since become valuable tools for developers, promoting code reuse, maintainability and flexibility.
 
-A design pattern
+To be more accurate, a design pattern
 
 -   Solves a problem
 -   Is a proven concept
@@ -19,19 +20,19 @@ A design pattern
 -   Describes a relationship, how things interact
 -   Has a significant human component, we have to make it work for our scenario
 
-Some types of patterns are:
+We are going to shortly look over the following patterns, each with a short code sample.
 
--   Creational: constructor, module, factory, singleton
--   Structural: decorator, facade, flyweight
--   Behavioural: command, mediator, observer
+-   **Creational**: constructor, module, factory, singleton
+-   **Structural**: decorator, facade, flyweight
+-   **Behavioural**: command, mediator, observer
 
 ## Creational design patterns
 
-Adapting object creation to different situations to increase flexibility and code reuse.
+These patterns provide solutions for creating objects in a flexible and reusable manner. They address various aspects of object creation, such as creating objects based on specific conditions and providing a centralized interface for object creation. They aim to increase flexibility, promote code reuse, and simplify object creation processes.
 
 ### Constructor pattern
 
-Create new objects with their own object scope. Usually we want to create more than one objects.
+Create new objects with their own object scope. Usually, when using this pattern, we want to create more than one objects.
 
 The `new` keyword:
 
@@ -43,18 +44,17 @@ The `new` keyword:
 Example
 
 ```js
-function Task(type, description) {
-    this.type = type;
-    this.description = description;
-    this.completed = false;
+function Job(title) {
+    this.title = title;
+    this.published = false;
 
-    this.complete = function () {
-        this.completed = true;
+    this.publish = function () {
+        this.published = true;
     };
 }
 
-const task = new Task('enhancement', 'Learn design patterns');
-task.complete();
+const jsEngineerJob = new Job('JS Engineer');
+jsEngineerJob.publish();
 ```
 
 We can do the same with the `class` keyword.
@@ -62,67 +62,57 @@ We can do the same with the `class` keyword.
 **Note**: Javascript does not have actual classes, they are transpiled to functions and prototypes under the hood.
 
 ```js
-class Task {
-    constructor(type, description) {
-        this.type = type;
-        this.description = description;
-        this.completed = false;
+class Job {
+    constructor(title) {
+        this.title = title;
+        this.published = false;
     }
 
-    complete() {
-        this.completed = true;
+    publish() {
+        this.published = true;
     }
 }
 
-const task = new Task('enhancement', 'Learn design patterns');
-task.complete();
+const jsEngineerJob = new Job('JS Engineer');
+jsEngineerJob.publish();
 ```
 
 #### Prototype
 
-This is a way to create objects by defining a prototype object that serves as a blueprint. It allows us to add properties and methods to the prototype, which are then inherited by all instances created from it. Basically, we can encapsulate properties that an object can link to.
+This is a way to create objects by defining a prototype object that serves as a blueprint. Properties and methods can be added to the prototype, which are then inherited by all instances created from it through the prototype chain. This promotes code reuse and avoids duplicating common properties and methods for each instance. The pattern emphasizes inheritance and shared behavior among objects.
 
 Example
 
 ```js
-function Task(type, description) {
-    this.type = type;
-    this.description = description;
-    this.completed = false;
-}
-
-Task.prototype.complete = function () {
-    this.completed = true;
+const job = {
+    title: '',
+    published: false,
+    publish() {
+        this.published = true;
+    },
 };
 
-const task = new Task('enhancement', 'Learn design patterns');
-task.complete();
+const jsEngineerJob = Object.create(job);
+jsEngineerJob.title = 'JS Engineer';
+jsEngineerJob.publish();
 ```
 
 ### Module pattern
 
-A simple way to encapsulate similar/related functions. Using this patttern, we do not want multiple instances of an object, but it is not enforced in some way.
+This pattern is a way to encapsulate related functions and variables into a single, self-contained module. It allows for logical grouping and organization of code, promoting modularity and reusability. The module pattern helps to avoid polluting the global namespace and provides a level of privacy by creating a closure around the module's implementation. It allows for the selective exposure of public methods and properties, while keeping other internal elements inaccessible from the outside. Using this patttern, we do not want multiple instances of an object, but it is not enforced in some way.
 
 Examples
 
 ```js
-// An object literal
-const DatabaseService = {
-    find() {},
-    save() {},
-};
-```
-
-```js
 // A function
-const DatabaseService = function () {
+const DatabaseService = (function () {
     let aPrivateVariable = 42;
 
     return {
         find() {},
         save() {},
     };
-};
+})();
 ```
 
 ```js
@@ -137,12 +127,12 @@ module.exports.DatabaseService = {
 
 ### Revealing module pattern
 
-A slight variation on the module pattern. The main concept of the revealing module pattern is that all functionality and variables should be hidden unless deliberately exposed. By looking at the return statement we can easily see what is exposed.
+A slight variation on the module pattern. The main concept here, is that all functionality and variables should be hidden unless deliberately exposed. By looking at the return statement we can easily see what is exposed.
 
 Example
 
 ```js
-const DatabaseService = function () {
+const DatabaseService = (function () {
     let aPrivateVariable = 42;
 
     function find() {}
@@ -152,7 +142,7 @@ const DatabaseService = function () {
         find,
         save,
     };
-};
+})();
 ```
 
 ### Factory pattern
@@ -162,94 +152,97 @@ This pattern acts as a central factory that handles the creation of objects base
 Example
 
 ```js
-class Feature {
-    constructor() {
-        this.type = 'feature';
+class HybridJob {
+    constructor(title) {
+        this.title = title;
+        this.type = 'hybrid';
     }
 }
 
-class Bug {
-    constructor() {
-        this.type = 'bug';
+class RemoteJob {
+    constructor(title) {
+        this.title = title;
+        this.type = 'remote';
     }
 }
 
-class TaskFactory {
-    getTask(type) {
+class JobFactory {
+    getJob(type, title) {
         switch (type) {
-            case 'feature':
-                return new Feature();
-            case 'bug':
-                return new Bug();
+            case 'hybrid':
+                return new HybridJob(title);
+            case 'remote':
+                return new RemoteJob(title);
             default:
-                throw new Error(`Unknown type: ${type}`);
+                throw new Error(`Unknown job type: ${type}`);
         }
     }
 }
 
-const taskFactory = new TaskFactory();
-const feature = taskFactory.getTask('feature');
+const jobFactory = new JobFactory();
+const jsEngineerJob = jobFactory.getJob('remote', 'JS Engineer');
 ```
 
 ### Singleton pattern
 
 This is a pattern that lets us ensure that a class has only one instance, while providing a global access point to this instance.
 
+Example
+
 ```js
-class TaskFactory {
+class JobFactory {
+    instance = null;
+
     constructor() {
-        if (TaskFactory.instance) {
-            return TaskFactory.instance;
+        if (JobFactory.instance) {
+            return JobFactory.instance;
         }
 
-        TaskFactory.instance = this;
+        JobFactory.instance = this;
     }
 }
 
-const instance1 = new TaskFactory();
-const instance2 = new TaskFactory();
+const instance1 = new JobFactory();
+const instance2 = new JobFactory();
 instance1 === instance2; // true
 ```
 
 ## Structural design patterns
 
-Concerned with relationships between objects. Their goal is to either extend or simplify their functionality.
+These patterns are concerned with the composition and structure of objects. They aim to define relationships between objects to form larger, more flexible structures. They provide solutions for organizing and combining objects to achieve the desired functionality, such as simplifying complex interactions, facilitating communication between objects, or adapting interfaces between incompatible objects. Structural design patterns focus on the arrangement and composition of objects rather than solely extending or simplifying their functionality.
 
 ### Decorator pattern
 
-With this pattern we can add functionality to an object without being obtrusive. It lets us attach new behaviour, by wrapping the original.
-This pattern allows us to have extended functionality and it can be used to not break the existing functionality.
+With this pattern we can add functionality to an object without being obtrusive. It lets us attach new behaviour, by wrapping the original. This pattern allows us to have extended functionality and it can be used to protect the existing functionality.
 
 Example
 
 ```js
-class Task {
-    constructor(description) {
-        this.description = description;
+class Job {
+    constructor(title) {
+        this.title = title;
     }
 
-    save() {
-        console.log('Saving task: ', this.description);
-    }
-}
-
-class UrgentTask extends Task {
-    constructor(task) {
-        super(`Urgent: ${task.description}`);
-        this.task = task;
-    }
-
-    save() {
-        this.task.save();
-        console.log('Urgent task: Also notified users');
+    publish() {
+        console.log('Publishing job: ', this.title);
     }
 }
 
-const task = new Task('Read a book');
-task.save();
+class HypedJobDecorator {
+    constructor(job) {
+        this.job = job;
+    }
 
-const urgentTask = new UrgentTask(task);
-urgentTask.save();
+    publish() {
+        this.job.publish();
+        console.log('Hyped job: Also posting on Twitter.');
+    }
+}
+
+const jsEngineerJob = new Job('JS Engineer');
+
+const hypedJsEngineerJob = new HypedJobDecorator(jsEngineerJob);
+hypedJsEngineerJob.publish();
 ```
 
 ### Facade pattern
@@ -259,77 +252,79 @@ Provides a simpler interface to a more complicated system.
 Example
 
 ```js
-class Task {
-    constructor(description) {
-        this.description = description;
+class Job {
+    constructor(title) {
+        this.title = title;
     }
 }
 
-const task = new Task('Read a book');
+const jsEngineerJob = new Job('JS Engineer');
 
-const TaskService = {
-    complete(task) {
-        task.completed = true;
-    },
-    save(task) {},
-    setCompletionDate(task) {},
-    notifyCompletion(task) {},
+const JobService = {
+    publish(job) {},
+    setPublishDate(job) {},
+    notifyPublish(job) {},
+    save(job) {},
 };
 
-// Some complicated logic
-TaskService.complete(task);
-if (task.completed) {
-    TaskService.setCompletionDate(task);
-    TaskService.notifyCompletion(task);
-    TaskService.save(task);
-}
-
-const TaskServiceFacade = {
-    // Extract the complicated logic
-    completeAndNotify(task) {
-        TaskService.complete(task);
-        if (task.completed) {
-            TaskService.setCompletionDate(task);
-            TaskService.notifyCompletion(task);
-            TaskService.save(task);
+const JobServiceFacade = {
+    publishAndNotify(job) {
+        JobService.publish(job);
+        if (job.published) {
+            JobService.setPublishDate(job);
+            JobService.notifyPublish(job);
+            JobService.save(job);
         }
     },
 };
 
-TaskServiceFacade.completeAndNotify(task);
+JobServiceFacade.publishAndNotify(jsEngineerJob);
 ```
 
 ### Flyweight pattern
 
-Helps conserve memory by sharing common parts of state between multiple objects instead of keeping all of the data in each object.
+This pattern helps conserve memory by sharing common data between multiple objects instead of keeping all of the data in each object.
 
 **Note**: Only useful when we have a lot of objects.
 
+Example
+
 ```js
-class Task {
-    constructor({ name, user, project, priority }) {
-        this.name = name;
-        this.user = user;
-        this.project = project;
-        this.priority = priority;
+class Job {
+    constructor({ id, company, type, companyBenefits }) {
+        this.id = id;
+        this.company = company;
+        this.type = type;
+        this.companyBenefits = companyBenefits;
+    }
+}
+
+class FlyweightJob {
+    constructor({ id, ...rest }) {
+        this.id = id;
+        this.flyweight = FlyweightFactory.getFlyweight(rest);
     }
 }
 
 class Flyweight {
-    constructor({ project, priority, user }) {
-        this.project = project;
-        this.priority = priority;
-        this.user = user;
+    constructor({ company, type, companyBenefits }) {
+        this.company = company;
+        this.type = type;
+        this.companyBenefits = companyBenefits;
     }
 }
 
 const FlyweightFactory = {
     flyweights: {},
-    getFlyweight({ project, priority, user }) {
-        const key = `${project}-${priority}-${user}`;
+    getFlyweight({ company, type, companyBenefits }) {
+        const key = `${company}-${type}`;
 
         if (!this.flyweights[key]) {
-            this.flyweights[key] = new Flyweight({ project, priority, user });
+            this.flyweights[key] = new Flyweight({
+                company,
+                type,
+                companyBenefits,
+            });
         }
 
         return this.flyweights[key];
@@ -339,65 +334,54 @@ const FlyweightFactory = {
     },
 };
 
-class FlyweightTask {
-    constructor({ name, user, project, priority }) {
-        this.name = name;
-        this.flyweight = FlyweightFactory.getFlyweight({
-            project,
-            priority,
-            user,
-        });
-    }
-}
-
-const getTaskService = ({ type }) => ({
-    tasks: {},
-    createTask({ id, ...data }) {
-        const task = type === 'task' ? new Task(data) : new FlyweightTask(data);
-        this.tasks[id] = task;
+const getJobService = ({ type }) => ({
+    jobs: {},
+    createJob({ id, ...data }) {
+        if (type === 'job') {
+            this.jobs[id] = new Job({ id, ...data });
+        } else {
+            this.jobs[id] = new FlyweightJob({ id, ...data });
+        }
     },
-    countTasks() {
-        return Object.keys(this.tasks).length;
+    countJobs() {
+        return Object.keys(this.jobs).length;
     },
 });
 
-const TaskService = getTaskService({ type: 'task' });
-const FlyweightTaskService = getTaskService({ type: 'flyweight' });
+const JobService = getJobService({ type: 'job' });
+const FlyweightJobService = getJobService({ type: 'flyweight' });
 
-const NUM_OF_TASKS = 1000000;
-const USERS = ['user 1', 'user 2', 'user 3', 'user 4'];
-const PROJECTS = ['project 1', 'project 2', 'project 3'];
-const PRIORITIES = ['low', 'medium', 'high'];
+const NUM_OF_JOBS = 1000000;
+const COMPANIES = ['company 1', 'company 2', 'company 3'];
+const TYPES = ['remote', 'hybrid', 'office'];
 
 const initialMemory = process.memoryUsage().heapUsed;
 
-for (let i = 0; i < NUM_OF_TASKS; i++) {
-    TaskService.createTask({
+for (let i = 0; i < NUM_OF_JOBS; i++) {
+    JobService.createJob({
         id: i,
-        name: `task ${i}`,
-        user: USERS[Math.floor(Math.random() * 4)],
-        project: PROJECTS[Math.floor(Math.random() * 3)],
-        priority: PRIORITIES[Math.floor(Math.random() * 3)],
+        company: COMPANIES[Math.floor(Math.random() * COMPANIES.length)],
+        type: TYPES[Math.floor(Math.random() * TYPES.length)],
+        companyBenefits: Array(10).fill('benefit'),
     });
 }
 
 const finalMemory = process.memoryUsage().heapUsed;
 const usedMemory = (finalMemory - initialMemory) / 1000000;
 
-console.log('TaskService');
-console.log(`${TaskService.countTasks()} tasks created`);
+console.log('JobService');
+console.log(`${JobService.countJobs()} jobs created`);
 console.log(`Used memory: ${usedMemory} MB`);
 console.log('-----------------------------------');
 
 const initialMemoryFlyweight = process.memoryUsage().heapUsed;
 
-for (let i = 0; i < NUM_OF_TASKS; i++) {
-    FlyweightTaskService.createTask({
+for (let i = 0; i < NUM_OF_JOBS; i++) {
+    FlyweightJobService.createJob({
         id: i,
-        name: `task ${i}`,
-        user: USERS[Math.floor(Math.random() * 4)],
-        project: PROJECTS[Math.floor(Math.random() * 3)],
-        priority: PRIORITIES[Math.floor(Math.random() * 3)],
+        company: COMPANIES[Math.floor(Math.random() * COMPANIES.length)],
+        type: TYPES[Math.floor(Math.random() * TYPES.length)],
+        companyBenefits: Array(10).fill('benefit'),
     });
 }
 
@@ -405,71 +389,71 @@ const finalMemoryFlyweight = process.memoryUsage().heapUsed;
 const usedMemoryFlyweight =
     (finalMemoryFlyweight - initialMemoryFlyweight) / 1000000;
 
-console.log('FlyweightTaskService');
-console.log(`${FlyweightTaskService.countTasks()} tasks created`);
+console.log('FlyweightJobService');
+console.log(`${FlyweightJobService.countJobs()} jobs created`);
 console.log(`${FlyweightFactory.countFlyweights()} flyweights created`);
 console.log(`Used memory: ${usedMemoryFlyweight} MB`);
 ```
 
 ## Behavioural design patterns
 
-Concerned with the assignment of responsibilities between objects and how they communicate. They help objects cooperate towards the goal.
+These patterns are concerned with defining how objects communicate and collaborate to achieve specific behaviors and functionalities. They focus on the assignment of responsibilities between objects and controlling the flow of communication to ensure effective cooperation towards a common goal.
 
 ### Observer pattern
 
-With this pattern, objects can watch and be notified of changes on an object.
+With this pattern objects can watch and be notified of changes on an object.
 
 Example
 
 ```js
-class Task {
-    constructor(description) {
-        this.description = description;
+class Job {
+    constructor(title) {
+        this.title = title;
     }
 
-    save() {
-        console.log(`Saving task: ${this.description}`);
+    publish() {
+        console.log(`Publishing job: ${this.title}`);
     }
 }
 
 class NotificationService {
-    constructor() {
-        this.type = '[Notification]';
-    }
-
-    next(task) {
-        console.log(`${this.type}: task changed - ${task.description}`);
+    next(job) {
+        console.log(`Job changed - ${job.title}`);
     }
 }
 
 class ObserverList {
-    observers = new Set();
+    observers = [];
 
     subscribe(observer) {
-        this.observers.add(observer);
+        this.observers.push(observer);
 
         return () => {
-            this.observers.delete(observer);
+            this.observers = this.observers.filter((obs) => {
+                return obs !== observer;
+            });
         };
     }
 
-    notifyAll(task) {
-        this.observers.forEach((observer) => observer.next(task));
+    notifyAll(data) {
+        this.observers.forEach((observer) => {
+            observer.next(data);
+        });
     }
 }
 
-class ObservableTask extends Task {
-    constructor(description) {
-        super(description);
+class ObservableJob extends Job {
+    constructor(title) {
+        super(title);
         this.observers = new ObserverList();
     }
 
-    save() {
-        super.save();
-        this.notify();
+    publish() {
+        super.publish();
+        this.signalChange();
     }
 
-    notify() {
+    signalChange() {
         this.observers.notifyAll(this);
     }
 
@@ -479,12 +463,13 @@ class ObservableTask extends Task {
 }
 
 const notificationService = new NotificationService();
-const task = new ObservableTask('Learn design patterns');
+const jsEngineerJob = new ObservableJob('JS Engineer');
 
-const unsubscribe = task.subscribeObserver(notificationService);
-task.save();
+const unsubscribe = jsEngineerJob.subscribeObserver(notificationService);
+jsEngineerJob.publish();
+
+// When done with observing we can call unsubscribe
 unsubscribe();
-task.save();
 ```
 
 ### Mediator pattern
@@ -494,64 +479,45 @@ With this pattern we can control the communication between objects, so neither h
 Example
 
 ```js
-class Task {
-    constructor(description) {
-        this.description = description;
+class JobMediator {
+    applicants = [];
+
+    registerApplicant(applicant) {
+        this.applicants.push(applicant);
     }
 
-    save() {
-        console.log(`Saving task: ${this.description}`);
-    }
-}
-
-class NotificationService {
-    constructor() {
-        this.type = '[Notification]';
-    }
-
-    next(task) {
-        console.log(`${this.type}: task changed - ${task.description}`);
+    notify(applicant, message) {
+        this.applicants.forEach((otherApplicant) => {
+            if (otherApplicant !== applicant) {
+                otherApplicant.receive(message);
+            }
+        });
     }
 }
 
-class Mediator {
-    channels = {};
-
-    subscribe({ channel, context, subscriber }) {
-        if (!this.channels[channel]) {
-            this.channels[channel] = new Set();
-        }
-
-        this.channels[channel].add({ context, subscriber });
+class JobApplicant {
+    constructor(name, mediator) {
+        this.name = name;
+        this.mediator = mediator;
+        this.mediator.registerApplicant(this);
     }
 
-    publish(channel, ...args) {
-        this.channels[channel]?.forEach(({ subscriber, context }) =>
-            subscriber.apply(context, args),
-        );
+    apply(job) {
+        const message = `${this.name} has applied for the ${job} position.`;
+        this.mediator.notify(this, message);
+    }
+
+    receive(message) {
+        console.log(`${this.name} received a message: ${message}`);
     }
 }
 
-const mediator = new Mediator();
-const notificationService = new NotificationService();
+const jobMediator = new JobMediator();
 
-mediator.subscribe({
-    channel: 'task:changed',
-    context: notificationService,
-    subscriber: notificationService.next,
-});
+const john = new JobApplicant('John', jobMediator);
+const alex = new JobApplicant('Alex', jobMediator);
 
-const task = new Task('Learn design patterns');
-
-// Decorate task.save method
-task.save = new Proxy(task.save, {
-    apply(target, thisArg, argumentsList) {
-        mediator.publish('task:changed', task);
-        return target.apply(thisArg, argumentsList);
-    },
-});
-
-task.save();
+alex.apply('JS Engineer');
 ```
 
 ### Command pattern
@@ -561,46 +527,45 @@ This pattern turns a request into a stand-alone object that contains all informa
 Example
 
 ```js
-const repo = {
-    tasks: {},
+const JobsService = {
+    jobs: {},
     commands: [],
-    get() {
-        console.log('Getting stuff from the database...');
+    publish(job) {
+        console.log(`Publishing job ${job.id} ...`);
+        this.jobs[job.id] = job;
     },
-    save(task) {
-        console.log(`Saving task ${task.id} to the database...`);
-        repo.tasks[task.id] = task;
+    clear() {
+        console.log('Clearing all jobs ...');
+        this.jobs = {};
     },
     replay() {
-        repo.commands.forEach(({ name, obj }) => {
-            repo.executeNoLog(name, obj);
+        this.commands.forEach(({ name, args }) => {
+            this.executeNoLog(name, args);
         });
+    },
+    execute(name, ...args) {
+        this.commands.push({
+            name,
+            args,
+        });
+
+        return this[name]?.apply(this, args);
+    },
+    executeNoLog(name, args) {
+        return this[name]?.apply(this, args);
     },
 };
 
-repo.execute = (name, ...args) => {
-    repo.commands.push({
-        name,
-        obj: args[0],
-    });
+JobsService.execute('publish', { id: 1, title: 'Job 1' });
+JobsService.execute('publish', { id: 2, title: 'Job 2' });
 
-    return repo[name]?.apply(repo, args);
-};
+console.log('Jobs after publishing', JobsService.jobs);
 
-repo.executeNoLog = (name, ...args) => {
-    return repo[name]?.apply(repo, args);
-};
+JobsService.clear();
 
-repo.execute('save', { id: 1, name: 'Task 1', completed: false });
-repo.execute('save', { id: 2, name: 'Task 2', completed: false });
+console.log('Jobs after clearing', JobsService.jobs);
 
-console.log('Tasks after saving', repo.tasks);
+JobsService.replay();
 
-repo.tasks = {};
-
-console.log('Tasks after clearing', repo.tasks);
-
-repo.replay();
-
-console.log('Tasks after replaying', repo.tasks);
+console.log('Jobs after replaying', JobsService.jobs);
 ```
