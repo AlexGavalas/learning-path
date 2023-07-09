@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
             return {
                 params: {
-                    slug: summary.filename.replace(/\.md$/, ''),
+                    slug: summary.filename.replace(/\.mdx$/, ''),
                 },
                 props: {
                     content: data,

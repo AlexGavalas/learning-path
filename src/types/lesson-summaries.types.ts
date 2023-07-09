@@ -9,4 +9,4 @@ export type LessonSummariesCollection = CollectionEntry<'lesson-summaries'>;
 
 export type LessonSummaryFrontmatter = LessonSummariesCollection['data'];
 
-export type LessonSummaryRenderResult = Awaited<Render['.mdx' | '.md']>;
+export type LessonSummaryRenderResult = Awaited<Render['.mdx']>;

@@ -8,4 +8,4 @@ export type NotesCollection = CollectionEntry<'notes'>;
 
 export type NoteFrontmatter = NotesCollection['data'];
 
-export type NoteRenderResult = Awaited<Render['.mdx' | '.md']>;
+export type NoteRenderResult = Awaited<Render['.mdx']>;

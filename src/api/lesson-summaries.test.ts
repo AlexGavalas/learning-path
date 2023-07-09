@@ -77,7 +77,7 @@ describe('getLessonSummaryData', () => {
 
             expect(fetchFileFromStorage).toHaveBeenCalledTimes(1);
             expect(fetchFileFromStorage).toHaveBeenCalledWith(
-                'summaries/test.md',
+                'summaries/test.mdx',
             );
         });
 

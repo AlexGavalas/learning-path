@@ -99,7 +99,7 @@ const indexDocs = async (): Promise<void> => {
             .filter((line) => line !== '---' && !/^#+\s/.test(line))
             .map((line) => line.replace('-   ', ''));
 
-        const fname = filename.replace(/\.mdx?$/, '');
+        const fname = filename.replace(/\.mdx$/, '');
         const created = toISOString(data.created);
         const updated = toISOString(data.updated);
 

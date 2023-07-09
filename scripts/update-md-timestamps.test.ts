@@ -21,7 +21,7 @@ describe('updateMdTimestamps', () => {
             jest.replaceProperty(process, 'argv', [
                 'node',
                 'script',
-                'notes/test.md',
+                'notes/test.mdx',
             ]);
         });
 
@@ -34,7 +34,7 @@ describe('updateMdTimestamps', () => {
 
             expect(writeFile).toHaveBeenCalledTimes(1);
             expect(writeFile).toHaveBeenCalledWith(
-                'notes/test.md',
+                'notes/test.mdx',
                 "---\ntitle: Test\nupdated: '2023-01-01'\n---\n\n# Test\n",
             );
         });
@@ -45,7 +45,7 @@ describe('updateMdTimestamps', () => {
             jest.replaceProperty(process, 'argv', [
                 'node',
                 'script',
-                'incorrect-dir/test.md',
+                'incorrect-dir/test.mdx',
             ]);
         });
 

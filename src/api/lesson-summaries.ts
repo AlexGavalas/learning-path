@@ -29,7 +29,7 @@ export const getLessonSummaryData = async (
         process.env.PUBLIC_FILE_SERVER_ENABLED === 'true';
 
     if (isProd && isPublicFileServerEnabled) {
-        const filePath = `${slug}.md`;
+        const filePath = `${slug}.mdx`;
 
         return await fetchFileFromStorage(`summaries/${filePath}`);
     }

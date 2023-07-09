@@ -23,7 +23,7 @@ export const indexLessonSummaries = async (): Promise<void> => {
         const { content, data: frontmatter } = matter(fileContents);
 
         const { error } = await supabase.from('lesson_summaries_meta').upsert({
-            filename: filename.replace(/\.md?$/, ''),
+            filename: filename.replace(/\.mdx$/, ''),
             title: frontmatter.title,
             created: toISOString(frontmatter.created),
             updated: toISOString(frontmatter.updated),
