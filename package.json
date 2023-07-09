@@ -17,6 +17,7 @@
         "sync:types:supabase": "supabase gen types typescript --project-id cxftalfhgyhwkiwnyqjh --schema public > src/types/database.types.ts && pnpm format",
         "test": "jest",
         "test:e2e": "playwright test ./e2e",
+        "test:e2e:watch": "playwright test --ui ./e2e",
         "test:coverage": "jest --coverage",
         "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
         "test:watch": "jest --watch",

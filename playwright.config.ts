@@ -10,6 +10,7 @@ const config: PlaywrightTestConfig = {
     use: {
         baseURL,
     },
+    preserveOutput: 'never',
     ...(!isCI && {
         webServer: {
             command: 'pnpm dev',
