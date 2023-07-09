@@ -37,4 +37,5 @@ jobs:
             - name: Run e2e script
               run: pnpm test:e2e
               env:
+                  CI: true
                   PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
