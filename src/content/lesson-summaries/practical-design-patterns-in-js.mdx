@@ -5,6 +5,8 @@ updated: '2023-07-10'
 published: true
 ---
 
+import CopyToClipboard from '../../components/copy-code-button.svelte';
+
 Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/javascript-practical-design-patterns/table-of-contents)).
 
 This is **not** a deep dive into the topic, rather a short introduction to the design patterns mentioned in the course.
@@ -41,7 +43,7 @@ The `new` keyword:
 -   Binds `this` to the new object scope
 -   Returns `this` implicitly
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 function Job(title) {
@@ -56,6 +58,8 @@ function Job(title) {
 const jsEngineerJob = new Job('JS Engineer');
 jsEngineerJob.publish();
 ```
+
+</CopyToClipboard>
 
 We can do the same with the `class` keyword.
 
@@ -81,7 +85,7 @@ jsEngineerJob.publish();
 
 This is a way to create objects by defining a prototype object that serves as a blueprint. Properties and methods can be added to the prototype, which are then inherited by all instances created from it through the prototype chain. This promotes code reuse and avoids duplicating common properties and methods for each instance. The pattern emphasizes inheritance and shared behavior among objects.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 const job = {
@@ -96,6 +100,8 @@ const jsEngineerJob = Object.create(job);
 jsEngineerJob.title = 'JS Engineer';
 jsEngineerJob.publish();
 ```
+
+</CopyToClipboard>
 
 ### Module pattern
 
@@ -149,7 +155,7 @@ const DatabaseService = (function () {
 
 This pattern acts as a central factory that handles the creation of objects based on specific conditions or parameters. It provides a way to create objects without specifying their class or type explicitly.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 class HybridJob {
@@ -183,11 +189,13 @@ const jobFactory = new JobFactory();
 const jsEngineerJob = jobFactory.getJob('remote', 'JS Engineer');
 ```
 
+</CopyToClipboard>
+
 ### Singleton pattern
 
 This is a pattern that lets us ensure that a class has only one instance, while providing a global access point to this instance.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 class JobFactory {
@@ -207,6 +215,8 @@ const instance2 = new JobFactory();
 instance1 === instance2; // true
 ```
 
+</CopyToClipboard>
+
 ## Structural design patterns
 
 These patterns are concerned with the composition and structure of objects. They aim to define relationships between objects to form larger, more flexible structures. They provide solutions for organizing and combining objects to achieve the desired functionality, such as simplifying complex interactions, facilitating communication between objects, or adapting interfaces between incompatible objects. Structural design patterns focus on the arrangement and composition of objects rather than solely extending or simplifying their functionality.
@@ -215,7 +225,7 @@ These patterns are concerned with the composition and structure of objects. They
 
 With this pattern we can add functionality to an object without being obtrusive. It lets us attach new behaviour, by wrapping the original. This pattern allows us to have extended functionality and it can be used to protect the existing functionality.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 class Job {
@@ -245,11 +255,13 @@ const hypedJsEngineerJob = new HypedJobDecorator(jsEngineerJob);
 hypedJsEngineerJob.publish();
 ```
 
+</CopyToClipboard>
+
 ### Facade pattern
 
 Provides a simpler interface to a more complicated system.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 class Job {
@@ -281,13 +293,17 @@ const JobServiceFacade = {
 JobServiceFacade.publishAndNotify(jsEngineerJob);
 ```
 
+</CopyToClipboard>
+
 ### Flyweight pattern
 
 This pattern helps conserve memory by sharing common data between multiple objects instead of keeping all of the data in each object.
 
 **Note**: Only useful when we have a lot of objects.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
+
+_Needs to be run in node since it uses `process.memoryUsage()`_
 
 ```js
 class Job {
@@ -395,6 +411,8 @@ console.log(`${FlyweightFactory.countFlyweights()} flyweights created`);
 console.log(`Used memory: ${usedMemoryFlyweight} MB`);
 ```
 
+</CopyToClipboard>
+
 ## Behavioural design patterns
 
 These patterns are concerned with defining how objects communicate and collaborate to achieve specific behaviors and functionalities. They focus on the assignment of responsibilities between objects and controlling the flow of communication to ensure effective cooperation towards a common goal.
@@ -403,7 +421,7 @@ These patterns are concerned with defining how objects communicate and collabora
 
 With this pattern objects can watch and be notified of changes on an object.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 class Job {
@@ -472,11 +490,13 @@ jsEngineerJob.publish();
 unsubscribe();
 ```
 
+</CopyToClipboard>
+
 ### Mediator pattern
 
 With this pattern we can control the communication between objects, so neither has to be coupled with others.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 class JobMediator {
@@ -520,11 +540,13 @@ const alex = new JobApplicant('Alex', jobMediator);
 alex.apply('JS Engineer');
 ```
 
+</CopyToClipboard>
+
 ### Command pattern
 
 This pattern turns a request into a stand-alone object that contains all information about the request. This transformation lets us pass requests as method arguments, delay or queue a request’s execution, and support undoable operations. It fully decouples the execution from the implementation, thus allowing less fragile implementations.
 
-Example
+<CopyToClipboard prefix="Example" client:idle>
 
 ```js
 const JobsService = {
@@ -569,3 +591,5 @@ JobsService.replay();
 
 console.log('Jobs after replaying', JobsService.jobs);
 ```
+
+</CopyToClipboard>

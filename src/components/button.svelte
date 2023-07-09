@@ -5,6 +5,7 @@
 
     interface $$Props extends HTMLButtonAttributes {
         variant?: ButtonVariant;
+        extraClass?: string;
     }
 
     const bgClassNamesPerVariant: Record<ButtonVariant, string> = {
@@ -14,6 +15,7 @@
     };
 
     export let variant: ButtonVariant = 'default';
+    export let extraClass = '';
 
     let bgClass = bgClassNamesPerVariant[variant];
 </script>
@@ -21,7 +23,7 @@
 <button
     {...$$restProps}
     on:click
-    class={`flex items-center rounded border-0 p-2 ${bgClass}`}
+    class={`flex items-center rounded border-0 p-2 ${bgClass} ${extraClass}`}
 >
     <slot />
 </button>
