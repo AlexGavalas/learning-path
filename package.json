@@ -16,6 +16,7 @@
         "index:summaries": "tsx scripts/index-lesson-summaries.runner.ts",
         "sync:types:supabase": "supabase gen types typescript --project-id cxftalfhgyhwkiwnyqjh --schema public > src/types/database.types.ts && pnpm format",
         "test": "jest",
+        "test:e2e": "playwright test ./e2e",
         "test:coverage": "jest --coverage",
         "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
         "test:watch": "jest --watch",
@@ -54,6 +55,7 @@
     "devDependencies": {
         "@commitlint/cli": "17.6.6",
         "@commitlint/config-conventional": "17.6.6",
+        "@playwright/test": "1.35.1",
         "@testing-library/dom": "9.3.1",
         "@testing-library/jest-dom": "5.16.5",
         "@testing-library/react": "14.0.0",

@@ -24,6 +24,8 @@ const config: Config = {
 
     testEnvironment: 'jsdom',
 
+    testPathIgnorePatterns: ['e2e'],
+
     transform: {
         '^.+\\.tsx?$': [
             'ts-jest',

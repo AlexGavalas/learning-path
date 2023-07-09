@@ -10,6 +10,7 @@ specifiers:
   '@astrojs/vercel': 3.6.0
   '@commitlint/cli': 17.6.6
   '@commitlint/config-conventional': 17.6.6
+  '@playwright/test': 1.35.1
   '@supabase/supabase-js': 2.26.0
   '@tailwindcss/typography': 0.5.9
   '@testing-library/dom': 9.3.1
@@ -89,6 +90,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 17.6.6
   '@commitlint/config-conventional': 17.6.6
+  '@playwright/test': 1.35.1
   '@testing-library/dom': 9.3.1
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
@@ -1700,6 +1702,17 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.0
     dev: false
+
+  /@playwright/test/1.35.1:
+    resolution: {integrity: sha512-b5YoFe6J9exsMYg0pQAobNDR85T1nLumUYgUTtKm4d21iX2L7WqKq9dW8NGJ+2vX0etZd+Y7UeuqsxDXm9+5ZA==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      '@types/node': 18.16.9
+      playwright-core: 1.35.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -7244,6 +7257,12 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       find-up: 4.1.0
+
+  /playwright-core/1.35.1:
+    resolution: {integrity: sha512-pNXb6CQ7OqmGDRspEjlxE49w+4YtR6a3X6mT1hZXeJHWmsEz7SunmvZeiG/+y1yyMZdHnnn73WKYdtV1er0Xyg==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dev: true
 
   /postcss-import/15.1.0_postcss@8.4.25:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
