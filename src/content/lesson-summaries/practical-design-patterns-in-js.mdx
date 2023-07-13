@@ -1,7 +1,7 @@
 ---
 title: Practical Design Patterns in JavaScript
 created: '2023-05-24'
-updated: '2023-07-10'
+updated: '2023-07-13'
 published: true
 ---
 
@@ -12,7 +12,7 @@ Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/course
 This is **not** a deep dive into the topic, rather a short introduction to the design patterns mentioned in the course.
 A deep dive may follow in a future piece.
 
-Design patterns have emerged as solutions to common programming challenges and best practices for structuring and organizing code. The concept of design patterns originated from Christopher Alexander's architectural work (["A pattern language"](https://www.patternlanguage.com/)) and was later adapted to software development by the Gang of Four in their book **"Design Patterns: Elements of Reusable Object-Oriented Software"**. JavaScript design patterns gained popularity as developers sought ways to address the language's unique features and limitations, ultimately leading to the creation of patterns like constructor, module, factory, singleton, and more. These patterns have since become valuable tools for developers, promoting code reuse, maintainability and flexibility.
+Design patterns have emerged as solutions to common programming challenges and best practices for structuring and organising code. The concept of design patterns originated from Christopher Alexander's architectural work (["A pattern language"](https://www.patternlanguage.com/)) and was later adapted to software development by the Gang of Four in their book **"Design Patterns: Elements of Reusable Object-Oriented Software"**. JavaScript design patterns gained popularity as developers sought ways to address the language's unique features and limitations, ultimately leading to the creation of patterns like constructor, module, factory, singleton, and more. These patterns have since become valuable tools for developers, promoting code reuse, maintainability and flexibility.
 
 To be more accurate, a design pattern
 
@@ -30,7 +30,7 @@ We are going to shortly look over the following patterns, each with a short code
 
 ## Creational design patterns
 
-These patterns provide solutions for creating objects in a flexible and reusable manner. They address various aspects of object creation, such as creating objects based on specific conditions and providing a centralized interface for object creation. They aim to increase flexibility, promote code reuse, and simplify object creation processes.
+These patterns provide solutions for creating objects in a flexible and reusable manner. They address various aspects of object creation, such as creating objects based on specific conditions and providing a centralised interface for object creation. They aim to increase flexibility, promote code reuse, and simplify object creation processes.
 
 ### Constructor pattern
 
@@ -81,9 +81,19 @@ const jsEngineerJob = new Job('JS Engineer');
 jsEngineerJob.publish();
 ```
 
+**Pros**:
+
+-   Straightforward to use.
+-   Encapsulates the creation and initialisation logic.
+
+**Cons**:
+
+-   Lack of privacy, all properties and methods are public. Though this can change when using [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
+-   Can be memory inefficient, since methods are duplicated for each instance.
+
 #### Prototype
 
-This is a way to create objects by defining a prototype object that serves as a blueprint. Properties and methods can be added to the prototype, which are then inherited by all instances created from it through the prototype chain. This promotes code reuse and avoids duplicating common properties and methods for each instance. The pattern emphasizes inheritance and shared behavior among objects.
+This is a way to create objects by defining a prototype object that serves as a blueprint. Properties and methods can be added to the prototype, which are then inherited by all instances created from it through the prototype chain. This promotes code reuse and avoids duplicating common properties and methods for each instance. The pattern emphasises inheritance and shared behavior among objects.
 
 <CopyToClipboard prefix="Example" client:idle>
 
@@ -103,9 +113,19 @@ jsEngineerJob.publish();
 
 </CopyToClipboard>
 
+**Pros**:
+
+-   Code reuse and memory efficiency, all objects share the same methods.
+-   Dynamic runtime modification, properties can be modified at runtime. Depending on the use case though, this can be also be a con.
+
+**Cons**:
+
+-   Potential modification risks at runtime.
+-   Complexity and potential confusion, since it involves a prototype chain.
+
 ### Module pattern
 
-This pattern is a way to encapsulate related functions and variables into a single, self-contained module. It allows for logical grouping and organization of code, promoting modularity and reusability. The module pattern helps to avoid polluting the global namespace and provides a level of privacy by creating a closure around the module's implementation. It allows for the selective exposure of public methods and properties, while keeping other internal elements inaccessible from the outside. Using this patttern, we do not want multiple instances of an object, but it is not enforced in some way.
+This pattern is a way to encapsulate related functions and variables into a single, self-contained module. It allows for logical grouping and organisation of code, promoting modularity and reusability. The module pattern helps to avoid polluting the global namespace and provides a level of privacy by creating a closure around the module's implementation. It allows for the selective exposure of public methods and properties, while keeping other internal elements inaccessible from the outside. Using this patttern, we do not want multiple instances of an object, but it is not enforced in some way.
 
 Examples
 
@@ -151,6 +171,15 @@ const DatabaseService = (function () {
 })();
 ```
 
+**Pros**:
+
+-   Encapsulation and privacy, only the exposed properties and methods are accessible from the outside.
+-   Organisation and structure.
+
+**Cons**:
+
+-   Limited access to private methods and properties, which can make testing more challenging.
+
 ### Factory pattern
 
 This pattern acts as a central factory that handles the creation of objects based on specific conditions or parameters. It provides a way to create objects without specifying their class or type explicitly.
@@ -191,6 +220,15 @@ const jsEngineerJob = jobFactory.getJob('remote', 'JS Engineer');
 
 </CopyToClipboard>
 
+**Pros**:
+
+-   Abstraction and flexibility. It provides a centralised place for object creation.
+
+**Cons**:
+
+-   Complexity, since a single factory is responsible for creating multiple objects.
+-   Limited customisation, since all objects are created through the same factory.
+
 ### Singleton pattern
 
 This is a pattern that lets us ensure that a class has only one instance, while providing a global access point to this instance.
@@ -217,9 +255,19 @@ instance1 === instance2; // true
 
 </CopyToClipboard>
 
+**Pros**:
+
+-   Single instance, which can be useful for managing shared resources.
+-   Efficient resource utilisation.
+
+**Cons**:
+
+-   May result in tight coupling.
+-   Difficult to test.
+
 ## Structural design patterns
 
-These patterns are concerned with the composition and structure of objects. They aim to define relationships between objects to form larger, more flexible structures. They provide solutions for organizing and combining objects to achieve the desired functionality, such as simplifying complex interactions, facilitating communication between objects, or adapting interfaces between incompatible objects. Structural design patterns focus on the arrangement and composition of objects rather than solely extending or simplifying their functionality.
+These patterns are concerned with the composition and structure of objects. They aim to define relationships between objects to form larger, more flexible structures. They provide solutions for organising and combining objects to achieve the desired functionality, such as simplifying complex interactions, facilitating communication between objects, or adapting interfaces between incompatible objects. Structural design patterns focus on the arrangement and composition of objects rather than solely extending or simplifying their functionality.
 
 ### Decorator pattern
 
@@ -256,6 +304,15 @@ hypedJsEngineerJob.publish();
 ```
 
 </CopyToClipboard>
+
+**Pros**:
+
+-   Flexible and dynamic, since we can add functionality at runtime.
+-   Preserves the object's interface.
+
+**Cons**:
+
+-   Can be complex, since each decorator adds a new layer of functionality.
 
 ### Facade pattern
 
@@ -294,6 +351,16 @@ JobServiceFacade.publishAndNotify(jsEngineerJob);
 ```
 
 </CopyToClipboard>
+
+**Pros**:
+
+-   Simplifies the interface of a complex system.
+-   Improved maintainability and modularity.
+
+**Cons**:
+
+-   Limited customisation to the underlying system.
+-   Potential performance impact, since it adds an additional layer of method calls.
 
 ### Flyweight pattern
 
@@ -413,6 +480,15 @@ console.log(`Used memory: ${usedMemoryFlyweight} MB`);
 
 </CopyToClipboard>
 
+**Pros**:
+
+-   Memory efficiency and performance improvement.
+
+**Cons**:
+
+-   Added complexity.
+-   Potential loss of encapsulation, since it involves sharing state between objects.
+
 ## Behavioural design patterns
 
 These patterns are concerned with defining how objects communicate and collaborate to achieve specific behaviors and functionalities. They focus on the assignment of responsibilities between objects and controlling the flow of communication to ensure effective cooperation towards a common goal.
@@ -492,6 +568,15 @@ unsubscribe();
 
 </CopyToClipboard>
 
+**Pros**:
+
+-   Loose coupling and flexibility.
+-   Event-driven architecture.
+
+**Cons**:
+
+-   Potential performance and order of execution issues.
+
 ### Mediator pattern
 
 With this pattern we can control the communication between objects, so neither has to be coupled with others.
@@ -542,9 +627,17 @@ alex.apply('JS Engineer');
 
 </CopyToClipboard>
 
+**Pros**:
+
+-   Decoupling and simplified communication.
+
+**Cons**:
+
+-   Complexity and potential performance issues.
+
 ### Command pattern
 
-This pattern turns a request into a stand-alone object that contains all information about the request. This transformation lets us pass requests as method arguments, delay or queue a request’s execution, and support undoable operations. It fully decouples the execution from the implementation, thus allowing less fragile implementations.
+This pattern turns a request into a stand-alone object that contains all information about the request. This transformation lets us pass requests as method arguments, delay or queue a request's execution, and support undoable operations. It fully decouples the execution from the implementation, thus allowing less fragile implementations.
 
 <CopyToClipboard prefix="Example" client:idle>
 
@@ -593,3 +686,24 @@ console.log('Jobs after replaying', JobsService.jobs);
 ```
 
 </CopyToClipboard>
+
+**Pros**:
+
+-   Decoupling of caller and receiver.
+-   Undoable operations.
+-   Support for queuing operations.
+
+**Cons**:
+
+-   Can be challenging to handle more complex scenarios.
+
+## One last thing
+
+Some resources I have found helpful regarding design patterns are:
+
+-   [Design Patterns - Refactoring Guru](https://refactoring.guru/design-patterns)
+-   [Design patterns in TS](https://refactoring.guru/design-patterns/typescript)
+-   [Awesome Design Patterns](https://github.com/DovAmir/awesome-design-patterns)
+-   [Learning JS Design Patterns](https://www.patterns.dev/posts#design-patterns)
+
+Thank you for reading.
