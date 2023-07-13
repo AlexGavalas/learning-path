@@ -10,7 +10,7 @@ specifiers:
   '@astrojs/vercel': 3.7.0
   '@commitlint/cli': 17.6.6
   '@commitlint/config-conventional': 17.6.6
-  '@playwright/test': 1.35.1
+  '@playwright/test': 1.36.0
   '@supabase/supabase-js': 2.26.0
   '@tailwindcss/typography': 0.5.9
   '@testing-library/dom': 9.3.1
@@ -90,7 +90,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 17.6.6
   '@commitlint/config-conventional': 17.6.6
-  '@playwright/test': 1.35.1
+  '@playwright/test': 1.36.0
   '@testing-library/dom': 9.3.1
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
@@ -1703,13 +1703,13 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /@playwright/test/1.35.1:
-    resolution: {integrity: sha512-b5YoFe6J9exsMYg0pQAobNDR85T1nLumUYgUTtKm4d21iX2L7WqKq9dW8NGJ+2vX0etZd+Y7UeuqsxDXm9+5ZA==}
+  /@playwright/test/1.36.0:
+    resolution: {integrity: sha512-yN+fvMYtiyLFDCQos+lWzoX4XW3DNuaxjBu68G0lkgLgC6BP+m/iTxJQoSicz/x2G5EsrqlZTqTIP9sTgLQerg==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
       '@types/node': 18.16.9
-      playwright-core: 1.35.1
+      playwright-core: 1.36.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -7232,8 +7232,8 @@ packages:
     dependencies:
       find-up: 4.1.0
 
-  /playwright-core/1.35.1:
-    resolution: {integrity: sha512-pNXb6CQ7OqmGDRspEjlxE49w+4YtR6a3X6mT1hZXeJHWmsEz7SunmvZeiG/+y1yyMZdHnnn73WKYdtV1er0Xyg==}
+  /playwright-core/1.36.0:
+    resolution: {integrity: sha512-7RTr8P6YJPAqB+8j5ATGHqD6LvLLM39sYVNsslh78g8QeLcBs5750c6+msjrHUwwGt+kEbczBj1XB22WMwn+WA==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
