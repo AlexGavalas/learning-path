@@ -46,7 +46,7 @@ specifiers:
   jest-environment-jsdom: 29.6.1
   lint-staged: 13.2.3
   prettier: 3.0.0
-  prettier-plugin-astro: 0.10.0
+  prettier-plugin-astro: 0.11.0
   prettier-plugin-tailwindcss: 0.4.0
   react: 18.2.0
   react-dom: 18.2.0
@@ -120,8 +120,8 @@ devDependencies:
   jest-environment-jsdom: 29.6.1
   lint-staged: 13.2.3
   prettier: 3.0.0
-  prettier-plugin-astro: 0.10.0
-  prettier-plugin-tailwindcss: 0.4.0_3u5s2omxvxs6n4jhlfyu2qaw4u
+  prettier-plugin-astro: 0.11.0
+  prettier-plugin-tailwindcss: 0.4.0_5trhqlex4twynovulxndjriu7e
   supabase: 1.77.5
   ts-jest: 29.1.1_i6gtp52dwlhvyn32a6bohskwlu
   ts-node: 10.9.1_uk63fmspmpkpm3jsbfhhtisbye
@@ -7331,12 +7331,12 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-astro/0.10.0:
-    resolution: {integrity: sha512-dPzop0gKZyVGpTDQmfy+e7FKXC9JT3mlpfYA2diOVz+Ui+QR1U4G/s+OesKl2Hib2JJOtAYJs/l+ovgT0ljlFA==}
+  /prettier-plugin-astro/0.11.0:
+    resolution: {integrity: sha512-rl2hJ4Kty/aEfGjk3i4JS+bpng9MjgvwqLRNzeb9NqYhqKoWNwOR39cIJXFjU1vR3zYOPnwWNRMelKb0orunYA==}
     engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
     dependencies:
       '@astrojs/compiler': 1.5.5
-      prettier: 2.8.8
+      prettier: 3.0.0
       sass-formatter: 0.7.6
     dev: true
 
@@ -7350,7 +7350,7 @@ packages:
       synckit: 0.8.5
     dev: false
 
-  /prettier-plugin-tailwindcss/0.4.0_3u5s2omxvxs6n4jhlfyu2qaw4u:
+  /prettier-plugin-tailwindcss/0.4.0_5trhqlex4twynovulxndjriu7e:
     resolution: {integrity: sha512-Rna0sDPETA0KNhMHlN8wxKNgfSa8mTl2hPPAGxnbv6tUcHT6J4RQmQ8TLXyhB7Dm5Von4iHloBxTyClYM6wT0A==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -7404,13 +7404,14 @@ packages:
     dependencies:
       '@trivago/prettier-plugin-sort-imports': 4.1.1_prettier@3.0.0
       prettier: 3.0.0
-      prettier-plugin-astro: 0.10.0
+      prettier-plugin-astro: 0.11.0
     dev: true
 
   /prettier/2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+    dev: false
 
   /prettier/3.0.0:
     resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
