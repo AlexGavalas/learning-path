@@ -4,7 +4,7 @@ specifiers:
   '@astrojs/mdx': 0.19.7
   '@astrojs/node': 5.3.0
   '@astrojs/react': 2.2.1
-  '@astrojs/sitemap': 1.4.0
+  '@astrojs/sitemap': 2.0.0
   '@astrojs/svelte': 3.1.0
   '@astrojs/tailwind': 4.0.0
   '@astrojs/vercel': 3.7.0
@@ -67,7 +67,7 @@ dependencies:
   '@astrojs/mdx': 0.19.7_astro@2.8.0
   '@astrojs/node': 5.3.0_astro@2.8.0
   '@astrojs/react': 2.2.1_hrrtw4it2dqo6rzcqzvl36ff7i
-  '@astrojs/sitemap': 1.4.0
+  '@astrojs/sitemap': 2.0.0
   '@astrojs/svelte': 3.1.0_p5amwurhetqjp4gk2upsk2zpl4
   '@astrojs/tailwind': 4.0.0_vgu4tzwkzdvl5grt57qxq46waa
   '@astrojs/vercel': 3.7.0_astro@2.8.0+react@18.2.0
@@ -266,8 +266,8 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/sitemap/1.4.0:
-    resolution: {integrity: sha512-uTK77kcg7iTiik+u7rTGG6vK4ZWTfYMaVnFndOVQrLzaE5xivmQgIbVLtlN+xRcME5n/m6vYQFJmogFR+elGCw==}
+  /@astrojs/sitemap/2.0.0:
+    resolution: {integrity: sha512-hcemuFigv05sdXNiw0U23VO+6Duj9nq9xhINw4ZPWAQEhS/F4EiNvd9IUXb4XJ7pG93MWAnQKF9lP8EtwP6paA==}
     dependencies:
       sitemap: 7.1.1
       zod: 3.21.4
