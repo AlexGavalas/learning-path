@@ -14,7 +14,7 @@ specifiers:
   '@supabase/supabase-js': 2.26.0
   '@tailwindcss/typography': 0.5.9
   '@testing-library/dom': 9.3.1
-  '@testing-library/jest-dom': 5.16.5
+  '@testing-library/jest-dom': 5.17.0
   '@testing-library/react': 14.0.0
   '@testing-library/user-event': 14.4.3
   '@trivago/prettier-plugin-sort-imports': 4.1.1
@@ -92,7 +92,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.6.6
   '@playwright/test': 1.36.0
   '@testing-library/dom': 9.3.1
-  '@testing-library/jest-dom': 5.16.5
+  '@testing-library/jest-dom': 5.17.0
   '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 14.4.3_@testing-library+dom@9.3.1
   '@trivago/prettier-plugin-sort-imports': 4.1.1_prettier@3.0.0
@@ -1854,8 +1854,8 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/jest-dom/5.16.5:
-    resolution: {integrity: sha512-N5ixQ2qKpi5OLYfwQmUb/5mSV9LneAcaUfp32pn4yCnpb8r/Yz0pXFPck21dIicKmi+ta5WRAknkZCfA8refMA==}
+  /@testing-library/jest-dom/5.17.0:
+    resolution: {integrity: sha512-ynmNeT7asXyH3aSVv4vvX4Rb+0qjOhdNHnO/3vuZNqPmhDpV/+rCSGwQ7bLcmU2cJ4dvoheIO85LQj0IbJHEtg==}
     engines: {node: '>=8', npm: '>=6', yarn: '>=1'}
     dependencies:
       '@adobe/css-tools': 4.2.0
