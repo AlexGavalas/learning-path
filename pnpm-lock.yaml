@@ -11,7 +11,7 @@ specifiers:
   '@commitlint/cli': 17.6.6
   '@commitlint/config-conventional': 17.6.6
   '@playwright/test': 1.36.0
-  '@supabase/supabase-js': 2.26.0
+  '@supabase/supabase-js': 2.31.0
   '@tailwindcss/typography': 0.5.9
   '@testing-library/dom': 9.3.1
   '@testing-library/jest-dom': 5.17.0
@@ -72,7 +72,7 @@ dependencies:
   '@astrojs/svelte': 3.1.0_ezmibw3rxxotl5iwdzh3r567me
   '@astrojs/tailwind': 4.0.0_okh2epu7y54tycaddnevwp4fi4
   '@astrojs/vercel': 3.7.0_astro@2.9.0+react@18.2.0
-  '@supabase/supabase-js': 2.26.0
+  '@supabase/supabase-js': 2.31.0
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.2
   '@vercel/edge-config': 0.2.1
   astro: 2.9.0_@types+node@18.17.0
@@ -1777,8 +1777,8 @@ packages:
       - encoding
     dev: false
 
-  /@supabase/supabase-js/2.26.0:
-    resolution: {integrity: sha512-RXmTPTobaYAwkSobadHZmEVLmzX3SGrtRZIGfLWnLv92VzBRrjuXn0a+bJqKl50GUzsyqPA+j5pod7EwMkcH5A==}
+  /@supabase/supabase-js/2.31.0:
+    resolution: {integrity: sha512-W9/4s+KnSUX67wJKBn/3yLq+ieycnMzVjK3nNTLX5Wko3ypNT/081l2iFYrf+nsLQ1CiT4mA92I3dxCy6CmxTg==}
     dependencies:
       '@supabase/functions-js': 2.1.2
       '@supabase/gotrue-js': 2.46.1
