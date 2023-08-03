@@ -7,7 +7,7 @@ specifiers:
   '@astrojs/sitemap': 2.0.0
   '@astrojs/svelte': 3.1.0
   '@astrojs/tailwind': 4.0.0
-  '@astrojs/vercel': 3.7.0
+  '@astrojs/vercel': 3.8.0
   '@commitlint/cli': 17.6.6
   '@commitlint/config-conventional': 17.6.6
   '@playwright/test': 1.36.0
@@ -71,7 +71,7 @@ dependencies:
   '@astrojs/sitemap': 2.0.0
   '@astrojs/svelte': 3.1.0_ezmibw3rxxotl5iwdzh3r567me
   '@astrojs/tailwind': 4.0.0_okh2epu7y54tycaddnevwp4fi4
-  '@astrojs/vercel': 3.7.0_astro@2.9.0+react@18.2.0
+  '@astrojs/vercel': 3.8.0_astro@2.9.0+react@18.2.0
   '@supabase/supabase-js': 2.31.0
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.2
   '@vercel/edge-config': 0.2.1
@@ -323,10 +323,10 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/vercel/3.7.0_astro@2.9.0+react@18.2.0:
-    resolution: {integrity: sha512-0nN2XNDPP2tjPzyCnBJO8k8bzuxkiLLFnbov5wTHwEPxkg8SZck+16snhDi9V2kHEX/PG5pkAIuPC9mGDRqh6A==}
+  /@astrojs/vercel/3.8.0_astro@2.9.0+react@18.2.0:
+    resolution: {integrity: sha512-o9oeY8VgsvrxUTQoxv2XusoFk2IJvJhC3X0FUHkilXEyIgZOTHlTLbydO6iJHjKVHxF+aQI7/qwZmxGSV9L3dg==}
     peerDependencies:
-      astro: ^2.8.0
+      astro: ^2.10.0
     dependencies:
       '@astrojs/internal-helpers': 0.1.1
       '@astrojs/webapi': 2.2.0
