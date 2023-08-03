@@ -1,4 +1,4 @@
 {
     "*.(ts|tsx)": "pnpm test -- --findRelatedTests --passWithNoTests",
-    "!(README)*.(md|mdx)": "tsx scripts/update-md-timestamps.runner.ts"
+    "!(README)*.(md|mdx)": "tsx scripts/update-md-timestamps.runner.ts && pnpm format"
 }
