@@ -53,7 +53,11 @@ describe('getLessonSummaryData', () => {
             const body = await getLessonSummaryData('test');
 
             expect(body).toEqual(
-                expect.objectContaining({ Content: expect.any(Function) }),
+                expect.objectContaining({
+                    content: {
+                        Content: expect.any(Function),
+                    },
+                }),
             );
         });
 
@@ -84,7 +88,7 @@ describe('getLessonSummaryData', () => {
         it('returns the body', async () => {
             const body = await getLessonSummaryData('test');
 
-            expect(body).toBe('test body');
+            expect(body).toStrictEqual({ content: 'test body' });
         });
 
         it('does not call getEntryBySlug', async () => {

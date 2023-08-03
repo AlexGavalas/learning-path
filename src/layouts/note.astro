@@ -1,14 +1,22 @@
 ---
 import type { NotesCollection } from '~types/notes.types';
 import NoteHeader from '~components/note-header.astro';
+import ArticleBanner from '~components/article-banner.svelte';
 import GlobalLayout from '~layouts/global.astro';
 import { TITLE } from '~constants';
 
 export type Props = NotesCollection['data'] & {
+    hasBannerEnabled: boolean;
     backUrl?: string;
 };
 
-const { title, created, updated, backUrl = '/' } = Astro.props;
+const {
+    title,
+    created,
+    updated,
+    hasBannerEnabled,
+    backUrl = '/',
+} = Astro.props;
 
 const documentTitle = `${title} | ${TITLE}`;
 ---
@@ -21,6 +29,13 @@ const documentTitle = `${title} | ${TITLE}`;
             updated={updated}
             timeZone="Europe/Athens"
         />
+        {
+            hasBannerEnabled && (
+                <div class="mb-4">
+                    <ArticleBanner />
+                </div>
+            )
+        }
         <div
             class="heading dark:dark-heading prose dark:prose-invert prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary"
         >

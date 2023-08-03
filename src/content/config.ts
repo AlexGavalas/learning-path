@@ -15,6 +15,7 @@ const lessonSummaries = defineCollection({
         created: z.string(),
         updated: z.string(),
         published: z.boolean().optional(),
+        features: z.array(z.enum(['banner'])).optional(),
     }),
 });
 

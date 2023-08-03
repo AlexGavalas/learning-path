@@ -37,10 +37,21 @@ type Props = {
     meta: NotesCollection['data'];
 };
 
-const { content, meta } = Astro.props;
+const {
+    content: { content, frontmatter },
+    meta,
+} = Astro.props;
+
+const hasBannerEnabled = Boolean(
+    typeof content !== 'string' && frontmatter?.features?.includes('banner'),
+);
 ---
 
-<NotesLayout {...meta} backUrl="/lessons-summary">
+<NotesLayout
+    {...meta}
+    hasBannerEnabled={hasBannerEnabled}
+    backUrl="/lessons-summary"
+>
     {
         typeof content === 'string' ? (
             <>

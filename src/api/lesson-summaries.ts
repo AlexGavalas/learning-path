@@ -2,6 +2,7 @@ import { getEntryBySlug } from 'astro:content';
 
 import { supabase } from '~lib/supabase';
 import type {
+    LessonSummariesCollection,
     LessonSummary,
     LessonSummaryRenderResult,
 } from '~types/lesson-summaries.types';
@@ -23,7 +24,10 @@ export const getLessonSummaries = async (): Promise<LessonSummary[] | null> => {
 
 export const getLessonSummaryData = async (
     slug: string,
-): Promise<string | LessonSummaryRenderResult> => {
+): Promise<{
+    content: string | LessonSummaryRenderResult;
+    frontmatter?: LessonSummariesCollection['data'];
+}> => {
     const isProd = process.env.PROD === 'true';
     const isPublicFileServerEnabled =
         process.env.PUBLIC_FILE_SERVER_ENABLED === 'true';
@@ -31,10 +35,15 @@ export const getLessonSummaryData = async (
     if (isProd && isPublicFileServerEnabled) {
         const filePath = `${slug}.mdx`;
 
-        return await fetchFileFromStorage(`summaries/${filePath}`);
+        return {
+            content: await fetchFileFromStorage(`summaries/${filePath}`),
+        };
     }
 
     const lessonSummary = await getEntryBySlug('lesson-summaries', slug);
 
-    return (await lessonSummary?.render()) ?? '';
+    return {
+        content: (await lessonSummary?.render()) ?? '',
+        frontmatter: lessonSummary?.data,
+    };
 };
