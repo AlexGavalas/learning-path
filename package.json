@@ -89,7 +89,7 @@
         "prettier-plugin-astro": "0.11.0",
         "prettier-plugin-svelte": "3.0.0",
         "prettier-plugin-tailwindcss": "0.4.0",
-        "supabase": "1.82.1",
+        "supabase": "1.83.7",
         "ts-jest": "29.1.1",
         "ts-node": "10.9.1",
         "tsx": "3.12.7",
