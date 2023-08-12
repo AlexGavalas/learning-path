@@ -34,16 +34,6 @@ module.exports = {
                 '@typescript-eslint/no-confusing-void-expression': 'off',
             },
         },
-        {
-            files: ['*.jsx', '*.tsx'],
-            plugins: ['react'],
-            extends: ['plugin:react/recommended', 'plugin:react/jsx-runtime'],
-            settings: {
-                react: {
-                    version: 'detect',
-                },
-            },
-        },
     ],
     ignorePatterns: ['env.d.ts', 'database.types.ts'],
     parserOptions: {

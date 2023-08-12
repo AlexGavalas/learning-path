@@ -3,15 +3,12 @@
     "compilerOptions": {
         "strictNullChecks": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "react",
         "baseUrl": "./src",
         "paths": {
             "~api/*": ["api/*"],
             "~components/*": ["components/*"],
             "~config/*": ["config/*"],
             "~content/*": ["content/*"],
-            "~hooks/*": ["hooks/*"],
             "~layouts/*": ["layouts/*"],
             "~lib/*": ["lib/*"],
             "~pages/*": ["pages/*"],

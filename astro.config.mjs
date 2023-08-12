@@ -1,6 +1,5 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
@@ -14,7 +13,7 @@ const isProd = process.env.PROD === 'true';
 const isLocalBuild = process.env.LOCAL === 'true';
 
 export default defineConfig({
-    integrations: [mdx(), sitemap(), react(), tailwind(), svelte()],
+    integrations: [mdx(), sitemap(), tailwind(), svelte()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:3000',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,
