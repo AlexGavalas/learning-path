@@ -1,16 +1,9 @@
-<script is:inline>
+---
+import { DEFAULT_THEME, STORAGE_KEY, THEME } from '~constants';
+---
+
+<script is:inline define:vars={{ DEFAULT_THEME, STORAGE_KEY, THEME }}>
 if (typeof document !== 'undefined') {
-    const STORAGE_KEY = {
-        THEME: 'theme',
-    };
-
-    const THEME = {
-        DARK: 'dark',
-        LIGHT: 'light',
-    };
-
-    const DEFAULT_THEME = THEME.LIGHT;
-
     const getTheme = () => {
         if (typeof localStorage === 'undefined') {
             return DEFAULT_THEME;
