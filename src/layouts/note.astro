@@ -6,7 +6,7 @@ import GlobalLayout from '~layouts/global.astro';
 import { TITLE } from '~constants';
 
 export type Props = NotesCollection['data'] & {
-    hasBannerEnabled: boolean;
+    hasBannerEnabled?: boolean;
     backUrl?: string;
 };
 
@@ -14,7 +14,7 @@ const {
     title,
     created,
     updated,
-    hasBannerEnabled,
+    hasBannerEnabled = false,
     backUrl = '/',
 } = Astro.props;
 
