@@ -41,7 +41,7 @@ specifiers:
   jest-environment-jsdom: 29.6.2
   lint-staged: 14.0.0
   prettier: 3.0.1
-  prettier-plugin-astro: 0.11.0
+  prettier-plugin-astro: 0.12.0
   prettier-plugin-svelte: 3.0.3
   prettier-plugin-tailwindcss: 0.5.2
   rehype-autolink-headings: 6.1.1
@@ -105,9 +105,9 @@ devDependencies:
   jest-environment-jsdom: 29.6.2
   lint-staged: 14.0.0
   prettier: 3.0.1
-  prettier-plugin-astro: 0.11.0
+  prettier-plugin-astro: 0.12.0
   prettier-plugin-svelte: 3.0.3_twlfln3xit2b4uhsaa2xide4r4
-  prettier-plugin-tailwindcss: 0.5.2_lbjwrp5jbz55fpairy6zkywpgu
+  prettier-plugin-tailwindcss: 0.5.2_ppxvz2vva7ovhyv4m7jvcg7rhm
   supabase: 1.83.7
   ts-jest: 29.1.1_bd7t4cpe6hueih24owb27fpuam
   ts-node: 10.9.1_p37eyx35efubkzlyxlbojlkgz4
@@ -7190,9 +7190,9 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-astro/0.11.0:
-    resolution: {integrity: sha512-rl2hJ4Kty/aEfGjk3i4JS+bpng9MjgvwqLRNzeb9NqYhqKoWNwOR39cIJXFjU1vR3zYOPnwWNRMelKb0orunYA==}
-    engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
+  /prettier-plugin-astro/0.12.0:
+    resolution: {integrity: sha512-8E+9YQR6/5CPZJs8XsfBw579zrwZkc0Wb7x0fRVm/51JC8Iys4lBw4ecV8fHwpbQnzve86TUa4fJ08BJzqfWnA==}
+    engines: {node: ^14.15.0 || >=16.0.0}
     dependencies:
       '@astrojs/compiler': 1.8.1
       prettier: 3.0.1
@@ -7219,7 +7219,7 @@ packages:
       svelte: 4.2.0
     dev: true
 
-  /prettier-plugin-tailwindcss/0.5.2_lbjwrp5jbz55fpairy6zkywpgu:
+  /prettier-plugin-tailwindcss/0.5.2_ppxvz2vva7ovhyv4m7jvcg7rhm:
     resolution: {integrity: sha512-i4swJk4f8YWK99BRPX3DdDNwMr6U1X8y9rvxGeX5zf090+SsHpPSVjgOb041Hh6/nZJWPi/JYno9UgBDm+/RxA==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
@@ -7273,7 +7273,7 @@ packages:
     dependencies:
       '@trivago/prettier-plugin-sort-imports': 4.2.0_prettier@3.0.1
       prettier: 3.0.1
-      prettier-plugin-astro: 0.11.0
+      prettier-plugin-astro: 0.12.0
       prettier-plugin-svelte: 3.0.3_twlfln3xit2b4uhsaa2xide4r4
     dev: true
 
