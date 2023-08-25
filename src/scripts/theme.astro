@@ -26,11 +26,20 @@ if (typeof document !== 'undefined') {
         return DEFAULT_THEME;
     };
 
-    const theme = getTheme();
+    const setupTheme = () => {
+        const theme = getTheme();
 
-    document.documentElement.classList.toggle('dark', theme === THEME.DARK);
-    document.documentElement.style.setProperty('color-scheme', theme);
+        document.documentElement.classList.toggle(
+            'dark',
+            theme === THEME.DARK,
+        );
+        document.documentElement.style.setProperty('color-scheme', theme);
 
-    window.localStorage.setItem(STORAGE_KEY.THEME, theme);
+        window.localStorage.setItem(STORAGE_KEY.THEME, theme);
+    };
+
+    setupTheme();
+
+    document.addEventListener('astro:beforeload', setupTheme);
 }
 </script>
