@@ -23,7 +23,7 @@ specifiers:
   '@typescript-eslint/parser': 6.4.1
   '@vercel/edge-config': 0.2.1
   astro: 2.10.14
-  axios: 1.4.0
+  axios: 1.5.0
   cross-env: 7.0.3
   date-fns: 2.30.0
   date-fns-tz: 2.0.0
@@ -89,7 +89,7 @@ devDependencies:
   '@types/node': 18.17.0
   '@typescript-eslint/eslint-plugin': 6.4.1_l6j2lghoktkeggifspbfklgyju
   '@typescript-eslint/parser': 6.4.1_qj3u6ezxe2airdzjq3nyoxe24m
-  axios: 1.4.0
+  axios: 1.5.0
   date-fns: 2.30.0
   dotenv: 16.3.1
   eslint: 8.47.0
@@ -2641,8 +2641,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axios/1.4.0:
-    resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
+  /axios/1.5.0:
+    resolution: {integrity: sha512-D4DdjDo5CY50Qms0qGQTTw6Q44jl7zRwY7bthds06pUGfChBCTcQs+N743eFWGEd6pRTMd6A+I87aWyFV5wiZQ==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
