@@ -3,7 +3,7 @@ import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/edge';
+import vercel from '@astrojs/vercel/serverless';
 import { defineConfig } from 'astro/config';
 import 'dotenv/config';
 
@@ -31,5 +31,7 @@ export default defineConfig({
         ? node({
               mode: 'standalone',
           })
-        : vercel(),
+        : vercel({
+              edgeMiddleware: true,
+          }),
 });
