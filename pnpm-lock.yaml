@@ -5,7 +5,7 @@ specifiers:
   '@astrojs/node': 5.3.6
   '@astrojs/sitemap': 2.0.2
   '@astrojs/svelte': 3.1.1
-  '@astrojs/tailwind': 4.0.0
+  '@astrojs/tailwind': 5.0.0
   '@astrojs/vercel': 3.8.2
   '@commitlint/cli': 17.7.1
   '@commitlint/config-conventional': 17.7.0
@@ -61,7 +61,7 @@ dependencies:
   '@astrojs/node': 5.3.6_astro@2.10.14
   '@astrojs/sitemap': 2.0.2
   '@astrojs/svelte': 3.1.1_hekf2xhybip5zozif2sii45qeu
-  '@astrojs/tailwind': 4.0.0_cnhhcjpfmkr7i7weenbflqmbpm
+  '@astrojs/tailwind': 5.0.0_cnhhcjpfmkr7i7weenbflqmbpm
   '@astrojs/vercel': 3.8.2_astro@2.10.14
   '@supabase/supabase-js': 2.33.1
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.3
@@ -257,10 +257,10 @@ packages:
       - vite
     dev: false
 
-  /@astrojs/tailwind/4.0.0_cnhhcjpfmkr7i7weenbflqmbpm:
-    resolution: {integrity: sha512-HmCAXFFes7MUBt5ihdfH1goa8QyGkHejIpz6Z4XBKK9VNYY9G2E3brCn8+pNn5zAOzcwl3FYcuH2AiOa/NGoMQ==}
+  /@astrojs/tailwind/5.0.0_cnhhcjpfmkr7i7weenbflqmbpm:
+    resolution: {integrity: sha512-bMZZNNm/SW+ijUKMQDhdiuNWDdR3CubEKUHb2Ran4Arx1ikWn/kKIkFDXUV+MUnsLa7s19x9VMRlARRyKbqMkQ==}
     peerDependencies:
-      astro: ^2.6.5
+      astro: ^3.0.0
       tailwindcss: ^3.0.24
     dependencies:
       astro: 2.10.14_@types+node@18.17.0
