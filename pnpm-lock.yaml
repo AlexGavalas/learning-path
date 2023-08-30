@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/mdx': 0.19.7
-  '@astrojs/node': 5.3.6
+  '@astrojs/node': 6.0.0
   '@astrojs/sitemap': 2.0.2
   '@astrojs/svelte': 3.1.1
   '@astrojs/tailwind': 4.0.0
@@ -58,7 +58,7 @@ specifiers:
 
 dependencies:
   '@astrojs/mdx': 0.19.7_astro@2.10.14
-  '@astrojs/node': 5.3.6_astro@2.10.14
+  '@astrojs/node': 6.0.0_astro@2.10.14
   '@astrojs/sitemap': 2.0.2
   '@astrojs/svelte': 3.1.1_hekf2xhybip5zozif2sii45qeu
   '@astrojs/tailwind': 4.0.0_cnhhcjpfmkr7i7weenbflqmbpm
@@ -213,12 +213,11 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/node/5.3.6_astro@2.10.14:
-    resolution: {integrity: sha512-aKM1xBzHMKBU6UIL8UQ63L3DHGq+vghAsFRRWOHjmGBmpvQsTTca1JTFqytFyzzWg6kY1sy4mDA1HOaJDuVZdA==}
+  /@astrojs/node/6.0.0_astro@2.10.14:
+    resolution: {integrity: sha512-06x5UBt+g0EIUpOdtCdnTxRJhOTLxUnjzmGwIHp9RNBlIEpzd/dJs6pwvfiM2zuPolTLI53T8VOsdw3EMh2V+w==}
     peerDependencies:
-      astro: ^2.10.13
+      astro: ^3.0.0
     dependencies:
-      '@astrojs/webapi': 2.2.0
       astro: 2.10.14_@types+node@18.17.0
       send: 0.18.0
       server-destroy: 1.0.1
