@@ -40,6 +40,6 @@ if (typeof document !== 'undefined') {
 
     setupTheme();
 
-    document.addEventListener('astro:beforeload', setupTheme);
+    document.addEventListener('astro:after-swap', setupTheme);
 }
 </script>
