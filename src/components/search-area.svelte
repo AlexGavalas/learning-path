@@ -18,19 +18,20 @@
 
     const keyPressHandler = (e: KeyboardEvent) => {
         if (e.key === '/') {
-            e.stopImmediatePropagation();
             inputElement.focus();
         }
     };
 
     onMount(() => {
-        typeof document !== 'undefined' &&
+        if (typeof document !== 'undefined') {
             document.addEventListener('keyup', keyPressHandler);
+        }
     });
 
     onDestroy(() => {
-        typeof document !== 'undefined' &&
+        if (typeof document !== 'undefined') {
             document.removeEventListener('keyup', keyPressHandler);
+        }
     });
 
     const onSubmit = (e: SubmitEvent) => {
