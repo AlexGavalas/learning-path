@@ -45,7 +45,7 @@ specifiers:
   prettier-plugin-svelte: 3.0.3
   prettier-plugin-tailwindcss: 0.5.4
   rehype-autolink-headings: 6.1.1
-  rehype-external-links: 2.1.0
+  rehype-external-links: 3.0.0
   rehype-slug: 6.0.0
   supabase: 1.88.0
   svelte: 4.2.0
@@ -70,7 +70,7 @@ dependencies:
   cross-env: 7.0.3
   date-fns-tz: 2.0.0_date-fns@2.30.0
   rehype-autolink-headings: 6.1.1
-  rehype-external-links: 2.1.0
+  rehype-external-links: 3.0.0
   rehype-slug: 6.0.0
   svelte: 4.2.0
   tailwindcss: 3.3.3_ts-node@10.9.1
@@ -2179,6 +2179,10 @@ packages:
       '@typescript-eslint/types': 6.5.0
       eslint-visitor-keys: 3.4.3
     dev: true
+
+  /@ungap/structured-clone/1.2.0:
+    resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
+    dev: false
 
   /@vercel/analytics/1.0.2:
     resolution: {integrity: sha512-BZFxVrv24VbNNl5xMxqUojQIegEeXMI6rX3rg1uVLYUEXsuKNBSAEQf4BWEcjQDp/8aYJOj6m8V4PUA3x/cxgg==}
@@ -4574,6 +4578,12 @@ packages:
     dependencies:
       '@types/hast': 2.3.5
       '@types/unist': 2.0.8
+    dev: false
+
+  /hast-util-is-element/3.0.0:
+    resolution: {integrity: sha512-Val9mnv2IWpLbNPqc/pUem+a7Ipj2aHacCwgNfTiK0vJKl0LF+4Ba4+v1oPHFpf3bLYmreq0/l3Gud9S5OH42g==}
+    dependencies:
+      '@types/hast': 3.0.0
     dev: false
 
   /hast-util-parse-selector/3.1.1:
@@ -7452,16 +7462,15 @@ packages:
       unist-util-visit: 4.1.2
     dev: false
 
-  /rehype-external-links/2.1.0:
-    resolution: {integrity: sha512-2YMJZVM1hxZnwl9IPkbN5Pjn78kXkAX7lq9VEtlaGA29qIls25vZN+ucNIJdbQUe+9NNFck17BiOhGmsD6oLIg==}
+  /rehype-external-links/3.0.0:
+    resolution: {integrity: sha512-yp+e5N9V3C6bwBeAC4n796kc86M4gJCdlVhiMTxIrJG5UHDMh+PJANf9heqORJbt1nrCbDwIlAZKjANIaVBbvw==}
     dependencies:
-      '@types/hast': 2.3.5
-      extend: 3.0.2
-      hast-util-is-element: 2.1.3
+      '@types/hast': 3.0.0
+      '@ungap/structured-clone': 1.2.0
+      hast-util-is-element: 3.0.0
       is-absolute-url: 4.0.1
       space-separated-tokens: 2.0.2
-      unified: 10.1.2
-      unist-util-visit: 4.1.2
+      unist-util-visit: 5.0.0
     dev: false
 
   /rehype-parse/8.0.5:
