@@ -47,7 +47,7 @@ specifiers:
   rehype-autolink-headings: 6.1.1
   rehype-external-links: 3.0.0
   rehype-slug: 6.0.0
-  supabase: 1.88.0
+  supabase: 1.93.0
   svelte: 4.2.0
   tailwindcss: 3.3.3
   tiny-invariant: 1.3.1
@@ -108,7 +108,7 @@ devDependencies:
   prettier-plugin-astro: 0.12.0
   prettier-plugin-svelte: 3.0.3_qj3jxqquorbmjtkdapjbd6ooru
   prettier-plugin-tailwindcss: 0.5.4_6gg72o3irsc5ox4pvo6cvs3e4m
-  supabase: 1.88.0
+  supabase: 1.93.0
   ts-jest: 29.1.1_42yn5e656b2kpsux6m6hf3b2pi
   ts-node: 10.9.1_p37eyx35efubkzlyxlbojlkgz4
   tsx: 3.12.8
@@ -8161,8 +8161,8 @@ packages:
       s.color: 0.0.15
     dev: true
 
-  /supabase/1.88.0:
-    resolution: {integrity: sha512-eyfgSkLVauPRFOiTtddC/v3TFPTTlOwSur5Qh2s/kR/ZWMCySEYQ2E1+lsGvMSwP+SYpaDrYUICkb5CiaIZKow==}
+  /supabase/1.93.0:
+    resolution: {integrity: sha512-7VKWPVy1QSnBcx/ubKIGFOWw9LjL6C1sMTh0d+ox0TP69+KhzphlA4Z/iFPvC6x9gUwhe9UTI0AdqJYsIwrPEA==}
     engines: {npm: '>=8'}
     hasBin: true
     requiresBuild: true
