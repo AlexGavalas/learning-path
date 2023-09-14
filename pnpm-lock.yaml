@@ -21,7 +21,7 @@ specifiers:
   '@types/node': 18.17.0
   '@typescript-eslint/eslint-plugin': 6.7.0
   '@typescript-eslint/parser': 6.7.0
-  '@vercel/edge-config': 0.3.0
+  '@vercel/edge-config': 0.4.0
   astro: 3.0.12
   axios: 1.5.0
   cross-env: 7.0.3
@@ -65,7 +65,7 @@ dependencies:
   '@astrojs/vercel': 4.0.5_astro@3.0.12
   '@supabase/supabase-js': 2.33.1
   '@tailwindcss/typography': 0.5.10_tailwindcss@3.3.3
-  '@vercel/edge-config': 0.3.0
+  '@vercel/edge-config': 0.4.0
   astro: 3.0.12_@types+node@18.17.0
   cross-env: 7.0.3
   date-fns-tz: 2.0.0_date-fns@2.30.0
@@ -2192,8 +2192,8 @@ packages:
     resolution: {integrity: sha512-NRIBwfcS0bUoUbRWlNGetqjvLSwgYH/BqKqDN7vK1g32p7dN96k0712COgaz6VFizAm9b0g6IG6hR6+hc0KCPg==}
     dev: false
 
-  /@vercel/edge-config/0.3.0:
-    resolution: {integrity: sha512-gt+hS8ECMBExjCA+k8XVJVJy9t6O3hblg5qQZ8hSKV4hgTQ0DQg0uFGyi0/+djBPRZU66osLgHEDPGLmheOaDA==}
+  /@vercel/edge-config/0.4.0:
+    resolution: {integrity: sha512-v8AKiW/Tp9S79xapH3gXmOPXkkzJhUNnpyL6OX8xbHJvP7y5x0Oo/v/FUsGHpgay1x8a5vpddTH0Upw04RQcRA==}
     engines: {node: '>=14.6'}
     dependencies:
       '@vercel/edge-config-fs': 0.1.0

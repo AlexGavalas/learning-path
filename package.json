@@ -39,7 +39,7 @@
         "@astrojs/vercel": "4.0.5",
         "@supabase/supabase-js": "2.33.1",
         "@tailwindcss/typography": "0.5.10",
-        "@vercel/edge-config": "0.3.0",
+        "@vercel/edge-config": "0.4.0",
         "astro": "3.0.12",
         "cross-env": "7.0.3",
         "date-fns-tz": "2.0.0",
