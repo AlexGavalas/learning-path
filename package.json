@@ -31,7 +31,7 @@
         "validate": "pnpm lint && pnpm check:format && pnpm check:types"
     },
     "dependencies": {
-        "@astrojs/mdx": "1.0.3",
+        "@astrojs/mdx": "1.1.0",
         "@astrojs/node": "6.0.0",
         "@astrojs/sitemap": "3.0.0",
         "@astrojs/svelte": "4.0.2",
