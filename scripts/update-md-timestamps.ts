@@ -3,9 +3,7 @@ import matter from 'gray-matter';
 
 import { readFile, writeFile } from './helpers';
 
-export const updateMdTimestamps = async (): Promise<void> => {
-    const files = process.argv.slice(2);
-
+export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     for (const file of files) {
         const friendlyName = file.match(/((notes|summaries)\/.*)/)?.[0];
 

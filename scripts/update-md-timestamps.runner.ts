@@ -1,5 +1,5 @@
 import { updateMdTimestamps } from './update-md-timestamps';
 
-updateMdTimestamps().catch((e) => {
+updateMdTimestamps(process.argv.slice(2)).catch((e) => {
     console.error(e);
 });

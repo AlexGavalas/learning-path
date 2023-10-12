@@ -17,20 +17,12 @@ describe('updateMdTimestamps', () => {
     });
 
     describe('when a correct file is passed', () => {
-        beforeAll(() => {
-            jest.replaceProperty(process, 'argv', [
-                'node',
-                'script',
-                'notes/test.mdx',
-            ]);
-        });
-
         it('updates the timestamp of the passed file', async () => {
             jest.mocked(readFile).mockResolvedValueOnce(
                 '---\ntitle: Test\n---\n\n# Test',
             );
 
-            await updateMdTimestamps();
+            await updateMdTimestamps(['notes/test.mdx']);
 
             expect(writeFile).toHaveBeenCalledTimes(1);
             expect(writeFile).toHaveBeenCalledWith(
@@ -41,16 +33,8 @@ describe('updateMdTimestamps', () => {
     });
 
     describe('when an incorrect file is passed', () => {
-        beforeAll(() => {
-            jest.replaceProperty(process, 'argv', [
-                'node',
-                'script',
-                'incorrect-dir/test.mdx',
-            ]);
-        });
-
         it('does not update the timestamp of the passed file', async () => {
-            await updateMdTimestamps();
+            await updateMdTimestamps(['incorrect-dir/test.mdx']);
 
             expect(writeFile).not.toHaveBeenCalled();
         });
