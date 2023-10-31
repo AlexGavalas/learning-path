@@ -155,8 +155,8 @@ devDependencies:
     specifier: 0.5.4
     version: 0.5.4(@trivago/prettier-plugin-sort-imports@4.2.0)(prettier-plugin-astro@0.12.0)(prettier-plugin-svelte@3.0.3)(prettier@3.0.3)
   supabase:
-    specifier: 1.106.1
-    version: 1.106.1
+    specifier: 1.110.1
+    version: 1.110.1
   ts-jest:
     specifier: 29.1.1
     version: 29.1.1(@babel/core@7.22.17)(jest@29.7.0)(typescript@5.2.2)
@@ -8451,8 +8451,8 @@ packages:
       s.color: 0.0.15
     dev: true
 
-  /supabase@1.106.1:
-    resolution: {integrity: sha512-Wc1GYraDRCRGZIkCPoN00QuSP//Cm2Q4q5B6LvEHb2dKoezO7Mx7SYZ5rhh3X0ko9Yii0ABeN2GE88ZVL9R5mg==}
+  /supabase@1.110.1:
+    resolution: {integrity: sha512-pQVfbs/n8ZBDuSDv6YJKIH1Uh/QBRxjp6pLW52YkKgjgfwndlKwKuJoPiuWDxBkRG1QXxmCHi3Hk+JeNx9/FRg==}
     engines: {npm: '>=8'}
     hasBin: true
     requiresBuild: true
