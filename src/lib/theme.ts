@@ -1,9 +1,15 @@
-import { DEFAULT_THEME, STORAGE_KEY, THEME } from '~constants';
+import { DEFAULT_THEME, THEME } from '~constants';
 
 export const getInitialTheme = (): string => {
-    return typeof localStorage !== 'undefined'
-        ? localStorage.getItem(STORAGE_KEY.THEME) ?? DEFAULT_THEME
-        : DEFAULT_THEME;
+    const cookie = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('theme='));
+
+    if (cookie !== undefined) {
+        return cookie.split('=')[1];
+    }
+
+    return DEFAULT_THEME;
 };
 
 export const setThemeInPage = (newTheme: string): void => {
@@ -11,5 +17,5 @@ export const setThemeInPage = (newTheme: string): void => {
 
     document.documentElement.style.setProperty('color-scheme', newTheme);
 
-    localStorage.setItem(STORAGE_KEY.THEME, newTheme);
+    document.cookie = `theme=${newTheme}; path=/;`;
 };
