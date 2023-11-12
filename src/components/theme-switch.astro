@@ -1,0 +1,56 @@
+<theme-switch></theme-switch>
+
+<script>
+    import { getInitialTheme, setThemeInPage } from '~lib/theme';
+    import { THEME, DARK_IMG_PROPS, LIGHT_IMG_PROPS } from '~constants';
+    import {
+        composeElements,
+        createElement,
+        updateAttributes,
+    } from '~lib/element';
+
+    class ThemeSwitch extends HTMLElement {
+        constructor() {
+            super();
+
+            const button = createElement({
+                type: 'button',
+                className:
+                    'flex items-center rounded border-0 p-2 bg-transparent hover:bg-slate-300 dark:hover:bg-slate-600',
+            });
+
+            const image = createElement({
+                type: 'img',
+                attributes: {
+                    width: 20,
+                    height: 20,
+                },
+            });
+
+            composeElements(this, button, image);
+
+            let theme = getInitialTheme();
+
+            const setTheme = (newTheme: string) => {
+                setThemeInPage(newTheme);
+
+                const attributes =
+                    newTheme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
+
+                updateAttributes({ element: image, attributes });
+
+                theme = newTheme;
+            };
+
+            const toggleTheme = () => {
+                setTheme(theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT);
+            };
+
+            setTheme(theme);
+
+            button.addEventListener('click', toggleTheme);
+        }
+    }
+
+    customElements.define('theme-switch', ThemeSwitch);
+</script>

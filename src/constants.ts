@@ -11,6 +11,16 @@ export const THEME = {
     LIGHT: 'light',
 };
 
+export const LIGHT_IMG_PROPS = {
+    src: '/moon.svg',
+    alt: 'Moon',
+};
+
+export const DARK_IMG_PROPS = {
+    src: '/sun.svg',
+    alt: 'Sun',
+};
+
 export const DEFAULT_THEME = THEME.LIGHT;
 
 export const QUERY_FIELD_NAME = 'q';
