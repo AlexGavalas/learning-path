@@ -1,0 +1,17 @@
+---
+type ButtonVariant = 'wrapper' | 'default';
+
+const bgClassNamesPerVariant: Record<ButtonVariant, string> = {
+    default:
+        'bg-slate-300 hover:bg-slate-300/75 dark:bg-slate-600 dark:hover:bg-slate-600/75',
+    wrapper: 'bg-transparent hover:bg-slate-300 dark:hover:bg-slate-600',
+};
+
+const { variant, ...rest } = Astro.props;
+
+let bgClass = bgClassNamesPerVariant.default;
+---
+
+<button {...rest} class={`flex items-center rounded border-0 p-2 ${bgClass}`}>
+    <slot />
+</button>

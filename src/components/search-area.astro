@@ -1,0 +1,79 @@
+---
+import { QUERY_FIELD_NAME } from '~constants';
+import Loader from '~components/loader.astro';
+import Button from '~components/button.astro';
+import Input from './input.astro';
+
+const { q } = Astro.props;
+---
+
+<search-area>
+    <form class="relative flex h-16 items-center">
+        <Input
+            label="Search notes"
+            name={QUERY_FIELD_NAME}
+            autocomplete="off"
+            placeholder="Type here"
+            value={q}
+        />
+        <div class="absolute bottom-0 right-0 flex h-1/2 gap-2 p-1 text-sm">
+            <Button>Search</Button>
+        </div>
+        <div id="loader" class="hidden absolute -bottom-1 h-[2px] w-full">
+            <Loader />
+        </div>
+    </form>
+</search-area>
+
+<script>
+    import { QUERY_FIELD_NAME } from '~constants';
+
+    class SearchArea extends HTMLElement {
+        formElement: HTMLFormElement | null = null;
+        inputElement: HTMLInputElement | null = null;
+        loaderElement: HTMLDivElement | null = null;
+
+        constructor() {
+            super();
+
+            this.formElement = this.querySelector('form');
+            this.inputElement = this.querySelector('input');
+            this.loaderElement = this.querySelector('#loader');
+        }
+
+        handleKeyUp = (e: KeyboardEvent) => {
+            if (e.key === '/') {
+                this.inputElement?.focus();
+            }
+        };
+
+        handleSearch = (e: SubmitEvent) => {
+            this.loaderElement?.classList.remove('hidden');
+
+            const url = new URL(location.href);
+            const query = this.inputElement?.value ?? '';
+
+            if (query.length > 0) {
+                url.searchParams.set(QUERY_FIELD_NAME, query);
+            } else {
+                url.searchParams.delete(QUERY_FIELD_NAME);
+            }
+
+            e.preventDefault();
+
+            window.location.href = url.toString();
+        };
+
+        connectedCallback() {
+            document.addEventListener('keyup', this.handleKeyUp);
+            this.formElement?.addEventListener('submit', this.handleSearch);
+        }
+
+        disconnectedCallback() {
+            document.removeEventListener('keyup', this.handleKeyUp);
+            this.formElement?.removeEventListener('submit', this.handleSearch);
+        }
+    }
+
+    customElements.define('search-area', SearchArea);
+</script>

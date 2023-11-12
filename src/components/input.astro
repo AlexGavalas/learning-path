@@ -1,0 +1,11 @@
+---
+const { label, ...rest } = Astro.props;
+---
+
+<label class="flex h-full w-full flex-col">
+    <span>{label}</span>
+    <input
+        {...rest}
+        class="h-1/2 rounded border-[1px] border-solid border-light-border bg-transparent pl-2 text-sm dark:border-0 dark:bg-neutral-800 dark:placeholder-gray-300 dark:placeholder-opacity-60"
+    />
+</label>
