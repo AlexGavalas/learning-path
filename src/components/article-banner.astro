@@ -1,18 +1,17 @@
-<script>
-    const CELLS_NUM = 125;
-    const ROWS = 5;
-</script>
+---
+const CELLS_NUM = 125;
+const ROWS = 5;
+---
 
 <div
     class="wrapper"
-    style="--cells: {CELLS_NUM}; --columns: {CELLS_NUM / ROWS}"
+    style={`--cells: ${CELLS_NUM}; --columns: ${CELLS_NUM / ROWS}`}
 >
-    {#each Array(CELLS_NUM) as _, idx}
-        <div
-            class="item bg-light-primary dark:bg-dark-primary"
-            style="--idx: {idx}"
-        ></div>
-    {/each}
+    {
+        Array.from({ length: CELLS_NUM }).map((_, idx) => (
+            <div class="item" style={`--idx: ${idx};`} />
+        ))
+    }
 </div>
 
 <style>
@@ -36,6 +35,8 @@
     }
 
     .item {
+        @apply bg-light-primary dark:bg-dark-primary;
+
         aspect-ratio: 1;
         border-radius: 20%;
         animation: 3s blink infinite alternate ease-in-out;
