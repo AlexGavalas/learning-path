@@ -1,54 +1,73 @@
-<theme-switch></theme-switch>
+---
+import Button from '~components/button.astro';
+import {
+    DEFAULT_THEME,
+    THEME,
+    DARK_IMG_PROPS,
+    LIGHT_IMG_PROPS,
+} from '~constants';
+
+const themeCookie = Astro.cookies.get('theme');
+const theme = themeCookie?.value ?? DEFAULT_THEME;
+
+const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
+---
+
+<theme-switch>
+    <form method="get">
+        <input type="hidden" name="theme" value="toggle" />
+        <Button variant="wrapper">
+            <img {...attributes} width="20" height="20" />
+        </Button>
+    </form>
+</theme-switch>
 
 <script>
     import { getInitialTheme, setThemeInPage } from '~lib/theme';
     import { THEME, DARK_IMG_PROPS, LIGHT_IMG_PROPS } from '~constants';
-    import {
-        composeElements,
-        createElement,
-        updateAttributes,
-    } from '~lib/element';
+    import { updateAttributes } from '~lib/element';
 
     class ThemeSwitch extends HTMLElement {
+        buttonElement: HTMLButtonElement | null;
+        imageElement: HTMLImageElement | null;
+        theme: string;
+
         constructor() {
             super();
 
-            const button = createElement({
-                type: 'button',
-                className:
-                    'flex items-center rounded border-0 p-2 bg-transparent hover:bg-slate-300 dark:hover:bg-slate-600',
-            });
+            this.buttonElement = this.querySelector('button');
+            this.imageElement = this.querySelector('img');
+            this.theme = getInitialTheme();
+            this.setTheme(this.theme);
+        }
 
-            const image = createElement({
-                type: 'img',
-                attributes: {
-                    width: 20,
-                    height: 20,
-                },
-            });
+        setTheme = (newTheme: string) => {
+            setThemeInPage(newTheme);
 
-            composeElements(this, button, image);
+            const attributes =
+                newTheme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
 
-            let theme = getInitialTheme();
+            if (this.imageElement) {
+                updateAttributes({ element: this.imageElement, attributes });
+            }
 
-            const setTheme = (newTheme: string) => {
-                setThemeInPage(newTheme);
+            this.theme = newTheme;
+        };
 
-                const attributes =
-                    newTheme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
+        toggleTheme = (e: MouseEvent) => {
+            this.setTheme(
+                this.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT,
+            );
 
-                updateAttributes({ element: image, attributes });
+            e.preventDefault();
+        };
 
-                theme = newTheme;
-            };
+        connectedCallback() {
+            this.buttonElement?.addEventListener('click', this.toggleTheme);
+        }
 
-            const toggleTheme = () => {
-                setTheme(theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT);
-            };
-
-            setTheme(theme);
-
-            button.addEventListener('click', toggleTheme);
+        disconnectedCallback() {
+            this.buttonElement?.removeEventListener('click', this.toggleTheme);
         }
     }
 
