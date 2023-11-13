@@ -3,7 +3,7 @@ import { defineMiddleware } from 'astro:middleware';
 import { DEFAULT_THEME, THEME } from '~constants';
 
 export const onRequest = defineMiddleware(
-    async ({ request, cookies, url, redirect }, next) => {
+    async ({ request, cookies, url }, next) => {
         const shouldToggleTheme =
             request.method === 'GET' &&
             url.searchParams.get('theme') === 'toggle';
@@ -18,7 +18,7 @@ export const onRequest = defineMiddleware(
 
             url.searchParams.delete('theme');
 
-            return redirect(url.toString());
+            return Response.redirect(url);
         }
 
         return await next();
