@@ -17,28 +17,37 @@ const { notes, lines, timeZone, baseUrl } = Astro.props;
 const hasNotes = notes.length > 0;
 ---
 
+<style>
+    .link {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 8px;
+        padding: 8px;
+        @apply hover:bg-[#e2e2e2] dark:hover:bg-neutral-800;
+    }
+
+    .link .text {
+        @apply text-light-primary dark:text-dark-primary;
+    }
+
+    .link:hover .arrow {
+        @apply animate-pulse;
+    }
+</style>
+
 {
     hasNotes ? (
         <ul class="list-none divide-y-2 divide-solid divide-light-border dark:divide-zinc-800">
             {notes.map(({ filename, updated, title }) => (
                 <li>
-                    <a
-                        href={`/${baseUrl}/${filename}`}
-                        class="group flex cursor-pointer items-center justify-between p-2 hover:bg-[#e2e2e2] hover:no-underline dark:hover:bg-neutral-800"
-                    >
-                        <div class="flex gap-2">
-                            <FormattedDate
-                                dateString={updated}
-                                timeZone={timeZone}
-                                format="dd/MM/yy"
-                            />
-                            <span class="text-light-primary dark:text-dark-primary">
-                                {title}
-                            </span>
-                        </div>
-                        <span class="opacity-0 group-hover:animate-pulse">
-                            &#x21dd;
-                        </span>
+                    <a href={`/${baseUrl}/${filename}`} class="link">
+                        <FormattedDate
+                            dateString={updated}
+                            timeZone={timeZone}
+                            format="dd/MM/yy"
+                        />
+                        <span class="text">{title}</span>
+                        <span class="arrow opacity-0">&#x21dd;</span>
                     </a>
                     {lines?.[title] && (
                         <List>
