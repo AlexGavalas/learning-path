@@ -30,5 +30,6 @@ export default defineConfig({
           })
         : vercel({
               edgeMiddleware: true,
+              functionPerRoute: true,
           }),
 });
