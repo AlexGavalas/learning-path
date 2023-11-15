@@ -28,8 +28,5 @@ export default defineConfig({
         ? node({
               mode: 'standalone',
           })
-        : vercel({
-              edgeMiddleware: true,
-              functionPerRoute: true,
-          }),
+        : vercel({}),
 });
