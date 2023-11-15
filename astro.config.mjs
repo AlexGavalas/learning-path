@@ -15,7 +15,7 @@ const isLocalBuild = process.env.LOCAL === 'true';
 // https://astro.build/config
 export default defineConfig({
     integrations: [mdx(), sitemap(), tailwind(), svelte()],
-    site: isProd ? 'https://learning-path.dev' : 'http://localhost:3000',
+    site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,
         syntaxHighlight: 'shiki',

@@ -41,7 +41,7 @@ test.describe('header', () => {
         });
 
         test.describe('when javascript is disabled', () => {
-            test('is not rendered', async ({ browser }) => {
+            test('is visible', async ({ browser }) => {
                 const context = await browser.newContext({
                     javaScriptEnabled: false,
                 });
@@ -53,7 +53,9 @@ test.describe('header', () => {
 
                 const themeSwitch = await page.$('header img[alt="Moon"]');
 
-                expect(themeSwitch).toBeNull();
+                const isThemeSwitchVisible = await themeSwitch?.isVisible();
+
+                expect(isThemeSwitchVisible).toBe(true);
 
                 await context.close();
             });
@@ -72,16 +74,6 @@ test.describe('search area', () => {
         expect(isSearchAreaHeadingVisible).toBe(true);
     });
 
-    test('input is visible', async ({ page }) => {
-        await page.goto('/');
-
-        const isSearchAreaInputVisible = await page
-            .getByLabel('Search notes')
-            .isVisible();
-
-        expect(isSearchAreaInputVisible).toBe(true);
-    });
-
     test('button is visible', async ({ page }) => {
         await page.goto('/');
 
@@ -90,5 +82,53 @@ test.describe('search area', () => {
             .isVisible();
 
         expect(isSearchAreaButtonVisible).toBe(true);
+    });
+
+    test.describe('input', () => {
+        test('input is visible', async ({ page }) => {
+            await page.goto('/');
+
+            const isSearchAreaInputVisible = await page
+                .getByLabel('Search notes')
+                .isVisible();
+
+            expect(isSearchAreaInputVisible).toBe(true);
+        });
+
+        test.describe('when user presses `/`', () => {
+            test('input is focused', async ({ page }) => {
+                await page.goto('/');
+
+                const searchAreaInput = page.getByLabel('Search notes');
+
+                await expect(searchAreaInput).not.toBeFocused();
+
+                await page.keyboard.press('/');
+
+                await expect(searchAreaInput).toBeFocused();
+            });
+
+            test.describe('when javascript is disabled', () => {
+                test('input is not focused', async ({ browser }) => {
+                    const context = await browser.newContext({
+                        javaScriptEnabled: false,
+                    });
+
+                    const page = await context.newPage();
+
+                    await page.goto('/');
+
+                    const searchAreaInput = page.getByLabel('Search notes');
+
+                    await expect(searchAreaInput).not.toBeFocused();
+
+                    await page.keyboard.press('/');
+
+                    await expect(searchAreaInput).not.toBeFocused();
+
+                    await context.close();
+                });
+            });
+        });
     });
 });
