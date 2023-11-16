@@ -3,10 +3,6 @@ import { defineMiddleware } from 'astro:middleware';
 
 import { DEFAULT_THEME, THEME } from '~constants';
 
-export const config = {
-    matcher: '/',
-};
-
 export const onRequest = defineMiddleware(
     async (
         { cookies, redirect, request, url },
