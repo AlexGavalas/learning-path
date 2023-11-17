@@ -23,10 +23,13 @@ export default defineConfig({
             theme: 'monokai',
         },
     },
-    output: 'hybrid',
+    output: 'server',
+    prefetch: true,
     adapter: isLocalBuild
         ? node({
               mode: 'standalone',
           })
-        : vercel({}),
+        : vercel({
+              functionPerRoute: true,
+          }),
 });

@@ -1,46 +1,21 @@
 ---
-import type { NotesCollection } from '~types/notes.types';
 import NotesLayout from '~layouts/note.astro';
-import { getAllNoteIds, getNoteData, getNoteMetadata } from '~api/notes';
+import { getNoteData, getNoteMetadata } from '~api/notes';
 
-type Content = Awaited<ReturnType<typeof getNoteData>>;
+const { slug } = Astro.params;
 
-export async function getStaticPaths() {
-    const posts = await getAllNoteIds();
-
-    if (!posts) {
-        throw new Error('No posts found');
-    }
-
-    return await Promise.all(
-        posts.map(async (post) => {
-            const metaPromise = getNoteMetadata(post.slug);
-            const contentPromise = getNoteData(post.slug);
-
-            const [meta, content] = await Promise.all([
-                metaPromise,
-                contentPromise,
-            ]);
-
-            return {
-                params: {
-                    slug: post.slug,
-                },
-                props: {
-                    content,
-                    meta,
-                },
-            };
-        }),
-    );
+if (!slug) {
+    throw new Error('No slug found');
 }
 
-type Props = {
-    content: Content;
-    meta: NotesCollection['data'];
-};
+const metaPromise = getNoteMetadata(slug);
+const contentPromise = getNoteData(slug);
 
-const { content, meta } = Astro.props;
+const [meta, content] = await Promise.all([metaPromise, contentPromise]);
+
+if (!meta) {
+    throw new Error('No meta info found');
+}
 ---
 
 <NotesLayout {...meta}>

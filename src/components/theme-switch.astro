@@ -14,7 +14,7 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
 ---
 
 <theme-switch>
-    <form method="get">
+    <form method="post" action="/api/theme-toggle">
         <input type="hidden" name="theme" value="toggle" />
         <Button variant="wrapper">
             <img {...attributes} width="20" height="20" />
