@@ -18,7 +18,7 @@ export const onRequest = defineMiddleware(
             const newTheme =
                 currentTheme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
 
-            cookies.set('theme', newTheme);
+            cookies.set('theme', newTheme, { path: '/' });
 
             url.searchParams.delete('theme');
 
