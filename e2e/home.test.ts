@@ -2,29 +2,39 @@ import { expect, test } from '@playwright/test';
 
 test('page has correct title', async ({ page }) => {
     await page.goto('/');
+
     const title = await page.title();
+
     expect(title).toBe('Learning Path');
 });
 
 test.describe('navigation bar', () => {
     test('is visible', async ({ page }) => {
         await page.goto('/');
-        const isNavBarVisible = await page.isVisible('nav');
-        expect(isNavBarVisible).toBe(true);
+
+        const navBar = page.getByRole('navigation');
+
+        await expect(navBar).toBeVisible();
     });
 
     test('has 2 links', async ({ page }) => {
         await page.goto('/');
-        const navBarLinks = await page.$$('nav a');
-        expect(navBarLinks.length).toBe(2);
+
+        const links = page.locator('nav a');
+
+        const linksCount = await links.count();
+
+        expect(linksCount).toBe(2);
     });
 });
 
 test.describe('header', () => {
     test('is visible', async ({ page }) => {
         await page.goto('/');
-        const isHeaderVisible = await page.isVisible('header');
-        expect(isHeaderVisible).toBe(true);
+
+        const header = page.locator('header');
+
+        await expect(header).toBeVisible();
     });
 
     test.describe('theme switch', () => {
@@ -33,11 +43,9 @@ test.describe('header', () => {
 
             await page.waitForLoadState('networkidle');
 
-            const themeSwitch = await page.$('header img[alt="Moon"]');
+            const themeSwitch = page.locator('header img[alt="Moon"]');
 
-            const isThemeSwitchVisible = await themeSwitch?.isVisible();
-
-            expect(isThemeSwitchVisible).toBe(true);
+            await expect(themeSwitch).toBeVisible();
         });
 
         test.describe('when javascript is disabled', () => {
@@ -51,11 +59,9 @@ test.describe('header', () => {
                 await page.goto('/');
                 await page.waitForLoadState('networkidle');
 
-                const themeSwitch = await page.$('header img[alt="Moon"]');
+                const themeSwitch = page.locator('header img[alt="Moon"]');
 
-                const isThemeSwitchVisible = await themeSwitch?.isVisible();
-
-                expect(isThemeSwitchVisible).toBe(true);
+                await expect(themeSwitch).toBeVisible();
 
                 await context.close();
             });
@@ -67,32 +73,28 @@ test.describe('search area', () => {
     test('heading is visible', async ({ page }) => {
         await page.goto('/');
 
-        const isSearchAreaHeadingVisible = await page
-            .getByText('Search notes')
-            .isVisible();
+        const searchAreaHeading = page.getByText('Search notes');
 
-        expect(isSearchAreaHeadingVisible).toBe(true);
+        await expect(searchAreaHeading).toBeVisible();
     });
 
     test('button is visible', async ({ page }) => {
         await page.goto('/');
 
-        const isSearchAreaButtonVisible = await page
-            .getByRole('button', { name: 'Search' })
-            .isVisible();
+        const searchAreaButton = page.getByRole('button', {
+            name: 'Search',
+        });
 
-        expect(isSearchAreaButtonVisible).toBe(true);
+        await expect(searchAreaButton).toBeVisible();
     });
 
     test.describe('input', () => {
         test('input is visible', async ({ page }) => {
             await page.goto('/');
 
-            const isSearchAreaInputVisible = await page
-                .getByLabel('Search notes')
-                .isVisible();
+            const searchAreaInput = page.getByLabel('Search notes');
 
-            expect(isSearchAreaInputVisible).toBe(true);
+            await expect(searchAreaInput).toBeVisible();
         });
 
         test.describe('when user presses `/`', () => {
