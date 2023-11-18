@@ -26,7 +26,6 @@ const { q } = Astro.props;
 </search-area>
 
 <script>
-    import { navigate } from 'astro:transitions/client';
     import { QUERY_FIELD_NAME } from '~constants';
 
     class SearchArea extends HTMLElement {
@@ -60,8 +59,7 @@ const { q } = Astro.props;
                 url.searchParams.delete(QUERY_FIELD_NAME);
             }
 
-            // window.location.href = url.toString();
-            navigate(url.toString());
+            window.location.href = url.toString();
 
             e.preventDefault();
         };
