@@ -59,9 +59,9 @@ const { q } = Astro.props;
                 url.searchParams.delete(QUERY_FIELD_NAME);
             }
 
-            e.preventDefault();
-
             window.location.href = url.toString();
+
+            e.preventDefault();
         };
 
         connectedCallback() {

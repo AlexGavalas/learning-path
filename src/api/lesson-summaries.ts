@@ -47,3 +47,20 @@ export const getLessonSummaryData = async (
         frontmatter: lessonSummary?.data,
     };
 };
+
+export const getLessonSummaryMetadata = async (
+    filename: string,
+): Promise<LessonSummariesCollection['data'] | null> => {
+    const { data, error } = await supabase
+        .from('lesson_summaries_meta')
+        .select('*')
+        .eq('filename', filename)
+        .limit(1)
+        .maybeSingle();
+
+    if (error !== null) {
+        return null;
+    }
+
+    return data;
+};

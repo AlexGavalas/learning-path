@@ -1,57 +1,34 @@
 ---
-import type { NotesCollection } from '~types/notes.types';
 import NotesLayout from '~layouts/note.astro';
 import {
-    getLessonSummaries,
     getLessonSummaryData,
+    getLessonSummaryMetadata,
 } from '~api/lesson-summaries';
 
-type Content = Awaited<ReturnType<typeof getLessonSummaryData>>;
+const { slug } = Astro.params;
 
-export async function getStaticPaths() {
-    const summaries = await getLessonSummaries();
-
-    if (summaries === null) {
-        throw new Error('Could not get lesson summaries');
-    }
-
-    return await Promise.all(
-        summaries.map(async (summary) => {
-            const data = await getLessonSummaryData(summary.filename);
-
-            return {
-                params: {
-                    slug: summary.filename.replace(/\.mdx$/, ''),
-                },
-                props: {
-                    content: data,
-                    meta: summary,
-                },
-            };
-        }),
-    );
+if (!slug) {
+    return new Response(null);
 }
 
-type Props = {
-    content: Content;
-    meta: NotesCollection['data'];
-};
+const contentPromise = getLessonSummaryData(slug);
+const metaPromise = getLessonSummaryMetadata(slug);
 
-const {
-    content: { content, frontmatter },
-    meta,
-} = Astro.props;
+const [{ content, frontmatter }, meta] = await Promise.all([
+    contentPromise,
+    metaPromise,
+]);
+
+if (!meta) {
+    throw new Error('No meta info found');
+}
 
 const hasBannerEnabled = Boolean(
     typeof content !== 'string' && frontmatter?.features?.includes('banner'),
 );
 ---
 
-<NotesLayout
-    {...meta}
-    hasBannerEnabled={hasBannerEnabled}
-    backUrl="/lessons-summary"
->
+<NotesLayout {...meta} hasBannerEnabled={hasBannerEnabled} backUrl="/summaries">
     {
         typeof content === 'string' ? (
             <>
