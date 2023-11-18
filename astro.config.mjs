@@ -25,6 +25,7 @@ export default defineConfig({
     },
     output: 'server',
     prefetch: true,
+    scopedStyleStrategy: 'where',
     adapter: isLocalBuild
         ? node({
               mode: 'standalone',

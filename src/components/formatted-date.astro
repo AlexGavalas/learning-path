@@ -16,4 +16,5 @@ const {
 const date = utcToZonedTime(toDate(dateString), timeZone);
 ---
 
-<time datetime={date.toISOString()}>{formatDate(date, format)}</time>
+<time datetime={formatDate(date, 'yyyy-MM-dd')}>{formatDate(date, format)}</time
+>
