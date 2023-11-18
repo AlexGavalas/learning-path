@@ -1,0 +1,46 @@
+---
+import Loader from './loader.astro';
+---
+
+<page-progress>
+    <div id="wrapper" class="absolute w-full h-1 hidden">
+        <Loader id="page-loader" />
+    </div>
+</page-progress>
+
+<script>
+    class PageProgress extends HTMLElement {
+        loader = this.querySelector('#page-loader');
+        wrapper = this.querySelector('#wrapper');
+        internalLinks: NodeListOf<HTMLAnchorElement> =
+            document.querySelectorAll('a[href^="/"]');
+
+        showLoader = (event: MouseEvent) => {
+            if (
+                event.currentTarget instanceof HTMLAnchorElement &&
+                event.currentTarget.href !== window.location.href
+            ) {
+                this.loader?.classList.add('animate-loader');
+                this.wrapper?.classList.remove('hidden');
+            }
+        };
+
+        connectedCallback() {
+            this.loader?.classList.remove('animate-loader');
+
+            this.internalLinks?.forEach((link) => {
+                link.addEventListener('click', this.showLoader, {
+                    once: true,
+                });
+            });
+        }
+
+        disconnectedCallback() {
+            this.internalLinks.forEach((link) => {
+                link.removeEventListener('click', this.showLoader);
+            });
+        }
+    }
+
+    customElements.define('page-progress', PageProgress);
+</script>

@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import BaseHead from '~components/base-head.astro';
+import PageProgress from '~components/page-progress.astro';
 import Nav from '~components/nav.astro';
 import Header from '~components/header.astro';
 import { DEFAULT_THEME } from '~constants';
@@ -24,6 +25,7 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
         <BaseHead title={title} />
         <ViewTransitions handleForms />
     </head>
+    <PageProgress />
     <body class="bg-light-background dark:bg-dark-background">
         <main class="mx-auto max-w-2xl px-4 grid gap-6">
             <Header />
