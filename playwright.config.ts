@@ -11,6 +11,7 @@ const config: PlaywrightTestConfig = {
         baseURL,
     },
     preserveOutput: 'never',
+    testDir: 'e2e',
     ...(!isCI && {
         webServer: {
             reuseExistingServer: true,

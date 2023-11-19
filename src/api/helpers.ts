@@ -9,5 +9,5 @@ export const fetchFileFromStorage = async (
         responseType: 'text',
     });
 
-    return response.data;
+    return response.data as string;
 };

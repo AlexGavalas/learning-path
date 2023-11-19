@@ -3,7 +3,7 @@ import 'jest-axe/extend-expect';
 
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: jest.fn((query) => ({
+    value: jest.fn((query: string) => ({
         matches: false,
         media: query,
         onchange: null,

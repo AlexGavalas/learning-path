@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { fetchFileFromStorage } from './helpers';
 
-jest.mock('axios');
+jest.mock<typeof import('axios')>('axios');
 
 describe('fetchFileFromStorage', () => {
     beforeAll(() => {

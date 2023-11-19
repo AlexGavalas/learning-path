@@ -8,12 +8,12 @@ describe('updateMdTimestamps', () => {
         jest.useFakeTimers({ now: new Date(2023, 0, 1) });
     });
 
-    afterAll(() => {
-        jest.useRealTimers();
-    });
-
     afterEach(() => {
         jest.restoreAllMocks();
+    });
+
+    afterAll(() => {
+        jest.useRealTimers();
     });
 
     describe('when a correct file is passed', () => {

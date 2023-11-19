@@ -27,7 +27,7 @@ describe('getEnvVariable', () => {
         });
 
         it('returns its value', () => {
-            expect(getEnvVariable(envVar)).toEqual(value);
+            expect(getEnvVariable(envVar)).toStrictEqual(value);
         });
     });
 
@@ -37,7 +37,7 @@ describe('getEnvVariable', () => {
         });
 
         it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrowError(
+            expect(() => getEnvVariable(envVar)).toThrow(
                 `${envVar} is not defined in env.`,
             );
         });
@@ -51,7 +51,7 @@ describe('getEnvVariable', () => {
         });
 
         it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrowError(
+            expect(() => getEnvVariable(envVar)).toThrow(
                 `${envVar} is not defined in env.`,
             );
         });
@@ -63,7 +63,7 @@ describe('getEnvVariable', () => {
         });
 
         it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrowError(
+            expect(() => getEnvVariable(envVar)).toThrow(
                 `${envVar} is not defined in env.`,
             );
         });
@@ -83,7 +83,7 @@ describe('toISOString', () => {
         const date = '01-01-2020';
 
         it('throws an error', () => {
-            expect(() => toISOString(date)).toThrowError('Invalid time value');
+            expect(() => toISOString(date)).toThrow('Invalid time value');
         });
     });
 });

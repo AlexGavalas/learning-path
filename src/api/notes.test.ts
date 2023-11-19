@@ -5,7 +5,8 @@ import { supabase } from '~lib/supabase';
 import { fetchFileFromStorage } from './helpers';
 import { getAllNoteIds, getNoteData, getNoteMetadata } from './notes';
 
-jest.mock('@vercel/edge-config', () => ({
+jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
+    ...jest.requireActual('@vercel/edge-config'),
     createClient: jest.fn().mockReturnValue({
         get: jest.fn().mockResolvedValue([{ filename: 'test' }]),
     }),
@@ -65,7 +66,7 @@ describe('getAllNoteIds', () => {
         it('returns the slugs', async () => {
             const slugs = await getAllNoteIds();
 
-            expect(slugs).toEqual([{ slug: 'test' }]);
+            expect(slugs).toStrictEqual([{ slug: 'test' }]);
         });
     });
 
@@ -90,7 +91,7 @@ describe('getAllNoteIds', () => {
         it('returns the slugs', async () => {
             const slugs = await getAllNoteIds();
 
-            expect(slugs).toEqual([{ slug: 'test' }]);
+            expect(slugs).toStrictEqual([{ slug: 'test' }]);
         });
     });
 });
@@ -151,7 +152,7 @@ describe('getNoteData', () => {
         it('returns the body', async () => {
             const body = await getNoteData('test');
 
-            expect(body).toEqual(
+            expect(body).toStrictEqual(
                 expect.objectContaining({ Content: expect.any(Function) }),
             );
         });
@@ -166,7 +167,10 @@ describe('getNoteData', () => {
 
 describe('getNoteMetadata', () => {
     beforeAll(() => {
-        const { supabase: mockSupabase } = jest.requireMock('~lib/supabase');
+        const { supabase: mockSupabase } =
+            jest.requireMock<typeof import('~lib/__mocks__/supabase')>(
+                '~lib/supabase',
+            );
 
         mockSupabase.maybeSingle.mockReturnValue({
             data: 'test data',
@@ -190,7 +194,9 @@ describe('getNoteMetadata', () => {
     describe('when an error occurs', () => {
         beforeAll(() => {
             const { supabase: mockSupabase } =
-                jest.requireMock('~lib/supabase');
+                jest.requireMock<typeof import('~lib/__mocks__/supabase')>(
+                    '~lib/supabase',
+                );
 
             mockSupabase.maybeSingle.mockReturnValue({
                 data: null,
