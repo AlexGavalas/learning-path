@@ -52,7 +52,7 @@ describe('getLessonSummaryData', () => {
         it('returns the body', async () => {
             const body = await getLessonSummaryData('test');
 
-            expect(body).toEqual(
+            expect(body).toStrictEqual(
                 expect.objectContaining({
                     content: {
                         Content: expect.any(Function),

@@ -32,6 +32,7 @@ export const fetchNotes = async (
         }
 
         const lines = data.reduce<Lines>((acc, { title, line }) => {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             acc[title] = (acc[title] ?? []).concat(line);
             return acc;
         }, {});

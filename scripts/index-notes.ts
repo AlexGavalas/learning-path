@@ -60,7 +60,7 @@ const updateEdgeConfig = async (): Promise<void> => {
             },
         });
 
-        const responseData = await res.json();
+        const responseData = (await res.json()) as unknown;
 
         console.log('Update Edge Config response', responseData);
     } catch (e) {

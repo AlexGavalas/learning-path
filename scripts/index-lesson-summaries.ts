@@ -20,7 +20,12 @@ export const indexLessonSummaries = async (): Promise<void> => {
 
         const fileContents = await readFile(`${SUMMARIES_DIR}/${filename}`);
 
-        const { content, data: frontmatter } = matter(fileContents);
+        const { content, data: frontmatter } = matter(
+            fileContents,
+        ) as unknown as {
+            content: string;
+            data: { title: string; created: string; updated: string };
+        };
 
         const { error } = await supabase.from('lesson_summaries_meta').upsert({
             filename: filename.replace(/\.mdx$/, ''),
