@@ -1,0 +1,109 @@
+---
+title: 'Accessibility: Exploring Images and Media'
+created: '2023-11-19'
+updated: '2023-11-21'
+---
+
+Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/accessibility-exploring-images-media/table-of-contents)).
+
+This lesson focused on images and media, and how to make them accessible.
+The key points and the more interesting parts are summarised below.
+
+It was also a good reminder to check the accessibility of this site and improve it where needed.
+So I tried to navigate the site with a screen reader (VoiceOver on macOS) and found some small issues, mainly content announcement (eg. each link on the home page did not make much sense when it was read).
+I addressed these issues and hopefully the site is easier to navigate now for screen reader users.
+Now, let's dive into the summary!
+
+## Images
+
+They can be
+
+-   **Decorative**. They have no purpose or no text. They are purely for background or of visual interest.
+-   **Functional**. They are part of the content. They can be product images, icons etc. They contain text or infographics (eg. chart).
+
+Describing decorative images can cause confusion on screen reader users.
+We should only describe images that will help the user understand the content.
+A simple test for that is to check if an image can be omitted. If yes, it is decorative.
+
+Decorative images should have an empty `alt` attribute, no title and no role.
+An empty `alt` attribute tells the screen reader that this image is decorative.
+A missing `alt` attribute tells the screen reader nothing.
+
+As a sidenote, screen reader usage "requires" the website to be navigable by keyboard.
+If it is not, the screen reader user will not be able to navigate the site.
+
+`display: none` and the `hidden` attribute hide an element from all users and screen readers.
+`aria-hidden="true"` hides an element from screen readers only.
+
+Search engine crawlers can use the `alt` text to gain more details on the site's content.
+However, we must not try to exploit this by adding keywords to the `alt` text.
+[Keyword stuffing](https://developers.google.com/search/docs/essentials/spam-policies#keyword-stuffing) is a bad practice, along with some other techniques, and can get a site penalised by search engines.
+
+The `aria-label` attribute can be used to provide a label for an element.
+However, it should be used only when there is no other way to provide a label, or when the label shown makes sense only to sighted users and we have to provide some extra context for screen reader users.
+Screen readers can use this in combination with the element's role to provide more information.
+
+When the description is too long to be used as an `alt` text, we can use the [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby) attribute to point to an element that contains the description.
+This element can be either shown to all users or be hidden to be used only by screen readers.
+The description here has to also be to the point and include only relevant information.
+
+Related reading: [WCAG criteria 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content)
+
+## Data tables and charts
+
+For data tables adding a [scope](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#scope) on the `th` elements can help screen readers understand the table's structure, and announce each table cell with the corresponding header.
+A `caption` can be used to provide a summary of the table's content.
+If provided, it should be the first element inside the `table` element.
+
+For data charts, we can provide a visually hidden element with the description of the chart, along with the `alt` attribute (if applicable).
+This element can be a `table` with the data displayed on the chart.
+If the data displayed are too many though, having them in a `table` to be read out to the user would not be helpful.
+In this case, we can summarise the data displayed and provide some key points, or whatever will make the most sense to the user.
+
+## Audio only
+
+Like images, we have to provide an alternative text for audio when it is not decorative.
+When creating a transcript, we must be careful to include all the information that is provided by the audio.
+This includes identifying each speaker, and describing any sound effects that are important to the content.
+
+The `aria-label` attribute can be used to provide an `alt` text, and `aria-describedby` to point to a transcript.
+Another way is to include a `caption` track.
+
+Related reading [WCAG criteria 1.2.1](https://www.w3.org/WAI/WCAG21/Understanding/audio-only-and-video-only-prerecorded)
+
+## Video only
+
+For video alternatives we can add a text and/or an audio alternative.
+In both cases the information included should inlcude all the text in the video and describe what is being shown, as long as it is relevant to the content.
+
+Related reading [WCAG criteria 1.2.3](https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded)
+
+## Audio and video
+
+Adding an audio description to the video, can help screen reader users understand what is happening in the video.
+If the video has enough long pauses, we can add the description in these pauses.
+If not, it might be easier to have two versions of the video, and allow the user to select which one to watch.
+
+Adding captions can help users who are deaf or hard of hearing.
+They are not the same as subtitles, as they have to describe anything audible that is relevant.
+This includes identifying each speaker, and describing any sound effects that are important to the content.
+They are written in the [WebVTT](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API) format.
+
+Related reading [WCAG criteria 1.2.5](https://www.w3.org/WAI/WCAG21/Understanding/audio-description-prerecorded)
+
+## Color contrast
+
+All text (except some categories) have to have at least a minimum amount of contrast ratio, depending on their usage.
+We should not make assumptions on what is easier to see, and always use a tool (eg. [WebAIM's contrast checker](https://webaim.org/resources/contrastchecker/)) to check the contrast ratio.
+
+Related reading [WCAG criteria 1.4.3](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum)
+Related reading [WCAG criteria 1.4.11](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast)
+
+## Content causing other issues
+
+Generally we should not have audio playing automatically, as it can interfere with the user's screen reader.
+It is also widely considered annoying.
+If we have to, we should provide a way to pause it or control its volume.
+Finally, we should not have any content that flashes more than 3 times per second, as it can cause seizures.
+
+Related reading [WCAG criteria 2.3.1](https://www.w3.org/WAI/WCAG21/Understanding/three-flashes-or-below-threshold)
