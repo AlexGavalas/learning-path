@@ -1,20 +1,28 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import { format as formatDate, toDate, utcToZonedTime } from 'date-fns-tz';
+import { ar } from 'date-fns/locale';
 
-export type Props = {
+interface Props extends HTMLAttributes<'time'> {
     dateString: string;
     timeZone?: string;
+    label?: string;
     format?: string;
-};
+}
 
 const {
     dateString,
     format = 'd LLL yyyy',
     timeZone = 'Europe/Athens',
+    label,
+    ...rest
 } = Astro.props;
 
 const date = utcToZonedTime(toDate(dateString), timeZone);
+const datetime = formatDate(date, 'yyyy-MM-dd');
+const ariaLabel = label ? `${label} ${datetime}` : undefined;
 ---
 
-<time datetime={formatDate(date, 'yyyy-MM-dd')}>{formatDate(date, format)}</time
+<time aria-label={ariaLabel} datetime={formatDate(date, 'yyyy-MM-dd')} {...rest}
+    >{formatDate(date, format)}</time
 >
