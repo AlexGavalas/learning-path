@@ -5,7 +5,7 @@ import { readFile, writeFile } from './helpers';
 
 export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     for (const file of files) {
-        const friendlyName = file.match(/((notes|summaries)\/.*)/)?.[0];
+        const friendlyName = file.match(/((notes|lesson-summaries)\/.*)/)?.[0];
 
         if (friendlyName === undefined) {
             console.error(`Incorrect file passed. Skipping ${file} ...`);
