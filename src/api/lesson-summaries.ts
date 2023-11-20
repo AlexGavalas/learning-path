@@ -1,15 +1,27 @@
-import { getEntryBySlug } from 'astro:content';
+import { getCollection, getEntryBySlug } from 'astro:content';
 
 import { supabase } from '~lib/supabase';
 import type {
     LessonSummariesCollection,
-    LessonSummary,
     LessonSummaryRenderResult,
 } from '~types/lesson-summaries.types';
 
 import { fetchFileFromStorage } from './helpers';
 
-export const getLessonSummaries = async (): Promise<LessonSummary[] | null> => {
+export const getLessonSummaries = async (): Promise<
+    { filename: string; updated: string; title: string }[] | null
+> => {
+    const isProd = process.env.PROD === 'true';
+
+    if (!isProd) {
+        const entries = await getCollection('lesson-summaries');
+
+        return entries.map((entry) => ({
+            ...entry.data,
+            filename: entry.slug,
+        }));
+    }
+
     const { data: summaries, error } = await supabase
         .from('lesson_summaries_meta')
         .select('*')
@@ -51,6 +63,14 @@ export const getLessonSummaryData = async (
 export const getLessonSummaryMetadata = async (
     filename: string,
 ): Promise<LessonSummariesCollection['data'] | null> => {
+    const isProd = process.env.PROD === 'true';
+
+    if (!isProd) {
+        const entry = await getEntryBySlug('lesson-summaries', filename);
+
+        return entry?.data ?? null;
+    }
+
     const { data, error } = await supabase
         .from('lesson_summaries_meta')
         .select('*')

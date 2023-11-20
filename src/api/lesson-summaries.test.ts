@@ -8,6 +8,7 @@ import { getLessonSummaries, getLessonSummaryData } from './lesson-summaries';
 jest.mock(
     'astro:content',
     () => ({
+        getCollection: jest.fn().mockResolvedValue([]),
         getEntryBySlug: jest.fn().mockResolvedValue({
             body: 'test body',
             render: jest.fn().mockReturnValue({
@@ -25,11 +26,29 @@ jest.mock('~lib/supabase');
 jest.mock('./helpers');
 
 describe('getLessonSummaries', () => {
-    it('calls supabase', async () => {
-        await getLessonSummaries();
+    describe('when in development', () => {
+        beforeAll(() => {
+            process.env.PROD = 'false';
+        });
 
-        expect(supabase.from).toHaveBeenCalledTimes(1);
-        expect(supabase.from).toHaveBeenCalledWith('lesson_summaries_meta');
+        it('does not call supabase', async () => {
+            await getLessonSummaries();
+
+            expect(supabase.from).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('when in production', () => {
+        beforeAll(() => {
+            process.env.PROD = 'true';
+        });
+
+        it('calls supabase', async () => {
+            await getLessonSummaries();
+
+            expect(supabase.from).toHaveBeenCalledTimes(1);
+            expect(supabase.from).toHaveBeenCalledWith('lesson_summaries_meta');
+        });
     });
 });
 
