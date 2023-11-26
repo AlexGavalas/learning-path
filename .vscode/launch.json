@@ -4,7 +4,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open Chrome debugger",
-            "url": "http://localhost:3000",
+            "url": "http://localhost:4321",
             "webRoot": "${workspaceFolder}",
             "sourceMaps": true
         }
