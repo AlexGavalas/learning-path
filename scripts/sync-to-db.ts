@@ -90,7 +90,9 @@ const main = async (): Promise<void> => {
         }
     }
 
-    await updateEdgeConfig();
+    if (diffSummary.files.length > 0) {
+        await updateEdgeConfig();
+    }
 };
 
 main().catch(console.error);
