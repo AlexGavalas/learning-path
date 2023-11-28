@@ -6,7 +6,7 @@ import { type SimpleGit, simpleGit } from 'simple-git';
 import { supabase } from '~lib/supabase';
 import type { NoteFrontmatter } from '~types/notes.types';
 
-import { toISOString } from './helpers';
+import { toISOString, updateEdgeConfig } from './helpers';
 
 const main = async (): Promise<void> => {
     const git: SimpleGit = simpleGit({});
@@ -89,6 +89,8 @@ const main = async (): Promise<void> => {
             process.stdout.write(' [OK]\n');
         }
     }
+
+    await updateEdgeConfig();
 };
 
 main().catch(console.error);

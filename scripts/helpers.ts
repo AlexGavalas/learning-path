@@ -2,6 +2,8 @@ import axios from 'axios';
 import { parse } from 'date-fns';
 import fs from 'fs/promises';
 
+import { supabase } from '~lib/supabase';
+
 export const toISOString = (date: string): string =>
     parse(date, 'yyyy-MM-dd', new Date()).toISOString();
 
@@ -41,6 +43,45 @@ export const uploadFile = async ({
         form.append('md_file', new Blob([content]), filename);
 
         await axios.postForm(url, form);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const updateEdgeConfig = async (): Promise<void> => {
+    const { data, error } = await supabase.rpc('get_notes_meta');
+
+    if (error !== null) {
+        console.error(error);
+        process.exit(1);
+    }
+
+    try {
+        const edgeConfig = getEnvVariable('EDGE_CONFIG_ID');
+        const vercelAccessToken = getEnvVariable('VERCEL_ACCESS_TOKEN');
+
+        const url = `https://api.vercel.com/v1/edge-config/${edgeConfig}/items`;
+
+        const res = await fetch(url, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                items: [
+                    {
+                        operation: 'update',
+                        key: 'meta',
+                        value: data,
+                    },
+                ],
+            }),
+            headers: {
+                Authorization: `Bearer ${vercelAccessToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const responseData = (await res.json()) as unknown;
+
+        console.log('Update Edge Config response', responseData);
     } catch (e) {
         console.error(e);
     }

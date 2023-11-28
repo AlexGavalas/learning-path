@@ -9,6 +9,7 @@ import {
     writeFile,
 } from './helpers';
 
+jest.mock('~lib/supabase');
 jest.mock('fs/promises');
 jest.mock('axios');
 

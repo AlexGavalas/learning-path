@@ -1,6 +1,7 @@
 import { readFile, writeFile } from './helpers';
 import { updateMdTimestamps } from './update-md-timestamps';
 
+jest.mock('~lib/supabase');
 jest.mock('./helpers');
 
 describe('updateMdTimestamps', () => {
