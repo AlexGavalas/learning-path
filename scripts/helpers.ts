@@ -2,8 +2,6 @@ import axios from 'axios';
 import { parse } from 'date-fns';
 import fs from 'fs/promises';
 
-import { supabase } from '~lib/supabase';
-
 export const toISOString = (date: string): string =>
     parse(date, 'yyyy-MM-dd', new Date()).toISOString();
 
@@ -49,6 +47,7 @@ export const uploadFile = async ({
 };
 
 export const updateEdgeConfig = async (): Promise<void> => {
+    const { supabase } = await import('~lib/supabase');
     const { data, error } = await supabase.rpc('get_notes_meta');
 
     if (error !== null) {
