@@ -1,0 +1,41 @@
+<style>
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin-offset {
+        0% {
+            stroke-dasharray: 0, 628;
+        }
+        50% {
+            stroke-dasharray: 314;
+        }
+        100% {
+            stroke-dasharray: 628, 0;
+        }
+    }
+
+    .spin {
+        stroke-dasharray: 0, 628; /* 2 * PI * r */
+        transform-origin: center;
+        animation:
+            spin-offset 2s ease-in-out infinite alternate,
+            spin 2s linear infinite;
+    }
+</style>
+
+<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <circle
+        class="spin"
+        cx="400"
+        cy="400"
+        fill="none"
+        r="200"
+        stroke="#f1d20d"
+        stroke-width="50"
+        stroke-linecap="round"
+    >
+    </circle>
+</svg>
