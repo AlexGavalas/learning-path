@@ -1,0 +1,38 @@
+---
+import Button from '~components/button.astro';
+import './styles.css';
+
+const controls = ['bold', 'italic', 'heading1', 'heading2'];
+---
+
+<script src="./element"></script>
+
+<rich-textarea>
+    <div class="flex gap-2 mb-2">
+        {
+            controls.map((control) => (
+                <Button class="py-0" id={control}>
+                    {control}
+                </Button>
+            ))
+        }
+    </div>
+    <div class="relative">
+        <div
+            class="absolute top-0 left-0 h-full w-full text-transparent overflow-hidden"
+            id="mirror"
+        >
+        </div>
+        <div id="toolbar" class="toolbar">Toolbar</div>
+        <textarea
+            autofocus
+            class="textarea p-2 relative w-full min-h-[100px]"
+            id="textarea"
+            placeholder="Type something..."></textarea>
+    </div>
+    <div
+        class="preview border-2 border-light-primary dark:border-dark-primary min-h-[100px] p-2"
+        id="preview"
+    >
+    </div>
+</rich-textarea>

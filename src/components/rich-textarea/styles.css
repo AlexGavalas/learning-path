@@ -1,0 +1,33 @@
+.textarea {
+    background: transparent;
+    border: 1px solid #ccc;
+    resize: both;
+}
+
+.preview .bold {
+    font-weight: bold;
+}
+
+.preview .italic {
+    font-style: italic;
+}
+
+.preview h1 {
+    font-size: 35px;
+}
+
+.preview h2 {
+    font-size: 30px;
+}
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background: rgb(15 23 42);
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    z-index: 1;
+    height: 2rem;
+}
