@@ -1,12 +1,12 @@
-import type { Dirent } from 'fs';
-import fs from 'fs/promises';
+import type { Dirent } from 'node:fs';
+import fs from 'node:fs/promises';
 
 import { supabase } from '~lib/supabase';
 
 import { getEnvVariable, readFile, uploadFile } from './helpers';
 import { indexLessonSummaries } from './index-lesson-summaries';
 
-jest.mock('fs/promises');
+jest.mock('node:fs/promises');
 jest.mock('~lib/supabase');
 jest.mock('./helpers');
 

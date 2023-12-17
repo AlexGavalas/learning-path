@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { parse } from 'date-fns';
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 
 export const toISOString = (date: string): string =>
     parse(date, 'yyyy-MM-dd', new Date()).toISOString();

@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import fs from 'fs/promises';
 import matter from 'gray-matter';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import { supabase } from '~lib/supabase';
 

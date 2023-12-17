@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import fs from 'fs/promises';
 import matter from 'gray-matter';
+import fs from 'node:fs/promises';
 import { type SimpleGit, simpleGit } from 'simple-git';
 
 import { supabase } from '~lib/supabase';

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 
 import {
     getEnvVariable,
@@ -10,7 +10,7 @@ import {
 } from './helpers';
 
 jest.mock('~lib/supabase');
-jest.mock('fs/promises');
+jest.mock('node:fs/promises');
 jest.mock('axios');
 
 describe('getEnvVariable', () => {

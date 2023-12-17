@@ -103,6 +103,7 @@ export const getNoteMetadata = async (
     const { data, error } = await supabase
         .from('notes')
         .select('*')
+        .order('updated', { ascending: false })
         .eq('filename', filename)
         .limit(1)
         .maybeSingle();
