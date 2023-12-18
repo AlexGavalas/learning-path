@@ -38,9 +38,6 @@ dependencies:
   cross-env:
     specifier: 7.0.3
     version: 7.0.3
-  date-fns-tz:
-    specifier: 2.0.0
-    version: 2.0.0(date-fns@3.0.0)
   rehype-autolink-headings:
     specifier: 7.1.0
     version: 7.1.0
@@ -3470,16 +3467,9 @@ packages:
       whatwg-url: 11.0.0
     dev: true
 
-  /date-fns-tz@2.0.0(date-fns@3.0.0):
-    resolution: {integrity: sha512-OAtcLdB9vxSXTWHdT8b398ARImVwQMyjfYGkKD2zaGpHseG2UPHbHjXELReErZFxWdSLph3c2zOaaTyHfOhERQ==}
-    peerDependencies:
-      date-fns: '>=2.0.0'
-    dependencies:
-      date-fns: 3.0.0
-    dev: false
-
   /date-fns@3.0.0:
     resolution: {integrity: sha512-xjDz3rNN9jp+Lh3P/4MeY4E5HkaRnEnrJCcrdRZnKdn42gJlIe6hwrrwVXePRwVR2kh1UcMnz00erYBnHF8PFA==}
+    dev: true
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

@@ -1,7 +1,7 @@
 ---
 import FormattedDate from '~components/formatted-date.astro';
 
-const { title, created, updated, timeZone } = Astro.props;
+const { title, created, updated } = Astro.props;
 ---
 
 <h1 class="my-8 text-2xl">{title}</h1>
@@ -10,11 +10,11 @@ const { title, created, updated, timeZone } = Astro.props;
 >
     <p>
         Created at{' '}
-        <FormattedDate dateString={created} timeZone={timeZone} />
+        <FormattedDate dateString={created} />
     </p>
     <p class="hidden sm:block">||</p>
     <p>
         Updated at{' '}
-        <FormattedDate dateString={updated} timeZone={timeZone} />
+        <FormattedDate dateString={updated} />
     </p>
 </div>

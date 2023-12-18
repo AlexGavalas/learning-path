@@ -10,11 +10,10 @@ type _Note = Pick<Note, 'filename' | 'updated' | 'title'>;
 export type Props = {
     notes: _Note[];
     lines?: Record<string, string[]>;
-    timeZone: string;
     baseUrl: string;
 };
 
-const { notes, lines, timeZone, baseUrl } = Astro.props;
+const { notes, lines, baseUrl } = Astro.props;
 const hasNotes = notes.length > 0;
 ---
 
@@ -37,7 +36,6 @@ const hasNotes = notes.length > 0;
                                 format="dd/MM/yy"
                                 id={dateId}
                                 label="Last updated at"
-                                timeZone={timeZone}
                             />
                             <span
                                 aria-label={`Notes about ${title}`}

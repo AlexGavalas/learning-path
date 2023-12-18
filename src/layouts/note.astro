@@ -23,12 +23,7 @@ const documentTitle = `${title} | ${TITLE}`;
 
 <GlobalLayout title={documentTitle}>
     <article class="w-full overflow-hidden">
-        <NoteHeader
-            title={title}
-            created={created}
-            updated={updated}
-            timeZone="Europe/Athens"
-        />
+        <NoteHeader title={title} created={created} updated={updated} />
         {
             hasBannerEnabled && (
                 <div class="mb-4">
