@@ -158,8 +158,8 @@ devDependencies:
     specifier: 3.21.0
     version: 3.21.0
   supabase:
-    specifier: 1.123.4
-    version: 1.123.4
+    specifier: 1.127.4
+    version: 1.127.4
   ts-jest:
     specifier: 29.1.1
     version: 29.1.1(@babel/core@7.23.5)(jest@29.7.0)(typescript@5.3.2)
@@ -8629,8 +8629,8 @@ packages:
       s.color: 0.0.15
     dev: true
 
-  /supabase@1.123.4:
-    resolution: {integrity: sha512-HFQOU+n73Ah9sYbja7tdjuqT6QNDzkKXfLCCIbD9GdggbTvGZa3D+0hJPADL4y0vAfsoB5tlx3WBXswnbWIXiw==}
+  /supabase@1.127.4:
+    resolution: {integrity: sha512-9vxMsRkG8Qqju+gjTL++G/DaUcMyVr9YAT3jeRkNKIzbVVd0QiHUp2NHXXlqs6EByJVZzpMYJf4h55ml/H7gpg==}
     engines: {npm: '>=8'}
     hasBin: true
     requiresBuild: true
