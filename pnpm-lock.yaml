@@ -155,8 +155,8 @@ devDependencies:
     specifier: 0.5.9
     version: 0.5.9(@trivago/prettier-plugin-sort-imports@4.3.0)(prettier-plugin-astro@0.12.2)(prettier-plugin-svelte@3.1.2)(prettier@3.1.0)
   simple-git:
-    specifier: 3.21.0
-    version: 3.21.0
+    specifier: 3.22.0
+    version: 3.22.0
   supabase:
     specifier: 1.127.4
     version: 1.127.4
@@ -8298,8 +8298,8 @@ packages:
     dev: false
     optional: true
 
-  /simple-git@3.21.0:
-    resolution: {integrity: sha512-oTzw9248AF5bDTMk9MrxsRzEzivMlY+DWH0yWS4VYpMhNLhDWnN06pCtaUyPnqv/FpsdeNmRqmZugMABHRPdDA==}
+  /simple-git@3.22.0:
+    resolution: {integrity: sha512-6JujwSs0ac82jkGjMHiCnTifvf1crOiY/+tfs/Pqih6iow7VrpNKRRNdWm6RtaXpvvv/JGNYhlUtLhGFqHF+Yw==}
     dependencies:
       '@kwsites/file-exists': 1.1.1
       '@kwsites/promise-deferred': 1.1.1
