@@ -18,8 +18,8 @@ dependencies:
     specifier: 5.0.0
     version: 5.0.0(astro@4.0.2)(svelte@4.2.8)(typescript@5.3.2)(vite@5.0.5)
   '@astrojs/tailwind':
-    specifier: 5.0.3
-    version: 5.0.3(astro@4.0.2)(tailwindcss@3.4.0)(ts-node@10.9.1)
+    specifier: 5.1.0
+    version: 5.1.0(astro@4.0.2)(tailwindcss@3.4.0)(ts-node@10.9.1)
   '@astrojs/vercel':
     specifier: 6.1.0
     version: 6.1.0(astro@4.0.2)
@@ -301,8 +301,8 @@ packages:
       - vite
     dev: false
 
-  /@astrojs/tailwind@5.0.3(astro@4.0.2)(tailwindcss@3.4.0)(ts-node@10.9.1):
-    resolution: {integrity: sha512-p+uFa1PNuV8RxhGkPUFgVq8CUbmS3xr0u5k1An2xKECLotRh7vsrGcPUijHvYOt42URohcg8rIq0CxNoVMhReg==}
+  /@astrojs/tailwind@5.1.0(astro@4.0.2)(tailwindcss@3.4.0)(ts-node@10.9.1):
+    resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
