@@ -1,4 +1,10 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'input'> {
+    label: string;
+}
+
 const { label, ...rest } = Astro.props;
 ---
 
@@ -6,6 +12,6 @@ const { label, ...rest } = Astro.props;
     <span>{label}</span>
     <input
         {...rest}
-        class="h-1/2 rounded border-[1px] border-solid border-light-border bg-transparent pl-2 text-sm dark:border-0 dark:bg-neutral-800 dark:placeholder-gray-300 dark:placeholder-opacity-60"
+        class="h-full rounded border-[1px] border-solid border-light-border bg-transparent pl-2 text-sm dark:border-0 dark:bg-neutral-800 dark:placeholder-gray-300 dark:placeholder-opacity-60"
     />
 </label>

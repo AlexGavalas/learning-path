@@ -24,3 +24,5 @@ export const DARK_IMG_PROPS = {
 export const DEFAULT_THEME = THEME.LIGHT;
 
 export const QUERY_FIELD_NAME = 'q';
+
+export const ONE_YEAR = 60 * 60 * 24 * 365; // 1 year in seconds

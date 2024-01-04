@@ -1,4 +1,4 @@
-import { DEFAULT_THEME, THEME } from '~constants';
+import { DEFAULT_THEME, ONE_YEAR, THEME } from '~constants';
 
 export const getInitialTheme = (): string => {
     const cookie = document.cookie
@@ -17,5 +17,5 @@ export const setThemeInPage = (newTheme: string): void => {
 
     document.documentElement.style.setProperty('color-scheme', newTheme);
 
-    document.cookie = `theme=${newTheme}; path=/;`;
+    document.cookie = `theme=${newTheme}; max-age=${ONE_YEAR}; path=/;`;
 };
