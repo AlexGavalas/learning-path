@@ -145,7 +145,7 @@ class RichTextarea extends HTMLElement {
         // Toolbar events
         document.addEventListener('selectionchange', () => {
             const selectionLength =
-                window.getSelection()?.toString()?.length ?? 0;
+                window.getSelection()?.toString().length ?? 0;
 
             if (selectionLength === 0) {
                 this.hideToolbar();
