@@ -21,7 +21,7 @@
             "~styles/*": ["styles/*"],
             "~test/*": ["test/*"],
             "~types/*": ["types/*"],
-            "~constants": ["constants.ts"]
-        }
-    }
+            "~constants": ["constants.ts"],
+        },
+    },
 }
