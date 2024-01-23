@@ -86,7 +86,7 @@
         "prettier-plugin-svelte": "3.1.2",
         "prettier-plugin-tailwindcss": "0.5.11",
         "simple-git": "3.22.0",
-        "supabase": "1.131.5",
+        "supabase": "1.136.2",
         "ts-jest": "29.1.1",
         "ts-node": "10.9.2",
         "tsx": "4.7.0",
