@@ -10,3 +10,6 @@ dist
 
 # lockfile
 pnpm-lock.yaml
+
+# TS
+tsconfig.json
