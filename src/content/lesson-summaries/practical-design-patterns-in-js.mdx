@@ -1,7 +1,7 @@
 ---
 title: Practical Design Patterns in JavaScript
 created: '2023-05-24'
-updated: '2024-01-26'
+updated: '2024-01-27'
 published: true
 features:
     - banner
@@ -45,7 +45,7 @@ The `new` keyword:
 -   Binds `this` to the new object scope
 -   Returns `this` implicitly
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 function Job(title) {
@@ -97,7 +97,7 @@ jsEngineerJob.publish();
 
 This is a way to create objects by defining a prototype object that serves as a blueprint. Properties and methods can be added to the prototype, which are then inherited by all instances created from it through the prototype chain. This promotes code reuse and avoids duplicating common properties and methods for each instance. The pattern emphasises inheritance and shared behavior among objects.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 const job = {
@@ -186,7 +186,7 @@ const DatabaseService = (function () {
 
 This pattern acts as a central factory that handles the creation of objects based on specific conditions or parameters. It provides a way to create objects without specifying their class or type explicitly.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 class HybridJob {
@@ -235,7 +235,7 @@ const jsEngineerJob = jobFactory.getJob('remote', 'JS Engineer');
 
 This is a pattern that lets us ensure that a class has only one instance, while providing a global access point to this instance.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 class JobFactory {
@@ -275,7 +275,7 @@ These patterns are concerned with the composition and structure of objects. They
 
 With this pattern we can add functionality to an object without being obtrusive. It lets us attach new behaviour, by wrapping the original. This pattern allows us to have extended functionality and it can be used to protect the existing functionality.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 class Job {
@@ -320,7 +320,7 @@ hypedJsEngineerJob.publish();
 
 Provides a simpler interface to a more complicated system.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 class Job {
@@ -370,7 +370,7 @@ This pattern helps conserve memory by sharing common data between multiple objec
 
 **Note**: Only useful when we have a lot of objects.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 _Needs to be run in node since it uses `process.memoryUsage()`_
 
@@ -499,7 +499,7 @@ These patterns are concerned with defining how objects communicate and collabora
 
 With this pattern objects can watch and be notified of changes on an object.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 class Job {
@@ -583,7 +583,7 @@ unsubscribe();
 
 With this pattern we can control the communication between objects, so neither has to be coupled with others.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 class JobMediator {
@@ -641,7 +641,7 @@ alex.apply('JS Engineer');
 
 This pattern turns a request into a stand-alone object that contains all information about the request. This transformation lets us pass requests as method arguments, delay or queue a request's execution, and support undoable operations. It fully decouples the execution from the implementation, thus allowing less fragile implementations.
 
-<CopyToClipboard prefix="Example" client:idle>
+<CopyToClipboard prefix="Example">
 
 ```js
 const JobsService = {
