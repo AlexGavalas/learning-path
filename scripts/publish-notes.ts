@@ -1,10 +1,13 @@
 import ora from 'ora';
 import { type SimpleGit, simpleGit } from 'simple-git';
 
+const spinner = ora();
+
 const main = async (): Promise<void> => {
     const git: SimpleGit = simpleGit({});
 
-    const spinner = ora('Adding content').start();
+    spinner.text = 'Adding content';
+    spinner.start();
 
     await git.add('src/content/notes');
 
@@ -23,4 +26,7 @@ const main = async (): Promise<void> => {
     spinner.succeed('Pushed content');
 };
 
-main().catch(console.error);
+main().catch((e) => {
+    spinner.fail('Failed to publish notes');
+    console.error(e);
+});
