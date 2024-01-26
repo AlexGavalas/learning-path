@@ -13,12 +13,6 @@
             "options": {
                 "parser": "astro"
             }
-        },
-        {
-            "files": "*.svelte",
-            "options": {
-                "parser": "svelte"
-            }
         }
     ],
 
@@ -29,7 +23,6 @@
     "plugins": [
         "@trivago/prettier-plugin-sort-imports",
         "prettier-plugin-tailwindcss",
-        "prettier-plugin-astro",
-        "prettier-plugin-svelte"
+        "prettier-plugin-astro"
     ]
 }

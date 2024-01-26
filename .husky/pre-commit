@@ -1,1 +1,1 @@
-pnpm validate && pnpm lint-staged;
+pnpm pretty-quick --staged --check && pnpm lint && pnpm check:types && pnpm lint-staged;

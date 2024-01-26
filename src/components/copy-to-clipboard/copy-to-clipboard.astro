@@ -1,0 +1,41 @@
+---
+import Button from '~components/button.astro';
+
+interface Props {
+    prefix?: string;
+}
+
+const { prefix } = Astro.props;
+---
+
+<copy-to-clipboard class="hidden">
+    {prefix ? `${prefix} - ` : ''}
+    <Button class="!inline-block !p-0 !px-1">Copy to clipboard</Button>
+    <div id="target">
+        <slot />
+    </div>
+</copy-to-clipboard>
+
+<script>
+    class CopyToClipboard extends HTMLElement {
+        copyToClipboard() {
+            const targetText =
+                this.querySelector('#target')?.textContent?.trim();
+
+            if (targetText) {
+                navigator.clipboard.writeText(targetText);
+            }
+        }
+
+        connectedCallback() {
+            this.classList.remove('hidden');
+            this.addEventListener('click', this.copyToClipboard);
+        }
+
+        disconnectedCallback() {
+            this.removeEventListener('click', this.copyToClipboard);
+        }
+    }
+
+    customElements.define('copy-to-clipboard', CopyToClipboard);
+</script>

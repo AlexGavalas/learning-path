@@ -1,7 +1,6 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
-import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel/serverless';
 import { defineConfig } from 'astro/config';
@@ -14,7 +13,7 @@ const isLocalBuild = process.env.LOCAL === 'true';
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [mdx(), sitemap(), tailwind(), svelte()],
+    integrations: [mdx(), sitemap(), tailwind()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,
