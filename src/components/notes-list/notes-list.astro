@@ -1,17 +1,15 @@
 ---
-import List from '~components/list.astro';
-import ListItem from '~components/list-item.astro';
+import List from '~components/list/list.astro';
+import ListItem from '~components/list/list-item.astro';
 import FormattedDate from '~components/formatted-date.astro';
-import type { Note } from '~types/notes.types';
+import type { PartialEdgeConfigNote } from '~types/notes.types';
 import './notes-list.css';
 
-type _Note = Pick<Note, 'filename' | 'updated' | 'title'>;
-
-export type Props = {
-    notes: _Note[];
+interface Props {
+    notes: PartialEdgeConfigNote[];
     lines?: Record<string, string[]>;
     baseUrl: string;
-};
+}
 
 const { notes, lines, baseUrl } = Astro.props;
 const hasNotes = notes.length > 0;

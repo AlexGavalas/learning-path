@@ -1,8 +1,12 @@
 ---
 import { QUERY_FIELD_NAME } from '~constants';
-import Loader from '~components/loader.astro';
+import Loader from '~components/loader/linear.astro';
 import Button from '~components/button.astro';
 import Input from './input.astro';
+
+interface Props {
+    q?: string;
+}
 
 const { q } = Astro.props;
 ---

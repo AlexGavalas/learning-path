@@ -1,4 +1,10 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'button'> {
+    variant?: ButtonVariant;
+}
+
 type ButtonVariant = 'wrapper' | 'default';
 
 const bgClassNamesPerVariant: Record<ButtonVariant, string> = {
@@ -9,7 +15,7 @@ const bgClassNamesPerVariant: Record<ButtonVariant, string> = {
 
 const { variant = 'default', class: extraClass, ...rest } = Astro.props;
 
-const bgClass = bgClassNamesPerVariant[variant as ButtonVariant];
+const bgClass = bgClassNamesPerVariant[variant];
 ---
 
 <button

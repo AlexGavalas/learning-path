@@ -2,14 +2,14 @@ import { getCollection, getEntryBySlug } from 'astro:content';
 
 import { supabase } from '~lib/supabase';
 import type {
-    LessonSummariesCollection,
+    LessonSummaryFrontmatter,
     LessonSummaryRenderResult,
 } from '~types/lesson-summaries.types';
 
 import { fetchFileFromStorage } from './helpers';
 
 export const getLessonSummaries = async (): Promise<
-    { filename: string; updated: string; title: string }[] | null
+    (LessonSummaryFrontmatter & { filename: string })[] | null
 > => {
     const isProd = process.env.PROD === 'true';
 
@@ -38,7 +38,7 @@ export const getLessonSummaryData = async (
     slug: string,
 ): Promise<{
     content: string | LessonSummaryRenderResult;
-    frontmatter?: LessonSummariesCollection['data'];
+    frontmatter?: LessonSummaryFrontmatter;
 }> => {
     const isProd = process.env.PROD === 'true';
     const isPublicFileServerEnabled =
@@ -62,7 +62,7 @@ export const getLessonSummaryData = async (
 
 export const getLessonSummaryMetadata = async (
     filename: string,
-): Promise<LessonSummariesCollection['data'] | null> => {
+): Promise<LessonSummaryFrontmatter | null> => {
     const isProd = process.env.PROD === 'true';
 
     if (!isProd) {

@@ -6,9 +6,9 @@ import Nav from '~components/nav.astro';
 import Header from '~components/header.astro';
 import { DEFAULT_THEME } from '~constants';
 
-export type Props = {
+interface Props {
     title: string;
-};
+}
 
 const { title } = Astro.props;
 const themeCookie = Astro.cookies.get('theme');

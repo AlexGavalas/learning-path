@@ -1,23 +1,35 @@
 import { createClient } from '@vercel/edge-config';
 import { getCollection, getEntryBySlug } from 'astro:content';
+import flow from 'lodash/fp/flow';
+import groupBy from 'lodash/fp/groupBy';
+import mapValues from 'lodash/fp/mapValues';
 
 import { supabase } from '~lib/supabase';
+import type { Database } from '~types/database.types';
 import type {
-    Note,
     NoteRenderResult,
     NotesCollection,
+    PartialEdgeConfigNote,
 } from '~types/notes.types';
 
 import { fetchFileFromStorage } from './helpers';
+
+type SearchNotesRpcResponse =
+    Database['public']['Functions']['search_notes']['Returns'];
 
 type Lines = Record<string, string[]>;
 
 const edgeConfig = createClient(process.env.PUBLIC_EDGE_CONFIG);
 
+const groupByTitle = flow(
+    groupBy<SearchNotesRpcResponse[number]>(({ title }) => title),
+    mapValues((notes) => notes.map(({ line }) => line)),
+);
+
 export const fetchNotes = async (
     q: string,
-): Promise<{ lines: Lines; notes: Note[] }> => {
-    const data = await edgeConfig.get<Note[]>('meta');
+): Promise<{ lines: Lines; notes: PartialEdgeConfigNote[] }> => {
+    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
 
     const allNotes = data ?? [];
 
@@ -31,11 +43,7 @@ export const fetchNotes = async (
             };
         }
 
-        const lines = data.reduce<Lines>((acc, { title, line }) => {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            acc[title] = (acc[title] ?? []).concat(line);
-            return acc;
-        }, {});
+        const lines = groupByTitle(data);
 
         const noteTitles = new Set(data.map(({ title }) => title));
 
@@ -58,7 +66,7 @@ export const fetchNotes = async (
 type NoteSlugs = { slug: string }[];
 
 const getSlugsFromStorage = async (): Promise<NoteSlugs | null> => {
-    const data = await edgeConfig.get<Note[]>('meta');
+    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
 
     if (data === undefined) {
         return null;

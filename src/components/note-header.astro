@@ -1,6 +1,12 @@
 ---
 import FormattedDate from '~components/formatted-date.astro';
 
+interface Props {
+    title: string;
+    created: string;
+    updated: string;
+}
+
 const { title, created, updated } = Astro.props;
 ---
 

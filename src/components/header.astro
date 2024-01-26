@@ -1,5 +1,6 @@
 ---
-import ThemeSwitch from '~components/theme-switch.astro';
+import ThemeSwitch from '~components/theme-switch/theme-switch.astro';
+import Logo from '~components/logo/logo.astro';
 ---
 
 <header
@@ -7,11 +8,11 @@ import ThemeSwitch from '~components/theme-switch.astro';
 >
     <a
         href="/"
-        class="my-2 cursor-pointer rounded-lg p-2 text-2xl font-[700] text-black hover:bg-gray-300 hover:no-underline dark:text-white dark:hover:bg-gray-800 xs:text-3xl"
+        class="my-2 w-40 cursor-pointer rounded-lg p-2 hover:bg-gray-300 hover:no-underline dark:hover:bg-gray-800 xs:w-52"
     >
-        Learning Path
+        <Logo />
     </a>
-    <div class="mr-3">
+    <div>
         <ThemeSwitch />
     </div>
 </header>

@@ -1,10 +1,10 @@
 ---
-export type Props = {
+interface Props {
     links: {
         href: string;
         label: string;
     }[];
-};
+}
 
 const { links } = Astro.props;
 ---
