@@ -1,5 +1,8 @@
 {
-    "*.(ts|tsx)": "pnpm test -- --findRelatedTests --passWithNoTests",
+    "*.(ts|tsx)": [
+        "pnpm test -- --findRelatedTests --passWithNoTests",
+        "pnpm lint"
+    ],
     "!(README)*.(md|mdx)": [
         "tsx scripts/update-md-timestamps.runner.ts",
         "pnpm format"

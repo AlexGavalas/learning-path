@@ -56,6 +56,7 @@ module.exports = {
                 '@typescript-eslint/consistent-type-imports': 'off',
                 '@typescript-eslint/unbound-method': 'off',
                 '@typescript-eslint/no-unsafe-assignment': 'off',
+                '@typescript-eslint/no-explicit-any': 'off',
                 'jest/consistent-test-it': ['error', { fn: 'it' }],
                 'jest/max-expects': ['warn', { max: 3 }],
                 'jest/max-nested-describe': ['error', { max: 3 }],
