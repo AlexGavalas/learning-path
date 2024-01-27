@@ -1,12 +1,16 @@
 import 'dotenv/config';
 import matter from 'gray-matter';
 import fs from 'node:fs/promises';
+import ora from 'ora';
 import { type SimpleGit, simpleGit } from 'simple-git';
 
 import { supabase } from '~lib/supabase';
 import type { NoteFrontmatter } from '~types/notes.types';
 
 import { toISOString, updateEdgeConfig } from './helpers';
+import { logger } from './logger';
+
+const spinner = ora();
 
 const main = async (): Promise<void> => {
     const git: SimpleGit = simpleGit({});
@@ -22,7 +26,9 @@ const main = async (): Promise<void> => {
         };
 
         if (data.published === false) {
-            console.log(`Skipping ${file.file} as it is not published yet ...`);
+            logger.debug(
+                `Skipping ${file.file} as it is not published yet ...`,
+            );
 
             continue;
         }
@@ -67,15 +73,17 @@ const main = async (): Promise<void> => {
                 updated,
             }));
 
-            process.stdout.write(`Adding new entries of ${file.file} ...`);
+            spinner.text = `Adding new entries of ${file.file} ...`;
+            spinner.start();
 
             await supabase.from('notes').upsert(valuesToInsert);
 
-            process.stdout.write(' [OK]\n');
+            spinner.succeed(`Added new entries of ${file.file}`);
         }
 
         if (deletions.length > 0) {
-            process.stdout.write(`Deleting old entries of ${file.file} ...`);
+            spinner.text = `Deleting old entries of ${file.file} ...`;
+            spinner.start();
 
             for (const line of deletions) {
                 await supabase
@@ -86,7 +94,7 @@ const main = async (): Promise<void> => {
                     });
             }
 
-            process.stdout.write(' [OK]\n');
+            spinner.succeed(`Deleted old entries of ${file.file}`);
         }
     }
 
@@ -95,4 +103,7 @@ const main = async (): Promise<void> => {
     }
 };
 
-main().catch(console.error);
+main().catch((e) => {
+    spinner.fail('Failed to sync notes to database ...');
+    logger.error(e);
+});

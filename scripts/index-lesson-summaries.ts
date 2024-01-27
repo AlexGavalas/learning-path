@@ -2,12 +2,18 @@ import 'dotenv/config';
 import matter from 'gray-matter';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import ora from 'ora';
 
 import { supabase } from '~lib/supabase';
 
 import { getEnvVariable, readFile, toISOString, uploadFile } from './helpers';
+import { logger } from './logger';
 
 export const indexLessonSummaries = async (): Promise<void> => {
+    const spinner = ora({
+        isSilent: process.env.NODE_ENV === 'test',
+    });
+
     const SUMMARIES_DIR = path.join(
         process.cwd(),
         'src/content/lesson-summaries',
@@ -16,7 +22,8 @@ export const indexLessonSummaries = async (): Promise<void> => {
     const summaries = await fs.readdir(SUMMARIES_DIR);
 
     for (const filename of summaries) {
-        process.stdout.write(`Uploading contents of ${filename} ...`);
+        spinner.text = `Uploading contents of ${filename} ...`;
+        spinner.start();
 
         const fileContents = await readFile(`${SUMMARIES_DIR}/${filename}`);
 
@@ -35,7 +42,7 @@ export const indexLessonSummaries = async (): Promise<void> => {
         });
 
         if (error !== null) {
-            console.error(error);
+            logger.error(error);
         }
 
         const UPLOAD_URL = `${getEnvVariable(
@@ -45,6 +52,6 @@ export const indexLessonSummaries = async (): Promise<void> => {
         // Content is uploaded without the frontmatter
         await uploadFile({ content, filename, url: UPLOAD_URL });
 
-        process.stdout.write(' [OK]\n');
+        spinner.succeed(`Uploaded contents of ${filename}`);
     }
 };

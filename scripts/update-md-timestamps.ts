@@ -2,17 +2,18 @@ import { format } from 'date-fns';
 import matter from 'gray-matter';
 
 import { readFile, writeFile } from './helpers';
+import { logger } from './logger';
 
 export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     for (const file of files) {
         const friendlyName = file.match(/((notes|lesson-summaries)\/.*)/)?.[0];
 
         if (friendlyName === undefined) {
-            console.error(`Incorrect file passed. Skipping ${file} ...`);
-            return;
+            logger.error(`Incorrect file passed. Skipping ${file} ...`);
+            continue;
         }
 
-        console.log(`Updating timestamp of ${friendlyName} ...`);
+        logger.debug(`Updating timestamp of ${friendlyName} ...`);
 
         const fileContents = await readFile(file);
 
@@ -23,5 +24,5 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
         await writeFile(file, updatedContent);
     }
 
-    console.log('Updated timestamps.');
+    logger.info('Updated timestamps.');
 };

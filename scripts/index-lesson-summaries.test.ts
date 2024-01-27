@@ -9,6 +9,13 @@ import { indexLessonSummaries } from './index-lesson-summaries';
 jest.mock('node:fs/promises');
 jest.mock('~lib/supabase');
 jest.mock('./helpers');
+jest.mock('ora', () =>
+    jest.fn().mockReturnValue({
+        start: jest.fn(),
+        succeed: jest.fn(),
+        text: jest.fn(),
+    }),
+);
 
 describe('indexLessonSummaries', () => {
     beforeAll(() => {

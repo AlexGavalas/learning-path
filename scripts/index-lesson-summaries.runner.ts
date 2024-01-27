@@ -1,5 +1,6 @@
 import { indexLessonSummaries } from './index-lesson-summaries';
+import { logger } from './logger';
 
 indexLessonSummaries().catch((e) => {
-    console.error(e);
+    logger.error(e);
 });

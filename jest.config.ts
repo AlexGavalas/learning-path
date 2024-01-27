@@ -8,10 +8,7 @@ const config: Config = {
 
     collectCoverage: false,
     coverageReporters: ['text'],
-    collectCoverageFrom: [
-        'src/{components,features,hooks}/**/*.{ts,tsx}',
-        '!**/index.ts',
-    ],
+    collectCoverageFrom: ['!**/index.ts'],
 
     coverageThreshold: {
         global: {

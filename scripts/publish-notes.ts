@@ -1,6 +1,8 @@
 import ora from 'ora';
 import { type SimpleGit, simpleGit } from 'simple-git';
 
+import { logger } from './logger';
+
 const spinner = ora();
 
 const main = async (): Promise<void> => {
@@ -28,5 +30,5 @@ const main = async (): Promise<void> => {
 
 main().catch((e) => {
     spinner.fail('Failed to publish notes');
-    console.error(e);
+    logger.error(e);
 });

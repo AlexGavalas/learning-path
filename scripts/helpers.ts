@@ -2,6 +2,8 @@ import axios from 'axios';
 import { parse } from 'date-fns';
 import fs from 'node:fs/promises';
 
+import { logger } from './logger';
+
 export const toISOString = (date: string): string =>
     parse(date, 'yyyy-MM-dd', new Date()).toISOString();
 
@@ -42,7 +44,7 @@ export const uploadFile = async ({
 
         await axios.postForm(url, form);
     } catch (e) {
-        console.error(e);
+        logger.error(e);
     }
 };
 
@@ -51,7 +53,7 @@ export const updateEdgeConfig = async (): Promise<void> => {
     const { data, error } = await supabase.rpc('get_notes_meta');
 
     if (error !== null) {
-        console.error(error);
+        logger.error(error);
         process.exit(1);
     }
 
@@ -80,8 +82,8 @@ export const updateEdgeConfig = async (): Promise<void> => {
 
         const responseData = (await res.json()) as unknown;
 
-        console.log('Update Edge Config response', responseData);
+        logger.info('Update Edge Config response', responseData);
     } catch (e) {
-        console.error(e);
+        logger.error(e);
     }
 };

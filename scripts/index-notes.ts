@@ -2,6 +2,7 @@ import 'dotenv/config';
 import matter from 'gray-matter';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import ora from 'ora';
 
 import { supabase } from '~lib/supabase';
 import type { NoteFrontmatter } from '~types/notes.types';
@@ -12,26 +13,27 @@ import {
     updateEdgeConfig,
     uploadFile,
 } from './helpers';
+import { logger } from './logger';
 
 const NOTES_DIR = path.join(process.cwd(), 'src/content/notes');
 
 const DELETE_LABEL = 'Delete took: ';
 const INDEX_LABEL = 'Indexing took: ';
 
+const spinner = ora();
+
 const dropNotesTable = async (): Promise<void> => {
-    console.time(DELETE_LABEL);
+    const profiler = logger.startTimer();
 
     // Delete all records where the title is not empty, meaning all records
     const { error } = await supabase.from('notes').delete().neq('title', '');
 
     if (error !== null) {
-        console.error('Could not delete previous notes.');
-        console.error(error);
-
+        logger.error('Could not delete previous notes.', error);
         process.exit(1);
     }
 
-    console.timeEnd(DELETE_LABEL);
+    profiler.done({ message: DELETE_LABEL });
 };
 
 const indexDocs = async (): Promise<void> => {
@@ -39,7 +41,7 @@ const indexDocs = async (): Promise<void> => {
 
     const notes = await fs.readdir(NOTES_DIR);
 
-    console.time(INDEX_LABEL);
+    const profiler = logger.startTimer();
 
     for (const filename of notes) {
         const fileContents = await fs.readFile(
@@ -53,7 +55,7 @@ const indexDocs = async (): Promise<void> => {
         };
 
         if (data.published === false) {
-            console.log(`Skipping ${filename} as it is not published yet ...`);
+            logger.debug(`Skipping ${filename} as it is not published yet ...`);
 
             continue;
         }
@@ -77,7 +79,8 @@ const indexDocs = async (): Promise<void> => {
             updated,
         }));
 
-        process.stdout.write(`Writing file ${filename} in storage ...`);
+        spinner.text = `Writing file ${filename} in storage ...`;
+        spinner.start();
 
         const UPLOAD_URL = `${getEnvVariable(
             'PUBLIC_FILE_SERVER_URL',
@@ -85,22 +88,24 @@ const indexDocs = async (): Promise<void> => {
 
         await uploadFile({ content, filename, url: UPLOAD_URL });
 
-        process.stdout.write(' [OK]\n');
+        spinner.succeed(`Wrote file ${filename} in storage`);
 
-        process.stdout.write(`Indexing contents of ${filename} ...`);
+        spinner.text = `Indexing contents of ${filename} ...`;
+        spinner.start();
 
         await supabase.from('notes').upsert(values);
 
-        process.stdout.write(' [OK]\n');
+        spinner.succeed(`Indexed contents of ${filename}`);
     }
 
-    console.log('Indexed all docs ...');
+    logger.info('Indexed all docs ...');
 
-    console.timeEnd(INDEX_LABEL);
+    profiler.done({ message: INDEX_LABEL });
 
     await updateEdgeConfig();
 };
 
 indexDocs().catch((e) => {
-    console.error(e);
+    spinner.fail('Failed to index docs');
+    logger.error(e);
 });
