@@ -15,7 +15,11 @@ const spinner = ora();
 const main = async (): Promise<void> => {
     const git: SimpleGit = simpleGit({});
 
-    const diffSummary = await git.diffSummary(['HEAD~', 'HEAD', 'src/content']);
+    const diffSummary = await git.diffSummary([
+        'HEAD~',
+        'HEAD',
+        'src/content/notes',
+    ]);
 
     for (const file of diffSummary.files) {
         const fileContents = await fs.readFile(file.file, 'utf-8');
