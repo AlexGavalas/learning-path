@@ -23,7 +23,7 @@
         "test:coverage": "jest --coverage",
         "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
         "test:watch": "jest --watch",
-        "lint": "eslint --ignore-path .gitignore .",
+        "lint": "eslint --ignore-path .gitignore",
         "oxlint": "oxlint -D=all --jest-plugin --ignore-path=.gitignore",
         "prettier": "prettier .",
         "check:format": "pnpm prettier --list-different",
