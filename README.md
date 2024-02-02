@@ -8,5 +8,7 @@ Hey there. 👋 This is a place where I keep all the interesting stuff I come ac
 -   TIR = Today I Read section / TIL
 -   Get keywords from head meta to use in db
 -   [x] Use git diff to update db
--   Add a logger lib
+-   [x] Add a logger lib
 -   ~~Get new date with timezone in update md timestamps scripts~~
+-   Improve code snippets display with something like [expressive code](https://expressive-code.com/).
+-   Evaluate switching to SQLite for better performance
