@@ -12,7 +12,6 @@ body {
     line-height: 1.6;
     font-size: 1.1rem;
     scrollbar-gutter: stable both-edges;
-    overflow-y: auto;
     scroll-behavior: smooth;
     font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro,
         sans-serif;
