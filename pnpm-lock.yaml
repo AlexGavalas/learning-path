@@ -18,8 +18,8 @@ dependencies:
     specifier: 5.1.0
     version: 5.1.0(astro@4.3.0)(tailwindcss@3.4.1)(ts-node@10.9.2)
   '@astrojs/vercel':
-    specifier: 7.1.0
-    version: 7.1.0(astro@4.3.0)
+    specifier: 7.3.0
+    version: 7.3.0(astro@4.3.0)
   '@supabase/supabase-js':
     specifier: 2.39.3
     version: 2.39.3
@@ -317,8 +317,8 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/vercel@7.1.0(astro@4.3.0):
-    resolution: {integrity: sha512-J5iskScOm90X+XSwY9f87vPhFS0fPyTq2IXn1SZrU2gAqxvdEegiAwlpf1AhMnIwP87XsAQVIoJxzLeKzNo6DQ==}
+  /@astrojs/vercel@7.3.0(astro@4.3.0):
+    resolution: {integrity: sha512-xpGg9i+Wae8hSY/p2P+pbP5pbRbgaIbmtfO29qLndxQoDDygDf/GAaEgEd9y1qMI5Huhl0MbYbEPG5thgt82ng==}
     peerDependencies:
       astro: ^4.2.0
     dependencies:
@@ -328,7 +328,6 @@ packages:
       astro: 4.3.0(@types/node@18.18.0)(typescript@5.3.3)
       esbuild: 0.19.12
       fast-glob: 3.3.2
-      minimatch: 9.0.3
       set-cookie-parser: 2.6.0
       web-vitals: 3.5.2
     transitivePeerDependencies:
