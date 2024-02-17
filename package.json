@@ -41,7 +41,7 @@
         "@supabase/supabase-js": "2.39.6",
         "@tailwindcss/typography": "0.5.10",
         "@vercel/edge-config": "0.4.1",
-        "astro": "4.3.7",
+        "astro": "4.4.0",
         "cross-env": "7.0.3",
         "lodash": "4.17.21",
         "rehype-autolink-headings": "7.1.0",
