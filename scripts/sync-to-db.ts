@@ -110,6 +110,11 @@ const main = async (): Promise<void> => {
             spinner.succeed(`Deleted old entries of ${file.file}`);
         }
     }
+
+    if (diffSummary.files.length > 0) {
+        await git.add('notes-db.sqlite');
+        await git.commit('chore: sync notes to database');
+    }
 };
 
 main().catch((e) => {

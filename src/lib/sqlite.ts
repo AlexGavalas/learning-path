@@ -1,7 +1,10 @@
 import Database from 'better-sqlite3';
+import path from 'node:path';
 
 import { logger } from '../../scripts/logger';
 
-export const db = new Database('notes-db.sqlite3', {
+const dbPath = path.join(process.cwd(), 'notes-db.sqlite3');
+
+export const db = new Database(dbPath, {
     verbose: logger.debug,
 });
