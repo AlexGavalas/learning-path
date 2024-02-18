@@ -20,23 +20,23 @@ const groupByTitle = flow(
     mapValues((notes) => notes.map(({ line }) => line)),
 );
 
-export const fetchNotes = (q: string): { lines: Lines; notes: Note[] } => {
+export const fetchNotes = async (
+    q: string,
+): Promise<{ lines: Lines; notes: Note[] }> => {
     try {
-        const allNotes = db
-            .prepare(
-                'SELECT DISTINCT title, filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
-            )
-            .all() as Note[];
+        const allNotes = await db.$queryRaw<
+            Note[]
+        >`SELECT DISTINCT title, filename, created, updated FROM notes ORDER BY updated DESC, title ASC`;
 
         if (q.length > 0) {
-            const selectNotes = db.prepare(
-                `SELECT * FROM notes WHERE line MATCH @matchQuery UNION SELECT * FROM notes WHERE line LIKE '%' || @rawQuery || '%'`,
-            );
-
-            const data = selectNotes.all({
+            const params = {
                 rawQuery: q,
                 matchQuery: `"${q}"*`,
-            }) as Note[];
+            };
+
+            const data = await db.$queryRaw<
+                Note[]
+            >`SELECT * FROM notes WHERE line MATCH ${params.matchQuery} UNION SELECT * FROM notes WHERE line LIKE '%' || ${params.rawQuery} || '%'`;
 
             const lines = groupByTitle(data);
 
@@ -84,13 +84,11 @@ export const getNoteData = async (
     return (await note?.render()) ?? '';
 };
 
-export const getNoteMetadata = (
+export const getNoteMetadata = async (
     filename: string,
-): NotesCollection['data'] | null => {
+): Promise<NotesCollection['data'] | null> => {
     try {
-        return db
-            .prepare('SELECT * FROM notes WHERE filename = ? LIMIT 1')
-            .get(filename) as NotesCollection['data'] | null;
+        return await db.$queryRaw`SELECT * FROM notes WHERE filename = ${filename} LIMIT 1`;
     } catch (e) {
         logger.error(e);
 
