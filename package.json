@@ -33,6 +33,7 @@
         "validate": "pnpm lint . && pnpm check:format && pnpm check:types"
     },
     "dependencies": {
+        "@astrojs/cloudflare": "9.0.1",
         "@astrojs/mdx": "2.1.1",
         "@astrojs/node": "8.2.0",
         "@astrojs/sitemap": "3.0.5",
