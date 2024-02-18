@@ -1,16 +1,9 @@
-import { getCollection, getEntryBySlug } from 'astro:content';
+import { getEntryBySlug } from 'astro:content';
 
-import { supabase } from '~lib/supabase';
+import { db } from '~lib/sqlite';
 
 import { fetchFileFromStorage } from './helpers';
-import { getAllNoteIds, getNoteData, getNoteMetadata } from './notes';
-
-jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
-    ...jest.requireActual('@vercel/edge-config'),
-    createClient: jest.fn().mockReturnValue({
-        get: jest.fn().mockResolvedValue([{ filename: 'test' }]),
-    }),
-}));
+import { getNoteData, getNoteMetadata } from './notes';
 
 jest.mock(
     'astro:content',
@@ -46,53 +39,6 @@ describe('fetchNotes', () => {
     });
     describe('when there is no query', () => {
         it.todo('returns all notes and an empty object of lines');
-    });
-});
-
-describe('getAllNoteIds', () => {
-    describe('when in production', () => {
-        const previousValue = process.env.PROD;
-
-        beforeAll(() => {
-            process.env.PROD = 'true';
-        });
-
-        afterAll(() => {
-            process.env.PROD = previousValue;
-        });
-
-        it.todo('calls getSlugsFromStorage');
-
-        it('returns the slugs', async () => {
-            const slugs = await getAllNoteIds();
-
-            expect(slugs).toStrictEqual([{ slug: 'test' }]);
-        });
-    });
-
-    describe('when in development', () => {
-        const previousValue = process.env.PROD;
-
-        beforeAll(() => {
-            process.env.PROD = 'false';
-        });
-
-        afterAll(() => {
-            process.env.PROD = previousValue;
-        });
-
-        it('calls getCollection', async () => {
-            await getAllNoteIds();
-
-            expect(getCollection).toHaveBeenCalledTimes(1);
-            expect(getCollection).toHaveBeenCalledWith('notes');
-        });
-
-        it('returns the slugs', async () => {
-            const slugs = await getAllNoteIds();
-
-            expect(slugs).toStrictEqual([{ slug: 'test' }]);
-        });
     });
 });
 
@@ -167,45 +113,27 @@ describe('getNoteData', () => {
 
 describe('getNoteMetadata', () => {
     beforeAll(() => {
-        const { supabase: mockSupabase } =
-            jest.requireMock<typeof import('~lib/__mocks__/supabase')>(
-                '~lib/supabase',
-            );
-
-        mockSupabase.maybeSingle.mockReturnValue({
-            data: 'test data',
-            error: null,
+        jest.spyOn(db, 'prepare').mockReturnValue({
+            ...db.prepare('SELECT 1'),
+            get: jest.fn().mockReturnValue('test data'),
         });
     });
 
-    it('calls supabase.from', async () => {
-        await getNoteMetadata('test');
-
-        expect(supabase.from).toHaveBeenCalledTimes(1);
-        expect(supabase.from).toHaveBeenCalledWith('notes');
-    });
-
-    it('returns the data', async () => {
-        const data = await getNoteMetadata('test');
+    it('returns the data', () => {
+        const data = getNoteMetadata('test');
 
         expect(data).toBe('test data');
     });
 
     describe('when an error occurs', () => {
         beforeAll(() => {
-            const { supabase: mockSupabase } =
-                jest.requireMock<typeof import('~lib/__mocks__/supabase')>(
-                    '~lib/supabase',
-                );
-
-            mockSupabase.maybeSingle.mockReturnValue({
-                data: null,
-                error: 'error',
+            jest.spyOn(db, 'prepare').mockImplementation(() => {
+                throw new Error('test error');
             });
         });
 
-        it('returns null', async () => {
-            const data = await getNoteMetadata('test');
+        it('returns null', () => {
+            const data = getNoteMetadata('test');
 
             expect(data).toBeNull();
         });

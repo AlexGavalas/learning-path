@@ -1,13 +1,12 @@
-import 'dotenv/config';
 import matter from 'gray-matter';
 import fs from 'node:fs/promises';
 import ora from 'ora';
 import { type SimpleGit, simpleGit } from 'simple-git';
 
-import { supabase } from '~lib/supabase';
+import { db } from '~lib/sqlite';
 import type { NoteFrontmatter } from '~types/notes.types';
 
-import { toISOString, updateEdgeConfig } from './helpers';
+import { toISOString } from './helpers';
 import { logger } from './logger';
 
 const spinner = ora();
@@ -80,7 +79,13 @@ const main = async (): Promise<void> => {
             spinner.text = `Adding new entries of ${file.file} ...`;
             spinner.start();
 
-            await supabase.from('notes').upsert(valuesToInsert);
+            const insertNote = db.prepare(
+                'INSERT INTO notes (title, line, filename, created, updated) VALUES (@title, @line, @filename, @created, @updated)',
+            );
+
+            for (const value of valuesToInsert) {
+                insertNote.run(value);
+            }
 
             spinner.succeed(`Added new entries of ${file.file}`);
         }
@@ -89,21 +94,21 @@ const main = async (): Promise<void> => {
             spinner.text = `Deleting old entries of ${file.file} ...`;
             spinner.start();
 
+            const removeNote = db.prepare(
+                'DELETE FROM notes WHERE filename = @filename AND line = @line',
+            );
+
             for (const line of deletions) {
-                await supabase
-                    .from('notes')
-                    .delete()
-                    .match({
-                        line: line.replace(/^-/, '').replace(/^-\s*/, ''),
-                    });
+                const removedLine = line.replace(/^-/, '').replace(/^-\s*/, '');
+
+                removeNote.run({
+                    filename: fname,
+                    line: removedLine,
+                });
             }
 
             spinner.succeed(`Deleted old entries of ${file.file}`);
         }
-    }
-
-    if (diffSummary.files.length > 0) {
-        await updateEdgeConfig();
     }
 };
 
