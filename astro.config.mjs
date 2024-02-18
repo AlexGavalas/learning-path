@@ -1,4 +1,3 @@
-import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
@@ -11,7 +10,6 @@ import { REHYPE_PLUGINS } from './src/config/markdown';
 
 const isProd = process.env.PROD === 'true';
 const isLocalBuild = process.env.LOCAL === 'true';
-const isCloudflare = process.env.CLOUDFLARE === 'true';
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,9 +29,7 @@ export default defineConfig({
         ? node({
               mode: 'standalone',
           })
-        : isCloudflare
-          ? cloudflare()
-          : vercel({
-                functionPerRoute: true,
-            }),
+        : vercel({
+              functionPerRoute: true,
+          }),
 });

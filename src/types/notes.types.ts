@@ -1,12 +1,13 @@
 import type { CollectionEntry, Render } from 'astro:content';
 
-export type Note = {
-    created: string;
-    filename: string;
-    line: string;
-    title: string;
-    updated: string;
-};
+import type { Database } from '~types/database.types';
+
+export type Note = Database['public']['Tables']['notes']['Row'];
+
+export type PartialEdgeConfigNote = Pick<
+    Note,
+    'filename' | 'updated' | 'title' | 'created'
+>;
 
 export type NotesCollection = CollectionEntry<'notes'>;
 

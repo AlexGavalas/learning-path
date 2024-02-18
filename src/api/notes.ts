@@ -1,69 +1,90 @@
-import { getEntryBySlug } from 'astro:content';
+import { createClient } from '@vercel/edge-config';
+import { getCollection, getEntryBySlug } from 'astro:content';
 import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
-import { db } from '~lib/sqlite';
+import { supabase } from '~lib/supabase';
+import type { Database } from '~types/database.types';
 import type {
-    Note,
     NoteRenderResult,
     NotesCollection,
+    PartialEdgeConfigNote,
 } from '~types/notes.types';
 
-import { logger } from '../../scripts/logger';
 import { fetchFileFromStorage } from './helpers';
+
+type SearchNotesRpcResponse =
+    Database['public']['Functions']['search_notes']['Returns'];
 
 type Lines = Record<string, string[]>;
 
+const edgeConfig = createClient(process.env.PUBLIC_EDGE_CONFIG);
+
 const groupByTitle = flow(
-    groupBy<Note>(({ title }) => title),
+    groupBy<SearchNotesRpcResponse[number]>(({ title }) => title),
     mapValues((notes) => notes.map(({ line }) => line)),
 );
 
-export const fetchNotes = (q: string): { lines: Lines; notes: Note[] } => {
-    try {
-        const allNotes = db
-            .prepare(
-                'SELECT DISTINCT title, filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
-            )
-            .all() as Note[];
+export const fetchNotes = async (
+    q: string,
+): Promise<{ lines: Lines; notes: PartialEdgeConfigNote[] }> => {
+    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
 
-        if (q.length > 0) {
-            const selectNotes = db.prepare(
-                `SELECT * FROM notes WHERE line MATCH @matchQuery UNION SELECT * FROM notes WHERE line LIKE '%' || @rawQuery || '%'`,
-            );
+    const allNotes = data ?? [];
 
-            const data = selectNotes.all({
-                rawQuery: q,
-                matchQuery: `"${q}"*`,
-            }) as Note[];
+    if (q.length > 0) {
+        const { data, error } = await supabase.rpc('search_notes', { q });
 
-            const lines = groupByTitle(data);
-
-            const noteTitles = new Set(data.map(({ title }) => title));
-
-            const filteredNotes = allNotes.filter(({ title }) =>
-                noteTitles.has(title),
-            );
-
+        if (error !== null) {
             return {
-                notes: filteredNotes,
-                lines,
+                notes: [],
+                lines: {},
             };
         }
 
-        return {
-            notes: allNotes,
-            lines: {},
-        };
-    } catch (e) {
-        logger.error(e);
+        const lines = groupByTitle(data);
+
+        const noteTitles = new Set(data.map(({ title }) => title));
+
+        const filteredNotes = allNotes.filter(({ title }) =>
+            noteTitles.has(title),
+        );
 
         return {
-            notes: [],
-            lines: {},
+            notes: filteredNotes,
+            lines,
         };
     }
+
+    return {
+        notes: allNotes,
+        lines: {},
+    };
+};
+
+type NoteSlugs = { slug: string }[];
+
+const getSlugsFromStorage = async (): Promise<NoteSlugs | null> => {
+    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
+
+    if (data === undefined) {
+        return null;
+    }
+
+    return data.map((file) => ({
+        slug: file.filename,
+    }));
+};
+
+export const getAllNoteIds = async (): Promise<{ slug: string }[] | null> => {
+    const isProd = process.env.PROD === 'true';
+
+    if (isProd) {
+        return await getSlugsFromStorage();
+    }
+
+    return await getCollection('notes');
 };
 
 export const getNoteData = async (
@@ -84,16 +105,20 @@ export const getNoteData = async (
     return (await note?.render()) ?? '';
 };
 
-export const getNoteMetadata = (
+export const getNoteMetadata = async (
     filename: string,
-): NotesCollection['data'] | null => {
-    try {
-        return db
-            .prepare('SELECT * FROM notes WHERE filename = ? LIMIT 1')
-            .get(filename) as NotesCollection['data'] | null;
-    } catch (e) {
-        logger.error(e);
+): Promise<NotesCollection['data'] | null> => {
+    const { data, error } = await supabase
+        .from('notes')
+        .select('*')
+        .order('updated', { ascending: false })
+        .eq('filename', filename)
+        .limit(1)
+        .maybeSingle();
 
+    if (error !== null) {
         return null;
     }
+
+    return data;
 };
