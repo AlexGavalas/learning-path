@@ -9,7 +9,7 @@
     "scripts": {
         "dev": "astro dev",
         "start:server": "node -r dotenv/config ./dist/server/entry.mjs",
-        "build": "cross-env PROD=true astro build",
+        "build": "prisma generate && cross-env PROD=true astro build",
         "preview": "astro preview",
         "astro": "astro",
         "index:notes": "tsx scripts/index-notes.ts",
