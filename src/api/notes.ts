@@ -28,7 +28,10 @@ const groupByTitle = flow(
 
 export const fetchNotes = async (
     q: string,
-): Promise<{ lines: Lines; notes: PartialEdgeConfigNote[] }> => {
+): Promise<{
+    lines: Lines;
+    notes: Readonly<PartialEdgeConfigNote[]>;
+}> => {
     const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
 
     const allNotes = data ?? [];
