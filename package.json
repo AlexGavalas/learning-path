@@ -87,7 +87,7 @@
         "prettier-plugin-tailwindcss": "0.5.11",
         "pretty-quick": "4.0.0",
         "simple-git": "3.22.0",
-        "supabase": "1.142.2",
+        "supabase": "1.145.2",
         "ts-jest": "29.1.2",
         "ts-node": "10.9.2",
         "tsx": "4.7.1",
