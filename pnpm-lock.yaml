@@ -20,9 +20,6 @@ dependencies:
   '@astrojs/vercel':
     specifier: 7.3.1
     version: 7.3.1(astro@4.4.0)
-  '@opentelemetry/api':
-    specifier: 1.7.0
-    version: 1.7.0
   '@supabase/supabase-js':
     specifier: 2.39.7
     version: 2.39.7
@@ -30,8 +27,8 @@ dependencies:
     specifier: 0.5.10
     version: 0.5.10(tailwindcss@3.4.1)
   '@vercel/edge-config':
-    specifier: 1.0.2
-    version: 1.0.2(@opentelemetry/api@1.7.0)(typescript@5.3.3)
+    specifier: 1.1.0
+    version: 1.1.0(typescript@5.3.3)
   astro:
     specifier: 4.4.0
     version: 4.4.0(@types/node@18.18.0)(typescript@5.3.3)
@@ -1488,11 +1485,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  /@opentelemetry/api@1.7.0:
-    resolution: {integrity: sha512-AdY5wvN0P2vXBi3b29hxZgSFvdhdxPB9+f0B6s//P9Q8nibRWeA3cHm8UmLpio9ABigkVHJ5NMPk+Mz8VCCyrw==}
-    engines: {node: '>=8.0.0'}
-    dev: false
-
   /@pkgjs/parseargs@0.11.0:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
@@ -2275,8 +2267,8 @@ packages:
     resolution: {integrity: sha512-NRIBwfcS0bUoUbRWlNGetqjvLSwgYH/BqKqDN7vK1g32p7dN96k0712COgaz6VFizAm9b0g6IG6hR6+hc0KCPg==}
     dev: false
 
-  /@vercel/edge-config@1.0.2(@opentelemetry/api@1.7.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-HZAlFeDQC4tBonBiPecvV8hWxiNVKADQ6jNfTDCOQzT0VyFA6UTX7yJ1I+94S3KrQC+YEBelqbFFkg4nIFghhQ==}
+  /@vercel/edge-config@1.1.0(typescript@5.3.3):
+    resolution: {integrity: sha512-es/4BzzKfyUilL5E1knR42MZHJqHMRfqitrnv18gVZZUha9ywrX3qNoCrPsNMJ1HS8xAAz/FJEyel7YFIDfKoQ==}
     engines: {node: '>=14.6'}
     peerDependencies:
       '@opentelemetry/api': ^1.7.0
@@ -2284,7 +2276,6 @@ packages:
       '@opentelemetry/api':
         optional: true
     dependencies:
-      '@opentelemetry/api': 1.7.0
       '@vercel/edge-config-fs': 0.1.0
       ts-essentials: 9.4.1(typescript@5.3.3)
     transitivePeerDependencies:
