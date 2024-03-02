@@ -1,7 +1,7 @@
 ---
 title: Secure Coding - Preventing Sensitive Data Exposure
 created: '2023-05-22'
-updated: '2023-07-10'
+updated: '2024-03-02'
 published: true
 ---
 
@@ -9,15 +9,15 @@ Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/course
 
 Data can be grouped into three categories.
 
-Application data (eg. configuration, byproducts like logging data), user data (eg. personal identifying information) and data protecting data (eg. passwords and access control lists).
+Application data (e.g. configuration, byproducts like logging data), user data (e.g. personal identifying information) and data protecting data (e.g. passwords and access control lists).
 
-Not all data are considered sensitive, like generic user data, logging data that do not leak sensitive information. OWASP defines sensitive data as any data that can be used to identify a user, eg. name, address, financial information, username.
+Not all data are considered sensitive, like generic user data, logging data that do not leak sensitive information. OWASP defines sensitive data as any data that can be used to identify a user, e.g. name, address, financial information, username.
 
 ## Attack surface analysis
 
 We need to identify points (attack vectors) of possible vulnerabilities.
 
-In a web application there are two main attack vectors. Data in-transit, meaning the connections between the components (eg. HTTP endpoints), and data at rest, meaning files or software (eg. database files or the browser).
+In a web application there are two main attack vectors. Data in-transit, meaning the connections between the components (e.g. HTTP endpoints), and data at rest, meaning files or software (e.g. database files or the browser).
 
 ## Attacking the web application
 
@@ -54,7 +54,7 @@ A basic step for the browser is to match the address the user navigates to with 
 
 ### Protocol downgrading attack
 
-When an HTTPS application still sends some traffic over plain HTTP, it can expose any sensitive information (eg. session cookies).
+When an HTTPS application still sends some traffic over plain HTTP, it can expose any sensitive information (e.g. session cookies).
 
 The header `HTTP Strict-Transport-Security` (`HSTS`), indicates to the browser that it should never communicate over plain HTTP. This should be sent in at least one request over HTTPS and the certificate must be valid. Then the browser will try to upgrade any plain HTTP requests to HTTPS.
 
@@ -77,4 +77,4 @@ We can make the hashing function run as slow as possible to make it difficult fo
 #### OWASP recommendations 🔒
 
 -   Recommended hash functions: Argon2, PBKDF2, Scrypt, Bcrypt, HMACs
--   Set a maximum length for passwords (eg. 160 characters), without limiting the character set
+-   Set a maximum length for passwords (e.g. 160 characters), without limiting the character set

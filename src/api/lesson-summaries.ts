@@ -25,7 +25,7 @@ export const getLessonSummaries = async (): Promise<
     const { data: summaries, error } = await supabase
         .from('lesson_summaries_meta')
         .select('*')
-        .order('updated', { ascending: false });
+        .order('created', { ascending: false });
 
     if (error !== null) {
         return null;

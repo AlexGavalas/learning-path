@@ -1,7 +1,7 @@
 ---
 title: Web application security with bash
 created: '2023-05-20'
-updated: '2023-07-10'
+updated: '2024-03-02'
 published: true
 ---
 
@@ -17,7 +17,7 @@ common ports: 80, 443, 8080, 8443
 
 ### Scan ips
 
-curl with range ips eg:
+curl with range ips example:
 
 ```bash
 curl http://192.168.2.[1-50]
@@ -63,7 +63,7 @@ nmap with aggressive mode "-A" flag. Send packets to each open server and tries 
 
 Pages, files, directories, parameters
 
--   Crawling: Simulates user exploration automatically. Stealthy and quick but can miss hidden content (eg. a page that is not linked)
+-   Crawling: Simulates user exploration automatically. Stealthy and quick but can miss hidden content (e.g. a page that is not linked)
 
 Visit every link and download everything:
 
@@ -71,9 +71,9 @@ Visit every link and download everything:
 wget --recursive http://..
 ```
 
--   Brute forcing: Tests common filenames and parameters. Can discover hidden content but is noisy and slow. Important to have a good wordlist. Eg. https://github.com/danielmiessler/seclists
+-   Brute forcing: Tests common filenames and parameters. Can discover hidden content but is noisy and slow. Important to have a good wordlist, like https://github.com/danielmiessler/seclists.
 
-Eg.
+Example
 
 ```bash
 for word in $wordlist; do wget http://site.com/$word; done;
@@ -83,9 +83,9 @@ For parameter brute force, we can use the ffuf tool (https://github.com/ffuf/ffu
 
 ## Vulnerability discovery
 
-Web server vulnerabilities relate to the web server (eg. Apache) and are usually misconfigurations or lack of patching.
+Web server vulnerabilities relate to the web server (e.g. Apache) and are usually misconfigurations or lack of patching.
 
-Web application vulnerabilities are on the web application implementation (eg. SQL injections)
+Web application vulnerabilities are on the web application implementation (e.g. SQL injections)
 
 Find vulnerabilities with nmap. Perform all the enumerations and run all the scripts related. This might take some time.
 
