@@ -3,10 +3,10 @@ import List from '~components/list/list.astro';
 import ListItem from '~components/list/list-item.astro';
 import FormattedDate from '~components/formatted-date.astro';
 import type { PartialEdgeConfigNote } from '~types/notes.types';
-import './notes-list.css';
+import { item, link, noNotes, text } from './notes-list.css';
 
 interface Props {
-    notes: PartialEdgeConfigNote[];
+    notes: readonly PartialEdgeConfigNote[];
     lines?: Record<string, string[]>;
     baseUrl: string;
 }
@@ -17,16 +17,16 @@ const hasNotes = notes.length > 0;
 
 {
     hasNotes ? (
-        <ul class="list-none divide-y-2 divide-solid divide-light-border dark:divide-zinc-800">
+        <ul>
             {notes.map(({ filename, updated, title }, index) => {
                 const dateId = `${index}d`;
                 const textId = `${index}t`;
 
                 return (
-                    <li>
+                    <li class={item}>
                         <a
                             aria-labelledby={`${textId} ${dateId}`}
-                            class="link"
+                            class={link}
                             href={`/${baseUrl}/${filename}`}
                         >
                             <FormattedDate
@@ -37,7 +37,7 @@ const hasNotes = notes.length > 0;
                             />
                             <span
                                 aria-label={`Notes about ${title}`}
-                                class="text"
+                                class={text}
                                 id={textId}
                             >
                                 {title}
@@ -55,6 +55,6 @@ const hasNotes = notes.length > 0;
             })}
         </ul>
     ) : (
-        <p class="text-center">No notes found</p>
+        <p class={noNotes}>No notes found</p>
     )
 }

@@ -1,9 +1,10 @@
 ---
 import GlobalLayout from '~layouts/global.astro';
-import Banner from '~components/banner.astro';
+import Banner from '~components/banner/banner.astro';
 import NotesList from '~components/notes-list/notes-list.astro';
-import SearchArea from '~components/search-area.astro';
+import SearchArea from '~components/search-area/search-area.astro';
 import { fetchNotes } from '~api/notes';
+import * as cn from '~styles/pages/index.css';
 import { QUERY_FIELD_NAME, TITLE } from '~constants';
 
 const q = Astro.url.searchParams.get(QUERY_FIELD_NAME) ?? '';
@@ -14,10 +15,14 @@ const title = q ? `${q} | ${TITLE}` : TITLE;
 ---
 
 <GlobalLayout title={title}>
-    <section class="text-xl leading-8 grid gap-6">
-        <Banner />
+    <section class={cn.container}>
+        <Banner>
+            Hey there. 👋 This is a place where I keep all the interesting stuff
+            I come across. Feel free to explore. It is a WIP, so you can expect
+            things to change.
+        </Banner>
         <SearchArea q={q} />
-        <h1 class="text-black dark:text-white">Notes</h1>
+        <h1>Notes</h1>
         <NotesList lines={lines} notes={notes} baseUrl="notes" />
     </section>
 </GlobalLayout>

@@ -1,5 +1,6 @@
 ---
 import FormattedDate from '~components/formatted-date.astro';
+import * as cn from './note-header.css';
 
 interface Props {
     title: string;
@@ -10,15 +11,13 @@ interface Props {
 const { title, created, updated } = Astro.props;
 ---
 
-<h1 class="my-8 text-2xl">{title}</h1>
-<div
-    class="mb-4 flex flex-col sm:flex-row gap-2 text-slate-600 dark:text-slate-400"
->
+<h1 class={cn.title}>{title}</h1>
+<div class={cn.container}>
     <p>
         Created at{' '}
         <FormattedDate dateString={created} />
     </p>
-    <p class="hidden sm:block">||</p>
+    <span class={cn.separator}>||</span>
     <p>
         Updated at{' '}
         <FormattedDate dateString={updated} />

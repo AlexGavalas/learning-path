@@ -1,48 +1,12 @@
 ---
-const CELLS_NUM = 125;
-const ROWS = 5;
+import { cell, container } from './article-banner.css';
+import { CELLS_NUM, INDEX_VAR } from './config';
 ---
 
-<div
-    class="wrapper"
-    style={`--cells: ${CELLS_NUM}; --columns: ${CELLS_NUM / ROWS}`}
->
+<div class={container}>
     {
-        Array.from({ length: CELLS_NUM }).map((_, idx) => (
-            <div class="item" style={`--idx: ${idx};`} />
+        Array.from({ length: CELLS_NUM }, (_, idx) => (
+            <div class={cell} style={`${INDEX_VAR}: ${idx};`} />
         ))
     }
 </div>
-
-<style>
-    @keyframes blink {
-        0%,
-        100% {
-            opacity: 0.75;
-        }
-        50% {
-            opacity: 0.25;
-        }
-    }
-
-    .wrapper {
-        --item-stagger: 0.1s;
-        --total-stagger: calc(var(--cells) * var(--item-stagger));
-
-        display: grid;
-        grid-template-columns: repeat(var(--columns), 1fr);
-        gap: 0.3rem;
-    }
-
-    .item {
-        @apply bg-light-primary dark:bg-dark-primary;
-
-        aspect-ratio: 1;
-        border-radius: 20%;
-        animation: 3s blink infinite alternate ease-in-out;
-
-        animation-delay: calc(
-            -1 * var(--total-stagger) + var(--idx) * var(--item-stagger)
-        );
-    }
-</style>

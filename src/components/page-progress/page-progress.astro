@@ -1,32 +1,34 @@
 ---
-import Loader from './loader/linear.astro';
+import Loader from '~components/loader/linear.astro';
+import * as cn from './page-progress.css';
 ---
 
 <page-progress>
-    <div id="wrapper" class="fixed w-full h-1 hidden z-50">
+    <div id="wrapper" class={cn.loader} hidden>
         <Loader id="page-loader" />
     </div>
 </page-progress>
 
 <script>
     class PageProgress extends HTMLElement {
-        loader = this.querySelector('#page-loader');
-        wrapper = this.querySelector('#wrapper');
-        internalLinks: NodeListOf<HTMLAnchorElement> =
-            document.querySelectorAll('a[href^="/"]');
+        loader: HTMLElement | null = null;
+        wrapper: HTMLElement | null = null;
+        internalLinks: NodeListOf<HTMLAnchorElement> | null = null;
 
         showLoader = (event: MouseEvent) => {
             if (
+                this.wrapper &&
                 event.currentTarget instanceof HTMLAnchorElement &&
                 event.currentTarget.href !== window.location.href
             ) {
-                this.loader?.classList.add('animate-loader');
-                this.wrapper?.classList.remove('hidden');
+                this.wrapper.hidden = false;
             }
         };
 
         connectedCallback() {
-            this.loader?.classList.remove('animate-loader');
+            this.loader = this.querySelector('#page-loader');
+            this.wrapper = this.querySelector('#wrapper');
+            this.internalLinks = document.querySelectorAll('a[href^="/"]');
 
             this.internalLinks?.forEach((link) => {
                 link.addEventListener('click', this.showLoader, {
@@ -36,7 +38,7 @@ import Loader from './loader/linear.astro';
         }
 
         disconnectedCallback() {
-            this.internalLinks.forEach((link) => {
+            this.internalLinks?.forEach((link) => {
                 link.removeEventListener('click', this.showLoader);
             });
         }
