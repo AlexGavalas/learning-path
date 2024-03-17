@@ -1,18 +1,10 @@
-import { keyframes, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
+import { blink } from '../../styles/animations.css';
 import { vars } from '../../styles/theme.css';
 import { CELLS_NUM, COLUMNS, INDEX_VAR, ITEM_STAGGER } from './config';
 
 const TOTAL_STAGGER = CELLS_NUM * ITEM_STAGGER;
-
-const blink = keyframes({
-    '0%, 100%': {
-        opacity: 0.75,
-    },
-    '50%': {
-        opacity: 0.25,
-    },
-});
 
 export const container = style({
     display: 'grid',

@@ -1,15 +1,7 @@
-import { keyframes, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
+import { drawLine } from '../../styles/animations.css';
 import { vars } from '../../styles/theme.css';
-
-const draw = keyframes({
-    from: {
-        strokeDashoffset: 200,
-    },
-    to: {
-        strokeDashoffset: 0,
-    },
-});
 
 export const container = style({
     verticalAlign: 'middle',
@@ -21,5 +13,5 @@ export const logo = style({
     strokeWidth: 1,
     strokeLinecap: 'round',
     strokeDasharray: '200 200',
-    animation: `${draw} 3s linear forwards`,
+    animation: `${drawLine} 3s linear forwards`,
 });

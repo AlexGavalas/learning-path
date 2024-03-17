@@ -1,15 +1,7 @@
-import { keyframes, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
+import { pulse } from '../../styles/animations.css';
 import { vars } from '../../styles/theme.css';
-
-const pulse = keyframes({
-    '0%': {
-        opacity: 0.2,
-    },
-    '100%': {
-        opacity: 1,
-    },
-});
 
 export const item = style({
     selectors: {
