@@ -1,10 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { loader } from './linear.css';
+import * as cn from './linear.css';
 
 interface Props extends HTMLAttributes<'div'> {}
 
 const { class: extraClass, ...rest } = Astro.props;
 ---
 
-<div class:list={[loader, extraClass]} {...rest}></div>
+<div class:list={[cn.loader, extraClass]} {...rest}></div>

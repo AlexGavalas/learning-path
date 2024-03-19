@@ -1,12 +1,12 @@
 ---
-import { cell, container } from './article-banner.css';
+import * as cn from './article-banner.css';
 import { CELLS_NUM, INDEX_VAR } from './config';
 ---
 
-<div class={container}>
+<div class={cn.container}>
     {
         Array.from({ length: CELLS_NUM }, (_, idx) => (
-            <div class={cell} style={`${INDEX_VAR}: ${idx};`} />
+            <div class={cn.cell} style={`${INDEX_VAR}: ${idx};`} />
         ))
     }
 </div>

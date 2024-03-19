@@ -9,7 +9,7 @@ interface Props {
 const { prefix } = Astro.props;
 ---
 
-<copy-to-clipboard class={cn.container}>
+<copy-to-clipboard hidden>
     {prefix ? `${prefix} - ` : ''}
     <Button class={cn.buttonCn}>Copy to clipboard</Button>
     <div id="target">
@@ -18,8 +18,6 @@ const { prefix } = Astro.props;
 </copy-to-clipboard>
 
 <script>
-    import { container } from './copy-to-clipboard.css';
-
     class CopyToClipboard extends HTMLElement {
         copyToClipboard() {
             const targetText =
@@ -31,7 +29,7 @@ const { prefix } = Astro.props;
         }
 
         connectedCallback() {
-            this.classList.remove(container);
+            this.hidden = false;
             this.addEventListener('click', this.copyToClipboard);
         }
 

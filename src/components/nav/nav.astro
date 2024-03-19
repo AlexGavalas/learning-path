@@ -1,6 +1,6 @@
 ---
 import Link from '~components/link/link.astro';
-import { navContainer, linkLabel } from './nav.css';
+import * as cn from './nav.css';
 
 interface Props {
     links: {
@@ -12,10 +12,10 @@ interface Props {
 const { links } = Astro.props;
 ---
 
-<nav class={navContainer}>
+<nav class={cn.navContainer}>
     {
         links.map((link) => (
-            <Link class={linkLabel} href={link.href}>
+            <Link class={cn.linkLabel} href={link.href}>
                 {link.label}
             </Link>
         ))
