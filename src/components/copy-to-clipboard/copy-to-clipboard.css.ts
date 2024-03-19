@@ -8,5 +8,5 @@ export const container = style({
 
 export const buttonCn = style({
     display: 'inline-block',
-    padding: `0 ${vars.spacing.small}`,
+    padding: `0 ${vars.spacing.sm}`,
 });

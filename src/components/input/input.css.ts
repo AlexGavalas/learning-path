@@ -13,7 +13,7 @@ export const input = style({
     borderRadius: '5px',
     border: `2px solid ${vars.color.border}`,
     fontSize: '0.8em',
-    paddingLeft: vars.spacing.small,
+    paddingLeft: vars.spacing.sm,
     '::placeholder': {
         color: vars.color.secondary,
         opacity: 0.6,

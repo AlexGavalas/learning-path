@@ -14,8 +14,8 @@ export const item = style({
 export const link = style({
     display: 'grid',
     gridTemplateColumns: 'auto 1fr auto',
-    gap: vars.spacing.medium,
-    padding: vars.spacing.small,
+    gap: vars.spacing.md,
+    padding: vars.spacing.sm,
     ':hover': {
         backgroundColor: vars.color.backgroundHover,
     },

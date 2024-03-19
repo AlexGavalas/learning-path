@@ -2,10 +2,10 @@ import { assignVars, createThemeContract, style } from '@vanilla-extract/css';
 
 const SPACING = {
     xs: '0.25rem',
-    small: '0.5rem',
-    medium: '1rem',
-    large: '2rem',
-};
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '2rem',
+} as const;
 
 export const SCREEN = {
     xs: '320px',
@@ -15,9 +15,9 @@ export const SCREEN = {
 export const vars = createThemeContract({
     spacing: {
         xs: '',
-        small: '',
-        medium: '',
-        large: '',
+        sm: '',
+        md: '',
+        lg: '',
     },
     color: {
         primary: '',
@@ -48,7 +48,7 @@ export const lightTheme = style({
             primary: '#0f766e',
             secondary: '#475569',
             border: '#cbd5e1',
-            background: '#ececec',
+            background: '#fefefe',
             backgroundHover: '#e2e2e2',
             typography: {
                 primary: '#000000',

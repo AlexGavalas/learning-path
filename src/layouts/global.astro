@@ -6,7 +6,7 @@ import Nav from '~components/nav/nav.astro';
 import Header from '~components/header/header.astro';
 import { DEFAULT_THEME } from '~constants';
 import { darkTheme, lightTheme } from '~styles/theme.css';
-import { body, mainContainer } from './global.css';
+import * as cn from './global.css';
 
 interface Props {
     title: string;
@@ -20,10 +20,7 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
 <!doctype html>
 <html
     lang="en"
-    class:list={[
-        theme === 'light' ? 'light' : 'dark',
-        theme === 'light' ? lightTheme : darkTheme,
-    ]}
+    class:list={[cn.page, theme === 'light' ? lightTheme : darkTheme]}
     style={`color-scheme: ${theme};`}
 >
     <head>
@@ -31,8 +28,8 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
         <ViewTransitions />
     </head>
     <PageProgress />
-    <body class={body}>
-        <main class={mainContainer}>
+    <body>
+        <main class={cn.mainContainer}>
             <Header />
             <Nav
                 links={[

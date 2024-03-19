@@ -5,18 +5,18 @@ import { vars } from '../styles/theme.css';
 export const articleContainer = style({
     display: 'flex',
     flexDirection: 'column',
-    gap: vars.spacing.large,
+    gap: vars.spacing.lg,
     overflow: 'hidden',
     width: '100%',
 });
 
 export const banner = style({
-    marginBottom: vars.spacing.medium,
+    marginBottom: vars.spacing.md,
 });
 
 export const backLink = style({
     display: 'inline-block',
-    marginBottom: vars.spacing.large,
+    marginBottom: vars.spacing.lg,
 });
 
 export const note = style({
@@ -37,15 +37,15 @@ globalStyle(`${note} :where(h2)`, {
 globalStyle(`${note} :where(h1, h2, h3, h4, h5, h6)`, {
     color: vars.color.primary,
     fontWeight: 'bold',
-    marginBottom: vars.spacing.large,
+    marginBottom: vars.spacing.lg,
 });
 
 globalStyle(`${note} p`, {
-    margin: `${vars.spacing.medium} 0`,
+    margin: `${vars.spacing.md} 0`,
 });
 
 globalStyle(`${note} :where(h1, h2, h3, h4, h5, h6):has(a)`, {
-    scrollMarginTop: vars.spacing.medium,
+    scrollMarginTop: vars.spacing.md,
 });
 
 globalStyle(`${note} :where(h1, h2) a`, {
@@ -61,13 +61,13 @@ globalStyle(`${note} a`, {
 });
 
 globalStyle(`${note} ul`, {
-    marginBottom: vars.spacing.large,
+    marginBottom: vars.spacing.lg,
 });
 
 globalStyle(`${note} li`, {
     listStyle: 'inside',
-    margin: `${vars.spacing.small} 0`,
-    paddingLeft: vars.spacing.small,
+    margin: `${vars.spacing.sm} 0`,
+    paddingLeft: vars.spacing.sm,
 });
 
 globalStyle(`${note} li::marker`, {
@@ -76,13 +76,17 @@ globalStyle(`${note} li::marker`, {
 
 globalStyle(`${note} hr`, {
     borderColor: vars.color.border,
-    margin: `${vars.spacing.large} 0`,
+    margin: `${vars.spacing.lg} 0`,
 });
 
 globalStyle(`${note} code`, {
     fontFamily: 'monospace',
-    fontWeight: 600,
     fontSize: '0.875em',
+    fontWeight: 400,
+});
+
+globalStyle(`${note} p code`, {
+    fontWeight: 600,
 });
 
 globalStyle(`${note} code::before`, {
@@ -94,8 +98,8 @@ globalStyle(`${note} code::after`, {
 });
 
 globalStyle(`${note} pre`, {
-    margin: `${vars.spacing.large} 0`,
-    padding: vars.spacing.medium,
+    margin: `${vars.spacing.lg} 0`,
+    padding: vars.spacing.md,
 });
 
 globalStyle(`${note} pre code::before`, {
@@ -118,7 +122,6 @@ globalStyle(`${note} .line::before`, {
     opacity: 0.3,
 });
 
-// TODO: markdown always has an extra line for code blocks for some reason
-// globalStyle(`${note} .line:only-child::before`, {
-//     content: '',
-// });
+globalStyle(`${note} .line:last-child:empty`, {
+    display: 'none',
+});

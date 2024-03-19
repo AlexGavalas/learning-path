@@ -8,7 +8,7 @@ const base = style({
     borderRadius: '5px',
     border: 'none',
     color: vars.color.button.text,
-    padding: vars.spacing.small,
+    padding: vars.spacing.sm,
     ':active': {
         opacity: 0.8,
     },

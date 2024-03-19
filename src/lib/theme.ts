@@ -14,8 +14,6 @@ export const getInitialTheme = (): string => {
 };
 
 export const setThemeInPage = (newTheme: string): void => {
-    document.documentElement.classList.toggle('dark', newTheme === THEME.DARK);
-
     document.documentElement.classList.toggle(
         lightTheme,
         newTheme === THEME.LIGHT,

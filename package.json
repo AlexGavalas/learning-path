@@ -29,7 +29,7 @@
         "check:types": "tsc --noEmit",
         "format": "pnpm prettier --write",
         "prepare": "husky",
-        "cleaninstall": "rm -rf node_modules/ pnpm-lock.yaml .astro/ dist/ && pnpm install && pnpm astro sync",
+        "clean:install": "rm -rf node_modules/ pnpm-lock.yaml .astro/ dist/ && pnpm install && pnpm astro sync",
         "validate": "pnpm lint . && pnpm check:format && pnpm check:types"
     },
     "dependencies": {

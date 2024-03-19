@@ -10,8 +10,8 @@ export const container = style({
 });
 
 export const logo = style({
-    margin: `${vars.spacing.small} 0`,
-    padding: vars.spacing.small,
+    margin: `${vars.spacing.sm} 0`,
+    padding: vars.spacing.sm,
     width: '30%',
     minWidth: '150px',
     borderRadius: '5px',

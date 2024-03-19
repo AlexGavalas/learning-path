@@ -4,5 +4,5 @@ import { vars } from '../../styles/theme.css';
 
 export const list = style({
     hyphens: 'auto',
-    padding: vars.spacing.medium,
+    padding: vars.spacing.md,
 });

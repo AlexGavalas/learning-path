@@ -33,7 +33,7 @@ const documentTitle = `${title} | ${TITLE}`;
                 </div>
             )
         }
-        <div class:list={['prose dark:prose-invert', note]}>
+        <div class={note}>
             <slot />
         </div>
         <Link href={backUrl} class={backLink}>&#x21dc; Back to home</Link>

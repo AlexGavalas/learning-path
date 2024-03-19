@@ -5,7 +5,7 @@ import { vars } from '../../styles/theme.css';
 export const container = style({
     display: 'flex',
     flexDirection: 'column',
-    gap: vars.spacing.large,
+    gap: vars.spacing.lg,
     lineHeight: '2rem',
     fontSize: '1.25rem',
 });

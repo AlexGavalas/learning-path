@@ -6,10 +6,10 @@ export const navContainer = style({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: vars.spacing.medium,
+    gap: vars.spacing.md,
     color: vars.color.primary,
 });
 
 export const linkLabel = style({
-    padding: vars.spacing.small,
+    padding: vars.spacing.sm,
 });

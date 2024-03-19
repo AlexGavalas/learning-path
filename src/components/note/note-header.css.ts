@@ -8,7 +8,7 @@ export const title = style({
 
 export const container = style({
     display: 'flex',
-    gap: vars.spacing.medium,
+    gap: vars.spacing.md,
     color: vars.color.secondary,
     '@media': {
         [`screen and (max-width: ${SCREEN.sm})`]: {
