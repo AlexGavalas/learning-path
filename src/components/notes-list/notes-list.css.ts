@@ -13,7 +13,7 @@ export const item = style({
 
 export const link = style({
     display: 'grid',
-    gridTemplateColumns: 'auto 1fr auto',
+    gridTemplateColumns: 'auto 1fr 14px',
     gap: vars.spacing.md,
     padding: vars.spacing.sm,
     ':hover': {

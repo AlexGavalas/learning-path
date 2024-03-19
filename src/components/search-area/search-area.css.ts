@@ -21,7 +21,7 @@ export const searchButton = style({
 
 export const loader = style({
     position: 'absolute',
-    bottom: '-1px',
+    bottom: '-8px',
     height: '2px',
     width: '100%',
 });
