@@ -1,8 +1,9 @@
 ---
 import { QUERY_FIELD_NAME } from '~constants';
 import Loader from '~components/loader/linear.astro';
-import Button from '~components/button.astro';
-import Input from './input.astro';
+import Button from '~components/button/button.astro';
+import Input from '~components/input/input.astro';
+import * as cn from './search-area.css';
 
 interface Props {
     q?: string;
@@ -12,7 +13,7 @@ const { q } = Astro.props;
 ---
 
 <search-area>
-    <form class="relative flex h-16 items-center">
+    <form class={cn.container}>
         <Input
             label="Search notes"
             name={QUERY_FIELD_NAME}
@@ -20,10 +21,10 @@ const { q } = Astro.props;
             placeholder="Type here"
             value={q}
         />
-        <div class="absolute bottom-0 right-0 flex h-1/2 gap-2 p-1 text-sm">
+        <div class={cn.searchButton}>
             <Button>Search</Button>
         </div>
-        <div id="loader" class="hidden absolute -bottom-1 h-[2px] w-full">
+        <div id="loader" class={cn.loader} hidden>
             <Loader />
         </div>
     </form>
@@ -52,7 +53,9 @@ const { q } = Astro.props;
         };
 
         handleSearch = (e: SubmitEvent) => {
-            this.loaderElement?.classList.remove('hidden');
+            if (this.loaderElement) {
+                this.loaderElement.hidden = false;
+            }
 
             const url = new URL(location.href);
             const query = this.inputElement?.value ?? '';

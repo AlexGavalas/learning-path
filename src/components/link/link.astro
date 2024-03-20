@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import * as cn from './link.css';
+
+interface Props extends HTMLAttributes<'a'> {}
+
+const { class: extraClass, ...props } = Astro.props;
+---
+
+<a {...props} class:list={[cn.link, extraClass]}>
+    <slot />
+</a>

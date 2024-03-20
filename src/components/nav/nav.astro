@@ -1,0 +1,23 @@
+---
+import Link from '~components/link/link.astro';
+import * as cn from './nav.css';
+
+interface Props {
+    links: {
+        href: string;
+        label: string;
+    }[];
+}
+
+const { links } = Astro.props;
+---
+
+<nav class={cn.navContainer}>
+    {
+        links.map((link) => (
+            <Link class={cn.linkLabel} href={link.href}>
+                {link.label}
+            </Link>
+        ))
+    }
+</nav>

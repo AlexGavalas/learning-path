@@ -1,7 +1,9 @@
 ---
 import GlobalLayout from '~layouts/global.astro';
 import NotesList from '~components/notes-list/notes-list.astro';
+import Banner from '~components/banner/banner.astro';
 import { getLessonSummaries } from '~api/lesson-summaries';
+import * as cn from '~styles/pages/summaries.css';
 import { TITLE } from '~constants';
 
 const summaries = await getLessonSummaries();
@@ -14,13 +16,13 @@ const title = `Lesson Summaries | ${TITLE}`;
 ---
 
 <GlobalLayout title={title}>
-    <section class="text-xl leading-8 grid gap-6">
-        <h1 class="text-black dark:text-white">Lesson Summaries</h1>
-        <p class="text-center">
+    <section class={cn.container}>
+        <h1>Lesson Summaries</h1>
+        <Banner>
             This is where I will try to summarise the things I learn. Either
             from online courses or from an interesting article I read, I keep
             the things I find interesting here.
-        </p>
+        </Banner>
         <NotesList baseUrl="lessons-summary" notes={summaries} />
     </section>
 </GlobalLayout>

@@ -5,6 +5,7 @@ import path from 'node:path';
 import ora from 'ora';
 
 import { supabase } from '~lib/supabase';
+import { type LessonSummaryFrontmatter } from '~types/lesson-summaries.types';
 
 import { getEnvVariable, readFile, toISOString, uploadFile } from './helpers';
 import { logger } from './logger';
@@ -31,8 +32,14 @@ export const indexLessonSummaries = async (): Promise<void> => {
             fileContents,
         ) as unknown as {
             content: string;
-            data: { title: string; created: string; updated: string };
+            data: LessonSummaryFrontmatter;
         };
+
+        if (frontmatter.published === false) {
+            logger.debug(`Skipping ${filename} as it is not published yet ...`);
+
+            continue;
+        }
 
         const { error } = await supabase.from('lesson_summaries_meta').upsert({
             filename: filename.replace(/\.mdx$/, ''),

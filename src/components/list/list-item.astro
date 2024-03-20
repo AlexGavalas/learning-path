@@ -1,5 +1,7 @@
-<li
-    class="list-disc text-[0.9em] marker:text-light-primary dark:marker:text-dark-primary"
->
+---
+import * as cn from './list-item.css';
+---
+
+<li class={cn.item}>
     <slot />
 </li>

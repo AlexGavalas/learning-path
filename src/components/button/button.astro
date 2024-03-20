@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import * as cn from './button.css';
+
+interface Props extends HTMLAttributes<'button'> {
+    variant?: ButtonVariant;
+}
+
+type ButtonVariant = 'wrapper' | 'default';
+
+const { variant = 'default', class: extraClass, ...rest } = Astro.props;
+---
+
+<button {...rest} class:list={[cn.button[variant], extraClass]}>
+    <slot />
+</button>

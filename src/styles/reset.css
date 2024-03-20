@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    font: inherit;
+}
+
+html {
+    overscroll-behavior-y: none;
+}
+
+html,
+body {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    scrollbar-gutter: stable both-edges;
+    scroll-behavior: smooth;
+    font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro,
+        sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+p,
+ul {
+    margin: 0;
+}

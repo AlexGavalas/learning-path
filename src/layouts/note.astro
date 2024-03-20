@@ -1,9 +1,11 @@
 ---
 import type { NoteFrontmatter } from '~types/notes.types';
-import NoteHeader from '~components/note-header.astro';
+import Link from '~components/link/link.astro';
+import NoteHeader from '~components/note/note-header.astro';
 import ArticleBanner from '~components/article-banner/article-banner.astro';
 import GlobalLayout from '~layouts/global.astro';
 import { TITLE } from '~constants';
+import * as cn from './note.css';
 
 interface Props extends NoteFrontmatter {
     hasBannerEnabled?: boolean;
@@ -22,25 +24,18 @@ const documentTitle = `${title} | ${TITLE}`;
 ---
 
 <GlobalLayout title={documentTitle}>
-    <article class="w-full overflow-hidden">
+    <article class={cn.articleContainer}>
         <NoteHeader title={title} created={created} updated={updated} />
         {
             hasBannerEnabled && (
-                <div class="mb-4">
+                <div class={cn.banner}>
                     <ArticleBanner />
                 </div>
             )
         }
-        <div
-            class="heading dark:dark-heading prose dark:prose-invert prose-headings:text-light-primary prose-li:marker:text-light-primary dark:prose-headings:text-dark-primary dark:prose-li:marker:text-dark-primary min-w-full hyphens-auto text-justify"
-        >
+        <div class={cn.note}>
             <slot />
         </div>
-        <a
-            href={backUrl}
-            class="my-8 inline-block cursor-pointer bg-transparent p-0 text-lg text-light-primary hover:underline dark:text-dark-primary"
-        >
-            &#x21dc; Back to home
-        </a>
+        <Link href={backUrl} class={cn.backLink}>&#x21dc; Back to home</Link>
     </article>
 </GlobalLayout>

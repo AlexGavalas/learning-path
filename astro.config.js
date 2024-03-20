@@ -1,8 +1,8 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel/serverless';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { defineConfig } from 'astro/config';
 import 'dotenv/config';
 
@@ -13,7 +13,10 @@ const isLocalBuild = process.env.LOCAL === 'true';
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [mdx(), sitemap(), tailwind()],
+    vite: {
+        plugins: [vanillaExtractPlugin()],
+    },
+    integrations: [mdx(), sitemap()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,

@@ -1,17 +1,15 @@
 ---
 import GlobalLayout from '~layouts/global.astro';
+import Link from '~components/link/link.astro';
 import { TITLE } from '~constants';
+import * as cn from '~styles/pages/404.css';
 
 const title = `Not found | ${TITLE}`;
 ---
 
 <GlobalLayout title={title}>
-    <div class="flex h-full items-center justify-center">
-        <p class="text-center">
-            Looks like you reached a dead end ... Maybe try the path from the <a
-                class="hover:underline decoration-2 underline-offset-2 text-light-primary dark:text-dark-primary"
-                href="/">start</a
-            > ?
-        </p>
-    </div>
+    <p class={cn.container}>
+        Looks like you reached a dead end ... Maybe try the path from the
+        <Link href="/">start</Link> ?
+    </p>
 </GlobalLayout>

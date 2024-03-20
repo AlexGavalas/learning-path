@@ -1,0 +1,60 @@
+---
+title: Optimize Performance for React
+created: '2023-07-24'
+updated: '2024-03-17'
+published: false
+---
+
+Lesson watched on Pluralsight ([link](https://app.pluralsight.com/library/courses/optimize-performance-react/table-of-contents)).
+
+What is VDOM.
+
+## Summary of rendering in React
+
+A React render cycle consists of two phases:
+
+1. The `render` phase: Here React updates the current VDOM to reflect the changes in the UI, calculating the new VDOM. This is a relative cheap operation
+2. The `commit` phase: The changes are applied to the DOM
+
+> React 18 - concurrent mode - render in chunks
+
+Before React 18, the render phase was "synchronous", meaning that when a render cycle started, it was guaranteed to finish, blocking the main thread. In React 18 this is no longer the case. The render phase can be interrupted by other tasks, such as user input or network requests. React calls this concurrent mode. In this mode, we can mark some updates as "non-urgent", allowing their render phase to be interrupted.
+
+Add `<Demo />` here. Long list filtering? Show `startTransition` / `useTransition` / `isPending`.
+`startTransition` actually re-renders the current view to set the `isPending` flag to `true`. So if the current view is expensive to re-render, we won't see a performance improvement from this change alone.
+
+React Profiler - Name fns to see them in the profiler
+
+main thead - worker thread ?
+https://web.dev/long-tasks-devtools/#what-are-long-tasks
+
+RSC / Hydration?
+
+# Fixing Wasted Rendering Issues
+
+useCallback
+memo - second argument to change equality check e.g. objects
+shouldComponentUpdate
+
+Why `key` is important in lists
+
+immutable data - do not mutate old references
+e.g. do not - `delete data[id]`
+do - `const clonedData = {...data}; delete clonedData[id];`
+immutable libraries - immer, immutable.js
+fp / pure functions mindset
+
+# Fixing Expensive Operations
+
+useMemo - memoize expensive operations
+compute higher in the tree
+List Virtualization
+
+# Fixing Large Bundles
+
+## Lazy Loading
+
+React.lazy
+Dynamic import
+
+## Code Splitting

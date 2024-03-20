@@ -1,0 +1,13 @@
+---
+import ThemeSwitch from '~components/theme-switch/theme-switch.astro';
+import Logo from '~components/logo/logo.astro';
+
+import * as cn from './header.css';
+---
+
+<header class={cn.container}>
+    <a aria-label="Go to homepage" href="/" class={cn.logo}>
+        <Logo />
+    </a>
+    <ThemeSwitch />
+</header>
