@@ -1,9 +1,9 @@
-import { getCollection, getEntryBySlug } from 'astro:content';
+import { getEntryBySlug } from 'astro:content';
 
 import { supabase } from '~lib/supabase';
 
 import { fetchFileFromStorage } from './helpers';
-import { getAllNoteIds, getNoteData, getNoteMetadata } from './notes';
+import { getNoteData, getNoteMetadata } from './notes';
 
 jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
     ...jest.requireActual('@vercel/edge-config'),
@@ -46,53 +46,6 @@ describe('fetchNotes', () => {
     });
     describe('when there is no query', () => {
         it.todo('returns all notes and an empty object of lines');
-    });
-});
-
-describe('getAllNoteIds', () => {
-    describe('when in production', () => {
-        const previousValue = process.env.PROD;
-
-        beforeAll(() => {
-            process.env.PROD = 'true';
-        });
-
-        afterAll(() => {
-            process.env.PROD = previousValue;
-        });
-
-        it.todo('calls getSlugsFromStorage');
-
-        it('returns the slugs', async () => {
-            const slugs = await getAllNoteIds();
-
-            expect(slugs).toStrictEqual([{ slug: 'test' }]);
-        });
-    });
-
-    describe('when in development', () => {
-        const previousValue = process.env.PROD;
-
-        beforeAll(() => {
-            process.env.PROD = 'false';
-        });
-
-        afterAll(() => {
-            process.env.PROD = previousValue;
-        });
-
-        it('calls getCollection', async () => {
-            await getAllNoteIds();
-
-            expect(getCollection).toHaveBeenCalledTimes(1);
-            expect(getCollection).toHaveBeenCalledWith('notes');
-        });
-
-        it('returns the slugs', async () => {
-            const slugs = await getAllNoteIds();
-
-            expect(slugs).toStrictEqual([{ slug: 'test' }]);
-        });
     });
 });
 

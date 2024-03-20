@@ -1,5 +1,5 @@
 import { createClient } from '@vercel/edge-config';
-import { getCollection, getEntryBySlug } from 'astro:content';
+import { getEntryBySlug } from 'astro:content';
 import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
@@ -64,30 +64,6 @@ export const fetchNotes = async (
         notes: allNotes,
         lines: {},
     };
-};
-
-type NoteSlugs = { slug: string }[];
-
-const getSlugsFromStorage = async (): Promise<NoteSlugs | null> => {
-    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
-
-    if (data === undefined) {
-        return null;
-    }
-
-    return data.map((file) => ({
-        slug: file.filename,
-    }));
-};
-
-export const getAllNoteIds = async (): Promise<{ slug: string }[] | null> => {
-    const isProd = process.env.PROD === 'true';
-
-    if (isProd) {
-        return await getSlugsFromStorage();
-    }
-
-    return await getCollection('notes');
 };
 
 export const getNoteData = async (
