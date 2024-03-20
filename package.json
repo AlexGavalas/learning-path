@@ -84,7 +84,7 @@
         "prettier-plugin-astro": "0.13.0",
         "pretty-quick": "4.0.0",
         "simple-git": "3.22.0",
-        "supabase": "1.148.6",
+        "supabase": "1.150.0",
         "ts-jest": "29.1.2",
         "ts-node": "10.9.2",
         "tsx": "4.7.1",
