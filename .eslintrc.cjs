@@ -8,12 +8,6 @@ module.exports = {
     extends: ['eslint:recommended', 'prettier'],
     overrides: [
         {
-            files: ['.eslintrc.{js,cjs}'],
-            parserOptions: {
-                sourceType: 'script',
-            },
-        },
-        {
             files: ['*.ts', '*.tsx'],
             parser: '@typescript-eslint/parser',
             plugins: ['@typescript-eslint/eslint-plugin'],
@@ -26,9 +20,6 @@ module.exports = {
                 'plugin:@typescript-eslint/stylistic-type-checked',
                 'prettier',
             ],
-            parserOptions: {
-                project: './tsconfig.json',
-            },
             rules: {
                 '@typescript-eslint/array-type': 'off',
                 '@typescript-eslint/consistent-type-definitions': [
@@ -42,6 +33,10 @@ module.exports = {
                     },
                 ],
                 '@typescript-eslint/no-confusing-void-expression': 'off',
+                '@typescript-eslint/restrict-template-expressions': [
+                    'error',
+                    { allowNumber: true },
+                ],
             },
         },
         {
@@ -83,6 +78,7 @@ module.exports = {
         {
             files: ['*.astro'],
             extends: ['plugin:astro/recommended'],
+            parser: 'astro-eslint-parser',
             processor: 'astro/client-side-ts',
             parserOptions: {
                 parser: '@typescript-eslint/parser',
@@ -94,5 +90,7 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+        project: './tsconfig.json',
+        extraFileExtensions: ['.astro'],
     },
 };

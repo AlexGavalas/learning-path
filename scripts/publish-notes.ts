@@ -28,7 +28,7 @@ const main = async (): Promise<void> => {
     spinner.succeed('Pushed content');
 };
 
-main().catch((e) => {
+main().catch((e: unknown) => {
     spinner.fail('Failed to publish notes');
     logger.error(e);
 });
