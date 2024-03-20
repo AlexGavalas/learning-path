@@ -18,7 +18,7 @@ module.exports = {
             parser: '@typescript-eslint/parser',
             plugins: ['@typescript-eslint/eslint-plugin'],
             extends: [
-                'standard-with-typescript',
+                'love',
                 'eslint:recommended',
                 'plugin:@typescript-eslint/eslint-recommended',
                 'plugin:@typescript-eslint/recommended',
@@ -78,6 +78,15 @@ module.exports = {
                 'jest/require-hook': 'warn',
                 'jest/require-to-throw-message': 'error',
                 'jest/require-top-level-describe': 'error',
+            },
+        },
+        {
+            files: ['*.astro'],
+            extends: ['plugin:astro/recommended'],
+            processor: 'astro/client-side-ts',
+            parserOptions: {
+                parser: '@typescript-eslint/parser',
+                extraFileExtensions: ['.astro'],
             },
         },
     ],
