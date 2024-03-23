@@ -1,17 +1,20 @@
 import axios from 'axios';
 import fs from 'node:fs/promises';
 
+import { turso } from '~lib/turso';
+
 import {
     getEnvVariable,
     readFile,
     toISOString,
+    updateEdgeConfig,
     uploadFile,
     writeFile,
 } from './helpers';
 
-jest.mock('~lib/supabase');
 jest.mock('node:fs/promises');
 jest.mock('axios');
+jest.mock('~lib/turso');
 
 describe('getEnvVariable', () => {
     const envVar = 'TEST_ENV_VAR';
@@ -121,5 +124,57 @@ describe('uploadFile', () => {
 
         expect(axios.postForm).toHaveBeenCalledTimes(1);
         expect(axios.postForm).toHaveBeenCalledWith(url, expect.any(FormData));
+    });
+});
+
+describe('updateEdgeConfig', () => {
+    beforeAll(() => {
+        jest.mocked(turso).execute.mockResolvedValue({
+            columns: [],
+            columnTypes: [],
+            lastInsertRowid: undefined,
+            rows: [],
+            rowsAffected: 0,
+            toJSON: jest.fn(),
+        });
+
+        process.env.EDGE_CONFIG_ID = 'test-edge-config-id';
+        process.env.VERCEL_ACCESS_TOKEN = 'test-vercel-access-token';
+    });
+
+    it('calls turso.execute', async () => {
+        await updateEdgeConfig();
+
+        expect(turso.execute).toHaveBeenCalledTimes(1);
+        expect(turso.execute).toHaveBeenCalledWith(
+            'SELECT DISTINCT(title), filename, created, updated FROM notes_fts ORDER BY updated DESC, title ASC',
+        );
+    });
+
+    it('calls fetch', async () => {
+        await updateEdgeConfig();
+
+        const edgeConfig = process.env.EDGE_CONFIG_ID;
+        const vercelAccessToken = process.env.VERCEL_ACCESS_TOKEN;
+
+        const url = `https://api.vercel.com/v1/edge-config/${edgeConfig}/items`;
+
+        expect(fetch).toHaveBeenCalledTimes(1);
+        expect(fetch).toHaveBeenCalledWith(url, {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${vercelAccessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                items: [
+                    {
+                        operation: 'update',
+                        key: 'meta',
+                        value: [],
+                    },
+                ],
+            }),
+        });
     });
 });

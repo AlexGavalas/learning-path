@@ -20,5 +20,15 @@ export const seed = async (): Promise<void> => {
             filename,
             tokenize="trigram"
         );
+
+        DROP TABLE IF EXISTS lesson_summaries;
+
+        CREATE TABLE lesson_summaries (
+            id SERIAL PRIMARY KEY,
+            filename TEXT NOT NULL,
+            title TEXT NOT NULL,
+            created TIMESTAMPTZ NOT NULL,
+            updated TIMESTAMPTZ NOT NULL
+        );
     `);
 };

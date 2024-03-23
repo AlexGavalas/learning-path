@@ -1,9 +1,7 @@
 import { getEntryBySlug } from 'astro:content';
 
-import { supabase } from '~lib/supabase';
-
 import { fetchFileFromStorage } from './helpers';
-import { getLessonSummaries, getLessonSummaryData } from './lesson-summaries';
+import { getLessonSummaryData } from './lesson-summaries';
 
 jest.mock(
     'astro:content',
@@ -21,36 +19,8 @@ jest.mock(
     },
 );
 
-jest.mock('~lib/supabase');
-
+jest.mock('~lib/turso');
 jest.mock('./helpers');
-
-describe('getLessonSummaries', () => {
-    describe('when in development', () => {
-        beforeAll(() => {
-            process.env.PROD = 'false';
-        });
-
-        it('does not call supabase', async () => {
-            await getLessonSummaries();
-
-            expect(supabase.from).not.toHaveBeenCalled();
-        });
-    });
-
-    describe('when in production', () => {
-        beforeAll(() => {
-            process.env.PROD = 'true';
-        });
-
-        it('calls supabase', async () => {
-            await getLessonSummaries();
-
-            expect(supabase.from).toHaveBeenCalledTimes(1);
-            expect(supabase.from).toHaveBeenCalledWith('lesson_summaries_meta');
-        });
-    });
-});
 
 describe('getLessonSummaryData', () => {
     describe('when in development', () => {

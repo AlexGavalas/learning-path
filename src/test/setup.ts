@@ -3,7 +3,7 @@ import 'jest-axe/extend-expect';
 
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: jest.fn((query: string) => ({
+    value: jest.fn().mockImplementation((query: string) => ({
         matches: false,
         media: query,
         onchange: null,
@@ -12,5 +12,12 @@ Object.defineProperty(window, 'matchMedia', {
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn(),
+    })),
+});
+
+Object.defineProperty(window, 'fetch', {
+    writable: true,
+    value: jest.fn().mockImplementation(() => ({
+        json: jest.fn().mockResolvedValue({}),
     })),
 });

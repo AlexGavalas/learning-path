@@ -1,6 +1,6 @@
 import { getEntryBySlug } from 'astro:content';
 
-import { supabase } from '~lib/supabase';
+import { turso } from '~lib/turso';
 
 import { fetchFileFromStorage } from './helpers';
 import { getNoteData, getNoteMetadata } from './notes';
@@ -28,8 +28,7 @@ jest.mock(
     },
 );
 
-jest.mock('~lib/supabase');
-
+jest.mock('~lib/turso');
 jest.mock('./helpers');
 
 describe('fetchNotes', () => {
@@ -119,48 +118,28 @@ describe('getNoteData', () => {
 });
 
 describe('getNoteMetadata', () => {
+    const mockNoteMetadata = {
+        length: 1,
+        title: 'test data',
+        created: '2024-01-01',
+        updated: '2024-01-01',
+        filename: 'test',
+    };
+
     beforeAll(() => {
-        const { supabase: mockSupabase } =
-            jest.requireMock<typeof import('~lib/__mocks__/supabase')>(
-                '~lib/supabase',
-            );
-
-        mockSupabase.maybeSingle.mockReturnValue({
-            data: 'test data',
-            error: null,
+        jest.mocked(turso).execute.mockResolvedValue({
+            columns: [],
+            columnTypes: [],
+            lastInsertRowid: undefined,
+            rows: [mockNoteMetadata],
+            rowsAffected: 0,
+            toJSON: jest.fn(),
         });
-    });
-
-    it('calls supabase.from', async () => {
-        await getNoteMetadata('test');
-
-        expect(supabase.from).toHaveBeenCalledTimes(1);
-        expect(supabase.from).toHaveBeenCalledWith('notes');
     });
 
     it('returns the data', async () => {
         const data = await getNoteMetadata('test');
 
-        expect(data).toBe('test data');
-    });
-
-    describe('when an error occurs', () => {
-        beforeAll(() => {
-            const { supabase: mockSupabase } =
-                jest.requireMock<typeof import('~lib/__mocks__/supabase')>(
-                    '~lib/supabase',
-                );
-
-            mockSupabase.maybeSingle.mockReturnValue({
-                data: null,
-                error: 'error',
-            });
-        });
-
-        it('returns null', async () => {
-            const data = await getNoteMetadata('test');
-
-            expect(data).toBeNull();
-        });
+        expect(data).toBe(mockNoteMetadata);
     });
 });

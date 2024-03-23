@@ -2,6 +2,8 @@ import axios from 'axios';
 import { parse } from 'date-fns';
 import fs from 'node:fs/promises';
 
+import { turso } from '~lib/turso';
+
 import { logger } from './logger';
 
 export const toISOString = (date: string): string =>
@@ -49,13 +51,9 @@ export const uploadFile = async ({
 };
 
 export const updateEdgeConfig = async (): Promise<void> => {
-    const { supabase } = await import('~lib/supabase');
-    const { data, error } = await supabase.rpc('get_notes_meta');
-
-    if (error !== null) {
-        logger.error(error);
-        process.exit(1);
-    }
+    const { rows } = await turso.execute(
+        'SELECT DISTINCT(title), filename, created, updated FROM notes_fts ORDER BY updated DESC, title ASC',
+    );
 
     try {
         const edgeConfig = getEnvVariable('EDGE_CONFIG_ID');
@@ -70,7 +68,7 @@ export const updateEdgeConfig = async (): Promise<void> => {
                     {
                         operation: 'update',
                         key: 'meta',
-                        value: data,
+                        value: rows,
                     },
                 ],
             }),

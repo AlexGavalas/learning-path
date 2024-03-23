@@ -1,7 +1,8 @@
 import { getCollection, getEntryBySlug } from 'astro:content';
 
-import { supabase } from '~lib/supabase';
+import { turso } from '~lib/turso';
 import type {
+    LessonSummary,
     LessonSummaryFrontmatter,
     LessonSummaryRenderResult,
 } from '~types/lesson-summaries.types';
@@ -9,7 +10,7 @@ import type {
 import { fetchFileFromStorage } from './helpers';
 
 export const getLessonSummaries = async (): Promise<
-    (LessonSummaryFrontmatter & { filename: string })[] | null
+    Omit<LessonSummary, 'id'>[] | null
 > => {
     const isProd = process.env.PROD === 'true';
 
@@ -22,16 +23,11 @@ export const getLessonSummaries = async (): Promise<
         }));
     }
 
-    const { data: summaries, error } = await supabase
-        .from('lesson_summaries_meta')
-        .select('*')
-        .order('created', { ascending: false });
+    const { rows } = await turso.execute(
+        'SELECT * FROM lesson_summaries ORDER BY created DESC',
+    );
 
-    if (error !== null) {
-        return null;
-    }
-
-    return summaries;
+    return rows as unknown as LessonSummary[];
 };
 
 export const getLessonSummaryData = async (
@@ -71,16 +67,10 @@ export const getLessonSummaryMetadata = async (
         return entry?.data ?? null;
     }
 
-    const { data, error } = await supabase
-        .from('lesson_summaries_meta')
-        .select('*')
-        .eq('filename', filename)
-        .limit(1)
-        .maybeSingle();
+    const { rows } = await turso.execute({
+        sql: 'SELECT * FROM lesson_summaries WHERE filename = ? LIMIT 1',
+        args: [filename],
+    });
 
-    if (error !== null) {
-        return null;
-    }
-
-    return data;
+    return rows[0] as unknown as LessonSummaryFrontmatter;
 };

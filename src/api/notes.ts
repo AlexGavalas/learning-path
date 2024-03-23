@@ -4,9 +4,7 @@ import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
-import { supabase } from '~lib/supabase';
 import { turso } from '~lib/turso';
-import type { Database } from '~types/database.types';
 import type {
     NoteRenderResult,
     NotesCollection,
@@ -15,8 +13,10 @@ import type {
 
 import { fetchFileFromStorage } from './helpers';
 
-type SearchNotesRpcResponse =
-    Database['public']['Functions']['search_notes']['Returns'];
+type SearchNotesRpcResponse = {
+    title: string;
+    line: string;
+}[];
 
 type Lines = Record<string, string[]>;
 
@@ -38,16 +38,10 @@ export const fetchNotes = async (
     const allNotes = data ?? [];
 
     if (q.length > 0) {
-        console.time('search_notes');
-        await supabase.rpc('search_notes', { q });
-        console.timeEnd('search_notes');
-
-        console.time('turso');
         const { rows } = await turso.execute({
             sql: `SELECT * FROM notes_fts WHERE line match '"' || ? || '"'`,
-            args: [q.toLocaleLowerCase()],
+            args: [q],
         });
-        console.timeEnd('turso');
 
         const lines = groupByTitle(rows);
 
@@ -90,17 +84,10 @@ export const getNoteData = async (
 export const getNoteMetadata = async (
     filename: string,
 ): Promise<NotesCollection['data'] | null> => {
-    const { data, error } = await supabase
-        .from('notes')
-        .select('*')
-        .order('updated', { ascending: false })
-        .eq('filename', filename)
-        .limit(1)
-        .maybeSingle();
+    const { rows } = await turso.execute({
+        sql: 'SELECT * FROM notes WHERE filename = ? ORDER BY updated DESC LIMIT 1',
+        args: [filename],
+    });
 
-    if (error !== null) {
-        return null;
-    }
-
-    return data;
+    return (rows[0] ?? null) as unknown as NotesCollection['data'];
 };
