@@ -7,8 +7,6 @@ import type {
     LessonSummaryRenderResult,
 } from '~types/lesson-summaries.types';
 
-import { fetchFileFromStorage } from './helpers';
-
 export const getLessonSummaries = async (): Promise<
     Omit<LessonSummary, 'id'>[] | null
 > => {
@@ -36,18 +34,6 @@ export const getLessonSummaryData = async (
     content: string | LessonSummaryRenderResult;
     frontmatter?: LessonSummaryFrontmatter;
 }> => {
-    const isProd = process.env.PROD === 'true';
-    const isPublicFileServerEnabled =
-        process.env.PUBLIC_FILE_SERVER_ENABLED === 'true';
-
-    if (isProd && isPublicFileServerEnabled) {
-        const filePath = `${slug}.mdx`;
-
-        return {
-            content: await fetchFileFromStorage(`summaries/${filePath}`),
-        };
-    }
-
     const lessonSummary = await getEntryBySlug('lesson-summaries', slug);
 
     return {

@@ -2,7 +2,6 @@ import { getEntryBySlug } from 'astro:content';
 
 import { turso } from '~lib/turso';
 
-import { fetchFileFromStorage } from './helpers';
 import { getNoteData, getNoteMetadata } from './notes';
 
 jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
@@ -29,7 +28,6 @@ jest.mock(
 );
 
 jest.mock('~lib/turso');
-jest.mock('./helpers');
 
 describe('fetchNotes', () => {
     it.todo('calls edgeConfig.get');
@@ -49,71 +47,19 @@ describe('fetchNotes', () => {
 });
 
 describe('getNoteData', () => {
-    describe('when in production', () => {
-        const previousValue = process.env.PROD;
+    it('calls getEntryBySlug', async () => {
+        await getNoteData('test');
 
-        beforeAll(() => {
-            process.env.PROD = 'true';
-            process.env.PUBLIC_FILE_SERVER_ENABLED = 'true';
-
-            jest.mocked(fetchFileFromStorage).mockResolvedValue('test body');
-        });
-
-        afterAll(() => {
-            process.env.PROD = previousValue;
-        });
-
-        it('calls fetchFileFromStorage', async () => {
-            await getNoteData('test');
-
-            expect(fetchFileFromStorage).toHaveBeenCalledTimes(1);
-            expect(fetchFileFromStorage).toHaveBeenCalledWith('notes/test.mdx');
-        });
-
-        it('returns the body', async () => {
-            const body = await getNoteData('test');
-
-            expect(body).toBe('test body');
-        });
-
-        it('does not call getEntryBySlug', async () => {
-            await getNoteData('test');
-
-            expect(getEntryBySlug).not.toHaveBeenCalled();
-        });
+        expect(getEntryBySlug).toHaveBeenCalledTimes(1);
+        expect(getEntryBySlug).toHaveBeenCalledWith('notes', 'test');
     });
 
-    describe('when in development', () => {
-        const previousValue = process.env.PROD;
+    it('returns the body', async () => {
+        const body = await getNoteData('test');
 
-        beforeAll(() => {
-            process.env.PROD = 'false';
-        });
-
-        afterAll(() => {
-            process.env.PROD = previousValue;
-        });
-
-        it('calls getEntryBySlug', async () => {
-            await getNoteData('test');
-
-            expect(getEntryBySlug).toHaveBeenCalledTimes(1);
-            expect(getEntryBySlug).toHaveBeenCalledWith('notes', 'test');
-        });
-
-        it('returns the body', async () => {
-            const body = await getNoteData('test');
-
-            expect(body).toStrictEqual(
-                expect.objectContaining({ Content: expect.any(Function) }),
-            );
-        });
-
-        it('does not call fetchFileFromStorage', async () => {
-            await getNoteData('test');
-
-            expect(fetchFileFromStorage).not.toHaveBeenCalled();
-        });
+        expect(body).toStrictEqual(
+            expect.objectContaining({ Content: expect.any(Function) }),
+        );
     });
 });
 

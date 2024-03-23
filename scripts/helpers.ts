@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { parse } from 'date-fns';
 import fs from 'node:fs/promises';
 
@@ -27,27 +26,6 @@ export const getEnvVariable = (envVar: string): string => {
     }
 
     return value;
-};
-
-type UploadFileProps = {
-    url: string;
-    content: string;
-    filename: string;
-};
-
-export const uploadFile = async ({
-    url,
-    content,
-    filename,
-}: UploadFileProps): Promise<void> => {
-    try {
-        const form = new FormData();
-        form.append('md_file', new Blob([content]), filename);
-
-        await axios.postForm(url, form);
-    } catch (e) {
-        logger.error(e);
-    }
 };
 
 export const updateEdgeConfig = async (): Promise<void> => {

@@ -11,8 +11,6 @@ import type {
     PartialEdgeConfigNote,
 } from '~types/notes.types';
 
-import { fetchFileFromStorage } from './helpers';
-
 type SearchNotesRpcResponse = {
     title: string;
     line: string;
@@ -66,16 +64,6 @@ export const fetchNotes = async (
 export const getNoteData = async (
     filename: string,
 ): Promise<string | NoteRenderResult> => {
-    const isProd = process.env.PROD === 'true';
-    const isPublicFileServerEnabled =
-        process.env.PUBLIC_FILE_SERVER_ENABLED === 'true';
-
-    if (isProd && isPublicFileServerEnabled) {
-        const filePath = `${filename}.mdx`;
-
-        return await fetchFileFromStorage(`notes/${filePath}`);
-    }
-
     const note = await getEntryBySlug('notes', filename);
 
     return (await note?.render()) ?? '';
