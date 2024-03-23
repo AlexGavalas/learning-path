@@ -109,6 +109,13 @@ const indexDocs = async (): Promise<void> => {
 
         await turso.batch(batchStatements, 'write');
 
+        const batchFtsStatements = values.map((value) => ({
+            sql: 'INSERT INTO notes_fts (title, line, filename) VALUES (?, ?, ?)',
+            args: [value.title, value.line, value.filename],
+        }));
+
+        await turso.batch(batchFtsStatements, 'write');
+
         spinner.succeed(`Indexed contents of ${filename}`);
     }
 

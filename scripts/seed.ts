@@ -3,6 +3,7 @@ import { turso } from '~lib/turso';
 export const seed = async (): Promise<void> => {
     await turso.executeMultiple(`
         DROP TABLE IF EXISTS notes;
+        DROP TABLE IF EXISTS notes_fts;
 
         CREATE TABLE notes (
             id SERIAL PRIMARY KEY,
@@ -11,6 +12,13 @@ export const seed = async (): Promise<void> => {
             filename TEXT NOT NULL,
             created TIMESTAMPTZ NOT NULL,
             updated TIMESTAMPTZ NOT NULL
+        );
+
+        CREATE VIRTUAL TABLE notes_fts USING fts5(
+            title,
+            line,
+            filename,
+            tokenize="trigram"
         );
     `);
 };

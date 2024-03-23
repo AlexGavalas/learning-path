@@ -44,7 +44,7 @@ export const fetchNotes = async (
 
         console.time('turso');
         const { rows } = await turso.execute({
-            sql: `SELECT * FROM notes WHERE line like '%' || ? || '%'`,
+            sql: `SELECT * FROM notes_fts WHERE line match '"' || ? || '"'`,
             args: [q.toLocaleLowerCase()],
         });
         console.timeEnd('turso');
