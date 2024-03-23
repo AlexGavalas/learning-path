@@ -5,6 +5,7 @@ import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
 import { supabase } from '~lib/supabase';
+import { turso } from '~lib/turso';
 import type { Database } from '~types/database.types';
 import type {
     NoteRenderResult,
@@ -37,18 +38,20 @@ export const fetchNotes = async (
     const allNotes = data ?? [];
 
     if (q.length > 0) {
-        const { data, error } = await supabase.rpc('search_notes', { q });
+        console.time('search_notes');
+        await supabase.rpc('search_notes', { q });
+        console.timeEnd('search_notes');
 
-        if (error !== null) {
-            return {
-                notes: [],
-                lines: {},
-            };
-        }
+        console.time('turso');
+        const { rows } = await turso.execute({
+            sql: `SELECT * FROM notes WHERE line like '%' || ? || '%'`,
+            args: [q.toLocaleLowerCase()],
+        });
+        console.timeEnd('turso');
 
-        const lines = groupByTitle(data);
+        const lines = groupByTitle(rows);
 
-        const noteTitles = new Set(data.map(({ title }) => title));
+        const noteTitles = new Set(rows.map(({ title }) => title));
 
         const filteredNotes = allNotes.filter(({ title }) =>
             noteTitles.has(title),
