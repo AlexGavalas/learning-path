@@ -58,11 +58,6 @@ const indexDocs = async (): Promise<void> => {
             updated,
         }));
 
-        spinner.text = `Writing file ${filename} in storage ...`;
-        spinner.start();
-
-        spinner.succeed(`Wrote file ${filename} in storage`);
-
         spinner.text = `Indexing contents of ${filename} ...`;
         spinner.start();
 

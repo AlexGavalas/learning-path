@@ -30,7 +30,7 @@ export const getEnvVariable = (envVar: string): string => {
 
 export const updateEdgeConfig = async (): Promise<void> => {
     const { rows } = await turso.execute(
-        'SELECT DISTINCT(title), filename, created, updated FROM notes_fts ORDER BY updated DESC, title ASC',
+        'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
     );
 
     try {

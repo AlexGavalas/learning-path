@@ -26,7 +26,7 @@ export const indexLessonSummaries = async (): Promise<void> => {
     const batchOperations: InStatement[] = [];
 
     for (const filename of summaries) {
-        spinner.text = `Uploading contents of ${filename} ...`;
+        spinner.text = `Reading contents of ${filename} ...`;
         spinner.start();
 
         const fileContents = await readFile(`${SUMMARIES_DIR}/${filename}`);
@@ -37,6 +37,7 @@ export const indexLessonSummaries = async (): Promise<void> => {
         };
 
         if (frontmatter.published === false) {
+            spinner.stop();
             logger.debug(`Skipping ${filename} as it is not published yet ...`);
 
             continue;
@@ -51,7 +52,14 @@ export const indexLessonSummaries = async (): Promise<void> => {
                 toISOString(frontmatter.updated),
             ],
         });
+
+        spinner.succeed();
     }
 
+    spinner.text = 'Indexing lesson summaries ...';
+    spinner.start();
+
     await turso.batch(batchOperations, 'write');
+
+    spinner.succeed();
 };
