@@ -6,7 +6,6 @@ export const seed = async (): Promise<void> => {
         DROP TABLE IF EXISTS notes_fts;
 
         CREATE TABLE notes (
-            id SERIAL PRIMARY KEY,
             title TEXT NOT NULL,
             line TEXT NOT NULL,
             filename TEXT NOT NULL,

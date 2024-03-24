@@ -1,4 +1,4 @@
-import { parse } from 'date-fns';
+import { parse } from '@formkit/tempo';
 import fs from 'node:fs/promises';
 
 import { turso } from '~lib/turso';
@@ -6,7 +6,7 @@ import { turso } from '~lib/turso';
 import { logger } from './logger';
 
 export const toISOString = (date: string): string =>
-    parse(date, 'yyyy-MM-dd', new Date()).toISOString();
+    parse(date, 'YYYY-MM-DD').toISOString();
 
 export const readFile = async (file: string): Promise<string> =>
     await fs.readFile(file, 'utf8');

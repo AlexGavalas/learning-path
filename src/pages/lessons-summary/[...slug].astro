@@ -1,9 +1,6 @@
 ---
 import NotesLayout from '~layouts/note.astro';
-import {
-    getLessonSummaryData,
-    getLessonSummaryMetadata,
-} from '~api/lesson-summaries';
+import { getLessonSummaryData } from '~api/lesson-summaries';
 
 const { slug } = Astro.params;
 
@@ -11,31 +8,24 @@ if (!slug) {
     return new Response(null);
 }
 
-const contentPromise = getLessonSummaryData(slug);
-const metaPromise = getLessonSummaryMetadata(slug);
+const lessonSummary = await getLessonSummaryData(slug);
 
-const [{ content, frontmatter }, meta] = await Promise.all([
-    contentPromise,
-    metaPromise,
-]);
-
-if (!meta) {
-    throw new Error('No meta info found');
+if (!lessonSummary) {
+    throw new Error(`No lesson summary found for ${slug}`);
 }
 
-const hasBannerEnabled = Boolean(
-    typeof content !== 'string' && frontmatter?.features?.includes('banner'),
-);
+const {
+    content: { Content },
+    frontmatter,
+} = lessonSummary;
+
+const hasBannerEnabled = frontmatter.features?.includes('banner') ?? false;
 ---
 
-<NotesLayout {...meta} hasBannerEnabled={hasBannerEnabled} backUrl="/summaries">
-    {
-        typeof content === 'string' ? (
-            <>
-                <p>🚧 Remote markdown under construction 🚧</p>
-            </>
-        ) : (
-            <content.Content />
-        )
-    }
+<NotesLayout
+    {...frontmatter}
+    hasBannerEnabled={hasBannerEnabled}
+    backUrl="/summaries"
+>
+    <Content />
 </NotesLayout>

@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format } from '@formkit/tempo';
 import matter from 'gray-matter';
 
 import { readFile, writeFile } from './helpers';
@@ -18,7 +18,7 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
         const fileContents = await readFile(file);
 
         const updatedContent = matter.stringify(fileContents, {
-            updated: format(new Date(), 'yyyy-MM-dd'),
+            updated: format(new Date(), 'YYYY-MM-DD'),
         });
 
         await writeFile(file, updatedContent);

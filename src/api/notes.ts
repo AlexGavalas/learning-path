@@ -6,9 +6,9 @@ import mapValues from 'lodash/fp/mapValues';
 import { edgeConfig } from '~lib/edge-config';
 import { turso } from '~lib/turso';
 import type {
+    Note,
+    NoteFrontmatter,
     NoteRenderResult,
-    NotesCollection,
-    PartialEdgeConfigNote,
 } from '~types/notes.types';
 
 type SearchNotesRpcResponse = {
@@ -27,9 +27,9 @@ export const fetchNotes = async (
     q: string,
 ): Promise<{
     lines: Lines;
-    notes: Readonly<PartialEdgeConfigNote[]>;
+    notes: Readonly<Note[]>;
 }> => {
-    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
+    const data = await edgeConfig.get<Note[]>('meta');
 
     const allNotes = data ?? [];
 
@@ -61,27 +61,18 @@ export const fetchNotes = async (
 
 export const getNoteData = async (
     filename: string,
-): Promise<string | NoteRenderResult> => {
+): Promise<{
+    content: NoteRenderResult;
+    frontmatter: NoteFrontmatter;
+} | null> => {
     const note = await getEntryBySlug('notes', filename);
 
-    return (await note?.render()) ?? '';
-};
+    if (note === undefined) {
+        return null;
+    }
 
-export const getNoteMetadata = async (
-    filename: string,
-): Promise<NotesCollection['data'] | null> => {
-    console.time('edgeConfig');
-    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
-    const note = data?.find((note) => note.filename === filename);
-    console.timeEnd('edgeConfig');
-
-    console.time('turso');
-    const { rows } = await turso.execute({
-        sql: 'SELECT * FROM notes WHERE filename = ? ORDER BY updated DESC, rowid DESC LIMIT 1',
-        args: [filename],
-    });
-    console.timeEnd('turso');
-
-    return note as NotesCollection['data'];
-    return (rows[0] ?? null) as unknown as NotesCollection['data'];
+    return {
+        content: await note.render(),
+        frontmatter: note.data,
+    };
 };

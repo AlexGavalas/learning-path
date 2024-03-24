@@ -1,18 +1,34 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { format as formatDate, toDate } from 'date-fns';
+import { format as formatDate } from '@formkit/tempo';
 
 interface Props extends HTMLAttributes<'time'> {
     dateString: string;
-    label?: string;
     format?: string;
+    label?: string;
+    timezone?: string;
 }
 
-const { dateString, format = 'd LLL yyyy', label, ...rest } = Astro.props;
+const {
+    dateString,
+    format = 'D MMM YYYY',
+    label,
+    timezone = 'Europe/Athens',
+    ...rest
+} = Astro.props;
 
-const date = toDate(dateString); // utcToZonedTime(toDate(dateString));
-const datetime = formatDate(date, 'yyyy-MM-dd');
-const formattedDate = formatDate(date, format);
+const datetime = formatDate({
+    date: dateString,
+    format: 'YYYY-MM-DD',
+    tz: timezone,
+});
+
+const formattedDate = formatDate({
+    date: dateString,
+    format,
+    tz: timezone,
+});
+
 const ariaLabel = label ? `${label} ${datetime}` : undefined;
 ---
 

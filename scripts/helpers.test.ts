@@ -20,7 +20,9 @@ describe('toISOString', () => {
         const date = '01-01-2020';
 
         it('throws an error', () => {
-            expect(() => toISOString(date)).toThrow('Invalid time value');
+            expect(() => toISOString(date)).toThrow(
+                'Date (01-01-2020) does not match format (YYYY-MM-DD)',
+            );
         });
     });
 });

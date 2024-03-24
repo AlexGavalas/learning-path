@@ -2,11 +2,11 @@
 import List from '~components/list/list.astro';
 import ListItem from '~components/list/list-item.astro';
 import FormattedDate from '~components/formatted-date.astro';
-import type { PartialEdgeConfigNote } from '~types/notes.types';
+import type { Note } from '~types/notes.types';
 import * as cn from './notes-list.css';
 
 interface Props {
-    notes: readonly PartialEdgeConfigNote[];
+    notes: readonly Note[];
     lines?: Record<string, string[]>;
     baseUrl: string;
 }
@@ -31,7 +31,7 @@ const hasNotes = notes.length > 0;
                         >
                             <FormattedDate
                                 dateString={updated}
-                                format="dd/MM/yy"
+                                format="DD/MM/YY"
                                 id={dateId}
                                 label="Last updated at"
                             />

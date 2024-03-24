@@ -1,13 +1,18 @@
 import { getEntryBySlug } from 'astro:content';
 
-import { turso } from '~lib/turso';
-
-import { getNoteData, getNoteMetadata } from './notes';
+import { getNoteData } from './notes';
 
 jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
     ...jest.requireActual('@vercel/edge-config'),
     createClient: jest.fn().mockReturnValue({
-        get: jest.fn().mockResolvedValue([{ filename: 'test' }]),
+        get: jest.fn().mockResolvedValue([
+            {
+                title: 'test data',
+                created: '2024-01-01',
+                updated: '2024-01-01',
+                filename: 'test',
+            },
+        ]),
     }),
 }));
 
@@ -57,35 +62,9 @@ describe('getNoteData', () => {
     it('returns the body', async () => {
         const body = await getNoteData('test');
 
-        expect(body).toStrictEqual(
-            expect.objectContaining({ Content: expect.any(Function) }),
-        );
-    });
-});
-
-describe('getNoteMetadata', () => {
-    const mockNoteMetadata = {
-        length: 1,
-        title: 'test data',
-        created: '2024-01-01',
-        updated: '2024-01-01',
-        filename: 'test',
-    };
-
-    beforeAll(() => {
-        jest.mocked(turso).execute.mockResolvedValue({
-            columns: [],
-            columnTypes: [],
-            lastInsertRowid: undefined,
-            rows: [mockNoteMetadata],
-            rowsAffected: 0,
-            toJSON: jest.fn(),
+        expect(body).toStrictEqual({
+            content: expect.objectContaining({ Content: expect.any(Function) }),
+            frontmatter: undefined,
         });
-    });
-
-    it('returns the data', async () => {
-        const data = await getNoteMetadata('test');
-
-        expect(data).toBe(mockNoteMetadata);
     });
 });

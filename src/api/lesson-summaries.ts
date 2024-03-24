@@ -31,32 +31,17 @@ export const getLessonSummaries = async (): Promise<
 export const getLessonSummaryData = async (
     slug: string,
 ): Promise<{
-    content: string | LessonSummaryRenderResult;
-    frontmatter?: LessonSummaryFrontmatter;
-}> => {
+    content: LessonSummaryRenderResult;
+    frontmatter: LessonSummaryFrontmatter;
+} | null> => {
     const lessonSummary = await getEntryBySlug('lesson-summaries', slug);
 
-    return {
-        content: (await lessonSummary?.render()) ?? '',
-        frontmatter: lessonSummary?.data,
-    };
-};
-
-export const getLessonSummaryMetadata = async (
-    filename: string,
-): Promise<LessonSummaryFrontmatter | null> => {
-    const isProd = process.env.PROD === 'true';
-
-    if (!isProd) {
-        const entry = await getEntryBySlug('lesson-summaries', filename);
-
-        return entry?.data ?? null;
+    if (lessonSummary === undefined) {
+        return null;
     }
 
-    const { rows } = await turso.execute({
-        sql: 'SELECT * FROM lesson_summaries WHERE filename = ? LIMIT 1',
-        args: [filename],
-    });
-
-    return rows[0] as unknown as LessonSummaryFrontmatter;
+    return {
+        content: await lessonSummary.render(),
+        frontmatter: lessonSummary.data,
+    };
 };
