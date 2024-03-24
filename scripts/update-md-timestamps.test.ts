@@ -1,16 +1,12 @@
 import { readFile, writeFile } from './helpers';
 import { updateMdTimestamps } from './update-md-timestamps';
 
-jest.mock('~lib/supabase');
+jest.mock('~lib/turso');
 jest.mock('./helpers');
 
 describe('updateMdTimestamps', () => {
     beforeAll(() => {
         jest.useFakeTimers({ now: new Date(2023, 0, 1) });
-    });
-
-    afterEach(() => {
-        jest.restoreAllMocks();
     });
 
     afterAll(() => {

@@ -1,7 +1,12 @@
 import { createLogger, format, transports } from 'winston';
 
+type FormatPrettyParams = Parameters<Parameters<typeof format.printf>[0]>[0] & {
+    durationMs?: number;
+};
+
 const formatPretty = format.printf(
-    ({ level, message, timestamp }) => `${timestamp} [${level}]: ${message}`,
+    ({ level, message, timestamp, durationMs }: FormatPrettyParams) =>
+        `${timestamp} [${level}]: ${message} ${typeof durationMs === 'number' ? `(${durationMs}ms)` : ''}`,
 );
 
 export const logger = createLogger({

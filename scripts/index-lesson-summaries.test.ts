@@ -1,14 +1,19 @@
 import type { Dirent } from 'node:fs';
 import fs from 'node:fs/promises';
 
-import { supabase } from '~lib/supabase';
+import { turso } from '~lib/turso';
 
-import { getEnvVariable, readFile, uploadFile } from './helpers';
+import { readFile } from './helpers';
 import { indexLessonSummaries } from './index-lesson-summaries';
 
 jest.mock('node:fs/promises');
-jest.mock('~lib/supabase');
-jest.mock('./helpers');
+jest.mock('~lib/turso');
+
+jest.mock<typeof import('./helpers')>('./helpers', () => ({
+    ...jest.requireActual('./helpers'),
+    readFile: jest.fn(),
+}));
+
 jest.mock<typeof import('ora')>('ora', () => ({
     __esModule: true,
     oraPromise: jest.fn(),
@@ -29,13 +34,11 @@ describe('indexLessonSummaries', () => {
         ] as unknown as Dirent[]);
 
         jest.mocked(readFile).mockResolvedValue(
-            '---\ntitle: Test\n---\n\n# Test',
+            `---\ntitle: Test\ncreated: '2024-01-01'\nupdated: '2024-01-01'\n---\n\n# Test`,
         );
-
-        jest.mocked(getEnvVariable).mockReturnValue('http://localhost:3000');
     });
 
-    it('calls readdir from fs/promises', async () => {
+    it('calls fs.readdir', async () => {
         await indexLessonSummaries();
 
         expect(fs.readdir).toHaveBeenCalledTimes(1);
@@ -44,35 +47,23 @@ describe('indexLessonSummaries', () => {
         );
     });
 
-    it('calls supabase.from', async () => {
+    it('calls turso.batch', async () => {
         await indexLessonSummaries();
 
-        expect(supabase.from).toHaveBeenCalledTimes(1);
-        expect(supabase.from).toHaveBeenCalledWith('lesson_summaries_meta');
-    });
-
-    it('calls upsert', async () => {
-        await indexLessonSummaries();
-
-        const upsert = supabase.from('whatever').upsert;
-
-        expect(upsert).toHaveBeenCalledTimes(1);
-        expect(upsert).toHaveBeenCalledWith({
-            filename: 'test-file',
-            title: 'Test',
-            created: undefined,
-            updated: undefined,
-        });
-    });
-
-    it('calls uploadFile', async () => {
-        await indexLessonSummaries();
-
-        expect(uploadFile).toHaveBeenCalledTimes(1);
-        expect(uploadFile).toHaveBeenCalledWith({
-            url: `http://localhost:3000/summaries/upload`,
-            content: '\n# Test',
-            filename: 'test-file',
-        });
+        expect(turso.batch).toHaveBeenCalledTimes(1);
+        expect(turso.batch).toHaveBeenCalledWith(
+            [
+                {
+                    sql: 'INSERT INTO lesson_summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
+                    args: [
+                        'test-file',
+                        'Test',
+                        expect.any(String),
+                        expect.any(String),
+                    ],
+                },
+            ],
+            'write',
+        );
     });
 });

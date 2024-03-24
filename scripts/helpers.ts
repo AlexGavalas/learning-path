@@ -1,11 +1,12 @@
-import axios from 'axios';
-import { parse } from 'date-fns';
+import { parse } from '@formkit/tempo';
 import fs from 'node:fs/promises';
+
+import { turso } from '~lib/turso';
 
 import { logger } from './logger';
 
 export const toISOString = (date: string): string =>
-    parse(date, 'yyyy-MM-dd', new Date()).toISOString();
+    parse(date, 'YYYY-MM-DD').toISOString();
 
 export const readFile = async (file: string): Promise<string> =>
     await fs.readFile(file, 'utf8');
@@ -14,52 +15,14 @@ export const writeFile = async (file: string, data: string): Promise<void> => {
     await fs.writeFile(file, data, 'utf8');
 };
 
-export const getEnvVariable = (envVar: string): string => {
-    const value = process.env[envVar];
-
-    const valueExists =
-        typeof value === 'string' && value !== 'undefined' && value !== 'null';
-
-    if (!valueExists) {
-        throw new Error(`${envVar} is not defined in env.`);
-    }
-
-    return value;
-};
-
-type UploadFileProps = {
-    url: string;
-    content: string;
-    filename: string;
-};
-
-export const uploadFile = async ({
-    url,
-    content,
-    filename,
-}: UploadFileProps): Promise<void> => {
-    try {
-        const form = new FormData();
-        form.append('md_file', new Blob([content]), filename);
-
-        await axios.postForm(url, form);
-    } catch (e) {
-        logger.error(e);
-    }
-};
-
 export const updateEdgeConfig = async (): Promise<void> => {
-    const { supabase } = await import('~lib/supabase');
-    const { data, error } = await supabase.rpc('get_notes_meta');
-
-    if (error !== null) {
-        logger.error(error);
-        process.exit(1);
-    }
-
     try {
-        const edgeConfig = getEnvVariable('EDGE_CONFIG_ID');
-        const vercelAccessToken = getEnvVariable('VERCEL_ACCESS_TOKEN');
+        const { rows } = await turso.execute(
+            'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
+        );
+
+        const edgeConfig = process.env.EDGE_CONFIG_ID;
+        const vercelAccessToken = process.env.VERCEL_ACCESS_TOKEN;
 
         const url = `https://api.vercel.com/v1/edge-config/${edgeConfig}/items`;
 
@@ -70,7 +33,7 @@ export const updateEdgeConfig = async (): Promise<void> => {
                     {
                         operation: 'update',
                         key: 'meta',
-                        value: data,
+                        value: rows,
                     },
                 ],
             }),

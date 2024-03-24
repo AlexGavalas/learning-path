@@ -4,40 +4,19 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import ora from 'ora';
 
-import { supabase } from '~lib/supabase';
+import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes.types';
 
-import {
-    getEnvVariable,
-    toISOString,
-    updateEdgeConfig,
-    uploadFile,
-} from './helpers';
+import { toISOString, updateEdgeConfig } from './helpers';
 import { logger } from './logger';
+import { seed } from './seed';
 
 const NOTES_DIR = path.join(process.cwd(), 'src/content/notes');
 
-const DELETE_LABEL = 'Delete took: ';
-const INDEX_LABEL = 'Indexing took: ';
-
 const spinner = ora();
 
-const dropNotesTable = async (): Promise<void> => {
-    const profiler = logger.startTimer();
-
-    // Delete all records where the title is not empty, meaning all records
-    const { error } = await supabase.from('notes').delete().neq('title', '');
-
-    if (error !== null) {
-        logger.error('Could not delete previous notes.', error);
-        process.exit(1);
-    }
-
-    profiler.done({ message: DELETE_LABEL });
-};
-
 const indexDocs = async (): Promise<void> => {
-    await dropNotesTable();
+    await seed();
 
     const notes = await fs.readdir(NOTES_DIR);
 
@@ -79,28 +58,31 @@ const indexDocs = async (): Promise<void> => {
             updated,
         }));
 
-        spinner.text = `Writing file ${filename} in storage ...`;
-        spinner.start();
-
-        const UPLOAD_URL = `${getEnvVariable(
-            'PUBLIC_FILE_SERVER_URL',
-        )}/notes/upload`;
-
-        await uploadFile({ content, filename, url: UPLOAD_URL });
-
-        spinner.succeed(`Wrote file ${filename} in storage`);
-
         spinner.text = `Indexing contents of ${filename} ...`;
         spinner.start();
 
-        await supabase.from('notes').upsert(values);
+        const batchStatements = values.map((value) => ({
+            sql: 'INSERT INTO notes (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
+            args: [
+                value.title,
+                value.line,
+                value.filename,
+                value.created,
+                value.updated,
+            ],
+        }));
+
+        const batchFtsStatements = values.map((value) => ({
+            sql: 'INSERT INTO notes_fts (title, line, filename) VALUES (?, ?, ?)',
+            args: [value.title, value.line, value.filename],
+        }));
+
+        await turso.batch(batchFtsStatements.concat(batchStatements), 'write');
 
         spinner.succeed(`Indexed contents of ${filename}`);
     }
 
-    logger.info('Indexed all docs ...');
-
-    profiler.done({ message: INDEX_LABEL });
+    profiler.done({ message: 'Indexed all docs' });
 
     await updateEdgeConfig();
 };

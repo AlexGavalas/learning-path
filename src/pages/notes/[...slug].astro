@@ -1,6 +1,6 @@
 ---
 import NotesLayout from '~layouts/note.astro';
-import { getNoteData, getNoteMetadata } from '~api/notes';
+import { getNoteData } from '~api/notes';
 
 const { slug } = Astro.params;
 
@@ -8,24 +8,18 @@ if (!slug) {
     throw new Error('No slug found');
 }
 
-const metaPromise = getNoteMetadata(slug);
-const contentPromise = getNoteData(slug);
+const noteData = await getNoteData(slug);
 
-const [meta, content] = await Promise.all([metaPromise, contentPromise]);
-
-if (!meta) {
-    throw new Error('No meta info found');
+if (!noteData) {
+    throw new Error(`No note info found for ${slug}`);
 }
+
+const {
+    content: { Content },
+    frontmatter,
+} = noteData;
 ---
 
-<NotesLayout {...meta}>
-    {
-        typeof content === 'string' ? (
-            <>
-                <p>🚧 Remote markdown under construction 🚧</p>
-            </>
-        ) : (
-            <content.Content />
-        )
-    }
+<NotesLayout {...frontmatter}>
+    <Content />
 </NotesLayout>

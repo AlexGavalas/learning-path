@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import ora from 'ora';
 import { type SimpleGit, simpleGit } from 'simple-git';
 
-import { supabase } from '~lib/supabase';
+import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes.types';
 
 import { toISOString, updateEdgeConfig } from './helpers';
@@ -80,7 +80,19 @@ const main = async (): Promise<void> => {
             spinner.text = `Adding new entries of ${file.file} ...`;
             spinner.start();
 
-            await supabase.from('notes').upsert(valuesToInsert);
+            await turso.batch(
+                valuesToInsert.map((value) => ({
+                    sql: 'INSERT INTO notes (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
+                    args: [
+                        value.title,
+                        value.line,
+                        value.filename,
+                        value.created,
+                        value.updated,
+                    ],
+                })),
+                'write',
+            );
 
             spinner.succeed(`Added new entries of ${file.file}`);
         }
@@ -90,12 +102,10 @@ const main = async (): Promise<void> => {
             spinner.start();
 
             for (const line of deletions) {
-                await supabase
-                    .from('notes')
-                    .delete()
-                    .match({
-                        line: line.replace(/^-/, '').replace(/^-\s*/, ''),
-                    });
+                await turso.execute({
+                    sql: 'DELETE FROM notes WHERE line MATCH ?',
+                    args: [line.replace(/^-/, '').replace(/^-\s*/, '')],
+                });
             }
 
             spinner.succeed(`Deleted old entries of ${file.file}`);

@@ -1,75 +1,11 @@
-import axios from 'axios';
 import fs from 'node:fs/promises';
 
-import {
-    getEnvVariable,
-    readFile,
-    toISOString,
-    uploadFile,
-    writeFile,
-} from './helpers';
+import { turso } from '~lib/turso';
 
-jest.mock('~lib/supabase');
+import { readFile, toISOString, updateEdgeConfig, writeFile } from './helpers';
+
 jest.mock('node:fs/promises');
-jest.mock('axios');
-
-describe('getEnvVariable', () => {
-    const envVar = 'TEST_ENV_VAR';
-
-    afterEach(() => {
-        process.env[envVar] = undefined;
-    });
-
-    describe('when the environment variable is defined', () => {
-        const value = 'test value';
-
-        beforeAll(() => {
-            process.env[envVar] = value;
-        });
-
-        it('returns its value', () => {
-            expect(getEnvVariable(envVar)).toStrictEqual(value);
-        });
-    });
-
-    describe('when the environment variable is "undefined"', () => {
-        beforeAll(() => {
-            process.env[envVar] = 'undefined';
-        });
-
-        it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrow(
-                `${envVar} is not defined in env.`,
-            );
-        });
-    });
-
-    describe('when the environment variable is "null"', () => {
-        const envVar = 'TEST_ENV_VAR';
-
-        beforeAll(() => {
-            process.env[envVar] = 'null';
-        });
-
-        it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrow(
-                `${envVar} is not defined in env.`,
-            );
-        });
-    });
-
-    describe('when the environment variable is not defined', () => {
-        beforeAll(() => {
-            process.env[envVar] = undefined;
-        });
-
-        it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrow(
-                `${envVar} is not defined in env.`,
-            );
-        });
-    });
-});
+jest.mock('~lib/turso');
 
 describe('toISOString', () => {
     describe('when the date is in the format yyyy-MM-dd', () => {
@@ -84,7 +20,9 @@ describe('toISOString', () => {
         const date = '01-01-2020';
 
         it('throws an error', () => {
-            expect(() => toISOString(date)).toThrow('Invalid time value');
+            expect(() => toISOString(date)).toThrow(
+                'Date (01-01-2020) does not match format (YYYY-MM-DD)',
+            );
         });
     });
 });
@@ -111,15 +49,54 @@ describe('writeFile', () => {
     });
 });
 
-describe('uploadFile', () => {
-    const url = 'test-url';
-    const content = 'test-content';
-    const filename = 'test-filename';
+describe('updateEdgeConfig', () => {
+    beforeAll(() => {
+        jest.mocked(turso).execute.mockResolvedValue({
+            columns: [],
+            columnTypes: [],
+            lastInsertRowid: undefined,
+            rows: [],
+            rowsAffected: 0,
+            toJSON: jest.fn(),
+        });
 
-    it('calls postForm from axios with the correct arguments', async () => {
-        await uploadFile({ url, content, filename });
+        process.env.EDGE_CONFIG_ID = 'test-edge-config-id';
+        process.env.VERCEL_ACCESS_TOKEN = 'test-vercel-access-token';
+    });
 
-        expect(axios.postForm).toHaveBeenCalledTimes(1);
-        expect(axios.postForm).toHaveBeenCalledWith(url, expect.any(FormData));
+    it('calls turso.execute', async () => {
+        await updateEdgeConfig();
+
+        expect(turso.execute).toHaveBeenCalledTimes(1);
+        expect(turso.execute).toHaveBeenCalledWith(
+            'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
+        );
+    });
+
+    it('calls fetch', async () => {
+        await updateEdgeConfig();
+
+        const edgeConfig = process.env.EDGE_CONFIG_ID;
+        const vercelAccessToken = process.env.VERCEL_ACCESS_TOKEN;
+
+        const url = `https://api.vercel.com/v1/edge-config/${edgeConfig}/items`;
+
+        expect(fetch).toHaveBeenCalledTimes(1);
+        expect(fetch).toHaveBeenCalledWith(url, {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${vercelAccessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                items: [
+                    {
+                        operation: 'update',
+                        key: 'meta',
+                        value: [],
+                    },
+                ],
+            }),
+        });
     });
 });
