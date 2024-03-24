@@ -1,8 +1,13 @@
 import { readFile, writeFile } from './helpers';
 import { updateMdTimestamps } from './update-md-timestamps';
 
-jest.mock('~lib/turso');
 jest.mock('./helpers');
+
+jest.mock<typeof import('~api/notes')>('~api/notes', () => ({
+    fetchNotes: jest.fn(),
+    getAllNotes: jest.fn(),
+    getNoteData: jest.fn(),
+}));
 
 describe('updateMdTimestamps', () => {
     beforeAll(() => {

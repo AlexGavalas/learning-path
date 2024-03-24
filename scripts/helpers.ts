@@ -1,7 +1,7 @@
 import { parse } from '@formkit/tempo';
 import fs from 'node:fs/promises';
 
-import { turso } from '~lib/turso';
+import { getAllNotes } from '~api/notes';
 
 import { logger } from './logger';
 
@@ -17,9 +17,7 @@ export const writeFile = async (file: string, data: string): Promise<void> => {
 
 export const updateEdgeConfig = async (): Promise<void> => {
     try {
-        const { rows } = await turso.execute(
-            'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
-        );
+        const rows = await getAllNotes();
 
         const edgeConfig = process.env.EDGE_CONFIG_ID;
         const vercelAccessToken = process.env.VERCEL_ACCESS_TOKEN;

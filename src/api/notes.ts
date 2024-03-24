@@ -18,6 +18,27 @@ type SearchNotesRpcResponse = {
 
 type Lines = Record<string, string[]>;
 
+const searchNotes = async (q: string): Promise<Note[]> => {
+    const { rows } = await turso.execute({
+        sql: `SELECT * FROM notes_fts WHERE line match '"' || ? || '"'`,
+        args: [q],
+    });
+
+    return rows as unknown as Note[];
+};
+
+export const getAllNotes = async (): Promise<Note[]> => {
+    const { rows } = await turso.execute(
+        'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
+    );
+
+    return rows as unknown as Note[];
+};
+
+const getNoteMetadata = async (): Promise<Note[]> => {
+    return ((await edgeConfig.get<Note[]>('meta')) ?? []) as Note[];
+};
+
 const groupByTitle = flow(
     groupBy<SearchNotesRpcResponse[number]>(({ title }) => title),
     mapValues((notes) => notes.map(({ line }) => line)),
@@ -29,15 +50,10 @@ export const fetchNotes = async (
     lines: Lines;
     notes: Readonly<Note[]>;
 }> => {
-    const data = await edgeConfig.get<Note[]>('meta');
-
-    const allNotes = data ?? [];
+    const allNotes = await getNoteMetadata();
 
     if (q.length > 0) {
-        const { rows } = await turso.execute({
-            sql: `SELECT * FROM notes_fts WHERE line match '"' || ? || '"'`,
-            args: [q],
-        });
+        const rows = await searchNotes(q);
 
         const lines = groupByTitle(rows);
 
