@@ -2,74 +2,10 @@ import fs from 'node:fs/promises';
 
 import { turso } from '~lib/turso';
 
-import {
-    getEnvVariable,
-    readFile,
-    toISOString,
-    updateEdgeConfig,
-    writeFile,
-} from './helpers';
+import { readFile, toISOString, updateEdgeConfig, writeFile } from './helpers';
 
 jest.mock('node:fs/promises');
 jest.mock('~lib/turso');
-
-describe('getEnvVariable', () => {
-    const envVar = 'TEST_ENV_VAR';
-
-    afterEach(() => {
-        process.env[envVar] = undefined;
-    });
-
-    describe('when the environment variable is defined', () => {
-        const value = 'test value';
-
-        beforeAll(() => {
-            process.env[envVar] = value;
-        });
-
-        it('returns its value', () => {
-            expect(getEnvVariable(envVar)).toStrictEqual(value);
-        });
-    });
-
-    describe('when the environment variable is "undefined"', () => {
-        beforeAll(() => {
-            process.env[envVar] = 'undefined';
-        });
-
-        it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrow(
-                `${envVar} is not defined in env.`,
-            );
-        });
-    });
-
-    describe('when the environment variable is "null"', () => {
-        const envVar = 'TEST_ENV_VAR';
-
-        beforeAll(() => {
-            process.env[envVar] = 'null';
-        });
-
-        it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrow(
-                `${envVar} is not defined in env.`,
-            );
-        });
-    });
-
-    describe('when the environment variable is not defined', () => {
-        beforeAll(() => {
-            process.env[envVar] = undefined;
-        });
-
-        it('throws an error', () => {
-            expect(() => getEnvVariable(envVar)).toThrow(
-                `${envVar} is not defined in env.`,
-            );
-        });
-    });
-});
 
 describe('toISOString', () => {
     describe('when the date is in the format yyyy-MM-dd', () => {
@@ -131,7 +67,7 @@ describe('updateEdgeConfig', () => {
 
         expect(turso.execute).toHaveBeenCalledTimes(1);
         expect(turso.execute).toHaveBeenCalledWith(
-            'SELECT DISTINCT(title), filename, created, updated FROM notes_fts ORDER BY updated DESC, title ASC',
+            'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
         );
     });
 

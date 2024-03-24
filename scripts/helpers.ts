@@ -15,27 +15,14 @@ export const writeFile = async (file: string, data: string): Promise<void> => {
     await fs.writeFile(file, data, 'utf8');
 };
 
-export const getEnvVariable = (envVar: string): string => {
-    const value = process.env[envVar];
-
-    const valueExists =
-        typeof value === 'string' && value !== 'undefined' && value !== 'null';
-
-    if (!valueExists) {
-        throw new Error(`${envVar} is not defined in env.`);
-    }
-
-    return value;
-};
-
 export const updateEdgeConfig = async (): Promise<void> => {
-    const { rows } = await turso.execute(
-        'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
-    );
-
     try {
-        const edgeConfig = getEnvVariable('EDGE_CONFIG_ID');
-        const vercelAccessToken = getEnvVariable('VERCEL_ACCESS_TOKEN');
+        const { rows } = await turso.execute(
+            'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
+        );
+
+        const edgeConfig = process.env.EDGE_CONFIG_ID;
+        const vercelAccessToken = process.env.VERCEL_ACCESS_TOKEN;
 
         const url = `https://api.vercel.com/v1/edge-config/${edgeConfig}/items`;
 

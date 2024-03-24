@@ -30,5 +30,11 @@ export const seed = async (): Promise<void> => {
             created TIMESTAMPTZ NOT NULL,
             updated TIMESTAMPTZ NOT NULL
         );
+
+        DROP INDEX lesson_summaries_filename_idx;
+        DROP INDEX notes_filename_idx;
+        
+        CREATE INDEX lesson_summaries_filename_idx ON lesson_summaries(filename);
+        CREATE INDEX notes_filename_idx ON notes(filename);
     `);
 };

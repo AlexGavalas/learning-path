@@ -1,9 +1,9 @@
-import { createClient } from '@vercel/edge-config';
 import { getEntryBySlug } from 'astro:content';
 import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
+import { edgeConfig } from '~lib/edge-config';
 import { turso } from '~lib/turso';
 import type {
     NoteRenderResult,
@@ -17,8 +17,6 @@ type SearchNotesRpcResponse = {
 }[];
 
 type Lines = Record<string, string[]>;
-
-const edgeConfig = createClient(process.env.PUBLIC_EDGE_CONFIG);
 
 const groupByTitle = flow(
     groupBy<SearchNotesRpcResponse[number]>(({ title }) => title),
@@ -72,10 +70,18 @@ export const getNoteData = async (
 export const getNoteMetadata = async (
     filename: string,
 ): Promise<NotesCollection['data'] | null> => {
+    console.time('edgeConfig');
+    const data = await edgeConfig.get<PartialEdgeConfigNote[]>('meta');
+    const note = data?.find((note) => note.filename === filename);
+    console.timeEnd('edgeConfig');
+
+    console.time('turso');
     const { rows } = await turso.execute({
-        sql: 'SELECT * FROM notes WHERE filename = ? ORDER BY updated DESC LIMIT 1',
+        sql: 'SELECT * FROM notes WHERE filename = ? ORDER BY updated DESC, rowid DESC LIMIT 1',
         args: [filename],
     });
+    console.timeEnd('turso');
 
+    return note as NotesCollection['data'];
     return (rows[0] ?? null) as unknown as NotesCollection['data'];
 };
