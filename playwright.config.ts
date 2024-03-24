@@ -12,13 +12,12 @@ const config: PlaywrightTestConfig = {
     },
     preserveOutput: 'never',
     testDir: 'e2e',
-    ...(!isCI && {
-        webServer: {
-            reuseExistingServer: true,
-            command: 'pnpm dev',
-            url: 'http://localhost:4321',
-        },
-    }),
+    snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+    webServer: {
+        reuseExistingServer: !isCI,
+        command: 'pnpm dev',
+        url: 'http://localhost:4321',
+    },
 };
 
 export default config;
