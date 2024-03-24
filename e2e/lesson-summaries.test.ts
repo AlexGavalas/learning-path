@@ -11,9 +11,11 @@ test('page has correct title', async ({ page }) => {
 test('page is displaying correctly', async ({ page }) => {
     await page.goto('/summaries');
 
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForFunction(() => window.scrollY === 0);
+
     await expect(page).toHaveScreenshot('lesson-summaries.png', {
         fullPage: true,
-        stylePath: './e2e/screenshot.css',
     });
 });
 
@@ -24,8 +26,10 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
 
     await themeSwitch.click();
 
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForFunction(() => window.scrollY === 0);
+
     await expect(page).toHaveScreenshot('lesson-summaries-dark.png', {
         fullPage: true,
-        stylePath: './e2e/screenshot.css',
     });
 });

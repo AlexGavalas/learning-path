@@ -1,7 +1,7 @@
 import { parse } from '@formkit/tempo';
 import fs from 'node:fs/promises';
 
-import { getAllNotes } from '~api/notes';
+import { getAllNotes } from '~api/notes-db';
 
 import { logger } from './logger';
 

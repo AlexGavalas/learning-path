@@ -13,7 +13,6 @@ test('page is displaying correctly', async ({ page }) => {
 
     await expect(page).toHaveScreenshot('home.png', {
         fullPage: true,
-        stylePath: './e2e/screenshot.css',
     });
 });
 
@@ -26,7 +25,6 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
 
     await expect(page).toHaveScreenshot('home-dark.png', {
         fullPage: true,
-        stylePath: './e2e/screenshot.css',
     });
 });
 

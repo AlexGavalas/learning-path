@@ -16,3 +16,6 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# e2e generated files
+test-results

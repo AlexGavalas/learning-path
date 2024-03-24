@@ -9,6 +9,6 @@ Hey there. 👋 This is a place where I keep all the interesting stuff I come ac
 -   Get keywords from head meta to use in db
 -   [x] Use git diff to update db
 -   [x] Add a logger lib
--   ~~Get new date with timezone in update md timestamps scripts~~
+-   [x] Include timezone in timestamp formats
 -   Improve code snippets display with something like [expressive code](https://expressive-code.com/).
--   Evaluate switching to SQLite for better performance
+-   [x] Evaluate switching to SQLite for better performance

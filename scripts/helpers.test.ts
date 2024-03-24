@@ -1,16 +1,16 @@
 import fs from 'node:fs/promises';
 
-import { getAllNotes } from '~api/notes';
+import { getAllNotes } from '~api/notes-db';
 
 import { readFile, toISOString, updateEdgeConfig, writeFile } from './helpers';
 
 jest.mock('node:fs/promises');
 jest.mock('~lib/turso');
 
-jest.mock<typeof import('~api/notes')>('~api/notes', () => ({
-    fetchNotes: jest.fn(),
+jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
+    getNoteMetadata: jest.fn(),
     getAllNotes: jest.fn(),
-    getNoteData: jest.fn(),
+    searchNotes: jest.fn(),
 }));
 
 describe('toISOString', () => {

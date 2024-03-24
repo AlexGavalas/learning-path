@@ -13,11 +13,19 @@ const config: PlaywrightTestConfig = {
     preserveOutput: 'never',
     testDir: 'e2e',
     snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
-    webServer: {
-        reuseExistingServer: !isCI,
-        command: 'pnpm dev',
-        url: 'http://localhost:4321',
+    expect: {
+        toHaveScreenshot: {
+            maxDiffPixelRatio: 0.1,
+            stylePath: './e2e/screenshot.css',
+        },
     },
+    ...(!isCI && {
+        webServer: {
+            reuseExistingServer: true,
+            command: 'pnpm dev',
+            url: 'http://localhost:4321',
+        },
+    }),
 };
 
 export default config;
