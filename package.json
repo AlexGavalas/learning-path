@@ -1,10 +1,10 @@
 {
     "name": "learning-path",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "type": "module",
     "private": true,
     "engines": {
-        "node": "18"
+        "node": "20"
     },
     "scripts": {
         "dev": "astro dev",
@@ -55,7 +55,7 @@
         "@types/jest": "29.5.12",
         "@types/jest-axe": "3.5.9",
         "@types/lodash": "4.17.0",
-        "@types/node": "18.18.0",
+        "@types/node": "20.11.30",
         "@typescript-eslint/eslint-plugin": "7.3.1",
         "@typescript-eslint/parser": "7.3.1",
         "@vanilla-extract/css": "1.14.1",
