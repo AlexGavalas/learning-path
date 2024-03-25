@@ -19,13 +19,17 @@ const config: PlaywrightTestConfig = {
             stylePath: './e2e/screenshot.css',
         },
     },
-    ...(!isCI && {
-        webServer: {
-            reuseExistingServer: true,
-            command: 'pnpm dev',
-            url: 'http://localhost:4321',
-        },
-    }),
+    ...(isCI
+        ? {
+              reporter: 'github',
+          }
+        : {
+              webServer: {
+                  reuseExistingServer: true,
+                  command: 'pnpm dev',
+                  url: 'http://localhost:4321',
+              },
+          }),
 };
 
 export default config;
