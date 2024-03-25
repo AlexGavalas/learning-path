@@ -65,7 +65,7 @@
         "eslint": "8.57.0",
         "eslint-config-love": "43.1.0",
         "eslint-config-prettier": "9.1.0",
-        "eslint-plugin-astro": "0.32.0",
+        "eslint-plugin-astro": "0.33.1",
         "eslint-plugin-import": "2.29.1",
         "eslint-plugin-jest": "27.9.0",
         "eslint-plugin-n": "16.6.2",
