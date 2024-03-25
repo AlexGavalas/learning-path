@@ -8,6 +8,26 @@ test('page has correct title', async ({ page }) => {
     expect(title).toBe('Learning Path');
 });
 
+test('page is displaying correctly', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page).toHaveScreenshot('home.png', {
+        fullPage: true,
+    });
+});
+
+test('page is displaying correctly in dark mode', async ({ page }) => {
+    await page.goto('/');
+
+    const themeSwitch = page.locator('header img[alt="Moon"]');
+
+    await themeSwitch.click();
+
+    await expect(page).toHaveScreenshot('home-dark.png', {
+        fullPage: true,
+    });
+});
+
 test.describe('navigation bar', () => {
     test('is visible', async ({ page }) => {
         await page.goto('/');

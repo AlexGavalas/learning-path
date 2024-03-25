@@ -10,8 +10,15 @@ const config: PlaywrightTestConfig = {
     use: {
         baseURL,
     },
-    preserveOutput: 'never',
+    preserveOutput: 'failures-only',
     testDir: 'e2e',
+    snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+    expect: {
+        toHaveScreenshot: {
+            maxDiffPixelRatio: 0.1,
+            stylePath: './e2e/screenshot.css',
+        },
+    },
     ...(!isCI && {
         webServer: {
             reuseExistingServer: true,

@@ -7,6 +7,14 @@ import type {
     LessonSummaryRenderResult,
 } from '~types/lesson-summaries.types';
 
+const getAllLessonSummaries = async (): Promise<LessonSummary[]> => {
+    const { rows } = await turso.execute(
+        'SELECT * FROM lesson_summaries ORDER BY created DESC',
+    );
+
+    return rows as unknown as LessonSummary[];
+};
+
 export const getLessonSummaries = async (): Promise<
     Omit<LessonSummary, 'id'>[] | null
 > => {
@@ -21,11 +29,7 @@ export const getLessonSummaries = async (): Promise<
         }));
     }
 
-    const { rows } = await turso.execute(
-        'SELECT * FROM lesson_summaries ORDER BY created DESC',
-    );
-
-    return rows as unknown as LessonSummary[];
+    return await getAllLessonSummaries();
 };
 
 export const getLessonSummaryData = async (

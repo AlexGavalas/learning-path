@@ -3,13 +3,13 @@ import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
-import { edgeConfig } from '~lib/edge-config';
-import { turso } from '~lib/turso';
 import type {
     Note,
     NoteFrontmatter,
     NoteRenderResult,
 } from '~types/notes.types';
+
+import { getNoteMetadata, searchNotes } from './notes-db';
 
 type SearchNotesRpcResponse = {
     title: string;
@@ -29,15 +29,10 @@ export const fetchNotes = async (
     lines: Lines;
     notes: Readonly<Note[]>;
 }> => {
-    const data = await edgeConfig.get<Note[]>('meta');
-
-    const allNotes = data ?? [];
+    const allNotes = await getNoteMetadata();
 
     if (q.length > 0) {
-        const { rows } = await turso.execute({
-            sql: `SELECT * FROM notes_fts WHERE line match '"' || ? || '"'`,
-            args: [q],
-        });
+        const rows = await searchNotes(q);
 
         const lines = groupByTitle(rows);
 

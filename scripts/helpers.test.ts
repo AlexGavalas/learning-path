@@ -1,11 +1,17 @@
 import fs from 'node:fs/promises';
 
-import { turso } from '~lib/turso';
+import { getAllNotes } from '~api/notes-db';
 
 import { readFile, toISOString, updateEdgeConfig, writeFile } from './helpers';
 
 jest.mock('node:fs/promises');
 jest.mock('~lib/turso');
+
+jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
+    getNoteMetadata: jest.fn(),
+    getAllNotes: jest.fn(),
+    searchNotes: jest.fn(),
+}));
 
 describe('toISOString', () => {
     describe('when the date is in the format yyyy-MM-dd', () => {
@@ -51,14 +57,7 @@ describe('writeFile', () => {
 
 describe('updateEdgeConfig', () => {
     beforeAll(() => {
-        jest.mocked(turso).execute.mockResolvedValue({
-            columns: [],
-            columnTypes: [],
-            lastInsertRowid: undefined,
-            rows: [],
-            rowsAffected: 0,
-            toJSON: jest.fn(),
-        });
+        jest.mocked(getAllNotes).mockResolvedValue([]);
 
         process.env.EDGE_CONFIG_ID = 'test-edge-config-id';
         process.env.VERCEL_ACCESS_TOKEN = 'test-vercel-access-token';
@@ -67,10 +66,8 @@ describe('updateEdgeConfig', () => {
     it('calls turso.execute', async () => {
         await updateEdgeConfig();
 
-        expect(turso.execute).toHaveBeenCalledTimes(1);
-        expect(turso.execute).toHaveBeenCalledWith(
-            'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
-        );
+        expect(getAllNotes).toHaveBeenCalledTimes(1);
+        expect(getAllNotes).toHaveBeenCalledWith();
     });
 
     it('calls fetch', async () => {
