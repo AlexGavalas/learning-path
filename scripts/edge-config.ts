@@ -1,10 +1,11 @@
 import { getAllNotes } from '~api/notes-db';
+import { type Note } from '~types/notes.types';
 
 import { logger } from './logger';
 
-export const updateEdgeConfig = async (): Promise<void> => {
+export const updateEdgeConfig = async (data?: Note[]): Promise<void> => {
     try {
-        const rows = await getAllNotes();
+        const rows = data ?? (await getAllNotes());
 
         const edgeConfig = process.env.EDGE_CONFIG_ID;
         const vercelAccessToken = process.env.VERCEL_ACCESS_TOKEN;

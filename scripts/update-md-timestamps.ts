@@ -1,6 +1,9 @@
 import { format } from '@formkit/tempo';
 import matter from 'gray-matter';
 
+import { getNoteMetadata } from '~api/notes-db';
+
+import { updateEdgeConfig } from './edge-config';
 import { readFile, writeFile } from './helpers';
 import { logger } from './logger';
 
@@ -25,4 +28,34 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     }
 
     logger.info('Updated timestamps.');
+
+    const noteMetadata = await getNoteMetadata();
+
+    const friendlyNames = files
+        .map((file) =>
+            file
+                .match(/((notes|lesson-summaries)\/.*)/)?.[0]
+                .replace('.mdx', ''),
+        )
+        .filter(Boolean);
+
+    const updatedNoteMetadata = noteMetadata
+        .map((note) => {
+            if (friendlyNames.includes(note.filename)) {
+                return {
+                    ...note,
+                    updated: new Date().toISOString(),
+                };
+            }
+
+            return note;
+        })
+        .sort((a, b) => {
+            const aDate = new Date(a.updated);
+            const bDate = new Date(b.updated);
+
+            return bDate.getTime() - aDate.getTime();
+        });
+
+    await updateEdgeConfig(updatedNoteMetadata);
 };

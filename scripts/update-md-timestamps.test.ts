@@ -3,6 +3,16 @@ import { updateMdTimestamps } from './update-md-timestamps';
 
 jest.mock('./helpers');
 
+jest.mock<typeof import('./edge-config')>('./edge-config', () => ({
+    updateEdgeConfig: jest.fn(),
+}));
+
+jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
+    getNoteMetadata: jest.fn().mockResolvedValue([]),
+    getAllNotes: jest.fn(),
+    searchNotes: jest.fn(),
+}));
+
 describe('updateMdTimestamps', () => {
     beforeAll(() => {
         jest.useFakeTimers({ now: new Date(2023, 0, 1) });
