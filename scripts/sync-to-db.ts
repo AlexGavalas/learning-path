@@ -83,7 +83,7 @@ const main = async (): Promise<void> => {
 
             await turso.batch(
                 valuesToInsert.map((value) => ({
-                    sql: 'INSERT INTO notes (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
+                    sql: 'INSERT INTO notes_fts (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
                     args: [
                         value.title,
                         value.line,
@@ -104,7 +104,7 @@ const main = async (): Promise<void> => {
 
             for (const line of deletions) {
                 await turso.execute({
-                    sql: 'DELETE FROM notes WHERE line MATCH ?',
+                    sql: 'DELETE FROM notes_fts WHERE line MATCH ?',
                     args: [line.replace(/^-/, '').replace(/^-\s*/, '')],
                 });
             }

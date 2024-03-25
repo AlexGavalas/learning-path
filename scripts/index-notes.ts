@@ -63,7 +63,7 @@ const indexDocs = async (): Promise<void> => {
         spinner.start();
 
         const batchStatements = values.map((value) => ({
-            sql: 'INSERT INTO notes (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
+            sql: 'INSERT INTO notes_fts (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
             args: [
                 value.title,
                 value.line,
@@ -73,12 +73,7 @@ const indexDocs = async (): Promise<void> => {
             ],
         }));
 
-        const batchFtsStatements = values.map((value) => ({
-            sql: 'INSERT INTO notes_fts (title, line, filename) VALUES (?, ?, ?)',
-            args: [value.title, value.line, value.filename],
-        }));
-
-        await turso.batch(batchFtsStatements.concat(batchStatements), 'write');
+        await turso.batch(batchStatements, 'write');
 
         spinner.succeed(`Indexed contents of ${filename}`);
     }

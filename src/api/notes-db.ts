@@ -4,7 +4,7 @@ import { type Note } from '~types/notes.types';
 
 export const searchNotes = async (q: string): Promise<Note[]> => {
     const { rows } = await turso.execute({
-        sql: `SELECT * FROM notes_fts WHERE line match '"' || ? || '"'`,
+        sql: `SELECT * FROM notes_fts WHERE line MATCH '"' || ? || '"'`,
         args: [q],
     });
 
@@ -13,7 +13,7 @@ export const searchNotes = async (q: string): Promise<Note[]> => {
 
 export const getAllNotes = async (): Promise<Note[]> => {
     const { rows } = await turso.execute(
-        'SELECT DISTINCT(title), filename, created, updated FROM notes ORDER BY updated DESC, title ASC',
+        'SELECT DISTINCT(title), filename, created, updated FROM notes_fts ORDER BY updated DESC, title ASC',
     );
 
     return rows as unknown as Note[];
