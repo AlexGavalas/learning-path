@@ -9,12 +9,6 @@ import { indexLessonSummaries } from './index-lesson-summaries';
 jest.mock('node:fs/promises');
 jest.mock('~lib/turso');
 
-jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
-    getNoteMetadata: jest.fn(),
-    getAllNotes: jest.fn(),
-    searchNotes: jest.fn(),
-}));
-
 jest.mock<typeof import('./helpers')>('./helpers', () => ({
     ...jest.requireActual('./helpers'),
     readFile: jest.fn(),

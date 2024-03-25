@@ -7,7 +7,8 @@ import ora from 'ora';
 import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes.types';
 
-import { toISOString, updateEdgeConfig } from './helpers';
+import { updateEdgeConfig } from './edge-config';
+import { toISOString } from './helpers';
 import { logger } from './logger';
 import { seed } from './seed';
 
