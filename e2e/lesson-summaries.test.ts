@@ -25,7 +25,7 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
 
     await themeSwitch.click();
 
-    // await page.setViewportSize({ height: 749, width: 1280 });
+    await page.setViewportSize({ height: 749, width: 1280 });
 
     await expect(page).toHaveScreenshot('lesson-summaries-dark.png', {
         fullPage: true,
