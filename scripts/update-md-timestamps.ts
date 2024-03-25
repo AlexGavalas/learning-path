@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { getNoteMetadata } from '~api/notes-db';
 
 import { updateEdgeConfig } from './edge-config';
-import { readFile, writeFile } from './helpers';
+import { readFile, toISOString, writeFile } from './helpers';
 import { logger } from './logger';
 
 export const updateMdTimestamps = async (files: string[]): Promise<void> => {
@@ -41,10 +41,10 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
 
     const updatedNoteMetadata = noteMetadata
         .map((note) => {
-            if (friendlyNames.includes(note.filename)) {
+            if (friendlyNames.includes(`notes/${note.filename}`)) {
                 return {
                     ...note,
-                    updated: new Date().toISOString(),
+                    updated: toISOString(new Date().toISOString()),
                 };
             }
 
@@ -54,7 +54,13 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
             const aDate = new Date(a.updated);
             const bDate = new Date(b.updated);
 
-            return bDate.getTime() - aDate.getTime();
+            const dateCmp = bDate.getTime() - aDate.getTime();
+
+            if (dateCmp !== 0) {
+                return dateCmp;
+            }
+
+            return a.title.localeCompare(b.title);
         });
 
     await updateEdgeConfig(updatedNoteMetadata);
