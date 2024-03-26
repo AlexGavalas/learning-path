@@ -54,7 +54,7 @@ export const lightTheme = style({
                 primary: '#000000',
             },
             button: {
-                background: '#94a3b8',
+                background: '#4f6179',
                 text: '#ececec',
                 hover: {
                     background: '#64748b',
