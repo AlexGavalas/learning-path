@@ -45,5 +45,15 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
             />
             <slot />
         </main>
+        {
+            process.env.PROD === 'true' && (
+                <script
+                    is:inline
+                    async
+                    defer
+                    src="https://scripts.withcabin.com/hello.js"
+                />
+            )
+        }
     </body>
 </html>
