@@ -103,7 +103,7 @@ const main = async (): Promise<void> => {
 
             for (const line of deletions) {
                 await turso.execute({
-                    sql: 'DELETE FROM notes_fts WHERE line MATCH ?',
+                    sql: `DELETE FROM notes_fts WHERE line MATCH '"' || ? || '"'`,
                     args: [line.replace(/^-/, '').replace(/^-\s*/, '')],
                 });
             }
