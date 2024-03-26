@@ -31,16 +31,10 @@ export const fetchNotes = async (
 }> => {
     const allNotes = await getNoteMetadata();
 
-    console.log(allNotes);
-
     if (q.length > 0) {
         const rows = await searchNotes(q);
 
         const lines = groupByTitle(rows);
-
-        console.log(rows);
-
-        console.log(lines);
 
         const noteTitles = new Set(rows.map(({ title }) => title));
 

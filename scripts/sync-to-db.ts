@@ -7,7 +7,6 @@ import { type SimpleGit, simpleGit } from 'simple-git';
 import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes.types';
 
-import { updateEdgeConfig } from './edge-config';
 import { toISOString } from './helpers';
 import { logger } from './logger';
 
@@ -111,10 +110,6 @@ const main = async (): Promise<void> => {
 
             spinner.succeed(`Deleted old entries of ${file.file}`);
         }
-    }
-
-    if (diffSummary.files.length > 0) {
-        await updateEdgeConfig();
     }
 };
 
