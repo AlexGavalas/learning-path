@@ -37,7 +37,7 @@
         "@astrojs/sitemap": "3.1.1",
         "@astrojs/vercel": "7.4.0",
         "@formkit/tempo": "0.0.17",
-        "@libsql/client": "0.5.6",
+        "@libsql/client": "0.6.0",
         "@vercel/edge-config": "1.1.0",
         "astro": "4.5.9",
         "cross-env": "7.0.3",
