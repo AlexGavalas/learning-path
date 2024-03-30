@@ -24,7 +24,12 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
 
 <script>
     import { getInitialTheme, setThemeInPage } from '~lib/theme';
-    import { THEME, DARK_IMG_PROPS, LIGHT_IMG_PROPS } from '~constants';
+    import {
+        THEME,
+        DARK_IMG_PROPS,
+        LIGHT_IMG_PROPS,
+        ONE_YEAR,
+    } from '~constants';
     import { updateAttributes } from '~lib/element';
 
     class ThemeSwitch extends HTMLElement {
@@ -55,9 +60,12 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
         };
 
         toggleTheme = (e: MouseEvent) => {
-            this.setTheme(
-                this.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT,
-            );
+            const newTheme =
+                this.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT;
+
+            this.setTheme(newTheme);
+
+            document.cookie = `theme=${newTheme}; max-age=${ONE_YEAR}; path=/;`;
 
             e.preventDefault();
         };
