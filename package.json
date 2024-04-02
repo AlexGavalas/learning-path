@@ -63,7 +63,7 @@
         "astro-eslint-parser": "0.16.3",
         "dotenv": "16.4.5",
         "eslint": "8.57.0",
-        "eslint-config-love": "43.1.0",
+        "eslint-config-love": "44.0.0",
         "eslint-config-prettier": "9.1.0",
         "eslint-plugin-astro": "0.33.1",
         "eslint-plugin-import": "2.29.1",
