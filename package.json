@@ -60,7 +60,7 @@
         "@typescript-eslint/parser": "7.5.0",
         "@vanilla-extract/css": "1.14.2",
         "@vanilla-extract/vite-plugin": "4.0.7",
-        "astro-eslint-parser": "0.16.3",
+        "astro-eslint-parser": "0.17.0",
         "dotenv": "16.4.5",
         "eslint": "8.57.0",
         "eslint-config-love": "44.0.0",
