@@ -9,9 +9,11 @@ import { logger } from './logger';
 
 export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     for (const file of files) {
-        const friendlyName = file.match(/((notes|lesson-summaries)\/.*)/)?.[0];
+        const friendlyName = file.match(
+            /(?<category>notes|lesson-summaries)\/.*/u,
+        )?.[0];
 
-        if (friendlyName === undefined) {
+        if (!friendlyName) {
             logger.error(`Incorrect file passed. Skipping ${file} ...`);
             continue;
         }
@@ -34,7 +36,7 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     const friendlyNames = files
         .map((file) =>
             file
-                .match(/((notes|lesson-summaries)\/.*)/)?.[0]
+                .match(/(?<category>notes|lesson-summaries)\/.*/u)?.[0]
                 .replace('.mdx', ''),
         )
         .filter(Boolean);
@@ -50,9 +52,9 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
 
             return note;
         })
-        .sort((a, b) => {
-            const aDate = new Date(a.updated);
-            const bDate = new Date(b.updated);
+        .sort((noteMetaA, noteMetaB) => {
+            const aDate = new Date(noteMetaA.updated);
+            const bDate = new Date(noteMetaB.updated);
 
             const dateCmp = bDate.getTime() - aDate.getTime();
 
@@ -60,7 +62,7 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
                 return dateCmp;
             }
 
-            return a.title.localeCompare(b.title);
+            return noteMetaA.title.localeCompare(noteMetaB.title);
         });
 
     await updateEdgeConfig(updatedNoteMetadata);

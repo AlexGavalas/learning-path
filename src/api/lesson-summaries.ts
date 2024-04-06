@@ -40,7 +40,7 @@ export const getLessonSummaryData = async (
 } | null> => {
     const lessonSummary = await getEntryBySlug('lesson-summaries', slug);
 
-    if (lessonSummary === undefined) {
+    if (!lessonSummary) {
         return null;
     }
 

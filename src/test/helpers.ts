@@ -1,7 +1,7 @@
 export const getTimeZone = (): string => {
     const timeZone = process.env.TZ;
 
-    if (timeZone === undefined) {
+    if (!timeZone) {
         throw new Error('Timezone has not been defined! Set env var TZ!');
     }
 

@@ -16,13 +16,13 @@ jest.mock<typeof import('./helpers')>('./helpers', () => ({
 
 jest.mock<typeof import('ora')>('ora', () => ({
     __esModule: true,
-    oraPromise: jest.fn(),
-    spinners: {} as any,
     default: jest.fn().mockReturnValue({
         start: jest.fn(),
         succeed: jest.fn(),
         text: jest.fn(),
     }),
+    oraPromise: jest.fn(),
+    spinners: {} as any,
 }));
 
 describe('indexLessonSummaries', () => {
@@ -54,13 +54,13 @@ describe('indexLessonSummaries', () => {
         expect(turso.batch).toHaveBeenCalledWith(
             [
                 {
-                    sql: 'INSERT INTO lesson_summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
                     args: [
                         'test-file',
                         'Test',
                         expect.any(String),
                         expect.any(String),
                     ],
+                    sql: 'INSERT INTO lesson_summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
                 },
             ],
             'write',

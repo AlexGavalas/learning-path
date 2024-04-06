@@ -2,5 +2,5 @@
     <ShortName>Learning Path</ShortName>
     <Description>Learning Path's Search></Description>
     <InputEncoding>UTF-8</InputEncoding>
-    <Url type="text/html" template="https://learning-path.dev/?q={searchTerms}"/>
+    <Url type="text/html" template="https://learning-path.dev/?query={searchTerms}" />
 </OpenSearchDescription>

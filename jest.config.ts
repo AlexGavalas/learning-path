@@ -5,40 +5,32 @@ import { compilerOptions } from './tsconfig.json';
 
 const config: Config = {
     clearMocks: true,
-
     collectCoverage: false,
-    coverageReporters: ['text'],
     collectCoverageFrom: ['!**/index.ts'],
-
+    coverageReporters: ['text'],
     coverageThreshold: {
         global: {
-            statements: 95,
             branches: 90,
             functions: 95,
             lines: 95,
+            statements: 95,
         },
     },
-
-    testEnvironment: 'jsdom',
-
+    globalSetup: '<rootDir>/src/test/setup-global.ts',
+    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+    modulePaths: [compilerOptions.baseUrl],
+    roots: ['<rootDir>'],
+    setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
     testPathIgnorePatterns: ['e2e'],
-
     transform: {
         '^.+\\.tsx?$': [
             'ts-jest',
             {
-                tsconfig: './tsconfig.test.json',
                 isolatedModules: true,
+                tsconfig: './tsconfig.test.json',
             },
         ],
     },
-
-    globalSetup: '<rootDir>/src/test/setup-global.ts',
-    setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
-
-    roots: ['<rootDir>'],
-    modulePaths: [compilerOptions.baseUrl],
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 };
 
 export default config;

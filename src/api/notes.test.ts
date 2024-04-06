@@ -7,10 +7,10 @@ jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
     createClient: jest.fn().mockReturnValue({
         get: jest.fn().mockResolvedValue([
             {
-                title: 'test data',
                 created: '2024-01-01',
-                updated: '2024-01-01',
                 filename: 'test',
+                title: 'test data',
+                updated: '2024-01-01',
             },
         ]),
     }),
@@ -19,13 +19,13 @@ jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
 jest.mock(
     'astro:content',
     () => ({
+        getCollection: jest.fn().mockResolvedValue([{ slug: 'test' }]),
         getEntryBySlug: jest.fn().mockResolvedValue({
             body: 'test body',
             render: jest.fn().mockReturnValue({
                 Content: jest.fn().mockReturnValue('<div>test body</div>'),
             }),
         }),
-        getCollection: jest.fn().mockResolvedValue([{ slug: 'test' }]),
     }),
     {
         virtual: true,

@@ -13,12 +13,11 @@ export const updateEdgeConfig = async (data?: Note[]): Promise<void> => {
         const url = `https://api.vercel.com/v1/edge-config/${edgeConfig}/items`;
 
         const res = await fetch(url, {
-            method: 'PATCH',
             body: JSON.stringify({
                 items: [
                     {
-                        operation: 'update',
                         key: 'meta',
+                        operation: 'update',
                         value: rows,
                     },
                 ],
@@ -27,12 +26,13 @@ export const updateEdgeConfig = async (data?: Note[]): Promise<void> => {
                 Authorization: `Bearer ${vercelAccessToken}`,
                 'Content-Type': 'application/json',
             },
+            method: 'PATCH',
         });
 
         const responseData = (await res.json()) as unknown;
 
         logger.info('Update Edge Config response', responseData);
-    } catch (e) {
-        logger.error(e);
+    } catch (error) {
+        logger.error(error);
     }
 };

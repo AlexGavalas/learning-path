@@ -44,13 +44,13 @@ export const indexLessonSummaries = async (): Promise<void> => {
         }
 
         batchOperations.push({
-            sql: 'INSERT INTO lesson_summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
             args: [
-                filename.replace(/\.mdx$/, ''),
+                filename.replace(/\.mdx$/u, ''),
                 frontmatter.title,
                 toISOString(frontmatter.created),
                 toISOString(frontmatter.updated),
             ],
+            sql: 'INSERT INTO lesson_summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
         });
 
         spinner.succeed();

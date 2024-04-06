@@ -7,22 +7,22 @@ const baseURL =
     typeof envVarBaseUrl === 'string' ? envVarBaseUrl : 'http://localhost:4321';
 
 const config: PlaywrightTestConfig = {
-    use: {
-        baseURL,
-    },
-    preserveOutput: 'failures-only',
-    testDir: 'e2e',
-    snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
     expect: {
         toHaveScreenshot: {
             maxDiffPixelRatio: 0.1,
             stylePath: './e2e/screenshot.css',
         },
     },
+    preserveOutput: 'failures-only',
+    snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+    testDir: 'e2e',
+    use: {
+        baseURL,
+    },
     ...(!isCI && {
         webServer: {
-            reuseExistingServer: true,
             command: 'pnpm dev',
+            reuseExistingServer: true,
             url: 'http://localhost:4321',
         },
     }),

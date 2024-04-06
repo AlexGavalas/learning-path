@@ -2,11 +2,11 @@
 import type { HTMLAttributes } from 'astro/types';
 import * as cn from './button.css';
 
+type ButtonVariant = 'wrapper' | 'default';
+
 interface Props extends HTMLAttributes<'button'> {
     variant?: ButtonVariant;
 }
-
-type ButtonVariant = 'wrapper' | 'default';
 
 const { variant = 'default', class: extraClass, ...rest } = Astro.props;
 ---

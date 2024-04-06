@@ -24,15 +24,15 @@ const groupByTitle = flow(
 );
 
 export const fetchNotes = async (
-    q: string,
+    query: string,
 ): Promise<{
     lines: Lines;
     notes: Readonly<Note[]>;
 }> => {
     const allNotes = await getNoteMetadata();
 
-    if (q.length > 0) {
-        const rows = await searchNotes(q);
+    if (query.length > 0) {
+        const rows = await searchNotes(query);
 
         const lines = groupByTitle(rows);
 
@@ -43,14 +43,14 @@ export const fetchNotes = async (
         );
 
         return {
-            notes: filteredNotes,
             lines,
+            notes: filteredNotes,
         };
     }
 
     return {
-        notes: allNotes,
         lines: {},
+        notes: allNotes,
     };
 };
 
@@ -62,7 +62,7 @@ export const getNoteData = async (
 } | null> => {
     const note = await getEntryBySlug('notes', filename);
 
-    if (note === undefined) {
+    if (!note) {
         return null;
     }
 

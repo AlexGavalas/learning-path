@@ -1,5 +1,5 @@
 {
-    "exclude": ["dist", "*.js", "*.cjs"],
+    "exclude": ["dist", "*.js"],
     "compilerOptions": {
         "strictNullChecks": true,
         "strict": true,
@@ -22,6 +22,7 @@
             "~test/*": ["test/*"],
             "~types/*": ["types/*"],
             "~constants": ["constants.ts"]
-        }
+        },
+        "typeRoots": ["./node_modules/@types", "./src/types/"]
     }
 }

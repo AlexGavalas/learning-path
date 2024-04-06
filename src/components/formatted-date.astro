@@ -29,7 +29,7 @@ const formattedDate = formatDate({
     tz: timezone,
 });
 
-const ariaLabel = label ? `${label} ${datetime}` : undefined;
+const ariaLabel = label && `${label} ${datetime}`;
 ---
 
 <time aria-label={ariaLabel} datetime={datetime} {...rest}>{formattedDate}</time

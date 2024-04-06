@@ -6,10 +6,10 @@ import Input from '~components/input/input.astro';
 import * as cn from './search-area.css';
 
 interface Props {
-    q?: string;
+    query?: string;
 }
 
-const { q } = Astro.props;
+const { query } = Astro.props;
 ---
 
 <search-area>
@@ -19,7 +19,7 @@ const { q } = Astro.props;
             name={QUERY_FIELD_NAME}
             autocomplete="off"
             placeholder="Type here"
-            value={q}
+            value={query}
         />
         <div class={cn.searchButton}>
             <Button>Search</Button>

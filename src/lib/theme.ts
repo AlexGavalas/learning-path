@@ -6,7 +6,7 @@ export const getInitialTheme = (): string => {
         .split('; ')
         .find((row) => row.startsWith('theme='));
 
-    if (cookie !== undefined) {
+    if (cookie) {
         return cookie.split('=')[1];
     }
 

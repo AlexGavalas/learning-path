@@ -12,17 +12,18 @@ export const THEME = {
 };
 
 export const LIGHT_IMG_PROPS = {
-    src: '/moon.svg',
     alt: 'Moon',
+    src: '/moon.svg',
 };
 
 export const DARK_IMG_PROPS = {
-    src: '/sun.svg',
     alt: 'Sun',
+    src: '/sun.svg',
 };
 
 export const DEFAULT_THEME = THEME.LIGHT;
 
 export const QUERY_FIELD_NAME = 'q';
 
-export const ONE_YEAR = 60 * 60 * 24 * 365; // 1 year in seconds
+// 1 year in seconds
+export const ONE_YEAR = 31536000;

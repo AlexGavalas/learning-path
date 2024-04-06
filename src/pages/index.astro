@@ -7,11 +7,11 @@ import { fetchNotes } from '~api/notes';
 import * as cn from '~styles/pages/index.css';
 import { QUERY_FIELD_NAME, TITLE } from '~constants';
 
-const q = Astro.url.searchParams.get(QUERY_FIELD_NAME) ?? '';
+const query = Astro.url.searchParams.get(QUERY_FIELD_NAME) ?? '';
 
-const { notes, lines } = await fetchNotes(q);
+const { notes, lines } = await fetchNotes(query);
 
-const title = q ? `${q} | ${TITLE}` : TITLE;
+const title = query ? `${query} | ${TITLE}` : TITLE;
 ---
 
 <GlobalLayout title={title}>
@@ -21,7 +21,7 @@ const title = q ? `${q} | ${TITLE}` : TITLE;
             I come across. Feel free to explore. It is a WIP, so you can expect
             things to change.
         </Banner>
-        <SearchArea q={q} />
+        <SearchArea query={query} />
         <h1>Notes</h1>
         <NotesList lines={lines} notes={notes} baseUrl="notes" />
     </section>

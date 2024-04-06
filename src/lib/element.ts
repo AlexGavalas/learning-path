@@ -14,7 +14,7 @@ export const createElement = <T extends HTMLElementTag>({
     const element = document.createElement(type);
 
     if (className.length > 0) {
-        element.classList.add(...className.split(/\s+/));
+        element.classList.add(...className.split(/\s+/u));
     }
 
     Object.entries(attributes).forEach(([key, value]) => {

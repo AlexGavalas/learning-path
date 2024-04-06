@@ -10,15 +10,12 @@ import type { NoteFrontmatter } from '~types/notes.types';
 import { updateEdgeConfig } from './edge-config';
 import { toISOString } from './helpers';
 import { logger } from './logger';
-import { seed } from './seed';
 
 const NOTES_DIR = path.join(process.cwd(), 'src/content/notes');
 
 const spinner = ora();
 
 const indexDocs = async (): Promise<void> => {
-    await seed();
-
     const notes = await fs.readdir(NOTES_DIR);
 
     const profiler = logger.startTimer();
@@ -44,18 +41,18 @@ const indexDocs = async (): Promise<void> => {
             .split('\n')
             .filter(Boolean)
             // Remove some markdown syntax
-            .filter((line) => line !== '---' && !/^#+\s/.test(line))
+            .filter((line) => line !== '---' && !/^#+\s/u.test(line))
             .map((line) => line.replace('-   ', ''));
 
-        const fname = filename.replace(/\.mdx$/, '');
+        const fname = filename.replace(/\.mdx$/u, '');
         const created = toISOString(data.created);
         const updated = toISOString(data.updated);
 
         const values = parsedContents.map((line) => ({
-            title: data.title,
-            line,
-            filename: fname,
             created,
+            filename: fname,
+            line,
+            title: data.title,
             updated,
         }));
 
@@ -63,7 +60,6 @@ const indexDocs = async (): Promise<void> => {
         spinner.start();
 
         const batchStatements = values.map((value) => ({
-            sql: 'INSERT INTO notes_fts (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
             args: [
                 value.title,
                 value.line,
@@ -71,6 +67,7 @@ const indexDocs = async (): Promise<void> => {
                 value.created,
                 value.updated,
             ],
+            sql: 'INSERT INTO notes_fts (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
         }));
 
         await turso.batch(batchStatements, 'write');
@@ -83,7 +80,7 @@ const indexDocs = async (): Promise<void> => {
     await updateEdgeConfig();
 };
 
-indexDocs().catch((e: unknown) => {
+indexDocs().catch((error: unknown) => {
     spinner.fail('Failed to index docs');
-    logger.error(e);
+    logger.error(error);
 });

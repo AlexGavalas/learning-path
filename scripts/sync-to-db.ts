@@ -48,32 +48,32 @@ const main = async (): Promise<void> => {
             .split('\n')
             .filter(
                 (line) =>
-                    !/^[+-]title:\s/.test(line) &&
-                    !/^[+-]created:\s/.test(line) &&
-                    !/^[+-]updated:\s/.test(line) &&
-                    !/^[+-]published:\s/.test(line),
+                    !/^[+-]title:\s/u.test(line) &&
+                    !/^[+-]created:\s/u.test(line) &&
+                    !/^[+-]updated:\s/u.test(line) &&
+                    !/^[+-]published:\s/u.test(line),
             )
             .filter(
                 (line) =>
                     !line.startsWith('+++') &&
                     !line.startsWith('---') &&
-                    !/^[+-]\s*#+\s/.test(line) &&
-                    /^[+-]{1}/.test(line),
+                    !/^[+-]\s*#+\s/u.test(line) &&
+                    /^[+-]{1}/u.test(line),
             );
 
         const additions = lines.filter((line) => line.startsWith('+'));
         const deletions = lines.filter((line) => line.startsWith('-'));
 
-        const fname = file.file.match(/([^/]*)\.mdx$/)?.[1] ?? '';
+        const fname = file.file.match(/(?<fname>[^/]*)\.mdx$/u)?.[1] ?? '';
         const created = toISOString(data.created);
         const updated = toISOString(data.updated);
 
         if (additions.length > 0) {
             const valuesToInsert = additions.map((line) => ({
-                title: data.title,
-                line: line.replace(/^\+/, '').replace(/^-\s*/, ''),
-                filename: fname,
                 created,
+                filename: fname,
+                line: line.replace(/^\+/u, '').replace(/^-\s*/u, ''),
+                title: data.title,
                 updated,
             }));
 
@@ -82,7 +82,6 @@ const main = async (): Promise<void> => {
 
             await turso.batch(
                 valuesToInsert.map((value) => ({
-                    sql: 'INSERT INTO notes_fts (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
                     args: [
                         value.title,
                         value.line,
@@ -90,6 +89,7 @@ const main = async (): Promise<void> => {
                         value.created,
                         value.updated,
                     ],
+                    sql: 'INSERT INTO notes_fts (title, line, filename, created, updated) VALUES (?, ?, ?, ?, ?)',
                 })),
                 'write',
             );
@@ -103,8 +103,8 @@ const main = async (): Promise<void> => {
 
             for (const line of deletions) {
                 await turso.execute({
+                    args: [line.replace(/^-/u, '').replace(/^-\s*/u, '')],
                     sql: `DELETE FROM notes_fts WHERE line MATCH '"' || ? || '"'`,
-                    args: [line.replace(/^-/, '').replace(/^-\s*/, '')],
                 });
             }
 
@@ -113,7 +113,7 @@ const main = async (): Promise<void> => {
     }
 };
 
-main().catch((e: unknown) => {
+main().catch((error: unknown) => {
     spinner.fail('Failed to sync notes to database ...');
-    logger.error(e);
+    logger.error(error);
 });

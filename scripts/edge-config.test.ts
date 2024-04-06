@@ -3,8 +3,8 @@ import { getAllNotes } from '~api/notes-db';
 import { updateEdgeConfig } from './edge-config';
 
 jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
-    getNoteMetadata: jest.fn(),
     getAllNotes: jest.fn(),
+    getNoteMetadata: jest.fn(),
     searchNotes: jest.fn(),
 }));
 
@@ -33,20 +33,20 @@ describe('updateEdgeConfig', () => {
 
         expect(fetch).toHaveBeenCalledTimes(1);
         expect(fetch).toHaveBeenCalledWith(url, {
-            method: 'PATCH',
-            headers: {
-                Authorization: `Bearer ${vercelAccessToken}`,
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({
                 items: [
                     {
-                        operation: 'update',
                         key: 'meta',
+                        operation: 'update',
                         value: [],
                     },
                 ],
             }),
+            headers: {
+                Authorization: `Bearer ${vercelAccessToken}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'PATCH',
         });
     });
 });

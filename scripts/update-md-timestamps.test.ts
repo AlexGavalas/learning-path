@@ -8,8 +8,8 @@ jest.mock<typeof import('./edge-config')>('./edge-config', () => ({
 }));
 
 jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
-    getNoteMetadata: jest.fn().mockResolvedValue([]),
     getAllNotes: jest.fn(),
+    getNoteMetadata: jest.fn().mockResolvedValue([]),
     searchNotes: jest.fn(),
 }));
 
