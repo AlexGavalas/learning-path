@@ -16,6 +16,8 @@ export const indexLessonSummaries = async (): Promise<void> => {
         isSilent: process.env.NODE_ENV === 'test',
     });
 
+    await turso.execute('DELETE FROM lesson_summaries');
+
     const SUMMARIES_DIR = path.join(
         process.cwd(),
         'src/content/lesson-summaries',

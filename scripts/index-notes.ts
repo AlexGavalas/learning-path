@@ -16,6 +16,8 @@ const NOTES_DIR = path.join(process.cwd(), 'src/content/notes');
 const spinner = ora();
 
 const indexDocs = async (): Promise<void> => {
+    await turso.execute('DELETE FROM notes_fts');
+
     const notes = await fs.readdir(NOTES_DIR);
 
     const profiler = logger.startTimer();
