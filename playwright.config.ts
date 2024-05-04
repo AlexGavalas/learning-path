@@ -6,10 +6,12 @@ const isCI = process.env.CI === 'true';
 const baseURL =
     typeof envVarBaseUrl === 'string' ? envVarBaseUrl : 'http://localhost:4321';
 
+const CI_PIXEL_DIFF = 0.1;
+
 const config: PlaywrightTestConfig = {
     expect: {
         toHaveScreenshot: {
-            maxDiffPixelRatio: 0.1,
+            maxDiffPixelRatio: isCI ? CI_PIXEL_DIFF : 0,
             stylePath: './e2e/screenshot.css',
         },
     },
