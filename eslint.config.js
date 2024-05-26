@@ -1,5 +1,4 @@
 import js from '@eslint/js';
-import prettierConfig from 'eslint-config-prettier';
 import astroEslint from 'eslint-plugin-astro';
 import jestEslint from 'eslint-plugin-jest';
 import tsEslint from 'typescript-eslint';
@@ -109,5 +108,4 @@ export default [
     {
         ignores: ['*.config.js', '.astro/', '**/*.d.ts'],
     },
-    prettierConfig,
 ];

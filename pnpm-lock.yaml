@@ -76,9 +76,6 @@ devDependencies:
   eslint:
     specifier: 9.3.0
     version: 9.3.0
-  eslint-config-prettier:
-    specifier: 9.1.0
-    version: 9.1.0(eslint@9.3.0)
   eslint-plugin-astro:
     specifier: 1.2.0
     version: 1.2.0(eslint@9.3.0)(typescript@5.4.5)
@@ -3899,15 +3896,6 @@ packages:
     dependencies:
       eslint: 9.3.0
       semver: 7.6.2
-    dev: true
-
-  /eslint-config-prettier@9.1.0(eslint@9.3.0):
-    resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
-    hasBin: true
-    peerDependencies:
-      eslint: '>=7.0.0'
-    dependencies:
-      eslint: 9.3.0
     dev: true
 
   /eslint-plugin-astro@1.2.0(eslint@9.3.0)(typescript@5.4.5):
