@@ -80,8 +80,8 @@ devDependencies:
     specifier: 1.2.0
     version: 1.2.0(eslint@9.4.0)(typescript@5.4.5)
   eslint-plugin-jest:
-    specifier: 28.5.0
-    version: 28.5.0(eslint@9.4.0)(jest@29.7.0)(typescript@5.4.5)
+    specifier: 28.6.0
+    version: 28.6.0(eslint@9.4.0)(jest@29.7.0)(typescript@5.4.5)
   gray-matter:
     specifier: 4.0.3
     version: 4.0.3
@@ -3049,22 +3049,6 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@7.10.0(eslint@9.4.0)(typescript@5.4.5):
-    resolution: {integrity: sha512-olzif1Fuo8R8m/qKkzJqT7qwy16CzPRWBvERS0uvyc+DHd8AKbO4Jb7kpAvVzMmZm8TrHnI7hvjN4I05zow+tg==}
-    engines: {node: ^18.18.0 || >=20.0.0}
-    peerDependencies:
-      eslint: ^8.56.0
-    dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@9.4.0)
-      '@typescript-eslint/scope-manager': 7.10.0
-      '@typescript-eslint/types': 7.10.0
-      '@typescript-eslint/typescript-estree': 7.10.0(typescript@5.4.5)
-      eslint: 9.4.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
-
   /@typescript-eslint/utils@7.12.0(eslint@9.4.0)(typescript@5.4.5):
     resolution: {integrity: sha512-Y6hhwxwDx41HNpjuYswYp6gDbkiZ8Hin9Bf5aJQn1bpTs3afYY4GX+MPYxma8jtoIV2GRwTM/UJm/2uGCVv+DQ==}
     engines: {node: ^18.18.0 || >=20.0.0}
@@ -4434,8 +4418,8 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-jest@28.5.0(eslint@9.4.0)(jest@29.7.0)(typescript@5.4.5):
-    resolution: {integrity: sha512-6np6DGdmNq/eBbA7HOUNV8fkfL86PYwBfwyb8n23FXgJNTR8+ot3smRHjza9LGsBBZRypK3qyF79vMjohIL8eQ==}
+  /eslint-plugin-jest@28.6.0(eslint@9.4.0)(jest@29.7.0)(typescript@5.4.5):
+    resolution: {integrity: sha512-YG28E1/MIKwnz+e2H7VwYPzHUYU4aMa19w0yGcwXnnmJH6EfgHahTJ2un3IyraUxNfnz/KUhJAFXNNwWPo12tg==}
     engines: {node: ^16.10.0 || ^18.12.0 || >=20.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^6.0.0 || ^7.0.0
@@ -4447,7 +4431,7 @@ packages:
       jest:
         optional: true
     dependencies:
-      '@typescript-eslint/utils': 7.10.0(eslint@9.4.0)(typescript@5.4.5)
+      '@typescript-eslint/utils': 7.12.0(eslint@9.4.0)(typescript@5.4.5)
       eslint: 9.4.0
       jest: 29.7.0(@types/node@20.14.2)(ts-node@10.9.2)
     transitivePeerDependencies:
