@@ -58,7 +58,7 @@
         "dotenv": "16.4.5",
         "eslint": "9.4.0",
         "eslint-plugin-astro": "1.2.0",
-        "eslint-plugin-jest": "28.5.0",
+        "eslint-plugin-jest": "28.6.0",
         "gray-matter": "4.0.3",
         "husky": "9.0.11",
         "jest": "29.7.0",
