@@ -10,7 +10,7 @@ import type {
 
 const getAllLessonSummaries = async (): Promise<LessonSummary[]> => {
     const { rows } = await turso.execute(
-        'SELECT * FROM lesson_summaries ORDER BY created DESC',
+        'SELECT * FROM lesson_summaries ORDER BY updated DESC',
     );
 
     return rows as unknown as LessonSummary[];
