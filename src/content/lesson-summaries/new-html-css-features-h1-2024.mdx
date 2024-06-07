@@ -1,0 +1,126 @@
+---
+title: New CSS and HTML features in 2024
+created: '2024-06-07'
+updated: '2024-06-07'
+published: true
+---
+
+This was written as part of an internal presentation on one of our bi-weekly "Tech Talks" team meetings in Workable. We discussed and played with new features that were recently introduced to CSS. Below is a summary of the presentation, with some code examples. It is by no means exhaustive, but it should give you a good starting point to explore these features further.
+
+Code examples in this [stackblitz](https://stackblitz.com/edit/stackblitz-starters-yi7vck?file=index.html).
+
+## CSS anchor positioning
+
+More official info [here](https://developer.chrome.com/blog/anchor-positioning-api).
+
+We can now position an element relative to another "anchor" element, with automatic repositions based on the viewport.
+
+```css
+.anchor {
+    anchor-name: --anchorexample;
+}
+
+.anchored {
+    position-anchor: --anchorexample;
+
+    /* Position the element relative to the anchor */
+    top: anchor(center);
+    left: anchor(right);
+
+    /* Or with logical properties */
+    inset-block-start: anchor(top);
+    inset-inline-start: anchor(end);
+
+    /* 
+        Try to reposition the element with these 
+        options in order, if it would not be visible
+        in the viewport
+    */
+    position-try-options:
+        flip-inline,
+        flip-block,
+        flip-block flip-inline;
+}
+```
+
+## Popover API
+
+More official info [here](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API).
+
+With this API, we can create popovers that can be shown and hidden with a simple attribute on the target element. We can also control the behavior of the popover, like if it should close when clicked outside or if it should be closed manually. And all this without any JavaScript!
+
+```html
+<button popovertarget="test-popover-1">Show popover</button>
+<div popover="auto" id="test-popover-1">
+    Hey, I am a popover! I can close when clicked outside!
+</div>
+```
+
+```html
+<button popovertarget="test-popover-2" popovertargetaction="show">
+    Show popover
+</button>
+<div popover="manual" id="test-popover-2">
+    Hey, I am a popover! I must be closed manually!
+    <button popovertarget="test-popover-2" popovertargetaction="hide">
+        Hide popover
+    </button>
+</div>
+```
+
+## CSS container queries
+
+More official info [here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries).
+
+Not exactly a new feature, but new-ish. We can now query the size of the container and apply styles based on that. Think of it as media queries, but for the container.
+
+We combined this one with [native CSS nesting](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting) and the [range media query syntax](https://web.dev/articles/media-query-range-syntax).
+
+```css
+.container {
+    width: 50%;
+    container-type: inline-size;
+
+    .demo {
+        height: 100px;
+        background-color: cadetblue;
+
+        @container (200px < width < 300px) {
+            background-color: red;
+        }
+    }
+}
+```
+
+## CSS scroll-driven animations
+
+More official info [here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations).
+
+We can now animate elements based on the scroll position of the viewport, in pure CSS. This can be done either taking into account the entire scrollable area or a specific viewport area.
+
+```css
+@keyframes spin {
+    to {
+        transform: rotateY(180deg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+        .item {
+            animation: spin linear both;
+
+            /* Animate the entire duration of scrolling */
+            animation-timeline: scroll();
+
+            /* Animate only while scrolling and visible */
+            animation-timeline: view();
+            animation-range: contain;
+        }
+    }
+}
+```
+
+These features are great additions to CSS and HTML, and they can help us create dynamic web pages without the need for extra JavaScript, resulting in lighter and more performant websites by default. I hope you find these features exciting and I encourage you to explore them further.
+
+Thank you for reading.

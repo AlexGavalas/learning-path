@@ -1,3 +1,4 @@
+import { parse } from '@formkit/tempo';
 import { getCollection, getEntryBySlug } from 'astro:content';
 
 import { turso } from '~lib/turso';
@@ -23,10 +24,16 @@ export const getLessonSummaries = async (): Promise<
     if (!isProd) {
         const entries = await getCollection('lesson-summaries');
 
-        return entries.map((entry) => ({
-            ...entry.data,
-            filename: entry.slug,
-        }));
+        return entries
+            .map((entry) => ({
+                ...entry.data,
+                filename: entry.slug,
+            }))
+            .sort(
+                (lessonA, lessonB) =>
+                    parse(lessonB.updated, 'YYYY-MM-DD').getTime() -
+                    parse(lessonA.updated, 'YYYY-MM-DD').getTime(),
+            );
     }
 
     return await getAllLessonSummaries();
