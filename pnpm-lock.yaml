@@ -116,8 +116,8 @@ devDependencies:
     specifier: 6.0.0
     version: 6.0.0
   simple-git:
-    specifier: 3.24.0
-    version: 3.24.0
+    specifier: 3.25.0
+    version: 3.25.0
   ts-jest:
     specifier: 29.1.4
     version: 29.1.4(@babel/core@7.24.7)(jest@29.7.0)(typescript@5.4.5)
@@ -7245,8 +7245,8 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
-  /simple-git@3.24.0:
-    resolution: {integrity: sha512-QqAKee9Twv+3k8IFOFfPB2hnk6as6Y6ACUpwCtQvRYBAes23Wv3SZlHVobAzqcE8gfsisCvPw3HGW3HYM+VYYw==}
+  /simple-git@3.25.0:
+    resolution: {integrity: sha512-KIY5sBnzc4yEcJXW7Tdv4viEz8KyG+nU0hay+DWZasvdFOYKeUZ6Xc25LUHHjw0tinPT7O1eY6pzX7pRT1K8rw==}
     dependencies:
       '@kwsites/file-exists': 1.1.1
       '@kwsites/promise-deferred': 1.1.1
