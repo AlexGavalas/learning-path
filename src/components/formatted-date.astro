@@ -5,14 +5,12 @@ import { format as formatDate } from '@formkit/tempo';
 interface Props extends HTMLAttributes<'time'> {
     dateString: string;
     format?: string;
-    label?: string;
     timezone?: string;
 }
 
 const {
     dateString,
     format = 'D MMM YYYY',
-    label,
     timezone = 'Europe/Athens',
     ...rest
 } = Astro.props;
@@ -28,9 +26,6 @@ const formattedDate = formatDate({
     format,
     tz: timezone,
 });
-
-const ariaLabel = label && `${label} ${datetime}`;
 ---
 
-<time aria-label={ariaLabel} datetime={datetime} {...rest}>{formattedDate}</time
->
+<time datetime={datetime} {...rest}>{formattedDate}</time>
