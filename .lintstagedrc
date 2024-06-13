@@ -6,7 +6,7 @@
     "!(README)*.(md|mdx)": [
         "tsx scripts/update-md-timestamps.runner.ts",
         "pnpm format",
-        "pnpm test:e2e --update-snapshots",
+        "cross-env PROD=true pnpm test:e2e --update-snapshots",
         "git add e2e/__screenshots__"
     ]
 }
