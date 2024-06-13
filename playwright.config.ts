@@ -23,7 +23,7 @@ const config: PlaywrightTestConfig = {
     },
     ...(!isCI && {
         webServer: {
-            command: 'pnpm dev',
+            command: 'cross-env PROD=true pnpm dev',
             reuseExistingServer: true,
             url: 'http://localhost:4321',
         },

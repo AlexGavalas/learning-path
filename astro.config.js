@@ -16,6 +16,9 @@ export default defineConfig({
     vite: {
         plugins: [vanillaExtractPlugin()],
     },
+    devToolbar: {
+        enabled: !isProd,
+    },
     integrations: [mdx(), sitemap()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
     markdown: {
