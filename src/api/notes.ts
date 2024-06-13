@@ -27,7 +27,7 @@ export const fetchNotes = async (
     query: string,
 ): Promise<{
     lines: Lines;
-    notes: Readonly<Note[]>;
+    notes: Note[];
 }> => {
     const allNotes = await getNoteMetadata();
 

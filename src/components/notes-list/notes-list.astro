@@ -2,11 +2,14 @@
 import List from '~components/list/list.astro';
 import ListItem from '~components/list/list-item.astro';
 import FormattedDate from '~components/formatted-date.astro';
-import type { Note } from '~types/notes.types';
 import * as cn from './notes-list.css';
 
 interface Props {
-    notes: readonly Note[];
+    notes: {
+        filename: string;
+        updated: string;
+        title: string;
+    }[];
     lines?: Record<string, string[]>;
     baseUrl: string;
 }
