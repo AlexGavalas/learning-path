@@ -1,5 +1,4 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
 import BaseHead from '~components/base-head.astro';
 import PageProgress from '~components/page-progress/page-progress.astro';
 import Nav from '~components/nav/nav.astro';
@@ -25,7 +24,11 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
 >
     <head>
         <BaseHead title={title} />
-        <ViewTransitions />
+        <style>
+            @view-transition {
+                navigation: auto; /* Enable native view transitions */
+            }
+        </style>
     </head>
     <PageProgress />
     <body>
