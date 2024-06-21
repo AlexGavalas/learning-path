@@ -66,6 +66,10 @@ const { query } = Astro.props;
                 url.searchParams.delete(QUERY_FIELD_NAME);
             }
 
+            if (this.loaderElement) {
+                this.loaderElement.hidden = true;
+            }
+
             window.location.href = url.toString();
 
             e.preventDefault();
