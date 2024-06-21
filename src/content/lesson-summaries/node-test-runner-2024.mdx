@@ -1,0 +1,142 @@
+---
+title: Node.js test runner in 2024
+created: '2024-06-21'
+updated: '2024-06-21'
+published: true
+---
+
+# Node.js test runner in 2024
+
+This was written as part of an internal presentation on one of our bi-weekly "Tech Talks" team meetings in Workable. We discussed and played with the Node.js test runner, and this is a summary of the presentation, with some code examples. It is by no means exhaustive, but it should give you a good starting point to explore this further.
+
+Node.js starting shipping with an native test runner since [v18](https://nodejs.org/docs/latest-v18.x/api/test.html). The basic feature set is considered stable, but it is limited. However it is adding constantly new features. Although the full feature set (including experimental parts) is something we are used to from other test runners, it is a great addition to the ecosystem as it will allow us to run tests without any additional dependencies. This means less dependencies to maintain, and probably faster test runs. So let's dive in and see what it can do.
+
+## Basic setup
+
+We can either run a test file directly with `node test.js` or use the `--test` flag to run test files matching the default pattern (e.g. test.js).
+
+```js
+// test.js
+import assert from 'node:assert';
+import { describe, test } from 'node:test';
+
+describe('a test suite', () => {
+    test('a test', () => {
+        assert(true);
+    });
+});
+```
+
+## Function mocking
+
+We can mock functions with the `mock` helper from `node:test`. There is also experimental support for module mocking with `--experimental-test-module-mocks` flag.
+
+```js
+import assert from 'node:assert';
+import { before, mock, test } from 'node:test';
+
+test('spies on a function', () => {
+    const number = {
+        value: 5,
+        sum(a) {
+            return this.value + a;
+        },
+    };
+
+    const sum = mock.method(number, 'sum', () => 42);
+
+    assert.strictEqual(sum.mock.callCount(), 0);
+    assert.strictEqual(number.sum(3), 42);
+    assert.strictEqual(sum.mock.callCount(), 1);
+
+    // We can assert on the calls made to the function
+    const call = sum.mock.calls[0];
+    assert.deepStrictEqual(call.arguments, [3]);
+    assert.strictEqual(call.result, 42);
+
+    // We can also reset the mock between tests
+    assert.strictEqual(sum.mock.callCount(), 1);
+    sum.mock.resetCalls();
+    assert.strictEqual(sum.mock.callCount(), 0);
+
+    // Or restore this method to its original implementation
+    assert.strictEqual(number.sum(3), 42);
+    sum.mock.restore();
+    assert.strictEqual(number.sum(3), 8);
+
+    // Finally we can mock all the global mocks
+    mock.reset();
+});
+
+test('can mock a module', () => {
+    const doSomething = mock.fn(() => 7);
+
+    // test-fn.js
+    // export const doSomething = () => 42;
+
+    mock.module('./test-fn', {
+        namedExports: {
+            doSomething,
+        },
+    });
+
+    assert.equal(doSomething(), 7);
+});
+```
+
+## Snapshots
+
+Node.js added experimental support for snapshots with the `--experimental-test-snapshots` flag in [v22.3](https://nodejs.org/docs/latest-v22.x/api/test.html#snapshot-testing). We can test with snapshots with the `snapshot` helper from `node:test`. To update snapshots we must run node with the `--test-update-snapshots` flag.
+
+```js
+import { basename, dirname, extname, join } from 'node:path';
+import { describe, it, snapshot } from 'node:test';
+
+const generateSnapshotPath = (testFilePath) => {
+    const ext = extname(testFilePath);
+    const filename = basename(testFilePath, ext);
+    const base = dirname(testFilePath);
+
+    return join(base, `__snapshots__/${filename}.snap.js`);
+};
+
+// By default the snapshots are stored next to the file
+// We can use `setResolveSnapshotPath` to customize the path
+snapshot.setResolveSnapshotPath(generateSnapshotPath);
+
+// We can also set custom serializers
+snapshot.setDefaultSnapshotSerializers([
+    (source) => {
+        // This has some limitations, like not being able to serialize functions
+        // On a more production ready setup, you might want to use a more robust serializer
+        return JSON.stringify(source, null, 2);
+    },
+]);
+
+describe('snapshot', () => {
+    it('can match snapshot', (t) => {
+        const someTestResult = {
+            answer: 42,
+        };
+
+        t.assert.snapshot(someTestResult);
+    });
+});
+```
+
+## Test coverage
+
+We can generate coverage reports with the `--test-coverage-report` flag, with the limitation that excluding specific files or directories from the coverage report is not supported (yet).
+
+## Other useful stuff
+
+Unrelated to the test runner, I found the following to be useful when working with Node.js:
+
+-   The `--watch` flag to run a script in watch mode, e.g `node --watch --test`.
+-   [tsx](https://github.com/privatenumber/tsx) to run TypeScript files with Node.js, like so `node --import=tsx test.ts`.
+
+## Summary
+
+All in all, all these features are a great addition to the Node.js ecosystem, and we are looking forward to see how they evolve in the future.
+
+Thank you for reading.
