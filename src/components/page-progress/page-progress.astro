@@ -22,6 +22,12 @@ import * as cn from './page-progress.css';
                 event.currentTarget.href !== window.location.href
             ) {
                 this.wrapper.hidden = false;
+
+                window.addEventListener('pagehide', () => {
+                    if (this.wrapper) {
+                        this.wrapper.hidden = true;
+                    }
+                });
             }
         };
 
