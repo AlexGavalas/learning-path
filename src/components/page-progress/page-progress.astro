@@ -23,11 +23,15 @@ import * as cn from './page-progress.css';
             ) {
                 this.wrapper.hidden = false;
 
-                window.addEventListener('pagehide', () => {
-                    if (this.wrapper) {
-                        this.wrapper.hidden = true;
-                    }
-                });
+                window.addEventListener(
+                    'pagehide',
+                    () => {
+                        if (this.wrapper) {
+                            this.wrapper.hidden = true;
+                        }
+                    },
+                    { once: true },
+                );
             }
         };
 
