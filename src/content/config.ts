@@ -9,7 +9,7 @@ const notes = defineCollection({
     }),
 });
 
-const lessonSummaries = defineCollection({
+const summaries = defineCollection({
     schema: z.object({
         created: z.string(),
         features: z.array(z.enum(['banner'])).optional(),
@@ -20,6 +20,6 @@ const lessonSummaries = defineCollection({
 });
 
 export const collections = {
-    'lesson-summaries': lessonSummaries,
     notes,
+    summaries,
 };

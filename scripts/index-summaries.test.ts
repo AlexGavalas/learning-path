@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import { turso } from '~lib/turso';
 
 import { readFile } from './helpers';
-import { indexLessonSummaries } from './index-lesson-summaries';
+import { indexSummaries } from './index-summaries';
 
 jest.mock('node:fs/promises');
 jest.mock('~lib/turso');
@@ -25,7 +25,7 @@ jest.mock<typeof import('ora')>('ora', () => ({
     spinners: {} as any,
 }));
 
-describe('indexLessonSummaries', () => {
+describe('indexSummaries', () => {
     beforeAll(() => {
         jest.spyOn(process, 'cwd').mockReturnValue('/Users/me/project');
 
@@ -39,16 +39,16 @@ describe('indexLessonSummaries', () => {
     });
 
     it('calls fs.readdir', async () => {
-        await indexLessonSummaries();
+        await indexSummaries();
 
         expect(fs.readdir).toHaveBeenCalledTimes(1);
         expect(fs.readdir).toHaveBeenCalledWith(
-            '/Users/me/project/src/content/lesson-summaries',
+            '/Users/me/project/src/content/summaries',
         );
     });
 
     it('calls turso.batch', async () => {
-        await indexLessonSummaries();
+        await indexSummaries();
 
         expect(turso.batch).toHaveBeenCalledTimes(1);
         expect(turso.batch).toHaveBeenCalledWith(
@@ -60,7 +60,7 @@ describe('indexLessonSummaries', () => {
                         expect.any(String),
                         expect.any(String),
                     ],
-                    sql: 'INSERT INTO lesson_summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
+                    sql: 'INSERT INTO summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
                 },
             ],
             'write',

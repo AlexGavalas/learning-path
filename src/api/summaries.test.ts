@@ -1,6 +1,6 @@
 import { getEntryBySlug } from 'astro:content';
 
-import { getLessonSummaryData } from './lesson-summaries';
+import { getSummaryData } from './summaries';
 
 jest.mock(
     'astro:content',
@@ -20,16 +20,16 @@ jest.mock(
 
 jest.mock('~lib/turso');
 
-describe('getLessonSummaryData', () => {
+describe('getSummaryData', () => {
     it('calls getEntryBySlug', async () => {
-        await getLessonSummaryData('test');
+        await getSummaryData('test');
 
         expect(getEntryBySlug).toHaveBeenCalledTimes(1);
-        expect(getEntryBySlug).toHaveBeenCalledWith('lesson-summaries', 'test');
+        expect(getEntryBySlug).toHaveBeenCalledWith('summaries', 'test');
     });
 
     it('returns the body', async () => {
-        const body = await getLessonSummaryData('test');
+        const body = await getSummaryData('test');
 
         expect(body).toStrictEqual(
             expect.objectContaining({

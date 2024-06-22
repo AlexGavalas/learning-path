@@ -1,6 +1,6 @@
 ---
 import NotesLayout from '~layouts/note.astro';
-import { getLessonSummaryData } from '~api/lesson-summaries';
+import { getSummaryData } from '~api/summaries';
 
 const { slug } = Astro.params;
 
@@ -8,16 +8,16 @@ if (!slug) {
     return new Response(null);
 }
 
-const lessonSummary = await getLessonSummaryData(slug);
+const Summary = await getSummaryData(slug);
 
-if (!lessonSummary) {
-    throw new Error(`No lesson summary found for ${slug}`);
+if (!Summary) {
+    throw new Error(`No summary found for ${slug}`);
 }
 
 const {
     content: { Content },
     frontmatter,
-} = lessonSummary;
+} = Summary;
 
 const hasBannerEnabled = frontmatter.features?.includes('banner') ?? false;
 ---

@@ -13,9 +13,9 @@ export const seed = async (): Promise<void> => {
             tokenize="trigram"
         );
 
-        DROP TABLE IF EXISTS lesson_summaries;
+        DROP TABLE IF EXISTS summaries;
 
-        CREATE TABLE lesson_summaries (
+        CREATE TABLE summaries (
             id SERIAL PRIMARY KEY,
             filename TEXT NOT NULL,
             title TEXT NOT NULL,
@@ -23,10 +23,10 @@ export const seed = async (): Promise<void> => {
             updated TIMESTAMPTZ NOT NULL
         );
 
-        DROP INDEX IF EXISTS lesson_summaries_filename_idx;
+        DROP INDEX IF EXISTS summaries_filename_idx;
         DROP INDEX IF EXISTS notes_filename_idx;
         
-        CREATE INDEX lesson_summaries_filename_idx ON lesson_summaries(filename);
+        CREATE INDEX summaries_filename_idx ON summaries(filename);
         CREATE INDEX notes_filename_idx ON notes(filename);
     `);
 };

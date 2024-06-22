@@ -10,7 +10,7 @@ import { logger } from './logger';
 export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     for (const file of files) {
         const friendlyName = file.match(
-            /(?<category>notes|lesson-summaries)\/.*/u,
+            /(?<category>notes|summaries)\/.*/u,
         )?.[0];
 
         if (!friendlyName) {
@@ -36,7 +36,7 @@ export const updateMdTimestamps = async (files: string[]): Promise<void> => {
     const friendlyNames = files
         .map((file) =>
             file
-                .match(/(?<category>notes|lesson-summaries)\/.*/u)?.[0]
+                .match(/(?<category>notes|summaries)\/.*/u)?.[0]
                 .replace('.mdx', ''),
         )
         .filter(Boolean);

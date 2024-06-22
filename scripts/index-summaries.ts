@@ -6,22 +6,19 @@ import path from 'node:path';
 import ora from 'ora';
 
 import { turso } from '~lib/turso';
-import { type LessonSummaryFrontmatter } from '~types/lesson-summaries.types';
+import { type SummaryFrontmatter } from '~types/summaries.types';
 
 import { readFile, toISOString } from './helpers';
 import { logger } from './logger';
 
-export const indexLessonSummaries = async (): Promise<void> => {
+export const indexSummaries = async (): Promise<void> => {
     const spinner = ora({
         isSilent: process.env.NODE_ENV === 'test',
     });
 
-    await turso.execute('DELETE FROM lesson_summaries');
+    await turso.execute('DELETE FROM summaries');
 
-    const SUMMARIES_DIR = path.join(
-        process.cwd(),
-        'src/content/lesson-summaries',
-    );
+    const SUMMARIES_DIR = path.join(process.cwd(), 'src/content/summaries');
 
     const summaries = await fs.readdir(SUMMARIES_DIR);
 
@@ -35,7 +32,7 @@ export const indexLessonSummaries = async (): Promise<void> => {
 
         const { data: frontmatter } = matter(fileContents) as unknown as {
             content: string;
-            data: LessonSummaryFrontmatter;
+            data: SummaryFrontmatter;
         };
 
         if (frontmatter.published === false) {
@@ -52,13 +49,13 @@ export const indexLessonSummaries = async (): Promise<void> => {
                 toISOString(frontmatter.created),
                 toISOString(frontmatter.updated),
             ],
-            sql: 'INSERT INTO lesson_summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
+            sql: 'INSERT INTO summaries (filename, title, created, updated) VALUES (?, ?, ?, ?)',
         });
 
         spinner.succeed();
     }
 
-    spinner.text = 'Indexing lesson summaries ...';
+    spinner.text = 'Indexing summaries ...';
     spinner.start();
 
     await turso.batch(batchOperations, 'write');

@@ -5,7 +5,7 @@ test('page has correct title', async ({ page }) => {
 
     const title = await page.title();
 
-    expect(title).toBe('Lesson Summaries | Learning Path');
+    expect(title).toBe('Summaries | Learning Path');
 });
 
 test('page is displaying correctly', async ({ page }) => {
@@ -13,7 +13,7 @@ test('page is displaying correctly', async ({ page }) => {
 
     await page.setViewportSize({ height: 749, width: 1280 });
 
-    await expect(page).toHaveScreenshot('lesson-summaries.png', {
+    await expect(page).toHaveScreenshot('summaries.png', {
         fullPage: true,
     });
 });
@@ -27,7 +27,7 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
 
     await page.setViewportSize({ height: 749, width: 1280 });
 
-    await expect(page).toHaveScreenshot('lesson-summaries-dark.png', {
+    await expect(page).toHaveScreenshot('summaries-dark.png', {
         fullPage: true,
     });
 });

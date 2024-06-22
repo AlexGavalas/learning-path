@@ -13,7 +13,7 @@
         "preview": "astro preview",
         "astro": "astro",
         "index:notes": "tsx scripts/index-notes.ts",
-        "index:summaries": "tsx scripts/index-lesson-summaries.runner.ts",
+        "index:summaries": "tsx scripts/index-summaries.runner.ts",
         "sync:db": "tsx scripts/sync-to-db.ts",
         "publish:notes": "tsx scripts/publish-notes.ts",
         "test": "jest",

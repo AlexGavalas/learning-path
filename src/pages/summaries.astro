@@ -2,27 +2,27 @@
 import GlobalLayout from '~layouts/global.astro';
 import NotesList from '~components/notes-list/notes-list.astro';
 import Banner from '~components/banner/banner.astro';
-import { getLessonSummaries } from '~api/lesson-summaries';
+import { getSummaries } from '~api/summaries';
 import * as cn from '~styles/pages/summaries.css';
 import { TITLE } from '~constants';
 
-const summaries = await getLessonSummaries();
+const summaries = await getSummaries();
 
 if (summaries === null) {
-    throw new Error('Could not get lesson summaries');
+    throw new Error('Could not get summaries');
 }
 
-const title = `Lesson Summaries | ${TITLE}`;
+const title = `Summaries | ${TITLE}`;
 ---
 
 <GlobalLayout title={title}>
     <section class={cn.container}>
-        <h1>Lesson Summaries</h1>
+        <h1>Summaries</h1>
         <Banner>
             This is where I will try to summarise the things I learn. Either
             from online courses or from an interesting article I read, I keep
             the things I find interesting here.
         </Banner>
-        <NotesList baseUrl="lessons-summary" notes={summaries} />
+        <NotesList baseUrl="summary" notes={summaries} />
     </section>
 </GlobalLayout>
