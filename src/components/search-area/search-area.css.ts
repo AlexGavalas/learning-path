@@ -4,18 +4,22 @@ import { vars } from '../../styles/theme.css';
 
 export const container = style({
     position: 'relative',
-    display: 'flex',
-    height: '4rem',
-    alignItems: 'center',
+    display: 'grid',
+    gap: vars.spacing.xs,
+    gridTemplateColumns: '1fr auto',
+    '@media': {
+        'screen and (max-width: 360px)': {
+            gridTemplateColumns: '1fr',
+        },
+    },
+});
+
+export const input = style({
+    height: '100%',
 });
 
 export const searchButton = style({
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    display: 'flex',
-    height: '50%',
-    padding: vars.spacing.xs,
+    padding: `${vars.spacing.xs} ${vars.spacing.md}`,
     fontSize: '0.8em',
 });
 

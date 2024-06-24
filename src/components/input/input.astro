@@ -3,13 +3,13 @@ import type { HTMLAttributes } from 'astro/types';
 import * as cn from './input.css';
 
 interface Props extends HTMLAttributes<'input'> {
-    label: string;
+    label?: string;
 }
 
 const { label, ...rest } = Astro.props;
 ---
 
 <label class={cn.container}>
-    <span>{label}</span>
+    {label && <span>{label}</span>}
     <input {...rest} class={cn.input} />
 </label>

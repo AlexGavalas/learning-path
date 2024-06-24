@@ -15,15 +15,12 @@ const { query } = Astro.props;
 <search-area>
     <form class={cn.container}>
         <Input
-            label="Search notes"
             name={QUERY_FIELD_NAME}
             autocomplete="off"
-            placeholder="Type here"
+            placeholder="Search notes"
             value={query}
         />
-        <div class={cn.searchButton}>
-            <Button>Search</Button>
-        </div>
+        <Button class={cn.searchButton}>Search</Button>
         <div id="loader" class={cn.loader} hidden>
             <Loader />
         </div>

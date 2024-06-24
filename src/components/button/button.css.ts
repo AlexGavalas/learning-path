@@ -5,6 +5,7 @@ import { vars } from '../../styles/theme.css';
 const base = style({
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: '5px',
     border: 'none',
     color: vars.color.button.text,
