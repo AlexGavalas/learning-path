@@ -13,3 +13,7 @@ export const navContainer = style({
 export const linkLabel = style({
     padding: vars.spacing.sm,
 });
+
+export const active = style({
+    textDecorationLine: 'underline',
+});

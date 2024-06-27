@@ -20,13 +20,13 @@ const hasNotes = notes.length > 0;
 
 {
     hasNotes ? (
-        <ul>
+        <ul class={cn.container}>
             {notes.map(({ filename, updated, title }, index) => {
                 const dateId = `${index}d`;
                 const textId = `${index}t`;
 
                 return (
-                    <li class={cn.item}>
+                    <li>
                         <a
                             aria-labelledby={`${textId} ${dateId}`}
                             class={cn.link}

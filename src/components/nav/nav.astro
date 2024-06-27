@@ -10,14 +10,22 @@ interface Props {
 }
 
 const { links } = Astro.props;
+const activePath = Astro.url.pathname;
 ---
 
 <nav class={cn.navContainer}>
     {
-        links.map((link) => (
-            <Link class={cn.linkLabel} href={link.href}>
-                {link.label}
-            </Link>
-        ))
+        links.map((link) => {
+            const isActivePath = activePath === link.href;
+
+            return (
+                <Link
+                    class:list={[cn.linkLabel, isActivePath && cn.active]}
+                    href={link.href}
+                >
+                    {link.label}
+                </Link>
+            );
+        })
     }
 </nav>
