@@ -1,6 +1,8 @@
 {
     "exclude": ["dist", "*.js"],
     "compilerOptions": {
+        "target": "ES2018",
+        "moduleResolution": "Node",
         "strictNullChecks": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
