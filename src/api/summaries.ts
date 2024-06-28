@@ -10,7 +10,7 @@ import type {
 
 const getAllSummaries = async (): Promise<Summary[]> => {
     const { rows } = await turso.execute(
-        'SELECT * FROM summaries ORDER BY updated DESC',
+        'SELECT * FROM summaries ORDER BY created DESC',
     );
 
     return rows as unknown as Summary[];
@@ -29,8 +29,8 @@ export const getSummaries = async (): Promise<Omit<Summary, 'id'>[] | null> => {
             }))
             .sort(
                 (lessonA, lessonB) =>
-                    parse(lessonB.updated, 'YYYY-MM-DD').getTime() -
-                    parse(lessonA.updated, 'YYYY-MM-DD').getTime(),
+                    parse(lessonB.created, 'YYYY-MM-DD').getTime() -
+                    parse(lessonA.created, 'YYYY-MM-DD').getTime(),
             );
     }
 

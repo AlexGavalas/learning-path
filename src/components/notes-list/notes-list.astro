@@ -5,7 +5,9 @@ import FormattedDate from '~components/formatted-date.astro';
 import * as cn from './notes-list.css';
 
 interface Props {
+    display?: 'created' | 'updated';
     notes: {
+        created: string;
         filename: string;
         updated: string;
         title: string;
@@ -14,14 +16,14 @@ interface Props {
     baseUrl: string;
 }
 
-const { notes, lines, baseUrl } = Astro.props;
+const { notes, lines, baseUrl, display = 'updated' } = Astro.props;
 const hasNotes = notes.length > 0;
 ---
 
 {
     hasNotes ? (
         <ul class={cn.container}>
-            {notes.map(({ filename, updated, title }, index) => {
+            {notes.map(({ filename, title, ...rest }, index) => {
                 const dateId = `${index}d`;
                 const textId = `${index}t`;
 
@@ -33,7 +35,7 @@ const hasNotes = notes.length > 0;
                             href={`/${baseUrl}/${filename}`}
                         >
                             <FormattedDate
-                                dateString={updated}
+                                dateString={rest[display]}
                                 format="DD/MM/YY"
                                 id={dateId}
                             />

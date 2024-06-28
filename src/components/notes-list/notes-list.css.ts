@@ -14,6 +14,7 @@ export const link = style({
     gap: vars.spacing.md,
     padding: vars.spacing.sm,
     borderRadius: vars.spacing.sm,
+    fontVariantNumeric: 'tabular-nums',
     ':hover': {
         backgroundColor: vars.color.backgroundHover,
     },
