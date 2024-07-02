@@ -85,6 +85,10 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
         imageElement;
         theme;
 
+        setCookie = (theme) => {
+            document.cookie = `theme=${theme}; max-age=${ONE_YEAR}; path=/;`;
+        };
+
         setTheme = (theme) => {
             setThemeInPage(theme);
 
@@ -97,6 +101,7 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
                 });
             }
 
+            this.setCookie(theme);
             this.theme = theme;
         };
 
@@ -106,9 +111,13 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
 
             this.setTheme(newTheme);
 
-            document.cookie = `theme=${newTheme}; max-age=${ONE_YEAR}; path=/;`;
-
             e.preventDefault();
+        };
+
+        handleOsPreferenceChange = (e) => {
+            const newTheme = e.matches ? THEME.DARK : THEME.LIGHT;
+
+            this.setTheme(newTheme);
         };
 
         connectedCallback() {
@@ -118,10 +127,19 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
             this.setTheme(getInitialTheme());
 
             this.buttonElement?.addEventListener('click', this.toggleTheme);
+
+            // Listem for OS preference changes
+            window
+                .matchMedia('(prefers-color-scheme: dark)')
+                .addEventListener('change', this.handleOsPreferenceChange);
         }
 
         disconnectedCallback() {
             this.buttonElement?.removeEventListener('click', this.toggleTheme);
+
+            window
+                .matchMedia('(prefers-color-scheme: dark)')
+                .removeEventListener('change', this.handleOsPreferenceChange);
         }
     }
 
