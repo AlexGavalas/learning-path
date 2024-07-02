@@ -81,6 +81,11 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
     setThemeInPage(getInitialTheme());
 
     class ThemeSwitch extends HTMLElement {
+        themeChannel =
+            typeof BroadcastChannel === 'function'
+                ? new BroadcastChannel('learning-path-theme')
+                : null;
+
         buttonElement;
         imageElement;
         theme;
@@ -106,18 +111,25 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
         };
 
         toggleTheme = (e) => {
-            const newTheme =
-                this.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT;
+            const theme = this.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT;
 
-            this.setTheme(newTheme);
+            this.setTheme(theme);
+
+            this.themeChannel?.postMessage({ theme });
 
             e.preventDefault();
         };
 
         handleOsPreferenceChange = (e) => {
-            const newTheme = e.matches ? THEME.DARK : THEME.LIGHT;
+            const theme = e.matches ? THEME.DARK : THEME.LIGHT;
 
-            this.setTheme(newTheme);
+            this.setTheme(theme);
+        };
+
+        handleBroadcastMessage = (e) => {
+            const { theme } = e.data;
+
+            this.setTheme(theme);
         };
 
         connectedCallback() {
@@ -132,6 +144,11 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
             window
                 .matchMedia('(prefers-color-scheme: dark)')
                 .addEventListener('change', this.handleOsPreferenceChange);
+
+            this.themeChannel?.addEventListener(
+                'message',
+                this.handleBroadcastMessage,
+            );
         }
 
         disconnectedCallback() {
@@ -140,6 +157,11 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
             window
                 .matchMedia('(prefers-color-scheme: dark)')
                 .removeEventListener('change', this.handleOsPreferenceChange);
+
+            this.themeChannel?.removeEventListener(
+                'message',
+                this.handleBroadcastMessage,
+            );
         }
     }
 
