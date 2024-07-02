@@ -3,9 +3,11 @@ import Button from '~components/button/button.astro';
 import {
     DEFAULT_THEME,
     THEME,
+    ONE_YEAR,
     DARK_IMG_PROPS,
     LIGHT_IMG_PROPS,
 } from '~constants';
+import { darkTheme, lightTheme } from '~styles/theme.css';
 
 const themeCookie = Astro.cookies.get('theme');
 const theme = themeCookie?.value ?? DEFAULT_THEME;
@@ -22,44 +24,83 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
     </form>
 </theme-switch>
 
-<script>
-    import { getInitialTheme, setThemeInPage } from '~lib/theme';
-    import {
-        THEME,
+<script
+    is:inline
+    define:vars={{
         DARK_IMG_PROPS,
         LIGHT_IMG_PROPS,
         ONE_YEAR,
-    } from '~constants';
-    import { updateAttributes } from '~lib/element';
+        THEME,
+        darkTheme,
+        lightTheme,
+    }}
+>
+    const getThemeFromCookie = () => {
+        const themeCookie = document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('theme='));
+
+        return themeCookie?.split('=')[1];
+    };
+
+    const getThemeFromOsPreference = () => {
+        const themes = [
+            { colorScheme: 'light', theme: THEME.LIGHT },
+            { colorScheme: 'dark', theme: THEME.DARK },
+        ];
+
+        for (const { colorScheme, theme } of themes) {
+            const hasPreference = window.matchMedia(
+                `(prefers-color-scheme: ${colorScheme})`,
+            ).matches;
+
+            if (hasPreference) {
+                return theme;
+            }
+        }
+    };
+
+    const setThemeInPage = (theme) => {
+        document.documentElement.classList.toggle(
+            lightTheme,
+            theme === THEME.LIGHT,
+        );
+
+        document.documentElement.classList.toggle(
+            darkTheme,
+            theme === THEME.DARK,
+        );
+
+        document.documentElement.style.setProperty('color-scheme', theme);
+    };
+
+    const getInitialTheme = () =>
+        getThemeFromCookie() ?? getThemeFromOsPreference() ?? DEFAULT_THEME;
+
+    // Set the theme inline to avoid a flash of the default theme
+    setThemeInPage(getInitialTheme());
 
     class ThemeSwitch extends HTMLElement {
-        buttonElement: HTMLButtonElement | null;
-        imageElement: HTMLImageElement | null;
-        theme: string;
+        buttonElement;
+        imageElement;
+        theme;
 
-        constructor() {
-            super();
-
-            this.buttonElement = this.querySelector('button');
-            this.imageElement = this.querySelector('img');
-            this.theme = getInitialTheme();
-            this.setTheme(this.theme);
-        }
-
-        setTheme = (newTheme: string) => {
-            setThemeInPage(newTheme);
-
-            const attributes =
-                newTheme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
+        setTheme = (theme) => {
+            setThemeInPage(theme);
 
             if (this.imageElement) {
-                updateAttributes({ element: this.imageElement, attributes });
+                const attributes =
+                    theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
+
+                Object.entries(attributes).forEach(([key, value]) => {
+                    this.imageElement.setAttribute(key, value);
+                });
             }
 
-            this.theme = newTheme;
+            this.theme = theme;
         };
 
-        toggleTheme = (e: MouseEvent) => {
+        toggleTheme = (e) => {
             const newTheme =
                 this.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT;
 
@@ -71,6 +112,11 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
         };
 
         connectedCallback() {
+            this.buttonElement = this.querySelector('button');
+            this.imageElement = this.querySelector('img');
+
+            this.setTheme(getInitialTheme());
+
             this.buttonElement?.addEventListener('click', this.toggleTheme);
         }
 
