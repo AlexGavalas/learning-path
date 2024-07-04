@@ -7,7 +7,7 @@
             "headers": [
                 {
                     "key": "Content-Security-Policy",
-                    "value": "default-src https: data: 'unsafe-inline' 'unsafe-eval'"
+                    "value": "default-src https: data: 'unsafe-inline'; object-src 'none';"
                 },
                 {
                     "key": "Permissions-Policy",
