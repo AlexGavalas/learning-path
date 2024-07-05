@@ -5,7 +5,7 @@ import ora from 'ora';
 import { type SimpleGit, simpleGit } from 'simple-git';
 
 import { turso } from '~lib/turso';
-import type { NoteFrontmatter } from '~types/notes.types';
+import type { NoteFrontmatter } from '~types/notes';
 
 import { toISOString } from './helpers';
 import { logger } from './logger';

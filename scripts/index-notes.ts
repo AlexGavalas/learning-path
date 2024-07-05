@@ -5,7 +5,7 @@ import path from 'node:path';
 import ora from 'ora';
 
 import { turso } from '~lib/turso';
-import type { NoteFrontmatter } from '~types/notes.types';
+import type { NoteFrontmatter } from '~types/notes';
 
 import { updateEdgeConfig } from './edge-config';
 import { toISOString } from './helpers';

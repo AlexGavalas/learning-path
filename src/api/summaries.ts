@@ -6,7 +6,7 @@ import type {
     Summary,
     SummaryFrontmatter,
     SummaryRenderResult,
-} from '~types/summaries.types';
+} from '~types/summaries';
 
 const getAllSummaries = async (): Promise<Summary[]> => {
     const { rows } = await turso.execute(

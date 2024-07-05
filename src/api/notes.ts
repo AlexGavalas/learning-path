@@ -3,11 +3,7 @@ import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
-import type {
-    Note,
-    NoteFrontmatter,
-    NoteRenderResult,
-} from '~types/notes.types';
+import type { Note, NoteFrontmatter, NoteRenderResult } from '~types/notes';
 
 import { getNoteMetadata, searchNotes } from './notes-db';
 

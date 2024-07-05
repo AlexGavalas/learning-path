@@ -6,7 +6,7 @@ import path from 'node:path';
 import ora from 'ora';
 
 import { turso } from '~lib/turso';
-import { type SummaryFrontmatter } from '~types/summaries.types';
+import type { SummaryFrontmatter } from '~types/summaries';
 
 import { readFile, toISOString } from './helpers';
 import { logger } from './logger';

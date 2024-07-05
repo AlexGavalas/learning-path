@@ -1,5 +1,5 @@
 import { getAllNotes } from '~api/notes-db';
-import { type Note } from '~types/notes.types';
+import type { Note } from '~types/notes';
 
 import { logger } from './logger';
 
