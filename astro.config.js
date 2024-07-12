@@ -1,7 +1,9 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel/serverless';
+import vue from '@astrojs/vue';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { defineConfig } from 'astro/config';
 import 'dotenv/config';
@@ -19,7 +21,7 @@ export default defineConfig({
     devToolbar: {
         enabled: !isProd,
     },
-    integrations: [mdx(), sitemap()],
+    integrations: [mdx(), sitemap(), vue(), react()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,

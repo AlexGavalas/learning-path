@@ -6,7 +6,6 @@ export const articleContainer = style({
     display: 'flex',
     flexDirection: 'column',
     gap: vars.spacing.lg,
-    overflow: 'hidden',
     width: '100%',
 });
 

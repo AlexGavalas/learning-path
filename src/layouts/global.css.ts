@@ -15,7 +15,7 @@ export const mainContainer = style({
     padding: `0 ${vars.spacing.md}`,
 });
 
-globalStyle(':root :focus-visible', {
+globalStyle(':root :focus-visible,[tabindex]:focus', {
     outline: 'none',
     boxShadow: `0 0 0 2px ${vars.color.primary}`,
     borderRadius: '5px',

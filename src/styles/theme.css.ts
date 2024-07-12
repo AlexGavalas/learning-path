@@ -25,8 +25,10 @@ export const vars = createThemeContract({
         border: '',
         background: '',
         backgroundHover: '',
+        warning: '',
         typography: {
             primary: '',
+            warning: '',
         },
         button: {
             background: '',
@@ -50,8 +52,10 @@ export const lightTheme = style({
             border: '#cbd5e1',
             background: '#fefefe',
             backgroundHover: '#e2e2e2',
+            warning: '#eed202',
             typography: {
                 primary: '#000000',
+                warning: '#000000',
             },
             button: {
                 background: '#4f6179',
@@ -76,8 +80,10 @@ export const darkTheme = style({
             border: '#27272a',
             background: '#121212',
             backgroundHover: '#262626',
+            warning: '#eed202',
             typography: {
                 primary: '#d1d5db',
+                warning: '#000000',
             },
             button: {
                 background: '#475569',

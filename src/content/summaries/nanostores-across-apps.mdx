@@ -1,0 +1,78 @@
+---
+title: Share state across applications
+created: '2024-07-10'
+updated: '2024-07-12'
+published: true
+---
+
+# Share state across applications with nanostores
+
+This is an experimentation to see how we could share state across entirely different applications. In our example below we showcase this with two sperate applications, in Vue and React. To achieve this we will use [nanostores](https://github.com/nanostores/nanostores), a small state manager with many integrations. This is also enabled by Astro, which makes it really easy to run different libraries in the same page, but this is not the main point here.
+
+A look at the final demo result below. Focus the next block and use the arrow keys to move the circle around and between the two applications. The shared state is the position of the circle.
+
+import NanostoresDemo from '~components/demo/nanostores/nanostores.astro';
+
+<NanostoresDemo />
+
+<br />
+<br />
+
+So let's dive in to see how this works and start by creating a store:
+
+```js
+import { atom } from 'nanostores';
+
+export const $activeCell = atom({ x: 0, y: 0 });
+```
+
+With `nanostores` we create atoms, i.e. small pieces of state that can be used on their own or together to compute some value based on other atoms. We can now use this store in a React component
+
+```jsx
+import { useStore } from '@nanostores/react';
+
+import { $activeCell } from './store';
+
+const Board = () => {
+    const cell = useStore($activeCell);
+
+    return (
+        // ...
+    );
+};
+```
+
+and a Vue component
+
+```vue
+<script setup>
+import { useStore } from '@nanostores/vue';
+
+import { $activeCell } from './store';
+
+const cell = useStore($activeCell);
+</script>
+
+<template>
+    <!-- ... -->
+</template>
+```
+
+and they will share the same state. 🔥 To update the state we compute the new value and set it in the atom. Note that we have to set a new reference for object types.
+
+```js
+const updateCell = () => {
+    const newCell = { ...$activeCell.get() };
+
+    // Update the new cell
+    // ...
+
+    $activeCell.set(newCell);
+};
+```
+
+Of course this is a really simple example, but it is exciting to see what is possible with nanostores. Note that we did not have to use any library specific code (e.g. some provider/context) to make this work. We defined our state (the `atom`), and we used it with the `useStore` from the respective library integration. This also means that the store can be used anywhere in an application, not just in components, since you can access it directly and get the current state and/or add a listener to be notified on updates. The library also supports async tasks among other things, check their [repository](https://github.com/nanostores/nanostores) for more information.
+
+All in all, this seems a cool way to manage state, and I am excited to experiment more with it and see how it scales and what patterns emerge.
+
+Thank you for reading.

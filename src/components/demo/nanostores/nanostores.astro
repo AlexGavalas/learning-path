@@ -1,0 +1,47 @@
+---
+import BoardReact from './board/board';
+import BoardVue from './board/board.vue';
+import { OFFSETS } from './board/constants';
+import * as cn from './board/board.css';
+---
+
+<noscript>
+    <div class={cn.noJSWarning}>
+        You seem to have JavaScript disabled, to see the demo working enable it
+        in your browser.
+    </div>
+</noscript>
+
+<div id="boards-demo" tabindex="0" class={cn.demoContainer}>
+    <script>
+        import { move, $activeCell } from './board/store';
+
+        type ContainerElement = HTMLDivElement;
+
+        const demoContainer = document.querySelector(
+            '#boards-demo',
+        ) as ContainerElement;
+
+        demoContainer.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                (document.activeElement as ContainerElement)?.blur();
+            } else {
+                move(event);
+            }
+        });
+
+        let counter = 0;
+
+        $activeCell.listen(() => {
+            counter++;
+            document.querySelector('output')!.textContent =
+                `Pressed some arrow key ${counter} times.`;
+        });
+    </script>
+    <BoardVue offset={OFFSETS[0]} client:load />
+    <BoardReact offset={OFFSETS[1]} client:load />
+    <div class={cn.vanillaContainer}>
+        <p class={cn.title}>Vanilla JS</p>
+        <output>Pressed some arrow key 0 times.</output>
+    </div>
+</div>
