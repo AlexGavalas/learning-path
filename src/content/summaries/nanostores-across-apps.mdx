@@ -1,7 +1,7 @@
 ---
 title: Share state across applications
 created: '2024-07-10'
-updated: '2024-07-12'
+updated: '2024-07-13'
 published: true
 ---
 
@@ -72,6 +72,11 @@ const updateCell = () => {
 ```
 
 Of course this is a really simple example, but it is exciting to see what is possible with nanostores. Note that we did not have to use any library specific code (e.g. some provider/context) to make this work. We defined our state (the `atom`), and we used it with the `useStore` from the respective library integration. This also means that the store can be used anywhere in an application, not just in components, since you can access it directly and get the current state and/or add a listener to be notified on updates. The library also supports async tasks among other things, check their [repository](https://github.com/nanostores/nanostores) for more information.
+
+Some other use cases that come to mind are:
+
+-   A shared global store can act as a single source of truth to enable easier migrations between different frameworks, so the migration can be done incrementally.
+-   Enable easier state sharing between micro-frontends.
 
 All in all, this seems a cool way to manage state, and I am excited to experiment more with it and see how it scales and what patterns emerge.
 
