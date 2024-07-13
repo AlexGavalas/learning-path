@@ -23,13 +23,7 @@ const config: Config = {
     setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
     testPathIgnorePatterns: ['e2e'],
     transform: {
-        '^.+\\.tsx?$': [
-            'ts-jest',
-            {
-                isolatedModules: true,
-                tsconfig: './tsconfig.test.json',
-            },
-        ],
+        '^.+\\.tsx?$': 'ts-jest',
     },
 };
 
