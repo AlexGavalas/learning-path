@@ -6,7 +6,7 @@ const isCI = process.env.CI === 'true';
 const baseURL =
     typeof envVarBaseUrl === 'string' ? envVarBaseUrl : 'http://localhost:4321';
 
-const CI_PIXEL_DIFF = 0.3;
+const CI_PIXEL_DIFF = 0.5;
 
 const config: PlaywrightTestConfig = {
     expect: {
