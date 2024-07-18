@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('page has correct title', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     const title = await page.title();
 
@@ -9,7 +9,7 @@ test('page has correct title', async ({ page }) => {
 });
 
 test('page is displaying correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     await expect(page).toHaveScreenshot('home.png', {
         fullPage: true,
@@ -17,7 +17,7 @@ test('page is displaying correctly', async ({ page }) => {
 });
 
 test('page is displaying correctly in dark mode', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     const themeSwitch = page.locator('header img[alt="Moon"]');
 
@@ -30,7 +30,7 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
 
 test.describe('navigation bar', () => {
     test('is visible', async ({ page }) => {
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
 
         const navBar = page.getByRole('navigation');
 
@@ -38,7 +38,7 @@ test.describe('navigation bar', () => {
     });
 
     test('has 2 links', async ({ page }) => {
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
 
         const links = page.locator('nav a');
 
@@ -50,7 +50,7 @@ test.describe('navigation bar', () => {
 
 test.describe('header', () => {
     test('is visible', async ({ page }) => {
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
 
         const header = page.locator('header');
 
@@ -59,7 +59,7 @@ test.describe('header', () => {
 
     test.describe('theme switch', () => {
         test('is visible', async ({ page }) => {
-            await page.goto('/');
+            await page.goto('/', { waitUntil: 'domcontentloaded' });
 
             await page.waitForLoadState('networkidle');
 
@@ -76,7 +76,7 @@ test.describe('header', () => {
 
                 const page = await context.newPage();
 
-                await page.goto('/');
+                await page.goto('/', { waitUntil: 'domcontentloaded' });
                 await page.waitForLoadState('networkidle');
 
                 const themeSwitch = page.locator('header img[alt="Moon"]');
@@ -91,7 +91,7 @@ test.describe('header', () => {
 
 test.describe('search area', () => {
     test('heading is visible', async ({ page }) => {
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
 
         const searchAreaHeading = page.getByPlaceholder('Search notes');
 
@@ -99,7 +99,7 @@ test.describe('search area', () => {
     });
 
     test('button is visible', async ({ page }) => {
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
 
         const searchAreaButton = page.getByRole('button', {
             name: 'Search',
@@ -110,7 +110,7 @@ test.describe('search area', () => {
 
     test.describe('input', () => {
         test('input is visible', async ({ page }) => {
-            await page.goto('/');
+            await page.goto('/', { waitUntil: 'domcontentloaded' });
 
             const searchAreaInput = page.getByPlaceholder('Search notes');
 
@@ -119,7 +119,7 @@ test.describe('search area', () => {
 
         test.describe('when user presses `/`', () => {
             test('input is focused', async ({ page }) => {
-                await page.goto('/');
+                await page.goto('/', { waitUntil: 'domcontentloaded' });
 
                 const searchAreaInput = page.getByPlaceholder('Search notes');
 
@@ -138,7 +138,7 @@ test.describe('search area', () => {
 
                     const page = await context.newPage();
 
-                    await page.goto('/');
+                    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
                     const searchAreaInput =
                         page.getByPlaceholder('Search notes');

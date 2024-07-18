@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('page has correct title', async ({ page }) => {
-    await page.goto('/summaries');
+    await page.goto('/summaries', { waitUntil: 'domcontentloaded' });
 
     const title = await page.title();
 
@@ -9,7 +9,7 @@ test('page has correct title', async ({ page }) => {
 });
 
 test('page is displaying correctly', async ({ page }) => {
-    await page.goto('/summaries');
+    await page.goto('/summaries', { waitUntil: 'domcontentloaded' });
 
     await page.setViewportSize({ height: 749, width: 1280 });
 
@@ -19,7 +19,7 @@ test('page is displaying correctly', async ({ page }) => {
 });
 
 test('page is displaying correctly in dark mode', async ({ page }) => {
-    await page.goto('/summaries');
+    await page.goto('/summaries', { waitUntil: 'domcontentloaded' });
 
     const themeSwitch = page.locator('header img[alt="Moon"]');
 
