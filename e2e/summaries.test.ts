@@ -11,6 +11,8 @@ test('page has correct title', async ({ page }) => {
 test('page is displaying correctly', async ({ page }) => {
     await page.goto('/summaries', { waitUntil: 'domcontentloaded' });
 
+    await page.setViewportSize({ height: 768, width: 1280 });
+
     await expect(page).toHaveScreenshot('summaries.png', {
         fullPage: true,
     });
@@ -22,6 +24,8 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
     const themeSwitch = page.locator('header img[alt="Moon"]');
 
     await themeSwitch.click();
+
+    await page.setViewportSize({ height: 768, width: 1280 });
 
     await expect(page).toHaveScreenshot('summaries-dark.png', {
         fullPage: true,
