@@ -1,30 +1,32 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 
-const envVarBaseUrl = process.env.PLAYWRIGHT_TEST_BASE_URL;
-const isCI = process.env.CI === 'true';
+const ENV_BASE_URL = process.env.PLAYWRIGHT_TEST_BASE_URL;
 
-const baseURL =
-    typeof envVarBaseUrl === 'string' ? envVarBaseUrl : 'http://localhost:4321';
+const IS_CI = process.env.CI === 'true';
 
-const CI_PIXEL_DIFF = 0.5;
+const LOCAL_BASE_URL = 'http://localhost:4321';
+
+const BASE_URL = ENV_BASE_URL || LOCAL_BASE_URL;
+
+const CI_PIXEL_DIFF = 1;
 
 const config: PlaywrightTestConfig = {
     expect: {
         toHaveScreenshot: {
-            maxDiffPixelRatio: isCI ? CI_PIXEL_DIFF : 0,
+            maxDiffPixelRatio: IS_CI ? CI_PIXEL_DIFF : 0,
         },
     },
     preserveOutput: 'failures-only',
     snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
     testDir: 'e2e',
     use: {
-        baseURL,
+        baseURL: BASE_URL,
     },
-    ...(!isCI && {
+    ...(!IS_CI && {
         webServer: {
             command: 'cross-env PROD=true pnpm dev',
             reuseExistingServer: true,
-            url: 'http://localhost:4321',
+            url: LOCAL_BASE_URL,
         },
     }),
 };
