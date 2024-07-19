@@ -17,7 +17,7 @@
         "sync:db": "tsx scripts/sync-to-db.ts",
         "publish:notes": "tsx scripts/publish-notes.ts",
         "test": "jest",
-        "test:e2e": "playwright test ./e2e",
+        "test:e2e": "DEBUG=pw:api playwright test ./e2e",
         "test:e2e:watch": "playwright test --ui ./e2e",
         "test:coverage": "jest --coverage",
         "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",

@@ -10,9 +10,6 @@ const BASE_URL = ENV_BASE_URL || LOCAL_BASE_URL;
 
 const CI_PIXEL_DIFF = 0.3;
 
-console.log('Running tests against:', BASE_URL);
-console.log('CI:', IS_CI, typeof IS_CI);
-
 const config: PlaywrightTestConfig = {
     expect: {
         toHaveScreenshot: {
