@@ -59,6 +59,7 @@ export default [
         rules: {
             'no-magic-numbers': 'off',
             'no-undefined': 'off',
+            'max-lines-per-function': 'off',
             '@typescript-eslint/consistent-type-imports': 'off',
             '@typescript-eslint/unbound-method': 'off',
             '@typescript-eslint/no-unsafe-assignment': 'off',
