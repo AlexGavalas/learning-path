@@ -30,8 +30,8 @@ dependencies:
     specifier: 0.1.2
     version: 0.1.2
   '@libsql/client':
-    specifier: 0.7.0
-    version: 0.7.0
+    specifier: 0.8.0
+    version: 0.8.0
   '@nanostores/react':
     specifier: 0.7.2
     version: 0.7.2(nanostores@0.10.3)(react@18.3.1)
@@ -1867,10 +1867,10 @@ packages:
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
     dev: true
 
-  /@libsql/client@0.7.0:
-    resolution: {integrity: sha512-1aLDtWzsErr68GZ640TVyOLkL/+lB2YK8cYvJIfiI7Mt+DEPB22Jkoz2QfBDg5PVGX/efeRHog2j/oVbUhxO8Q==}
+  /@libsql/client@0.8.0:
+    resolution: {integrity: sha512-ncx6p2wsaZtCAbRJCIkaTO14ya18qFYLJ1yTm5zHgwd9mlcvgenG4imSgJy2zNrKJkeyr1wzD+80jNqI7nCYoA==}
     dependencies:
-      '@libsql/core': 0.7.0
+      '@libsql/core': 0.8.0
       '@libsql/hrana-client': 0.6.2
       js-base64: 3.7.7
       libsql: 0.3.19
@@ -1880,8 +1880,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@libsql/core@0.7.0:
-    resolution: {integrity: sha512-hCYfXa0S4t9CJtxZIWacboylrcx94ZQO0dEngH4f0f/LHg6ymHSZiubbojAwD7tNy94ahICoGPjEi6aEIyhlcQ==}
+  /@libsql/core@0.8.0:
+    resolution: {integrity: sha512-Bqs7bKfUNwm8NTLfKPbI4WME+3BTEBeDZTec0b9XZQ9hvjM4YlGXKKCuIDm8ECUYx4Mb1Gc0X14pm2/4r6ImdA==}
     dependencies:
       js-base64: 3.7.7
     dev: false
