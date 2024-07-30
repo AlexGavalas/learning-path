@@ -40,7 +40,7 @@
         "@astrojs/vue": "4.5.0",
         "@fontsource-variable/figtree": "5.0.21",
         "@formkit/tempo": "0.1.2",
-        "@libsql/client": "0.7.0",
+        "@libsql/client": "0.8.0",
         "@nanostores/react": "0.7.2",
         "@nanostores/vue": "0.10.0",
         "@types/react": "^18.3.3",
