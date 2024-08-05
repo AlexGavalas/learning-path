@@ -5,7 +5,7 @@ import { getSummaryData } from '~api/summaries';
 const { slug } = Astro.params;
 
 if (!slug) {
-    return new Response(null);
+    throw new Error('No summary slug');
 }
 
 const Summary = await getSummaryData(slug);
