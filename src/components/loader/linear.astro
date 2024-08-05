@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'astro/types';
 import * as cn from './linear.css';
 
-interface Props extends HTMLAttributes<'div'> {}
+export type Props = HTMLAttributes<'div'>;
 
 const { class: extraClass, ...rest } = Astro.props;
 ---
