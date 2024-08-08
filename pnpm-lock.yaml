@@ -167,8 +167,8 @@ devDependencies:
     specifier: 8.0.0
     version: 8.0.0(eslint@9.8.0)(typescript@5.5.4)
   winston:
-    specifier: 3.13.1
-    version: 3.13.1
+    specifier: 3.14.0
+    version: 3.14.0
 
 packages:
 
@@ -8439,8 +8439,8 @@ packages:
       triple-beam: 1.4.1
     dev: true
 
-  /winston@3.13.1:
-    resolution: {integrity: sha512-SvZit7VFNvXRzbqGHsv5KSmgbEYR5EiQfDAL9gxYkRqa934Hnk++zze0wANKtMHcy/gI4W/3xmSDwlhf865WGw==}
+  /winston@3.14.0:
+    resolution: {integrity: sha512-XEJvmKJglhTW2TgfpKdkpj0119Yn5AClR7LJ0rBNUQFx20mNQj3s1ukTA1i77q+YBaHYbcKtXpxgPqfdUPCIYA==}
     engines: {node: '>= 12.0.0'}
     dependencies:
       '@colors/colors': 1.6.0
