@@ -37,7 +37,5 @@ export default defineConfig({
         ? node({
               mode: 'standalone',
           })
-        : vercel({
-              functionPerRoute: true,
-          }),
+        : vercel(),
 });
