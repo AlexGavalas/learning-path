@@ -30,6 +30,9 @@ export default defineConfig({
             theme: 'monokai',
         },
     },
+    experimental: {
+        contentIntellisense: true,
+    },
     output: 'server',
     prefetch: true,
     scopedStyleStrategy: 'where',
