@@ -44,7 +44,7 @@
         "@nanostores/react": "0.7.3",
         "@nanostores/vue": "0.10.0",
         "@vercel/edge-config": "1.2.1",
-        "astro": "4.14.5",
+        "astro": "4.15.1",
         "cross-env": "7.0.3",
         "lodash": "4.17.21",
         "nanostores": "0.11.2",
