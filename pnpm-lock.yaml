@@ -27,8 +27,8 @@ importers:
         specifier: 4.5.0
         version: 4.5.0(astro@4.15.4(@types/node@20.16.0)(rollup@4.21.2)(typescript@5.6.2))(rollup@4.21.2)(vite@5.4.3(@types/node@20.16.0))(vue@3.5.3(typescript@5.6.2))
       '@fontsource-variable/figtree':
-        specifier: 5.0.23
-        version: 5.0.23
+        specifier: 5.1.0
+        version: 5.1.0
       '@formkit/tempo':
         specifier: 0.1.2
         version: 0.1.2
@@ -896,8 +896,8 @@ packages:
     resolution: {integrity: sha512-autAXT203ixhqei9xt+qkYOvY8l6LAFIdT2UXc/RPNeUVfqRF1BV94GTJyVPFKT8nFM6MyVJhjLj9E8JWvf5zQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fontsource-variable/figtree@5.0.23':
-    resolution: {integrity: sha512-SKesKxJsVf/RpLQ+xEE2T0SgdGc3+TdY50QqpMc2njB+13/tFMAuFFHvbp92NnUgeNO07VZxlgVPHG1W0z48aQ==}
+  '@fontsource-variable/figtree@5.1.0':
+    resolution: {integrity: sha512-p0fta2L9CMeTbC7rNYeKF0bcu+tUGb4NH5D/pHC0RUNW1I+rrBDXLoGYKaH4yNfxxMrsZ4k1fchgkCI4F9zIFQ==}
 
   '@formkit/tempo@0.1.2':
     resolution: {integrity: sha512-jNPPbjL8oj7hK3eHX++CwbR6X4GKQt+x00/q4yeXkwynXHGKL27dylYhpEgwrmediPP4y7s0XtN1if/M/JYujg==}
@@ -5467,7 +5467,7 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@fontsource-variable/figtree@5.0.23': {}
+  '@fontsource-variable/figtree@5.1.0': {}
 
   '@formkit/tempo@0.1.2': {}
 
