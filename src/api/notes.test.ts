@@ -1,4 +1,4 @@
-import { getEntryBySlug } from 'astro:content';
+import { getEntry } from 'astro:content';
 
 import { getNoteData } from './notes';
 
@@ -20,7 +20,7 @@ jest.mock(
     'astro:content',
     () => ({
         getCollection: jest.fn().mockResolvedValue([{ slug: 'test' }]),
-        getEntryBySlug: jest.fn().mockResolvedValue({
+        getEntry: jest.fn().mockResolvedValue({
             body: 'test body',
             render: jest.fn().mockReturnValue({
                 Content: jest.fn().mockReturnValue('<div>test body</div>'),
@@ -52,11 +52,11 @@ describe('fetchNotes', () => {
 });
 
 describe('getNoteData', () => {
-    it('calls getEntryBySlug', async () => {
+    it('calls getEntry', async () => {
         await getNoteData('test');
 
-        expect(getEntryBySlug).toHaveBeenCalledTimes(1);
-        expect(getEntryBySlug).toHaveBeenCalledWith('notes', 'test');
+        expect(getEntry).toHaveBeenCalledTimes(1);
+        expect(getEntry).toHaveBeenCalledWith('notes', 'test');
     });
 
     it('returns the body', async () => {

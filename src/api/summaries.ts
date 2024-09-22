@@ -1,5 +1,5 @@
 import { parse } from '@formkit/tempo';
-import { getCollection, getEntryBySlug } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 import { turso } from '~lib/turso';
 import type {
@@ -43,7 +43,7 @@ export const getSummaryData = async (
     content: SummaryRenderResult;
     frontmatter: SummaryFrontmatter;
 } | null> => {
-    const SummaryContent = await getEntryBySlug('summaries', slug);
+    const SummaryContent = await getEntry('summaries', slug);
 
     if (!SummaryContent) {
         return null;

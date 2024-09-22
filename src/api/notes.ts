@@ -1,4 +1,4 @@
-import { getEntryBySlug } from 'astro:content';
+import { getEntry } from 'astro:content';
 import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
@@ -56,7 +56,7 @@ export const getNoteData = async (
     content: NoteRenderResult;
     frontmatter: NoteFrontmatter;
 } | null> => {
-    const note = await getEntryBySlug('notes', filename);
+    const note = await getEntry('notes', filename);
 
     if (!note) {
         return null;

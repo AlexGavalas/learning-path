@@ -5,13 +5,13 @@ import { getSummaryData } from '~api/summaries';
 const { slug } = Astro.params;
 
 if (!slug) {
-    throw new Error('No summary slug');
+    return Astro.rewrite(404);
 }
 
 const Summary = await getSummaryData(slug);
 
 if (!Summary) {
-    throw new Error(`No summary found for ${slug}`);
+    return Astro.rewrite(404);
 }
 
 const {

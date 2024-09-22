@@ -5,13 +5,13 @@ import { getNoteData } from '~api/notes';
 const { slug } = Astro.params;
 
 if (!slug) {
-    throw new Error('No slug found');
+    return Astro.rewrite(404);
 }
 
 const noteData = await getNoteData(slug);
 
 if (!noteData) {
-    throw new Error(`No note info found for ${slug}`);
+    return Astro.rewrite(404);
 }
 
 const {
