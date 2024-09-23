@@ -104,9 +104,10 @@ export default [
         rules: {
             'consistent-return': 'off',
             'no-useless-assignment': 'off',
+            '@typescript-eslint/no-misused-promises': 'off',
         },
     },
     {
-        ignores: ['*.config.js', '.astro/', '**/*.d.ts'],
+        ignores: ['*.config.js', '.astro', 'dist', '**/*.d.ts'],
     },
 ];

@@ -4,20 +4,22 @@ import { getSummaryData } from '~api/summaries';
 
 const { slug } = Astro.params;
 
+const NOT_FOUND_STATUS = 404;
+
 if (!slug) {
-    return Astro.rewrite(404);
+    return Astro.rewrite(NOT_FOUND_STATUS);
 }
 
-const Summary = await getSummaryData(slug);
+const summary = await getSummaryData(slug);
 
-if (!Summary) {
-    return Astro.rewrite(404);
+if (!summary) {
+    return Astro.rewrite(NOT_FOUND_STATUS);
 }
 
 const {
     content: { Content },
     frontmatter,
-} = Summary;
+} = summary;
 
 const hasBannerEnabled = frontmatter.features?.includes('banner') ?? false;
 ---

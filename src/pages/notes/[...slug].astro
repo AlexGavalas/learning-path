@@ -4,14 +4,16 @@ import { getNoteData } from '~api/notes';
 
 const { slug } = Astro.params;
 
+const NOT_FOUND_STATUS = 404;
+
 if (!slug) {
-    return Astro.rewrite(404);
+    return Astro.rewrite(NOT_FOUND_STATUS);
 }
 
 const noteData = await getNoteData(slug);
 
 if (!noteData) {
-    return Astro.rewrite(404);
+    return Astro.rewrite(NOT_FOUND_STATUS);
 }
 
 const {
