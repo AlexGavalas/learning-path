@@ -3,6 +3,7 @@ import BaseHead from '~components/base-head.astro';
 import PageProgress from '~components/page-progress/page-progress.astro';
 import Nav from '~components/nav/nav.astro';
 import Header from '~components/header/header.astro';
+import Posthog from '~components/analytics/posthog.astro';
 import { DEFAULT_THEME } from '~constants';
 import { darkTheme, lightTheme } from '~styles/theme.css';
 import * as cn from './global.css';
@@ -50,12 +51,15 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
         </main>
         {
             process.env.PROD === 'true' && (
-                <script
-                    is:inline
-                    async
-                    defer
-                    src="https://scripts.withcabin.com/hello.js"
-                />
+                <>
+                    <Posthog />
+                    <script
+                        is:inline
+                        async
+                        defer
+                        src="https://scripts.withcabin.com/hello.js"
+                    />
+                </>
             )
         }
     </body>
