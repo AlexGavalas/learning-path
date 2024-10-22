@@ -90,12 +90,14 @@ test.describe('header', () => {
 });
 
 test.describe('search area', () => {
-    test('heading is visible', async ({ page }) => {
+    test('field is visible', async ({ page }) => {
         await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-        const searchAreaHeading = page.getByPlaceholder('Search notes');
+        const searchAreaField = page.getByRole('textbox', {
+            name: 'Search the notes',
+        });
 
-        await expect(searchAreaHeading).toBeVisible();
+        await expect(searchAreaField).toBeVisible();
     });
 
     test('button is visible', async ({ page }) => {
@@ -109,25 +111,19 @@ test.describe('search area', () => {
     });
 
     test.describe('input', () => {
-        test('input is visible', async ({ page }) => {
-            await page.goto('/', { waitUntil: 'domcontentloaded' });
-
-            const searchAreaInput = page.getByPlaceholder('Search notes');
-
-            await expect(searchAreaInput).toBeVisible();
-        });
-
         test.describe('when user presses `/`', () => {
             test('input is focused', async ({ page }) => {
                 await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-                const searchAreaInput = page.getByPlaceholder('Search notes');
+                const searchAreaField = page.getByRole('textbox', {
+                    name: 'Search the notes',
+                });
 
-                await expect(searchAreaInput).not.toBeFocused();
+                await expect(searchAreaField).not.toBeFocused();
 
                 await page.keyboard.press('/');
 
-                await expect(searchAreaInput).toBeFocused();
+                await expect(searchAreaField).toBeFocused();
             });
 
             test.describe('when javascript is disabled', () => {
@@ -140,14 +136,15 @@ test.describe('search area', () => {
 
                     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-                    const searchAreaInput =
-                        page.getByPlaceholder('Search notes');
+                    const searchAreaField = page.getByRole('textbox', {
+                        name: 'Search the notes',
+                    });
 
-                    await expect(searchAreaInput).not.toBeFocused();
+                    await expect(searchAreaField).not.toBeFocused();
 
                     await page.keyboard.press('/');
 
-                    await expect(searchAreaInput).not.toBeFocused();
+                    await expect(searchAreaField).not.toBeFocused();
 
                     await context.close();
                 });
