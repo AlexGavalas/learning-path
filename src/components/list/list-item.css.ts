@@ -8,5 +8,5 @@ export const item = style({
 });
 
 globalStyle(`${item}::marker`, {
-    color: vars.color.primary,
+    color: vars.color.typography.primary,
 });

@@ -1,10 +1,10 @@
 import { assignVars, createThemeContract, style } from '@vanilla-extract/css';
 
 const SPACING = {
-    xs: '0.25rem',
-    sm: '0.5rem',
-    md: '1rem',
-    lg: '2rem',
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
 } as const;
 
 export const SCREEN = {
@@ -13,29 +13,16 @@ export const SCREEN = {
 } as const;
 
 export const vars = createThemeContract({
-    spacing: {
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-    },
+    spacing: SPACING,
     color: {
         primary: '',
         secondary: '',
         border: '',
         background: '',
-        backgroundHover: '',
         warning: '',
         typography: {
             primary: '',
             warning: '',
-        },
-        button: {
-            background: '',
-            text: '',
-            hover: {
-                background: '',
-            },
         },
         input: {
             background: '',
@@ -43,58 +30,61 @@ export const vars = createThemeContract({
     },
 });
 
-export const lightTheme = style({
-    vars: assignVars(vars, {
-        spacing: SPACING,
-        color: {
-            primary: '#0f766e',
-            secondary: '#475569',
-            border: '#cbd5e1',
-            background: '#fefefe',
-            backgroundHover: '#e2e2e2',
-            warning: '#eed202',
-            typography: {
-                primary: '#000000',
-                warning: '#000000',
-            },
-            button: {
-                background: '#4f6179',
-                text: '#ececec',
-                hover: {
-                    background: '#64748b',
+const configureTheme = ({
+    background,
+    primary,
+    secondary,
+}: {
+    background: string;
+    primary: string;
+    secondary: string;
+}) =>
+    style({
+        vars: assignVars(vars, {
+            spacing: SPACING,
+            color: {
+                primary,
+                secondary,
+                border: primary,
+                background,
+                warning: '#eed202',
+                typography: {
+                    primary: `oklch(from ${primary} calc(l + 0.1) 0 0)`,
+                    warning: '#000000',
+                },
+                input: {
+                    background: `oklch(from ${background} calc(l + 0.05) c calc(h + 0.2))`,
                 },
             },
-            input: {
-                background: '#ffffff',
-            },
-        },
-    }),
+        }),
+    });
+
+const LIGHT = {
+    // Forest Green
+    PRIMARY: 'oklch(0.36 0.1 149)',
+    // Charcoal Gray
+    SECONDARY: 'oklch(0.23 0 0)',
+    // Snow White
+    BACKGROUND: 'oklch(0.9 0 0)',
+};
+
+export const lightTheme = configureTheme({
+    background: LIGHT.BACKGROUND,
+    primary: LIGHT.PRIMARY,
+    secondary: LIGHT.SECONDARY,
 });
 
-export const darkTheme = style({
-    vars: assignVars(vars, {
-        spacing: SPACING,
-        color: {
-            primary: '#eab308',
-            secondary: '#94a3b8',
-            border: '#27272a',
-            background: '#121212',
-            backgroundHover: '#262626',
-            warning: '#eed202',
-            typography: {
-                primary: '#d1d5db',
-                warning: '#000000',
-            },
-            button: {
-                background: '#475569',
-                text: '#ffffff',
-                hover: {
-                    background: '#64748b',
-                },
-            },
-            input: {
-                background: '#262626',
-            },
-        },
-    }),
+const DARK = {
+    // Icy Blue
+    PRIMARY: 'oklch(0.65 0.12 225)',
+    // Aurora Purple
+    SECONDARY: '#98478B',
+    // Charcoal Gray
+    BACKGROUND: 'oklch(0.23 0 0)',
+};
+
+export const darkTheme = configureTheme({
+    background: DARK.BACKGROUND,
+    primary: DARK.PRIMARY,
+    secondary: DARK.SECONDARY,
 });

@@ -4,16 +4,17 @@ import { vars } from '../../styles/theme.css';
 
 export const container = style({
     display: 'grid',
+    gap: vars.spacing.sm,
 });
 
 export const input = style({
     backgroundColor: vars.color.input.background,
-    borderRadius: '5px',
-    border: `2px solid ${vars.color.border}`,
+    borderRadius: vars.spacing.xs,
+    border: 'none',
     fontSize: '0.8em',
     paddingLeft: vars.spacing.sm,
     '::placeholder': {
-        color: vars.color.secondary,
+        color: `oklch(from ${vars.color.typography.primary} calc(l + 0.02) c h)`,
         opacity: 0.6,
     },
 });

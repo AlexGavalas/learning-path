@@ -6,10 +6,10 @@ interface Props extends HTMLAttributes<'input'> {
     label?: string;
 }
 
-const { label, ...rest } = Astro.props;
+const { label, class: extraClass, ...rest } = Astro.props;
 ---
 
-<label class={cn.container}>
-    {label && <span>{label}</span>}
+<div class:list={[cn.container, extraClass]}>
+    {label && <label for={rest.id}>{label}</label>}
     <input {...rest} class={cn.input} />
-</label>
+</div>

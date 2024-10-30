@@ -14,8 +14,8 @@ export const logo = style({
     padding: vars.spacing.sm,
     width: '30%',
     minWidth: '150px',
-    borderRadius: '5px',
+    borderRadius: vars.spacing.xs,
     ':hover': {
-        backgroundColor: vars.color.backgroundHover,
+        backgroundColor: `oklch(from ${vars.color.background} calc(l + 0.07) c h)`,
     },
 });

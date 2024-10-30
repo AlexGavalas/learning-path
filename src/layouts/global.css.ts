@@ -17,8 +17,8 @@ export const mainContainer = style({
 
 globalStyle(':root :focus-visible,[tabindex]:focus', {
     outline: 'none',
-    boxShadow: `0 0 0 2px ${vars.color.primary}`,
-    borderRadius: '5px',
+    boxShadow: `0 0 2px 2px ${vars.color.secondary}`,
+    borderRadius: vars.spacing.xs,
 });
 
 globalStyle(`:root ::selection`, {

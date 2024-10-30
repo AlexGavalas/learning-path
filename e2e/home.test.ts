@@ -93,7 +93,7 @@ test.describe('search area', () => {
     test('field is visible', async ({ page }) => {
         await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-        const searchAreaField = page.getByPlaceholder('Search notes');
+        const searchAreaField = page.getByLabel('Search the notes');
 
         await expect(searchAreaField).toBeVisible();
     });
@@ -113,7 +113,7 @@ test.describe('search area', () => {
             test('input is focused', async ({ page }) => {
                 await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-                const searchAreaField = page.getByPlaceholder('Search notes');
+                const searchAreaField = page.getByLabel('Search the notes');
 
                 await expect(searchAreaField).not.toBeFocused();
 
@@ -132,8 +132,7 @@ test.describe('search area', () => {
 
                     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-                    const searchAreaField =
-                        page.getByPlaceholder('Search notes');
+                    const searchAreaField = page.getByLabel('Search the notes');
 
                     await expect(searchAreaField).not.toBeFocused();
 

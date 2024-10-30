@@ -15,9 +15,12 @@ const { query } = Astro.props;
 <search-area>
     <form class={cn.container}>
         <Input
-            name={QUERY_FIELD_NAME}
             autocomplete="off"
-            placeholder="Search notes"
+            class={cn.input}
+            id={QUERY_FIELD_NAME}
+            label="Search the notes"
+            name={QUERY_FIELD_NAME}
+            placeholder="Javascript, CSS grid ..."
             value={query}
         />
         <Button class={cn.searchButton}>Search</Button>
@@ -79,6 +82,17 @@ const { query } = Astro.props;
         };
 
         connectedCallback() {
+            const inputValue = this.inputElement?.value;
+
+            if (inputValue) {
+                this.inputElement?.setSelectionRange(
+                    inputValue.length,
+                    inputValue.length,
+                );
+
+                this.inputElement?.focus();
+            }
+
             document.addEventListener('keyup', this.handleKeyUp);
             this.formElement?.addEventListener('submit', this.handleSearch);
         }

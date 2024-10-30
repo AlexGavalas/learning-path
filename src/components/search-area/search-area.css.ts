@@ -5,8 +5,9 @@ import { vars } from '../../styles/theme.css';
 export const container = style({
     position: 'relative',
     display: 'grid',
-    gap: vars.spacing.xs,
+    gap: vars.spacing.sm,
     gridTemplateColumns: '1fr auto',
+    gridTemplateAreas: `"input ." "input button"`,
     '@media': {
         'screen and (max-width: 360px)': {
             gridTemplateColumns: '1fr',
@@ -15,12 +16,16 @@ export const container = style({
 });
 
 export const input = style({
-    height: '100%',
+    display: 'grid',
+    gap: vars.spacing.sm,
+    gridArea: 'input',
+    gridTemplateRows: 'subgrid',
 });
 
 export const searchButton = style({
     padding: `${vars.spacing.xs} ${vars.spacing.md} !important`,
     fontSize: '0.8em',
+    gridArea: 'button',
 });
 
 export const loader = style({

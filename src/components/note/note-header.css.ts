@@ -9,7 +9,7 @@ export const title = style({
 export const container = style({
     display: 'flex',
     gap: vars.spacing.md,
-    color: vars.color.secondary,
+    color: vars.color.primary,
     '@media': {
         [`screen and (max-width: ${SCREEN.sm})`]: {
             flexDirection: 'column',

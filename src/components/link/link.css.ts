@@ -7,7 +7,7 @@ export const link = style({
     cursor: 'pointer',
     display: 'inline-block',
     textDecorationThickness: 2,
-    textUnderlineOffset: 2,
+    textUnderlineOffset: 4,
     selectors: {
         '&:hover': {
             textDecorationLine: 'underline',

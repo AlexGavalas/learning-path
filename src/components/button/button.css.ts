@@ -6,9 +6,9 @@ const base = style({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '5px',
+    borderRadius: vars.spacing.xs,
     border: 'none',
-    color: vars.color.button.text,
+    color: vars.color.background,
     padding: vars.spacing.sm,
     ':active': {
         opacity: 0.8,
@@ -16,16 +16,16 @@ const base = style({
 });
 
 const defaultVariant = style({
-    backgroundColor: vars.color.button.background,
+    backgroundColor: `oklch(from ${vars.color.primary} l c h)`,
     ':hover': {
-        backgroundColor: vars.color.button.hover.background,
+        backgroundColor: `oklch(from ${vars.color.primary} calc(l + 0.1) c h)`,
     },
 });
 
 const wrapperVariant = style({
     backgroundColor: 'transparent',
     ':hover': {
-        backgroundColor: vars.color.backgroundHover,
+        backgroundColor: `oklch(from ${vars.color.background} calc(l + 0.07) c h)`,
     },
 });
 

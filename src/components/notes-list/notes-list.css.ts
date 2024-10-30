@@ -15,8 +15,11 @@ export const link = style({
     padding: vars.spacing.sm,
     borderRadius: vars.spacing.sm,
     fontVariantNumeric: 'tabular-nums',
+    ':focus-visible': {
+        backgroundColor: `oklch(from ${vars.color.background} calc(l + 0.05) c h)`,
+    },
     ':hover': {
-        backgroundColor: vars.color.backgroundHover,
+        backgroundColor: `oklch(from ${vars.color.background} calc(l + 0.05) c h)`,
     },
 });
 

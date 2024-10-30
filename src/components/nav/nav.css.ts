@@ -7,7 +7,7 @@ export const navContainer = style({
     flexWrap: 'wrap',
     justifyContent: 'center',
     gap: vars.spacing.md,
-    color: vars.color.primary,
+    color: vars.color.typography.primary,
 });
 
 export const linkLabel = style({

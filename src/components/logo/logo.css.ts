@@ -8,8 +8,8 @@ export const container = style({
 });
 
 export const logo = style({
-    fill: vars.color.primary,
-    stroke: vars.color.primary,
+    fill: `oklch(from ${vars.color.primary} calc(l + 0.15) c h)`,
+    stroke: `oklch(from ${vars.color.primary} calc(l + 0.15) c h)`,
     strokeWidth: 1,
     strokeLinecap: 'round',
     strokeDasharray: '200 200',
