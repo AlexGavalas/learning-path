@@ -1,7 +1,6 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel/serverless';
 import vue from '@astrojs/vue';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
@@ -21,7 +20,7 @@ export default defineConfig({
     devToolbar: {
         enabled: !isProd,
     },
-    integrations: [mdx(), sitemap(), vue(), react()],
+    integrations: [mdx(), vue(), react()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,
