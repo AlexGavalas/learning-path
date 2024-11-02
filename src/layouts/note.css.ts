@@ -26,16 +26,15 @@ export const note = style({
 });
 
 globalStyle(`${note} :where(h1)`, {
-    fontSize: '2em',
+    fontSize: '1.5em',
 });
 
 globalStyle(`${note} :where(h2)`, {
-    fontSize: '1.5em',
+    fontSize: '1.3em',
 });
 
 globalStyle(`${note} :where(h1, h2, h3, h4, h5, h6)`, {
     color: vars.color.primary,
-    fontWeight: 'bold',
     marginBottom: vars.spacing.lg,
     textAlign: 'start',
 });
@@ -53,7 +52,6 @@ globalStyle(`${note} :where(h1, h2) a`, {
 });
 
 globalStyle(`${note} a`, {
-    fontWeight: 500,
     textDecoration: 'underline',
     textDecorationColor: vars.color.primary,
     textDecorationThickness: '0.125rem',
@@ -81,7 +79,7 @@ globalStyle(`${note} hr`, {
 
 globalStyle(`${note} code`, {
     fontFamily: 'monospace',
-    fontSize: '0.875em',
+    fontSize: '0.8em',
     fontWeight: 400,
 });
 

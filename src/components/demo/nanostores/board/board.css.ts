@@ -22,7 +22,7 @@ export const container = style({
 
 export const title = style({
     textAlign: 'center',
-    fontSize: '1rem',
+    fontSize: '1.2em',
 });
 
 export const board = style({

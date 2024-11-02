@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 import { SCREEN, vars } from '../../styles/theme.css';
 
 export const title = style({
-    fontSize: '1.25rem',
+    fontSize: '2em',
 });
 
 export const container = style({

@@ -7,5 +7,5 @@ export const container = style({
     flexDirection: 'column',
     gap: vars.spacing.lg,
     lineHeight: '2rem',
-    fontSize: '1.25rem',
+    fontSize: '1.1em',
 });
