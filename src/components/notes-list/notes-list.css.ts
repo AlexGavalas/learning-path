@@ -8,6 +8,18 @@ export const container = style({
     gap: vars.spacing.xs,
 });
 
+export const item = style({
+    transition: 'transform 0.2s ease-in-out',
+    ':hover': {
+        transform: 'scale(1.02)',
+    },
+    selectors: {
+        '&:has(:focus-visible)': {
+            transform: 'scale(1.02)',
+        },
+    },
+});
+
 export const link = style({
     display: 'grid',
     gridTemplateColumns: 'auto 1fr',

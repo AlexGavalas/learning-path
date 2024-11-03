@@ -6,8 +6,21 @@ import * as cn from './header.css';
 ---
 
 <header class={cn.container}>
-    <a aria-label="Go to homepage" href="/" class={cn.logo}>
+    <a aria-label="Go to homepage" id="logo" href="/" class={cn.logo}>
         <Logo />
     </a>
     <ThemeSwitch />
 </header>
+
+<script>
+    const logo = document.getElementById('logo');
+
+    logo?.addEventListener('mouseenter', () => {
+        logo.querySelector('g')
+            ?.getAnimations()
+            .forEach((animation) => {
+                animation.cancel();
+                animation.play();
+            });
+    });
+</script>

@@ -1,1 +1,1 @@
-pnpm pretty-quick --staged --check && pnpm lint-staged && pnpm check:types;
+pnpm pretty-quick --staged --check && pnpm lint-staged && pnpm check:types
