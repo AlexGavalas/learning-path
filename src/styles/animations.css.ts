@@ -1,11 +1,22 @@
 import { keyframes } from '@vanilla-extract/css';
 
+import { vars } from './theme.css';
+
+export const aurora = keyframes({
+    '0%': {
+        backgroundColor: vars.color.primary,
+    },
+    '100%': {
+        backgroundColor: vars.color.secondary,
+    },
+});
+
 export const blink = keyframes({
     '0%, 100%': {
         opacity: 0.75,
     },
     '50%': {
-        opacity: 0.25,
+        opacity: 0.5,
     },
 });
 
