@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+import { expectScreenshotToMatch } from './helpers';
+
 test('page has correct title', async ({ page }) => {
     await page.goto('/summaries', { waitUntil: 'domcontentloaded' });
 
@@ -13,9 +15,7 @@ test('page is displaying correctly', async ({ page }) => {
 
     await page.setViewportSize({ height: 769, width: 1280 });
 
-    await expect(page).toHaveScreenshot('summaries.png', {
-        fullPage: true,
-    });
+    await expectScreenshotToMatch(page, 'summaries.png');
 });
 
 test('page is displaying correctly in dark mode', async ({ page }) => {
@@ -27,7 +27,5 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
 
     await page.setViewportSize({ height: 769, width: 1280 });
 
-    await expect(page).toHaveScreenshot('summaries-dark.png', {
-        fullPage: true,
-    });
+    await expectScreenshotToMatch(page, 'summaries-dark.png');
 });
