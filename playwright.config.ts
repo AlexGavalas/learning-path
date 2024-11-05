@@ -8,7 +8,7 @@ const LOCAL_BASE_URL = 'http://localhost:4321';
 
 const BASE_URL = ENV_BASE_URL || LOCAL_BASE_URL;
 
-const CI_PIXEL_DIFF = 0.2;
+const CI_PIXEL_DIFF = 0.1;
 
 const config: PlaywrightTestConfig = {
     expect: {
