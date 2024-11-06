@@ -1,7 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-import { expectScreenshotToMatch } from './helpers';
-
 test('page has correct title', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
@@ -13,7 +11,9 @@ test('page has correct title', async ({ page }) => {
 test('page is displaying correctly', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-    await expectScreenshotToMatch(page, 'home.png');
+    await expect(page).toHaveScreenshot('home.png', {
+        fullPage: true,
+    });
 });
 
 test('page is displaying correctly in dark mode', async ({ page }) => {
@@ -23,7 +23,9 @@ test('page is displaying correctly in dark mode', async ({ page }) => {
 
     await themeSwitch.click();
 
-    await expectScreenshotToMatch(page, 'home-dark.png');
+    await expect(page).toHaveScreenshot('home-dark.png', {
+        fullPage: true,
+    });
 });
 
 test.describe('navigation bar', () => {
