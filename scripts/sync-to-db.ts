@@ -113,7 +113,7 @@ const main = async (): Promise<void> => {
     }
 };
 
-main().catch((error: unknown) => {
+main().catch((error) => {
     spinner.fail('Failed to sync notes to database ...');
     logger.error(error);
 });
