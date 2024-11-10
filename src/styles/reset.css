@@ -13,14 +13,14 @@
 * {
     box-sizing: border-box;
     font: inherit;
-    font-weight: 500;
 }
 
 html,
 body {
     scrollbar-gutter: stable both-edges;
     scroll-behavior: smooth;
-    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
     font-size: 1.15rem;
     font-family: 'Galdeano', Montserrat, Corbel, 'URW Gothic', source-sans-pro,
         sans-serif;
