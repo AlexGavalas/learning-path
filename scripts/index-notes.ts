@@ -82,7 +82,7 @@ const indexDocs = async (): Promise<void> => {
     await updateEdgeConfig();
 };
 
-indexDocs().catch((error: unknown) => {
+indexDocs().catch((error) => {
     spinner.fail('Failed to index docs');
     logger.error(error);
 });
