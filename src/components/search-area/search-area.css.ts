@@ -24,7 +24,7 @@ export const input = style({
 
 export const searchButton = style({
     padding: `${vars.spacing.xs} ${vars.spacing.md} !important`,
-    fontSize: '0.8em',
+    fontSize: '0.9em',
     gridArea: 'button',
 });
 

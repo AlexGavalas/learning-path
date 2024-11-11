@@ -11,7 +11,7 @@ export const input = style({
     backgroundColor: vars.color.input.background,
     borderRadius: vars.spacing.xs,
     border: 'none',
-    fontSize: '0.8em',
+    fontSize: '0.9em',
     paddingLeft: vars.spacing.sm,
     '::placeholder': {
         color: `oklch(from ${vars.color.typography.primary} calc(l + 0.02) c h)`,

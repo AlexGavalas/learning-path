@@ -11,7 +11,7 @@ export const mainContainer = style({
     flexDirection: 'column',
     gap: vars.spacing.md,
     margin: 'auto',
-    maxWidth: '42rem',
+    maxWidth: '45rem',
     padding: `0 ${vars.spacing.md}`,
 });
 
