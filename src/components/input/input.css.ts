@@ -12,6 +12,7 @@ export const input = style({
     borderRadius: vars.spacing.xs,
     border: 'none',
     fontSize: '0.9em',
+    lineHeight: 1.7,
     paddingLeft: vars.spacing.sm,
     '::placeholder': {
         color: `oklch(from ${vars.color.typography.primary} calc(l + 0.02) c h)`,
