@@ -13,6 +13,7 @@
 * {
     box-sizing: border-box;
     font: inherit;
+    font-weight: 500;
 }
 
 html {
@@ -23,7 +24,6 @@ html {
 body {
     line-height: 1.5;
     font-size: 1.4rem;
-    font-weight: 500;
     font-family: 'Galdeano', Montserrat, Corbel, 'URW Gothic', source-sans-pro,
         sans-serif;
 }
