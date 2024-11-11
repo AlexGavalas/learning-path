@@ -2,7 +2,6 @@
     font-family: 'Galdeano';
     font-style: normal;
     font-display: swap;
-    font-weight: 400;
     src: url(@fontsource/galdeano/files/galdeano-latin-400-normal.woff2)
         format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
@@ -23,6 +22,7 @@ html {
 
 body {
     line-height: 1.7;
+    font-weight: 500;
     font-size: 1.4rem;
     font-family: 'Galdeano', Montserrat, Corbel, 'URW Gothic', source-sans-pro,
         sans-serif;
