@@ -14,6 +14,7 @@ const config: PlaywrightTestConfig = {
     expect: {
         toHaveScreenshot: {
             maxDiffPixelRatio: IS_CI ? CI_PIXEL_DIFF : 0,
+            stylePath: 'e2e/styles.css',
         },
     },
     preserveOutput: 'failures-only',
