@@ -6,6 +6,4 @@ export const container = style({
     display: 'flex',
     flexDirection: 'column',
     gap: vars.spacing.lg,
-    lineHeight: '2rem',
-    fontSize: '1.1em',
 });

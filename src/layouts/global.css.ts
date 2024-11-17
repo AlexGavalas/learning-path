@@ -11,14 +11,16 @@ export const mainContainer = style({
     flexDirection: 'column',
     gap: vars.spacing.md,
     margin: 'auto',
-    maxWidth: '42rem',
+    maxWidth: '45rem',
     padding: `0 ${vars.spacing.md}`,
 });
 
 globalStyle(':root :focus-visible,[tabindex]:focus', {
-    outline: 'none',
-    boxShadow: `0 0 2px 2px ${vars.color.secondary}`,
     borderRadius: vars.spacing.xs,
+    outlineColor: vars.color.secondary,
+    outlineStyle: 'solid',
+    outlineOffset: '2px',
+    outlineWidth: '2px',
 });
 
 globalStyle(`:root ::selection`, {
