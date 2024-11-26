@@ -8,6 +8,6 @@ Favicons generated with Gemini.
 
 ## Ideas
 
--   TIR = Today I Read section / TIL
--   Get keywords from head meta to use in db
--   Improve code snippets display with something like [expressive code](https://expressive-code.com/) or shiki plugins
+- TIR = Today I Read section / TIL
+- Get keywords from head meta to use in db
+- Improve code snippets display with something like [expressive code](https://expressive-code.com/) or shiki plugins

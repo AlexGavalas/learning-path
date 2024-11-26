@@ -33,10 +33,10 @@ A basic step for the browser is to match the address the user navigates to with 
 
 #### OWASP recommendations 🔒
 
--   Keep sensitive data out of the URL. Browsers keep the URL in their history
--   Use a `no-referrer` directive on linked resources
--   Have TLS everywhere
--   Use strong ciphers
+- Keep sensitive data out of the URL. Browsers keep the URL in their history
+- Use a `no-referrer` directive on linked resources
+- Have TLS everywhere
+- Use strong ciphers
 
 ## Attacking the web browser
 
@@ -46,11 +46,11 @@ A basic step for the browser is to match the address the user navigates to with 
 
 #### OWASP recommendations 🔒
 
--   Public key pinning
--   Use a large key size (at least 2048 bits) to generate the certificate
--   Use multiple domain certificates
--   Be aware of wildcard certificates
--   Don't use self signed certificates
+- Public key pinning
+- Use a large key size (at least 2048 bits) to generate the certificate
+- Use multiple domain certificates
+- Be aware of wildcard certificates
+- Don't use self signed certificates
 
 ### Protocol downgrading attack
 
@@ -62,9 +62,9 @@ The header `HTTP Strict-Transport-Security` (`HSTS`), indicates to the browser t
 
 ### Password attacks
 
--   Brute force attack: any possible variations are tried
--   Dictionary attack: any possible variations are tried, but are limited to specific words from the dictionary
--   Rainbow tables: attempting to match the hash before attempting to login
+- Brute force attack: any possible variations are tried
+- Dictionary attack: any possible variations are tried, but are limited to specific words from the dictionary
+- Rainbow tables: attempting to match the hash before attempting to login
 
 Brute force and dictionary are impractical, if a rate limit/restriction on failed attempts is in place. These attacks work on unsalted hashes.
 
@@ -76,5 +76,5 @@ We can make the hashing function run as slow as possible to make it difficult fo
 
 #### OWASP recommendations 🔒
 
--   Recommended hash functions: Argon2, PBKDF2, Scrypt, Bcrypt, HMACs
--   Set a maximum length for passwords (e.g. 160 characters), without limiting the character set
+- Recommended hash functions: Argon2, PBKDF2, Scrypt, Bcrypt, HMACs
+- Set a maximum length for passwords (e.g. 160 characters), without limiting the character set

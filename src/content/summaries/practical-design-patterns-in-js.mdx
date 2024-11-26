@@ -18,17 +18,17 @@ Design patterns have emerged as solutions to common programming challenges and b
 
 To be more accurate, a design pattern
 
--   Solves a problem
--   Is a proven concept
--   Does not describe an obvious solution (e.g. it is not a for loop)
--   Describes a relationship, how things interact
--   Has a significant human component, we have to make it work for our scenario
+- Solves a problem
+- Is a proven concept
+- Does not describe an obvious solution (e.g. it is not a for loop)
+- Describes a relationship, how things interact
+- Has a significant human component, we have to make it work for our scenario
 
 We are going to shortly look over the following patterns, each with a short code sample.
 
--   **Creational**: constructor, module, factory, singleton
--   **Structural**: decorator, facade, flyweight
--   **Behavioural**: command, mediator, observer
+- **Creational**: constructor, module, factory, singleton
+- **Structural**: decorator, facade, flyweight
+- **Behavioural**: command, mediator, observer
 
 ## Creational design patterns
 
@@ -40,10 +40,10 @@ Create new objects with their own object scope. Usually, when using this pattern
 
 The `new` keyword:
 
--   Creates a new object
--   Links to an object prototype
--   Binds `this` to the new object scope
--   Returns `this` implicitly
+- Creates a new object
+- Links to an object prototype
+- Binds `this` to the new object scope
+- Returns `this` implicitly
 
 <CopyToClipboard prefix="Example">
 
@@ -85,13 +85,13 @@ jsEngineerJob.publish();
 
 **Pros**:
 
--   Straightforward to use.
--   Encapsulates the creation and initialisation logic.
+- Straightforward to use.
+- Encapsulates the creation and initialisation logic.
 
 **Cons**:
 
--   Lack of privacy, all properties and methods are public. Though this can change when using [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
--   Can be memory inefficient, since methods are duplicated for each instance.
+- Lack of privacy, all properties and methods are public. Though this can change when using [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
+- Can be memory inefficient, since methods are duplicated for each instance.
 
 #### Prototype
 
@@ -117,13 +117,13 @@ jsEngineerJob.publish();
 
 **Pros**:
 
--   Code reuse and memory efficiency, all objects share the same methods.
--   Dynamic runtime modification, properties can be modified at runtime. Depending on the use case though, this can be also be a con.
+- Code reuse and memory efficiency, all objects share the same methods.
+- Dynamic runtime modification, properties can be modified at runtime. Depending on the use case though, this can be also be a con.
 
 **Cons**:
 
--   Potential modification risks at runtime.
--   Complexity and potential confusion, since it involves a prototype chain.
+- Potential modification risks at runtime.
+- Complexity and potential confusion, since it involves a prototype chain.
 
 ### Module pattern
 
@@ -175,12 +175,12 @@ const DatabaseService = (function () {
 
 **Pros**:
 
--   Encapsulation and privacy, only the exposed properties and methods are accessible from the outside.
--   Organisation and structure.
+- Encapsulation and privacy, only the exposed properties and methods are accessible from the outside.
+- Organisation and structure.
 
 **Cons**:
 
--   Limited access to private methods and properties, which can make testing more challenging.
+- Limited access to private methods and properties, which can make testing more challenging.
 
 ### Factory pattern
 
@@ -224,12 +224,12 @@ const jsEngineerJob = jobFactory.getJob('remote', 'JS Engineer');
 
 **Pros**:
 
--   Abstraction and flexibility. It provides a centralised place for object creation.
+- Abstraction and flexibility. It provides a centralised place for object creation.
 
 **Cons**:
 
--   Complexity, since a single factory is responsible for creating multiple objects.
--   Limited customisation, since all objects are created through the same factory.
+- Complexity, since a single factory is responsible for creating multiple objects.
+- Limited customisation, since all objects are created through the same factory.
 
 ### Singleton pattern
 
@@ -259,13 +259,13 @@ instance1 === instance2; // true
 
 **Pros**:
 
--   Single instance, which can be useful for managing shared resources.
--   Efficient resource utilisation.
+- Single instance, which can be useful for managing shared resources.
+- Efficient resource utilisation.
 
 **Cons**:
 
--   May result in tight coupling.
--   Difficult to test.
+- May result in tight coupling.
+- Difficult to test.
 
 ## Structural design patterns
 
@@ -309,12 +309,12 @@ hypedJsEngineerJob.publish();
 
 **Pros**:
 
--   Flexible and dynamic, since we can add functionality at runtime.
--   Preserves the object's interface.
+- Flexible and dynamic, since we can add functionality at runtime.
+- Preserves the object's interface.
 
 **Cons**:
 
--   Can be complex, since each decorator adds a new layer of functionality.
+- Can be complex, since each decorator adds a new layer of functionality.
 
 ### Facade pattern
 
@@ -356,13 +356,13 @@ JobServiceFacade.publishAndNotify(jsEngineerJob);
 
 **Pros**:
 
--   Simplifies the interface of a complex system.
--   Improved maintainability and modularity.
+- Simplifies the interface of a complex system.
+- Improved maintainability and modularity.
 
 **Cons**:
 
--   Limited customisation to the underlying system.
--   Potential performance impact, since it adds an additional layer of method calls.
+- Limited customisation to the underlying system.
+- Potential performance impact, since it adds an additional layer of method calls.
 
 ### Flyweight pattern
 
@@ -484,12 +484,12 @@ console.log(`Used memory: ${usedMemoryFlyweight} MB`);
 
 **Pros**:
 
--   Memory efficiency and performance improvement.
+- Memory efficiency and performance improvement.
 
 **Cons**:
 
--   Added complexity.
--   Potential loss of encapsulation, since it involves sharing state between objects.
+- Added complexity.
+- Potential loss of encapsulation, since it involves sharing state between objects.
 
 ## Behavioural design patterns
 
@@ -572,12 +572,12 @@ unsubscribe();
 
 **Pros**:
 
--   Loose coupling and flexibility.
--   Event-driven architecture.
+- Loose coupling and flexibility.
+- Event-driven architecture.
 
 **Cons**:
 
--   Potential performance and order of execution issues.
+- Potential performance and order of execution issues.
 
 ### Mediator pattern
 
@@ -631,11 +631,11 @@ alex.apply('JS Engineer');
 
 **Pros**:
 
--   Decoupling and simplified communication.
+- Decoupling and simplified communication.
 
 **Cons**:
 
--   Complexity and potential performance issues.
+- Complexity and potential performance issues.
 
 ### Command pattern
 
@@ -691,21 +691,21 @@ console.log('Jobs after replaying', JobsService.jobs);
 
 **Pros**:
 
--   Decoupling of caller and receiver.
--   Undoable operations.
--   Support for queuing operations.
+- Decoupling of caller and receiver.
+- Undoable operations.
+- Support for queuing operations.
 
 **Cons**:
 
--   Can be challenging to handle more complex scenarios.
+- Can be challenging to handle more complex scenarios.
 
 ## One last thing
 
 Some resources I have found helpful regarding design patterns are:
 
--   [Design Patterns - Refactoring Guru](https://refactoring.guru/design-patterns)
--   [Design patterns in TS](https://refactoring.guru/design-patterns/typescript)
--   [Awesome Design Patterns](https://github.com/DovAmir/awesome-design-patterns)
--   [Learning JS Design Patterns](https://www.patterns.dev/posts#design-patterns)
+- [Design Patterns - Refactoring Guru](https://refactoring.guru/design-patterns)
+- [Design patterns in TS](https://refactoring.guru/design-patterns/typescript)
+- [Awesome Design Patterns](https://github.com/DovAmir/awesome-design-patterns)
+- [Learning JS Design Patterns](https://www.patterns.dev/posts#design-patterns)
 
 Thank you for reading.
