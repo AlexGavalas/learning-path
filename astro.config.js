@@ -14,9 +14,6 @@ const isLocalBuild = process.env.LOCAL === 'true';
 
 // https://astro.build/config
 export default defineConfig({
-    legacy: {
-        collections: true,
-    },
     vite: {
         plugins: [vanillaExtractPlugin()],
     },

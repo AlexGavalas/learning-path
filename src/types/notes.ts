@@ -1,4 +1,4 @@
-import type { CollectionEntry, Render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 export type Note = {
     created: string;
@@ -11,5 +11,3 @@ export type Note = {
 export type NotesCollection = CollectionEntry<'notes'>;
 
 export type NoteFrontmatter = NotesCollection['data'];
-
-export type NoteRenderResult = Awaited<Render['.mdx']>;

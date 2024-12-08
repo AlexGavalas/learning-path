@@ -1,9 +1,9 @@
-import { getEntry } from 'astro:content';
+import { type RenderResult, getEntry, render } from 'astro:content';
 import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
-import type { Note, NoteFrontmatter, NoteRenderResult } from '~types/notes';
+import type { Note, NoteFrontmatter } from '~types/notes';
 
 import { getNoteMetadata, searchNotes } from './notes-db';
 
@@ -53,7 +53,7 @@ export const fetchNotes = async (
 export const getNoteData = async (
     filename: string,
 ): Promise<{
-    content: NoteRenderResult;
+    content: RenderResult;
     frontmatter: NoteFrontmatter;
 } | null> => {
     const note = await getEntry('notes', filename);
@@ -63,7 +63,7 @@ export const getNoteData = async (
     }
 
     return {
-        content: await note.render(),
+        content: await render(note),
         frontmatter: note.data,
     };
 };

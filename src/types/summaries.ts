@@ -1,4 +1,4 @@
-import type { CollectionEntry, Render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 export type Summary = {
     created: string;
@@ -11,5 +11,3 @@ export type Summary = {
 export type SummariesCollection = CollectionEntry<'summaries'>;
 
 export type SummaryFrontmatter = SummariesCollection['data'];
-
-export type SummaryRenderResult = Awaited<Render['.mdx']>;

@@ -22,9 +22,9 @@ jest.mock(
         getCollection: jest.fn().mockResolvedValue([{ slug: 'test' }]),
         getEntry: jest.fn().mockResolvedValue({
             body: 'test body',
-            render: jest.fn().mockReturnValue({
-                Content: jest.fn().mockReturnValue('<div>test body</div>'),
-            }),
+        }),
+        render: jest.fn().mockReturnValue({
+            Content: jest.fn().mockReturnValue('<div>test body</div>'),
         }),
     }),
     {

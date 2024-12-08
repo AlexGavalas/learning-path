@@ -1,12 +1,13 @@
 import { parse } from '@formkit/tempo';
-import { getCollection, getEntry } from 'astro:content';
+import {
+    type RenderResult,
+    getCollection,
+    getEntry,
+    render,
+} from 'astro:content';
 
 import { turso } from '~lib/turso';
-import type {
-    Summary,
-    SummaryFrontmatter,
-    SummaryRenderResult,
-} from '~types/summaries';
+import type { Summary, SummaryFrontmatter } from '~types/summaries';
 
 const getAllSummaries = async (): Promise<Summary[]> => {
     const { rows } = await turso.execute(
@@ -25,7 +26,7 @@ export const getSummaries = async (): Promise<Omit<Summary, 'id'>[] | null> => {
         return entries
             .map((entry) => ({
                 ...entry.data,
-                filename: entry.slug,
+                filename: entry.id,
             }))
             .sort(
                 (lessonA, lessonB) =>
@@ -40,17 +41,17 @@ export const getSummaries = async (): Promise<Omit<Summary, 'id'>[] | null> => {
 export const getSummaryData = async (
     slug: string,
 ): Promise<{
-    content: SummaryRenderResult;
+    content: RenderResult;
     frontmatter: SummaryFrontmatter;
 } | null> => {
-    const SummaryContent = await getEntry('summaries', slug);
+    const summaryContent = await getEntry('summaries', slug);
 
-    if (!SummaryContent) {
+    if (!summaryContent) {
         return null;
     }
 
     return {
-        content: await SummaryContent.render(),
-        frontmatter: SummaryContent.data,
+        content: await render(summaryContent),
+        frontmatter: summaryContent.data,
     };
 };
