@@ -1,4 +1,5 @@
-import { type RenderResult, getEntry, render } from 'astro:content';
+import type { AstroComponentFactory } from 'astro/dist/runtime/server';
+import { getEntry, render } from 'astro:content';
 import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
@@ -53,7 +54,7 @@ export const fetchNotes = async (
 export const getNoteData = async (
     filename: string,
 ): Promise<{
-    content: RenderResult;
+    content: { Content: AstroComponentFactory };
     frontmatter: NoteFrontmatter;
 } | null> => {
     const note = await getEntry('notes', filename);

@@ -1,10 +1,6 @@
 import { parse } from '@formkit/tempo';
-import {
-    type RenderResult,
-    getCollection,
-    getEntry,
-    render,
-} from 'astro:content';
+import type { AstroComponentFactory } from 'astro/dist/runtime/server';
+import { getCollection, getEntry, render } from 'astro:content';
 
 import { turso } from '~lib/turso';
 import type { Summary, SummaryFrontmatter } from '~types/summaries';
@@ -41,7 +37,7 @@ export const getSummaries = async (): Promise<Omit<Summary, 'id'>[] | null> => {
 export const getSummaryData = async (
     slug: string,
 ): Promise<{
-    content: RenderResult;
+    content: { Content: AstroComponentFactory };
     frontmatter: SummaryFrontmatter;
 } | null> => {
     const summaryContent = await getEntry('summaries', slug);
