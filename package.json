@@ -34,7 +34,7 @@
     "dependencies": {
         "@astrojs/mdx": "4.0.1",
         "@astrojs/node": "9.0.0",
-        "@astrojs/react": "4.0.0",
+        "@astrojs/react": "4.1.1",
         "@astrojs/vercel": "8.0.0",
         "@astrojs/vue": "5.0.1",
         "@fontsource/galdeano": "5.1.0",
@@ -43,7 +43,7 @@
         "@nanostores/react": "0.8.2",
         "@nanostores/vue": "0.11.0",
         "@vercel/edge-config": "1.4.0",
-        "astro": "5.0.3",
+        "astro": "5.1.0",
         "cross-env": "7.0.3",
         "lodash": "4.17.21",
         "nanostores": "0.11.3",
