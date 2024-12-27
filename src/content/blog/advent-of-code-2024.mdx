@@ -1,0 +1,41 @@
+---
+title: Advent of Code 2024
+created: '2024-12-27'
+updated: '2024-12-27'
+published: true
+features:
+    - banner
+---
+
+This year I took the challenge of doing the [Advent of Code](https://adventofcode.com/) in Haskell.
+
+Like many other developers, I like the idea to use AoC as an opportunity to learn a new language, that I might not otherwise have the chance to explore. This year I chose [Haskell](https://www.haskell.org/), a purely functional programming language that I have been wanting to learn for a while.
+
+```haskell
+main :: IO ()
+main = do
+  print "Hello, World!"
+```
+
+## What I liked
+
+I really enjoyed working in Haskell. It has a steep learning curve, but once you get the basics it really shines. It is almost as if it guides you to the solution in a weird way. It has a strict functional paradigm, to the point that it frustrates you when you cannot print an intermediate value because it is considered IO, therefore impure in the middle of an expression. So you have to refactor your code, in order to be more modular. And then you discover that you can also test it easier this way.
+
+Some of the features I really enjoyed:
+
+- Pattern matching is a powerful feature that I had seen before in Rust, and I really like it. My only note is that it would be nice to able to combine different cases, like in Rust.
+- The compiler (GHC) is on another level. Not only it is fast and the error messages are to the point (once you get some experience with them), but I was pleasantly surprised by the suggestions it provided in order to better refactor my code.
+
+## What I did not like
+
+On the list of things I did not particularly enjoy was the tooling setup. I found it a bit confusing having to install all the tools, which were not always clear to me why they were needed, along their lengthy install times. But once you had everything installed, dependency management was fairly straightforward. Just add the package to the cabal file and run `cabal build`. It also took me some time to setup a decent formatter in my IDE (Cursor). I ended up using `ormolu` which is a Haskell code formatter that I found to be the most popular.
+
+## Learning with AI
+
+In the context of this challenge, I also wanted to try out Cursor. AI tools often revolve around a lot of hype, so I wanted to see if this IDE can be actually useful, helping me learn a new language, and I have to say it did not disappoint. On nearly all my queries on syntax, best practices, or in general how to do something in Haskell, Cursor provided a solid answer, in context of my code. I rarely had to leave my IDE to search for something and I could ask for an example in my current codebase. It was particularly useful debugging error messages, which I found sometimes hard to read, mainly due to my lack of experience with the language. So my overall experience with Cursor was really positive, and a refreshing new way to learn.
+
+---
+
+In summary I had a great time learning Haskell and solving this years' Advent of Code (although I went up to day 9). I want to continue learning this language, and see if it have a place in a more web oriented setup.
+
+You can checkout my solutions in the [repo](https://github.com/AlexGavalas/advent-of-code-2024). Thanks for reading!

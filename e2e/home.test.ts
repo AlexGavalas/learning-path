@@ -37,14 +37,14 @@ test.describe('navigation bar', () => {
         await expect(navBar).toBeVisible();
     });
 
-    test('has 2 links', async ({ page }) => {
+    test('has 3 links', async ({ page }) => {
         await page.goto('/', { waitUntil: 'domcontentloaded' });
 
         const links = page.locator('nav a');
 
         const linksCount = await links.count();
 
-        expect(linksCount).toBe(2);
+        expect(linksCount).toBe(3);
     });
 });
 

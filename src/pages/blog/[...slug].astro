@@ -1,0 +1,33 @@
+---
+import NotesLayout from '~layouts/note.astro';
+import { geBlogData } from '~api/blog';
+
+const { slug } = Astro.params;
+
+const NOT_FOUND_STATUS = 404;
+
+if (!slug) {
+    return Astro.rewrite(NOT_FOUND_STATUS);
+}
+
+const summary = await geBlogData(slug);
+
+if (!summary) {
+    return Astro.rewrite(NOT_FOUND_STATUS);
+}
+
+const {
+    content: { Content },
+    frontmatter,
+} = summary;
+
+const hasBannerEnabled = frontmatter.features?.includes('banner') ?? false;
+---
+
+<NotesLayout
+    {...frontmatter}
+    hasBannerEnabled={hasBannerEnabled}
+    backUrl="/blog"
+>
+    <Content />
+</NotesLayout>

@@ -25,7 +25,20 @@ const summaries = defineCollection({
     }),
 });
 
+const blog = defineCollection({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    loader: glob({ base: './src/content/blog', pattern: '**/*.mdx' }),
+    schema: z.object({
+        created: z.string(),
+        features: z.array(z.enum(['banner'])).optional(),
+        published: z.boolean().optional(),
+        title: z.string(),
+        updated: z.string(),
+    }),
+});
+
 export const collections = {
+    blog,
     notes,
     summaries,
 };
