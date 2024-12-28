@@ -1,7 +1,7 @@
 ---
 title: Uses
 created: '2023-01-05'
-updated: '2023-05-13'
+updated: '2024-12-28'
 published: false
 ---
 
@@ -18,24 +18,33 @@ Unix alternatives I have come to like and use are:
 `.zshrc`
 
 ```zsh
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+# Setup history
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+HISTORY_IGNORE="(l|ls|cd|pwd)*"
+
+# https://zsh.sourceforge.io/Doc/Release/Options.html (16.2.4 History)
+
+setopt EXTENDED_HISTORY      # Write the history file in the ':start:elapsed;command' format.
+setopt SHARE_HISTORY         # Share history between all sessions.
+setopt HIST_IGNORE_DUPS      # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS  # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_SAVE_NO_DUPS     # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY           # Do not execute immediately upon history expansion.
+setopt APPEND_HISTORY        # append to history file (Default)
+setopt HIST_NO_STORE         # Don't store history commands
+setopt HIST_REDUCE_BLANKS    # Remove superfluous blanks from each command line being added to the history.
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+zstyle ':omz:update' mode reminder # Remind me to update when it's time
+zstyle ':omz:update' frequency 14  # Once every 14 days
 
-zstyle ':omz:update' mode reminder  # Remind me to update when it's time
-zstyle ':omz:update' frequency 14   # Once every 14 days
-
-# Disable auto-setting terminal title.
+# Disable auto-setting terminal title
 DISABLE_AUTO_TITLE="true"
-
-plugins=(git nvm deno yarn)
-
-zstyle ':omz:plugins:nvm' autoload yes
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -44,33 +53,138 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 source $ZSH/oh-my-zsh.sh
-source ~/.zshrc.pre-oh-my-zsh
 
-# User configuration
+# pnpm
+export PNPM_HOME="/Users/alexgavalas/Library/pnpm"
 
-export EDITOR='vim'
+# Java
+JAVA="/opt/homebrew/opt/openjdk/bin"
 
-# Enables interactive shell comments
+# rvm
+RVM="$HOME/.rvm/bin"
+
+# VSCode binary
+VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# Preferred editor for local and remote sessions
+export EDITOR='nvim'
+
+# Enables interactive shell comments i.e. comment lines starting with #
 setopt interactivecomments
 
-# Set aliases
+# Aliases
 alias ls="lsd"
 alias l="ls -l"
 alias sort_size="du -hcd1 | sort -hr"
-alias notify="osascript -e 'display notification \"Done\" with title \"Task\"'"
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+# Android SDK
+export ANDROID_HOME="$HOME/Library/Android/sdk"
 
-# Init staship (needs to be the last command)
+ANDROID_EMULATOR="$ANDROID_HOME/emulator"
+ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
+
+# Local executables
+LOCAL_NODE_MODULES="./node_modules/.bin"
+
+# Go binaries
+GO_BINARIES="$HOME/go/bin"
+
+BINARY_PATHS=(
+  $JAVA
+  $RVM
+  $VSCODE
+  $LOCAL_NODE_MODULES
+  $GO_BINARIES
+  $ANDROID_EMULATOR
+  $ANDROID_PLATFORM_TOOLS
+)
+
+# Concatenate and export binary paths
+export PATH="${(j/:/)BINARY_PATHS}:$PATH"
+
+# Init staship
 eval "$(starship init zsh)"
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+# Init fnm
+eval "$(fnm env --use-on-cd --resolve-engines)"
 
+# Init atuin
+eval "$(atuin init zsh)"
+
+# zinit
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# load plugins with zinit
+zinit snippet OMZP::git
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
+
+# Set language to English
+export LANG="en_US.UTF-8"
 ```
 
-# Apps
+## git
 
-- [fig](https://fig.io/)
+`~/.gitconfig`
+
+```toml
+[alias]
+    # one character for easier use of this frequent used command
+    s = status
+    # prettier git log
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # find the remote urls of a repository
+    gh-url = remote get-url --all origin
+    # fetch everything
+    sync = fetch --all --tags --prune
+    # some rough git statistics for your user in a defined time period
+    stats = "!git log --author=$(git config user.email) --since=\"$SINCE:-1 year ago\" --until=\"$UNTIL:-now\" --pretty=tformat: --numstat | egrep -v '__snapshots__|.json|.yml' | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf \"Added lines\\t%s\\nRemoved lines\\t%s\\nTotal lines\\t%s\\n\", add, subs, loc }'"
+    # remove all branches that are already merged into master
+    remove-gone-branches = "!git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
+    # commits not in master
+    diff-master = lg origin/master..HEAD
+    # easier rebase a branch
+    rebase-onto = "!f() { git rebase --onto=\"$1\" $(git merge-base --fork-point \"$1\"); }; f"
+    # show diff using https://github.com/wilfred/difftastic
+    show-ext = show --ext-diff
+    # get the latest tag
+    latest-tag = !git fetch --quiet --all && git describe --tags --abbrev=0
+    # stash all except a specific path
+    stash-excluding = "!f() { git stash push --include-untracked -- :!$1; }; f"
+    # git blame ignoring whitespace and moving
+    deep-blame = blame -w -C
+[core]
+    # silence pager if output fits on one screen
+    pager = less -quit-if-one-screen --no-init
+[init]
+    # use main as default branch
+    defaultBranch = main
+[push]
+    # no need to manually set upstream
+    autoSetupRemote = true
+    # also push tags by default
+    followTags = true
+[pager]
+    # do not paginate branch output
+    branch = false
+[diff]
+    # use https://github.com/wilfred/difftastic for prettier git diff
+    external = difft
+[rebase]
+    # auto stash changes before rebase
+    autoStash = true
+[rerere]
+    # enable rerere for easier conflict resolution
+    enabled = true
+[help]
+    # prompt for a similar command when you make a typo
+    autocorrect = prompt
+[branch]
+    # sort branch output by committer date
+    sort = -committerdate
+[includeIf "gitdir:~/personal/"]
+    # include another gitconfig for personal projects
+    path = "~/.personal_gitconfig"
+```
