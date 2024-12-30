@@ -1,10 +1,8 @@
-import { useStore } from '@nanostores/react';
-
 import * as cn from './board.css';
 import { BOARD } from './constants';
 import { $activeCell, isCellVisible } from './store';
 
-const Board = ({ offset }: { offset: number }) => {
+export const Board = ({ offset, useStore }) => {
     const cell = useStore($activeCell);
 
     return (
@@ -35,5 +33,3 @@ const Board = ({ offset }: { offset: number }) => {
         </div>
     );
 };
-
-export default Board;

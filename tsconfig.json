@@ -11,8 +11,6 @@
         "skipLibCheck": true,
         "isolatedModules": true,
         "composite": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "react",
         "baseUrl": "./src",
         "paths": {
             "~api/*": ["api/*"],
