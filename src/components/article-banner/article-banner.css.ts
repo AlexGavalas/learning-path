@@ -17,5 +17,5 @@ export const cell = style({
     animationDelay: `calc(-1 * ${TOTAL_STAGGER}s + var(${INDEX_VAR}) * ${ITEM_STAGGER}s)`,
     aspectRatio: '1',
     backgroundColor: vars.color.primary,
-    borderRadius: vars.spacing.xs,
+    borderRadius: `min(0.4vw, ${vars.spacing.xs})`,
 });
