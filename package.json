@@ -11,7 +11,6 @@
         "start:server": "node -r dotenv/config ./dist/server/entry.mjs",
         "build": "cross-env PROD=true astro build",
         "preview": "pnpm build && astro preview",
-        "astro": "astro",
         "index:notes": "tsx scripts/index-notes.ts",
         "sync:db": "tsx scripts/sync-to-db.ts",
         "publish:notes": "tsx scripts/publish-notes.ts",
@@ -27,7 +26,7 @@
         "check:types": "tsc --noEmit",
         "format": "pnpm prettier --write",
         "prepare": "husky",
-        "clean:install": "rm -rf node_modules/ pnpm-lock.yaml .astro/ dist/ && pnpm install && pnpm astro sync && pnpm playwright install --with-deps",
+        "clean:install": "rm -rf node_modules/ pnpm-lock.yaml .astro/ dist/ && pnpm install && astro sync && pnpm playwright install --with-deps",
         "validate": "pnpm lint && pnpm check:format && pnpm check:types"
     },
     "dependencies": {

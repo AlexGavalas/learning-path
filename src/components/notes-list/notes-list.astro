@@ -8,7 +8,7 @@ interface Props {
     display?: 'created' | 'updated';
     notes: {
         created: string;
-        filename: string;
+        id: string;
         updated: string;
         title: string;
     }[];
@@ -23,7 +23,7 @@ const hasNotes = notes.length > 0;
 {
     hasNotes ? (
         <ul class={cn.container}>
-            {notes.map(({ filename, title, ...rest }, index) => {
+            {notes.map(({ id: slug, title, ...rest }, index) => {
                 const dateId = `${index}d`;
                 const textId = `${index}t`;
 
@@ -32,7 +32,7 @@ const hasNotes = notes.length > 0;
                         <a
                             aria-labelledby={`${textId} ${dateId}`}
                             class={cn.link}
-                            href={`/${baseUrl}/${filename}`}
+                            href={`/${baseUrl}/${slug}`}
                         >
                             <FormattedDate
                                 dateString={rest[display]}

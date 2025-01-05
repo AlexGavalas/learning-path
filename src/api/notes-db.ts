@@ -9,11 +9,3 @@ export const searchNotes = async (query: string): Promise<Note[]> => {
 
     return rows as unknown as Note[];
 };
-
-export const getAllNotes = async (): Promise<Note[]> => {
-    const { rows } = await turso.execute(
-        'SELECT DISTINCT(title), filename, created, updated FROM notes_fts ORDER BY updated DESC, title ASC',
-    );
-
-    return rows as unknown as Note[];
-};

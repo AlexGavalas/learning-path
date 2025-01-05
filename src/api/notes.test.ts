@@ -20,21 +20,6 @@ jest.mock(
 
 jest.mock('~lib/turso');
 
-describe('fetchNotes', () => {
-    describe('when there is a query', () => {
-        describe('when there is no error', () => {
-            it.todo('returns the notes and lines');
-        });
-
-        describe('when there is an error', () => {
-            it.todo('returns an empty array of notes and lines');
-        });
-    });
-    describe('when there is no query', () => {
-        it.todo('returns all notes and an empty object of lines');
-    });
-});
-
 describe('getNoteData', () => {
     it('calls getEntry', async () => {
         await getNoteData({ collection: 'notes', slug: 'test' });

@@ -6,20 +6,15 @@ import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
 import type { BlogArticleFrontmatter } from '~types/blog';
-import type { Note, NoteFrontmatter } from '~types/notes';
+import type { Note, NoteDBEntry, NoteFrontmatter } from '~types/notes';
 import type { SummaryFrontmatter } from '~types/summaries';
 
 import { searchNotes } from './notes-db';
 
-type SearchNotesRpcResponse = {
-    title: string;
-    line: string;
-}[];
-
 type Lines = Record<string, string[]>;
 
 const groupByTitle = flow(
-    groupBy<SearchNotesRpcResponse[number]>(({ title }) => title),
+    groupBy<NoteDBEntry>(({ title }) => title),
     mapValues((notes) => notes.map(({ line }) => line)),
 );
 
@@ -34,7 +29,7 @@ export const getNotesByCollection = async (
     orderBy: 'created' | 'updated',
 ): Promise<
     (AwaitedCollectionData & {
-        filename: string;
+        id: string;
     })[]
 > => {
     const isProd = process.env.PROD === 'true';
@@ -45,7 +40,7 @@ export const getNotesByCollection = async (
         .filter((entry) => (isProd ? entry.data.published : true))
         .map((entry) => ({
             ...entry.data,
-            filename: entry.id,
+            id: entry.id,
         }))
         .sort(
             (articleA, articleB) =>

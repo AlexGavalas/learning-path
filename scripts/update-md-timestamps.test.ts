@@ -4,7 +4,6 @@ import { updateMdTimestamps } from './update-md-timestamps';
 jest.mock('./helpers');
 
 jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
-    getAllNotes: jest.fn(),
     searchNotes: jest.fn(),
 }));
 
