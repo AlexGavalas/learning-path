@@ -13,20 +13,8 @@ export const seed = async (): Promise<void> => {
             tokenize="trigram"
         );
 
-        DROP TABLE IF EXISTS summaries;
-
-        CREATE TABLE summaries (
-            id SERIAL PRIMARY KEY,
-            filename TEXT NOT NULL,
-            title TEXT NOT NULL,
-            created TIMESTAMPTZ NOT NULL,
-            updated TIMESTAMPTZ NOT NULL
-        );
-
-        DROP INDEX IF EXISTS summaries_filename_idx;
         DROP INDEX IF EXISTS notes_filename_idx;
         
-        CREATE INDEX summaries_filename_idx ON summaries(filename);
         CREATE INDEX notes_filename_idx ON notes(filename);
     `);
 };

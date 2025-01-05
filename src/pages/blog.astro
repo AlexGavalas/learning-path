@@ -2,13 +2,13 @@
 import GlobalLayout from '~layouts/global.astro';
 import NotesList from '~components/notes-list/notes-list.astro';
 import Banner from '~components/banner/banner.astro';
-import { getBlogArticles } from '~api/blog';
+import { getNotesByCollection } from '~api/notes';
 import * as cn from '~styles/pages/layout.css';
 import { TITLE } from '~constants';
 
-const blogArticles = await getBlogArticles();
+const blogArticles = await getNotesByCollection('blog');
 
-if (blogArticles === null) {
+if (!blogArticles) {
     throw new Error('Could not get blog articles');
 }
 
@@ -17,7 +17,7 @@ const title = `Blog | ${TITLE}`;
 
 <GlobalLayout title={title}>
     <section class={cn.container}>
-        <Banner> Stuff I've written about </Banner>
+        <Banner>Stuff I've written about</Banner>
         <NotesList baseUrl="blog" display="created" notes={blogArticles} />
     </section>
 </GlobalLayout>

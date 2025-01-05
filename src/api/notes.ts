@@ -1,12 +1,13 @@
+import { parse } from '@formkit/tempo';
 import type { AstroComponentFactory } from 'astro/dist/runtime/server';
-import { getEntry, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
-import type { BlogArticleFrontmatter } from '~types/blog';
+import type { BlogArticle, BlogArticleFrontmatter } from '~types/blog';
 import type { Note, NoteFrontmatter } from '~types/notes';
-import type { SummaryFrontmatter } from '~types/summaries';
+import type { Summary, SummaryFrontmatter } from '~types/summaries';
 
 import { getNoteMetadata, searchNotes } from './notes-db';
 
@@ -53,11 +54,33 @@ export const fetchNotes = async (
     };
 };
 
+type Collection = 'blog' | 'notes' | 'summaries';
+
+export const getNotesByCollection = async (
+    collection: Collection,
+): Promise<Omit<Summary | Note | BlogArticle, 'id'>[] | null> => {
+    const isProd = process.env.PROD === 'true';
+
+    const entries = await getCollection(collection);
+
+    return entries
+        .filter((entry) => (isProd ? entry.data.published : true))
+        .map((entry) => ({
+            ...entry.data,
+            filename: entry.id,
+        }))
+        .sort(
+            (articleA, articleB) =>
+                parse(articleB.created, 'YYYY-MM-DD').getTime() -
+                parse(articleA.created, 'YYYY-MM-DD').getTime(),
+        );
+};
+
 export const getNoteData = async ({
     collection,
     slug,
 }: {
-    collection: 'blog' | 'notes' | 'summaries';
+    collection: Collection;
     slug: string;
 }): Promise<{
     content: { Content: AstroComponentFactory };

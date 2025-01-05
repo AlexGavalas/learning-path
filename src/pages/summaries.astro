@@ -2,13 +2,13 @@
 import GlobalLayout from '~layouts/global.astro';
 import NotesList from '~components/notes-list/notes-list.astro';
 import Banner from '~components/banner/banner.astro';
-import { getSummaries } from '~api/summaries';
+import { getNotesByCollection } from '~api/notes';
 import * as cn from '~styles/pages/layout.css';
 import { TITLE } from '~constants';
 
-const summaries = await getSummaries();
+const summaries = await getNotesByCollection('summaries');
 
-if (summaries === null) {
+if (!summaries) {
     throw new Error('Could not get summaries');
 }
 
