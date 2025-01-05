@@ -3,7 +3,7 @@ import GlobalLayout from '~layouts/global.astro';
 import NotesList from '~components/notes-list/notes-list.astro';
 import Banner from '~components/banner/banner.astro';
 import { getBlogArticles } from '~api/blog';
-import * as cn from '~styles/pages/summaries.css';
+import * as cn from '~styles/pages/layout.css';
 import { TITLE } from '~constants';
 
 const blogArticles = await getBlogArticles();
