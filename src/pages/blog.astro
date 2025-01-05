@@ -6,7 +6,7 @@ import { getNotesByCollection } from '~api/notes';
 import * as cn from '~styles/pages/layout.css';
 import { TITLE } from '~constants';
 
-const blogArticles = await getNotesByCollection('blog');
+const blogArticles = await getNotesByCollection('blog', 'created');
 
 if (!blogArticles) {
     throw new Error('Could not get blog articles');

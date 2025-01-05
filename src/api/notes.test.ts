@@ -2,20 +2,6 @@ import { getEntry } from 'astro:content';
 
 import { getNoteData } from './notes';
 
-jest.mock<typeof import('@vercel/edge-config')>('@vercel/edge-config', () => ({
-    ...jest.requireActual('@vercel/edge-config'),
-    createClient: jest.fn().mockReturnValue({
-        get: jest.fn().mockResolvedValue([
-            {
-                created: '2024-01-01',
-                filename: 'test',
-                title: 'test data',
-                updated: '2024-01-01',
-            },
-        ]),
-    }),
-}));
-
 jest.mock(
     'astro:content',
     () => ({
@@ -35,8 +21,6 @@ jest.mock(
 jest.mock('~lib/turso');
 
 describe('fetchNotes', () => {
-    it.todo('calls edgeConfig.get');
-
     describe('when there is a query', () => {
         describe('when there is no error', () => {
             it.todo('returns the notes and lines');

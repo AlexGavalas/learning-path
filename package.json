@@ -39,7 +39,6 @@
         "@formkit/tempo": "0.1.2",
         "@libsql/client": "0.14.0",
         "@nanostores/vue": "0.11.0",
-        "@vercel/edge-config": "1.4.0",
         "astro": "5.1.1",
         "cross-env": "7.0.3",
         "lodash": "4.17.21",

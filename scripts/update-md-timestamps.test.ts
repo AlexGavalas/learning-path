@@ -3,13 +3,8 @@ import { updateMdTimestamps } from './update-md-timestamps';
 
 jest.mock('./helpers');
 
-jest.mock<typeof import('./edge-config')>('./edge-config', () => ({
-    updateEdgeConfig: jest.fn(),
-}));
-
 jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
     getAllNotes: jest.fn(),
-    getNoteMetadata: jest.fn().mockResolvedValue([]),
     searchNotes: jest.fn(),
 }));
 

@@ -1,6 +1,5 @@
-import { edgeConfig } from '~lib/edge-config';
 import { turso } from '~lib/turso';
-import { type Note } from '~types/notes';
+import type { Note } from '~types/notes';
 
 export const searchNotes = async (query: string): Promise<Note[]> => {
     const { rows } = await turso.execute({
@@ -18,6 +17,3 @@ export const getAllNotes = async (): Promise<Note[]> => {
 
     return rows as unknown as Note[];
 };
-
-export const getNoteMetadata = (): Promise<Note[]> =>
-    (edgeConfig.get<Note[]>('meta') ?? []) as Promise<Note[]>;

@@ -6,7 +6,7 @@ import { getNotesByCollection } from '~api/notes';
 import * as cn from '~styles/pages/layout.css';
 import { TITLE } from '~constants';
 
-const summaries = await getNotesByCollection('summaries');
+const summaries = await getNotesByCollection('summaries', 'created');
 
 if (!summaries) {
     throw new Error('Could not get summaries');

@@ -7,7 +7,6 @@ import ora from 'ora';
 import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes';
 
-import { updateEdgeConfig } from './edge-config';
 import { toISOString } from './helpers';
 import { logger } from './logger';
 
@@ -78,8 +77,6 @@ const indexDocs = async (): Promise<void> => {
     }
 
     profiler.done({ message: 'Indexed all docs' });
-
-    await updateEdgeConfig();
 };
 
 indexDocs().catch((error) => {

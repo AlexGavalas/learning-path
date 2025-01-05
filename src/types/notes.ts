@@ -3,7 +3,6 @@ import type { CollectionEntry } from 'astro:content';
 export type Note = {
     created: string;
     filename: string;
-    line: string;
     title: string;
     updated: string;
 };

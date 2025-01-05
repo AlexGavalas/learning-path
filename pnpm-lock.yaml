@@ -32,9 +32,6 @@ importers:
       '@nanostores/vue':
         specifier: 0.11.0
         version: 0.11.0(nanostores@0.11.3)(vue@3.5.13(typescript@5.7.2))
-      '@vercel/edge-config':
-        specifier: 1.4.0
-        version: 1.4.0
       astro:
         specifier: 5.1.1
         version: 5.1.1(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.29.2)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -1663,18 +1660,6 @@ packages:
       vue:
         optional: true
       vue-router:
-        optional: true
-
-  '@vercel/edge-config-fs@0.1.0':
-    resolution: {integrity: sha512-NRIBwfcS0bUoUbRWlNGetqjvLSwgYH/BqKqDN7vK1g32p7dN96k0712COgaz6VFizAm9b0g6IG6hR6+hc0KCPg==}
-
-  '@vercel/edge-config@1.4.0':
-    resolution: {integrity: sha512-69Wg5gw9DzwnyUmnjToSeLRm1nm8mCPgN0kflX8EHRHyqvzH80wPem5A8rI2LXPb2Y9tJNoqN3vXPcQhS2Wh5g==}
-    engines: {node: '>=14.6'}
-    peerDependencies:
-      '@opentelemetry/api': ^1.7.0
-    peerDependenciesMeta:
-      '@opentelemetry/api':
         optional: true
 
   '@vercel/edge@1.2.0':
@@ -6461,12 +6446,6 @@ snapshots:
   '@vercel/analytics@1.4.1(vue@3.5.13(typescript@5.7.2))':
     optionalDependencies:
       vue: 3.5.13(typescript@5.7.2)
-
-  '@vercel/edge-config-fs@0.1.0': {}
-
-  '@vercel/edge-config@1.4.0':
-    dependencies:
-      '@vercel/edge-config-fs': 0.1.0
 
   '@vercel/edge@1.2.0': {}
 
