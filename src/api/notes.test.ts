@@ -53,14 +53,14 @@ describe('fetchNotes', () => {
 
 describe('getNoteData', () => {
     it('calls getEntry', async () => {
-        await getNoteData('test');
+        await getNoteData({ collection: 'notes', slug: 'test' });
 
         expect(getEntry).toHaveBeenCalledTimes(1);
         expect(getEntry).toHaveBeenCalledWith('notes', 'test');
     });
 
     it('returns the body', async () => {
-        const body = await getNoteData('test');
+        const body = await getNoteData({ collection: 'notes', slug: 'test' });
 
         expect(body).toStrictEqual({
             content: expect.objectContaining({ Content: expect.any(Function) }),

@@ -4,7 +4,9 @@ import flow from 'lodash/fp/flow';
 import groupBy from 'lodash/fp/groupBy';
 import mapValues from 'lodash/fp/mapValues';
 
+import type { BlogArticleFrontmatter } from '~types/blog';
 import type { Note, NoteFrontmatter } from '~types/notes';
+import type { SummaryFrontmatter } from '~types/summaries';
 
 import { getNoteMetadata, searchNotes } from './notes-db';
 
@@ -51,13 +53,17 @@ export const fetchNotes = async (
     };
 };
 
-export const getNoteData = async (
-    filename: string,
-): Promise<{
+export const getNoteData = async ({
+    collection,
+    slug,
+}: {
+    collection: 'blog' | 'notes' | 'summaries';
+    slug: string;
+}): Promise<{
     content: { Content: AstroComponentFactory };
-    frontmatter: NoteFrontmatter;
+    frontmatter: NoteFrontmatter | SummaryFrontmatter | BlogArticleFrontmatter;
 } | null> => {
-    const note = await getEntry('notes', filename);
+    const note = await getEntry(collection, slug);
 
     if (!note) {
         return null;

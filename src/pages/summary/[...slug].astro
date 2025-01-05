@@ -1,33 +1,5 @@
 ---
 import NotesLayout from '~layouts/note.astro';
-import { getSummaryData } from '~api/summaries';
-
-const { slug } = Astro.params;
-
-const NOT_FOUND_STATUS = 404;
-
-if (!slug) {
-    return Astro.rewrite(NOT_FOUND_STATUS);
-}
-
-const summary = await getSummaryData(slug);
-
-if (!summary) {
-    return Astro.rewrite(NOT_FOUND_STATUS);
-}
-
-const {
-    content: { Content },
-    frontmatter,
-} = summary;
-
-const hasBannerEnabled = frontmatter.features?.includes('banner') ?? false;
 ---
 
-<NotesLayout
-    {...frontmatter}
-    hasBannerEnabled={hasBannerEnabled}
-    backUrl="/summaries"
->
-    <Content />
-</NotesLayout>
+<NotesLayout collection="summaries" backUrl="/summaries" />

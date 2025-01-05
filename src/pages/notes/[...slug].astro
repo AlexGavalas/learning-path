@@ -1,27 +1,5 @@
 ---
 import NotesLayout from '~layouts/note.astro';
-import { getNoteData } from '~api/notes';
-
-const { slug } = Astro.params;
-
-const NOT_FOUND_STATUS = 404;
-
-if (!slug) {
-    return Astro.rewrite(NOT_FOUND_STATUS);
-}
-
-const noteData = await getNoteData(slug);
-
-if (!noteData) {
-    return Astro.rewrite(NOT_FOUND_STATUS);
-}
-
-const {
-    content: { Content },
-    frontmatter,
-} = noteData;
 ---
 
-<NotesLayout {...frontmatter}>
-    <Content />
-</NotesLayout>
+<NotesLayout collection="notes" />
