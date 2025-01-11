@@ -1,7 +1,5 @@
 ---
-import BoardVue from './board/board.vue';
-import { OFFSETS } from './board/constants';
-import * as cn from './board/board.css';
+import * as cn from './nanostores.css';
 ---
 
 <noscript>
@@ -11,56 +9,8 @@ import * as cn from './board/board.css';
     </div>
 </noscript>
 
-<div id="boards-demo" tabindex="0" class={cn.demoContainer}>
-    <BoardVue offset={OFFSETS[0]} client:load />
-    <div id="react-root"></div>
-
-    <script>
-        import { useStore } from 'https://esm.sh/@nanostores/react@0.8.2';
-        import { createRoot } from 'https://esm.sh/react-dom@18/client';
-        import React from 'https://esm.sh/react@18';
-
-        window.React = React;
-
-        import { Board } from './board/board';
-        import { OFFSETS } from './board/constants';
-
-        createRoot(document.getElementById('react-root')).render(
-            React.createElement(Board, {
-                offset: OFFSETS[1],
-                useStore,
-            }),
-        );
-    </script>
-
-    <script>
-        import { move, $activeCell } from './board/store';
-
-        type ContainerElement = HTMLDivElement;
-
-        const demoContainer = document.querySelector(
-            '#boards-demo',
-        ) as ContainerElement;
-
-        demoContainer.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                (document.activeElement as ContainerElement)?.blur();
-            } else {
-                move(event);
-            }
-        });
-
-        let counter = 0;
-
-        $activeCell.listen(() => {
-            counter++;
-            document.querySelector('output')!.textContent =
-                `Pressed some arrow key ${counter} times.`;
-        });
-    </script>
-
-    <div class={cn.vanillaContainer}>
-        <p class={cn.title}>Vanilla JS</p>
-        <output>Pressed some arrow key 0 times.</output>
-    </div>
-</div>
+<iframe
+    class={cn.demoContainer}
+    src="https://stackblitz.com/edit/vitejs-vite-yglqkskh?ctl=1&embed=1&hideExplorer=1&hideNavigation=1&view=preview"
+    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+    title="Nanostores demo"></iframe>

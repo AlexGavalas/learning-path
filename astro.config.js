@@ -1,7 +1,6 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import vercel from '@astrojs/vercel/serverless';
-import vue from '@astrojs/vue';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { defineConfig } from 'astro/config';
 import 'dotenv/config';
@@ -19,7 +18,7 @@ export default defineConfig({
     devToolbar: {
         enabled: !isProd,
     },
-    integrations: [mdx(), vue()],
+    integrations: [mdx()],
     site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
     markdown: {
         rehypePlugins: REHYPE_PLUGINS,
