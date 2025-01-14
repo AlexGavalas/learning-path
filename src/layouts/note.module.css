@@ -1,0 +1,114 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    width: 100%;
+}
+
+.banner {
+    margin-bottom: var(--spacing-md);
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: var(--spacing-lg);
+}
+
+.note {
+    min-width: 100%;
+    hyphens: auto;
+    text-align: justify;
+    color: var(--color-typography-primary);
+
+    :where(h1) {
+        font-size: 1.5em;
+    }
+
+    :where(h2) {
+        font-size: 1.3em;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6) {
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-lg);
+        text-align: start;
+    }
+
+    p {
+        margin: var(--spacing-md) 0;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6):has(a) {
+        scroll-margin-top: var(--spacing-md);
+    }
+
+    :where(h1, h2) a {
+        color: var(--color-primary);
+    }
+
+    a {
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary);
+        text-decoration-thickness: 0.125rem;
+        text-underline-offset: 0.125rem;
+    }
+
+    ul {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    li {
+        list-style: inside;
+        margin: var(--spacing-sm) 0;
+        padding-left: var(--spacing-sm);
+    }
+
+    hr {
+        border-color: var(--color-border);
+        margin: var(--spacing-lg) 0;
+    }
+
+    code {
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+
+    p code {
+        font-weight: 600;
+    }
+
+    code::before {
+        content: '`';
+    }
+
+    code::after {
+        content: '`';
+    }
+
+    pre {
+        margin: var(--spacing-lg) 0;
+        padding: var(--spacing-md);
+
+        code::before,
+        code::after {
+            content: '';
+        }
+    }
+}
+
+:global(.line) {
+    counter-increment: line;
+
+    &::before {
+        content: counter(line);
+        display: inline-block;
+        width: 2em;
+        user-select: none;
+        opacity: 0.3;
+    }
+
+    &:last-child:empty {
+        display: none;
+    }
+}

@@ -1,7 +1,6 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import vercel from '@astrojs/vercel/serverless';
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { defineConfig } from 'astro/config';
 import 'dotenv/config';
 
@@ -12,9 +11,6 @@ const isLocalBuild = process.env.LOCAL === 'true';
 
 // https://astro.build/config
 export default defineConfig({
-    vite: {
-        plugins: [vanillaExtractPlugin()],
-    },
     devToolbar: {
         enabled: !isProd,
     },

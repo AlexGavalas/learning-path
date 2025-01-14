@@ -1,7 +1,9 @@
----
-import * as cn from './banner.css';
----
-
-<p class={cn.banner}>
+<p class="banner">
     <slot />
 </p>
+
+<style>
+    .banner {
+        text-align: center;
+    }
+</style>

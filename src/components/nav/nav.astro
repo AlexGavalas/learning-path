@@ -1,6 +1,6 @@
 ---
 import Link from '~components/link/link.astro';
-import * as cn from './nav.css';
+import cn from './nav.module.css';
 
 interface Props {
     links: {
@@ -13,14 +13,14 @@ const { links } = Astro.props;
 const activePath = Astro.url.pathname;
 ---
 
-<nav class={cn.navContainer}>
+<nav class={cn.container}>
     {
         links.map((link) => {
             const isActivePath = activePath === link.href;
 
             return (
                 <Link
-                    class:list={[cn.linkLabel, isActivePath && cn.active]}
+                    class:list={[cn.link, isActivePath && cn.active]}
                     href={link.href}
                 >
                     {link.label}

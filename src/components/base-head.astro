@@ -1,6 +1,5 @@
 ---
 import '~styles/reset.css';
-import { vars } from '~styles/theme.css';
 import { DESCRIPTION, SITE_URL } from '~constants';
 
 interface Props {
@@ -42,7 +41,7 @@ const { title } = Astro.props;
 <meta property="twitter:description" content={DESCRIPTION} />
 <meta property="twitter:image" content="/images/splash.jpg" />
 
-<meta name="theme-color" content={vars.color.background} />
+<meta name="theme-color" content="var(--color-background)" />
 
 <link rel="canonical" href={canonicalURL} />
 

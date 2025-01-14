@@ -1,7 +1,10 @@
----
-import * as cn from './list-item.css';
----
-
-<li class={cn.item}>
+<li class="item">
     <slot />
 </li>
+
+<style>
+    .item {
+        list-style-type: disc;
+        font-size: 0.9em;
+    }
+</style>

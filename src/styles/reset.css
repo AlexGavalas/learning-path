@@ -15,6 +15,36 @@
     font-size: inherit;
 }
 
+:root {
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+
+    /* Colors */
+    /* Forest Green */
+    --color-primary: oklch(0.36 0.1 149);
+    /* Charcoal Gray */
+    --color-secondary: oklch(0.23 0 0);
+    /* Snow White */
+    --color-background: oklch(0.9 0 0);
+
+    --color-border: var(--color-primary);
+    --color-typography-primary: oklch(
+        from var(--color-primary) calc(l + 0.1) 0 0
+    );
+}
+
+:root.dark {
+    /* Icy Blue */
+    --color-primary: oklch(0.65 0.12 225);
+    /* Aurora Purple */
+    --color-secondary: #98478b;
+    /* Charcoal Gray */
+    --color-background: oklch(0.23 0 0);
+}
+
 html {
     scrollbar-gutter: stable both-edges;
     scroll-behavior: smooth;
@@ -51,4 +81,22 @@ ul {
 p,
 ul {
     margin: 0;
+}
+
+::marker {
+    color: var(--color-primary);
+}
+
+:focus-visible,
+[tabindex]:focus {
+    border-radius: var(--spacing-xs);
+    outline-color: var(--color-secondary);
+    outline-style: solid;
+    outline-offset: 2px;
+    outline-width: 2px;
+}
+
+::selection {
+    background-color: var(--color-primary);
+    color: var(--color-background);
 }

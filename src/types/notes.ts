@@ -1,6 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 
 export type Note = {
+    id: string;
     created: string;
     title: string;
     updated: string;

@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+    color: var(--color-typography-primary);
+
+    .link {
+        padding: var(--spacing-sm);
+    }
+
+    .active {
+        text-decoration-line: underline;
+    }
+}

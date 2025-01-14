@@ -1,7 +1,10 @@
----
-import * as cn from './list.css';
----
-
-<ul class={cn.list}>
+<ul class="list">
     <slot />
 </ul>
+
+<style>
+    .list {
+        hyphens: auto;
+        padding: var(--spacing-md);
+    }
+</style>

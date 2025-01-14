@@ -1,0 +1,21 @@
+.container {
+    vertical-align: middle;
+}
+
+.logo {
+    fill: oklch(from var(--color-primary) calc(l + 0.15) c h);
+    stroke: oklch(from var(--color-primary) calc(l + 0.15) c h);
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-dasharray: 200 200;
+    animation: drawLine 3s linear forwards;
+}
+
+@keyframes drawLine {
+    from {
+        stroke-dashoffset: 200;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}

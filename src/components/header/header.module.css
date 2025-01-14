@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.logo {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm);
+    width: 30%;
+    min-width: 150px;
+    border-radius: var(--spacing-xs);
+
+    &:hover {
+        background-color: oklch(
+            from var(--color-background) calc(l + 0.07) c h
+        );
+    }
+}

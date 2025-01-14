@@ -1,12 +1,58 @@
 ---
-import * as cn from './article-banner.css';
-import { CELLS_NUM, INDEX_VAR } from './config';
+import { COLUMNS, CELLS_NUM, ITEM_STAGGER } from './config';
+
+const TOTAL_STAGGER = CELLS_NUM * ITEM_STAGGER;
 ---
 
-<div class={cn.container}>
+<div class="container">
     {
         Array.from({ length: CELLS_NUM }, (_, idx) => (
-            <div class={cn.cell} style={`${INDEX_VAR}: ${idx};`} />
+            <div class="cell" style={`--idx: ${idx};`} />
         ))
     }
 </div>
+
+<style
+    define:vars={{
+        columns: COLUMNS,
+        'item-stagger': `${ITEM_STAGGER}s`,
+        'total-stagger': `${TOTAL_STAGGER}s`,
+    }}
+>
+    .container {
+        display: grid;
+        grid-template-columns: repeat(var(--columns), 1fr);
+        gap: var(--spacing-xs);
+    }
+
+    .cell {
+        animation:
+            3s blink infinite alternate ease-in-out,
+            3s aurora infinite alternate ease-in-out;
+        animation-delay: calc(
+            -1 * var(--total-stagger) + var(--idx) * var(--item-stagger)
+        );
+        aspect-ratio: 1;
+        background-color: var(--color-primary);
+        border-radius: min(0.4vw, var(--spacing-xs));
+    }
+
+    @keyframes aurora {
+        0% {
+            background-color: var(--color-primary);
+        }
+        100% {
+            background-color: var(--color-secondary);
+        }
+    }
+
+    @keyframes blink {
+        0%,
+        100% {
+            opacity: 0.75;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+</style>

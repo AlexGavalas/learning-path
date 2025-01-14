@@ -4,8 +4,8 @@ import Banner from '~components/banner/banner.astro';
 import NotesList from '~components/notes-list/notes-list.astro';
 import SearchArea from '~components/search-area/search-area.astro';
 import { fetchNotes } from '~api/notes';
-import * as cn from '~styles/pages/layout.css';
 import { QUERY_FIELD_NAME, TITLE } from '~constants';
+import cn from '~styles/pages/layout.module.css';
 
 const query = Astro.url.searchParams.get(QUERY_FIELD_NAME) ?? '';
 

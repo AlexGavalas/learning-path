@@ -1,16 +1,19 @@
 ---
-import * as cn from './nanostores.css';
+import NoJsAlert from '~components/no-js-alert/no-js-alert.astro';
 ---
 
-<noscript>
-    <div class={cn.noJSWarning}>
-        You seem to have JavaScript disabled, to see the demo working enable it
-        in your browser.
-    </div>
-</noscript>
+<NoJsAlert />
 
 <iframe
-    class={cn.demoContainer}
+    class="container"
     src="https://stackblitz.com/edit/vitejs-vite-yglqkskh?ctl=1&embed=1&hideExplorer=1&hideNavigation=1&view=preview"
     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
     title="Nanostores demo"></iframe>
+
+<style>
+    .container {
+        width: 100%;
+        min-height: 520px;
+        border: none;
+    }
+</style>

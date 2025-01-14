@@ -2,7 +2,7 @@
 import List from '~components/list/list.astro';
 import ListItem from '~components/list/list-item.astro';
 import FormattedDate from '~components/formatted-date.astro';
-import * as cn from './notes-list.css';
+import cn from './notes-list.module.css';
 
 interface Props {
     display?: 'created' | 'updated';
@@ -59,6 +59,6 @@ const hasNotes = notes.length > 0;
             })}
         </ul>
     ) : (
-        <p class={cn.noNotes}>No notes found</p>
+        <p class={cn.empty}>No notes found</p>
     )
 }

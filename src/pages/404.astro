@@ -2,14 +2,19 @@
 import GlobalLayout from '~layouts/global.astro';
 import Link from '~components/link/link.astro';
 import { TITLE } from '~constants';
-import * as cn from '~styles/pages/404.css';
 
 const title = `Not found | ${TITLE}`;
 ---
 
 <GlobalLayout title={title}>
-    <p class={cn.container}>
+    <p class="container">
         Looks like you reached a dead end ... Maybe try the path from the
         <Link href="/">start</Link> ?
     </p>
 </GlobalLayout>
+
+<style>
+    .container {
+        text-align: center;
+    }
+</style>

@@ -7,7 +7,6 @@ import {
     DARK_IMG_PROPS,
     LIGHT_IMG_PROPS,
 } from '~constants';
-import { darkTheme, lightTheme } from '~styles/theme.css';
 
 const themeCookie = Astro.cookies.get('theme');
 const theme = themeCookie?.value ?? DEFAULT_THEME;
@@ -31,8 +30,6 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
         LIGHT_IMG_PROPS,
         ONE_YEAR,
         THEME,
-        darkTheme,
-        lightTheme,
     }}
 >
     const getThemeFromCookie = () => {
@@ -62,14 +59,11 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
 
     const setThemeInPage = (theme) => {
         document.documentElement.classList.toggle(
-            lightTheme,
+            'light',
             theme === THEME.LIGHT,
         );
 
-        document.documentElement.classList.toggle(
-            darkTheme,
-            theme === THEME.DARK,
-        );
+        document.documentElement.classList.toggle('dark', theme === THEME.DARK);
 
         document.documentElement.style.setProperty('color-scheme', theme);
     };

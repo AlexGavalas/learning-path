@@ -1,0 +1,20 @@
+.container {
+    display: grid;
+    gap: var(--spacing-sm);
+}
+
+.input {
+    background-color: oklch(
+        from var(--color-background) calc(l + 0.05) c calc(h + 0.2)
+    );
+    border-radius: var(--spacing-xs);
+    border: none;
+    font-size: 0.9em;
+    line-height: 1.7;
+    padding-left: var(--spacing-sm);
+
+    &::placeholder {
+        color: oklch(from var(--color-typography-primary) calc(l + 0.02) c h);
+        opacity: 0.6;
+    }
+}

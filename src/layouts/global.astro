@@ -1,12 +1,10 @@
 ---
 import galdeanoFont from '@fontsource/galdeano/files/galdeano-latin-400-normal.woff2?url';
 import BaseHead from '~components/base-head.astro';
-import PageProgress from '~components/page-progress/page-progress.astro';
 import Nav from '~components/nav/nav.astro';
 import Header from '~components/header/header.astro';
 import { DEFAULT_THEME } from '~constants';
-import { darkTheme, lightTheme } from '~styles/theme.css';
-import * as cn from './global.css';
+import cn from './global.module.css';
 
 interface Props {
     title: string;
@@ -18,11 +16,7 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
 ---
 
 <!doctype html>
-<html
-    lang="en"
-    class:list={[cn.page, theme === 'light' ? lightTheme : darkTheme]}
-    style={`color-scheme: ${theme};`}
->
+<html lang="en" class:list={[cn.page, theme]} style={`color-scheme: ${theme};`}>
     <head>
         <BaseHead title={title} />
         <link
@@ -38,9 +32,8 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
             }
         </style>
     </head>
-    <PageProgress />
     <body>
-        <main class={cn.mainContainer}>
+        <main class={cn.container}>
             <Header />
             <Nav
                 links={[

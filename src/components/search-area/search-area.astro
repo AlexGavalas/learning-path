@@ -3,7 +3,7 @@ import { QUERY_FIELD_NAME } from '~constants';
 import Loader from '~components/loader/linear.astro';
 import Button from '~components/button/button.astro';
 import Input from '~components/input/input.astro';
-import * as cn from './search-area.css';
+import cn from './search-area.module.css';
 
 interface Props {
     query?: string;
@@ -23,7 +23,7 @@ const { query } = Astro.props;
             placeholder="Javascript, CSS grid ..."
             value={query}
         />
-        <Button class={cn.searchButton}>Search</Button>
+        <Button class={cn.button}>Search</Button>
         <div id="loader" class={cn.loader} hidden>
             <Loader />
         </div>

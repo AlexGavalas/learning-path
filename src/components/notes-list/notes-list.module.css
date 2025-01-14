@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+
+    .link {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--spacing-md);
+        padding: var(--spacing-sm);
+        border-radius: var(--spacing-sm);
+        font-variant-numeric: tabular-nums;
+
+        &:focus-visible {
+            background-color: oklch(
+                from var(--color-background) calc(l + 0.05) c h
+            );
+        }
+
+        &:hover {
+            background-color: oklch(
+                from var(--color-background) calc(l + 0.05) c h
+            );
+        }
+    }
+
+    .item {
+        transition: transform 0.2s ease-in-out;
+        &:hover {
+            transform: scale(1.02);
+        }
+
+        &:has(:focus-visible) {
+            transform: scale(1.02);
+        }
+    }
+
+    .text {
+        color: var(--color-primary);
+    }
+}
+
+.empty {
+    text-align: center;
+}

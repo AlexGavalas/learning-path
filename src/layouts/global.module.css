@@ -1,0 +1,12 @@
+.page {
+    background-color: var(--color-background);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin: auto;
+    max-width: 45rem;
+    padding: 0 var(--spacing-md);
+}

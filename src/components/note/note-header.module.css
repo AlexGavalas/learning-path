@@ -1,0 +1,21 @@
+.title {
+    font-size: 2em;
+}
+
+.container {
+    display: flex;
+    gap: var(--spacing-md);
+    color: var(--color-primary);
+
+    @media (max-width: 640px) {
+        flex-direction: column;
+    }
+
+    .separator {
+        display: block;
+
+        @media (max-width: 640px) {
+            display: none;
+        }
+    }
+}

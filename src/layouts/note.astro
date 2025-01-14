@@ -5,7 +5,7 @@ import ArticleBanner from '~components/article-banner/article-banner.astro';
 import GlobalLayout from '~layouts/global.astro';
 import { getNoteData } from '~api/notes';
 import { TITLE } from '~constants';
-import * as cn from './note.css';
+import cn from './note.module.css';
 
 interface Props {
     collection: 'blog' | 'notes' | 'summaries';
@@ -43,7 +43,7 @@ const documentTitle = `${title} | ${TITLE}`;
 ---
 
 <GlobalLayout title={documentTitle}>
-    <article class={cn.articleContainer}>
+    <article class={cn.container}>
         <NoteHeader title={title} created={created} updated={updated} />
         {
             hasBannerEnabled && (
@@ -55,6 +55,6 @@ const documentTitle = `${title} | ${TITLE}`;
         <div class={cn.note}>
             <Content />
         </div>
-        <Link href={backUrl} class={cn.backLink}>&#x21dc; Back to home</Link>
+        <Link href={backUrl} class={cn.back}>&#x21dc; Back to home</Link>
     </article>
 </GlobalLayout>

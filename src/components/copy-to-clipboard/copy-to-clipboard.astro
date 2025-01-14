@@ -1,6 +1,5 @@
 ---
 import Button from '~components/button/button.astro';
-import * as cn from './copy-to-clipboard.css';
 
 interface Props {
     prefix?: string;
@@ -11,7 +10,9 @@ const { prefix } = Astro.props;
 
 <copy-to-clipboard hidden>
     {prefix ? `${prefix} - ` : ''}
-    <Button class={cn.buttonCn}>Copy to clipboard</Button>
+    <Button style="display: inline-block; padding: 0 var(--spacing-sm);"
+        >Copy to clipboard</Button
+    >
     <div id="target">
         <slot />
     </div>
