@@ -1,9 +1,7 @@
 import { parse } from '@formkit/tempo';
 import type { AstroComponentFactory } from 'astro/dist/runtime/server';
 import { getCollection, getEntry, render } from 'astro:content';
-import flow from 'lodash/fp/flow';
-import groupBy from 'lodash/fp/groupBy';
-import mapValues from 'lodash/fp/mapValues';
+import { groupBy, mapValues, piped } from 'remeda';
 
 import type { BlogArticleFrontmatter } from '~types/blog';
 import type { Note, NoteDBEntry, NoteFrontmatter } from '~types/notes';
@@ -13,7 +11,7 @@ import { searchNotes } from './notes-db';
 
 type Lines = Record<string, string[]>;
 
-const groupByTitle = flow(
+const groupByTitle = piped(
     groupBy<NoteDBEntry>(({ title }) => title),
     mapValues((notes) => notes.map(({ line }) => line)),
 );
