@@ -8,8 +8,6 @@
 .logo {
     margin: var(--spacing-sm) 0;
     padding: var(--spacing-sm);
-    width: 30%;
-    min-width: 150px;
     border-radius: var(--spacing-xs);
 
     &:hover {
