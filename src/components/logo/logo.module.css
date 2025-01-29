@@ -11,10 +11,6 @@
 }
 
 @keyframes aurora {
-    0% {
-        --ld: 0.9;
-        --cd: 0;
-    }
     100% {
         --ld: 0.85;
         --cd: 0.25;
@@ -22,6 +18,9 @@
 }
 
 .container {
+    --ld: 0.9;
+    --cd: 0;
+
     --start-color: oklch(
         from var(--color-primary) calc(l * var(--ld)) calc(c + var(--cd)) h
     );
@@ -36,12 +35,14 @@
         var(--end-color)
     );
 
-    animation: aurora 2s linear infinite alternate;
-
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
 
     font-size: 2rem;
+
+    @media (prefers-reduced-motion: no-preference) {
+        animation: aurora 2s linear infinite alternate;
+    }
 }
