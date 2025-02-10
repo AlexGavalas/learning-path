@@ -53,7 +53,7 @@ importers:
         version: 1.50.0
       '@trivago/prettier-plugin-sort-imports':
         specifier: 5.2.2
-        version: 5.2.2(prettier@3.4.2)
+        version: 5.2.2(prettier@3.5.0)
       '@types/jest':
         specifier: 29.5.14
         version: 29.5.14
@@ -88,14 +88,14 @@ importers:
         specifier: 8.2.0
         version: 8.2.0
       prettier:
-        specifier: 3.4.2
-        version: 3.4.2
+        specifier: 3.5.0
+        version: 3.5.0
       prettier-plugin-astro:
         specifier: 0.14.1
         version: 0.14.1
       pretty-quick:
         specifier: 4.0.0
-        version: 4.0.0(prettier@3.4.2)
+        version: 4.0.0(prettier@3.5.0)
       rehype-autolink-headings:
         specifier: 7.1.0
         version: 7.1.0
@@ -3414,8 +3414,8 @@ packages:
     resolution: {integrity: sha512-RiBETaaP9veVstE4vUwSIcdATj6dKmXljouXc/DDNwBSPTp8FRkLGDSGFClKsAFeeg+13SB0Z1JZvbD76bigJw==}
     engines: {node: ^14.15.0 || >=16.0.0}
 
-  prettier@3.4.2:
-    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
+  prettier@3.5.0:
+    resolution: {integrity: sha512-quyMrVt6svPS7CjQ9gKb3GLEX/rl3BCL2oa/QkNcXv4YNVBC9olt3s+H7ukto06q7B1Qz46PbrKLO34PR6vXcA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -5454,7 +5454,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.4.2)':
+  '@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.5.0)':
     dependencies:
       '@babel/generator': 7.26.5
       '@babel/parser': 7.26.7
@@ -5462,7 +5462,7 @@ snapshots:
       '@babel/types': 7.26.7
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.4.2
+      prettier: 3.5.0
     transitivePeerDependencies:
       - supports-color
 
@@ -8322,10 +8322,10 @@ snapshots:
   prettier-plugin-astro@0.14.1:
     dependencies:
       '@astrojs/compiler': 2.10.3
-      prettier: 3.4.2
+      prettier: 3.5.0
       sass-formatter: 0.7.9
 
-  prettier@3.4.2: {}
+  prettier@3.5.0: {}
 
   pretty-format@29.7.0:
     dependencies:
@@ -8333,7 +8333,7 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 18.3.1
 
-  pretty-quick@4.0.0(prettier@3.4.2):
+  pretty-quick@4.0.0(prettier@3.5.0):
     dependencies:
       execa: 5.1.1
       find-up: 5.0.0
@@ -8341,7 +8341,7 @@ snapshots:
       mri: 1.2.0
       picocolors: 1.1.1
       picomatch: 3.0.1
-      prettier: 3.4.2
+      prettier: 3.5.0
       tslib: 2.8.1
 
   prismjs@1.29.0: {}
