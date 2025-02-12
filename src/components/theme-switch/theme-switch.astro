@@ -107,7 +107,13 @@ const attributes = theme === THEME.LIGHT ? LIGHT_IMG_PROPS : DARK_IMG_PROPS;
         toggleTheme = (e) => {
             const theme = this.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT;
 
-            this.setTheme(theme);
+            if (document.startViewTransition) {
+                document.startViewTransition(() => {
+                    this.setTheme(theme);
+                });
+            } else {
+                this.setTheme(theme);
+            }
 
             this.themeChannel?.postMessage({ theme });
 
