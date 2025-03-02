@@ -18,8 +18,8 @@ importers:
         specifier: 8.1.0
         version: 8.1.0(astro@5.4.0(@types/node@22.13.4)(jiti@2.4.2)(rollup@4.34.7)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.7.0))(rollup@4.34.7)
       '@fontsource/galdeano':
-        specifier: 5.1.1
-        version: 5.1.1
+        specifier: 5.2.5
+        version: 5.2.5
       '@formkit/tempo':
         specifier: 0.1.2
         version: 0.1.2
@@ -741,8 +741,8 @@ packages:
     resolution: {integrity: sha512-JubJ5B2pJ4k4yGxaNLdbjrnk9d/iDz6/q8wOilpIowd6PJPgaxCuHBnBszq7Ce2TyMrywm5r4PnKm6V3iiZF+g==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fontsource/galdeano@5.1.1':
-    resolution: {integrity: sha512-NSI4eUd/Eanmq/3HPaxsR5o/t1HgeL2d7gmJHnJrndNTRHGeCOs+lX1uX4GapIqUQbz8I1xdRgF7104AjSN1UQ==}
+  '@fontsource/galdeano@5.2.5':
+    resolution: {integrity: sha512-U9nXtvANOo1YPbQEAmknXSY+QNMMKZexoDIkyLVmuSEaBqgxzNKnYFf2FE6Wd5796CNyy9196GJBBU/QzCK02A==}
 
   '@formkit/tempo@0.1.2':
     resolution: {integrity: sha512-jNPPbjL8oj7hK3eHX++CwbR6X4GKQt+x00/q4yeXkwynXHGKL27dylYhpEgwrmediPP4y7s0XtN1if/M/JYujg==}
@@ -4892,7 +4892,7 @@ snapshots:
       '@eslint/core': 0.12.0
       levn: 0.4.1
 
-  '@fontsource/galdeano@5.1.1': {}
+  '@fontsource/galdeano@5.2.5': {}
 
   '@formkit/tempo@0.1.2': {}
 
