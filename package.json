@@ -33,7 +33,7 @@
         "@astrojs/mdx": "4.1.0",
         "@astrojs/node": "9.1.0",
         "@astrojs/vercel": "8.1.0",
-        "@fontsource/galdeano": "5.1.1",
+        "@fontsource/galdeano": "5.2.5",
         "@formkit/tempo": "0.1.2",
         "@libsql/client": "0.14.0",
         "astro": "5.4.0",
