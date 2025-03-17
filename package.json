@@ -35,7 +35,7 @@
         "@astrojs/vercel": "8.1.0",
         "@fontsource/galdeano": "5.2.5",
         "@formkit/tempo": "0.1.2",
-        "@libsql/client": "0.14.0",
+        "@libsql/client": "0.15.0",
         "astro": "5.5.2",
         "cross-env": "7.0.3",
         "remeda": "2.21.0",
