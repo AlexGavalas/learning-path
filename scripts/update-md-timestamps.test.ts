@@ -1,24 +1,24 @@
 import { readFile, writeFile } from './helpers';
 import { updateMdTimestamps } from './update-md-timestamps';
 
-jest.mock('./helpers');
+vi.mock('./helpers');
 
-jest.mock<typeof import('~api/notes-db')>('~api/notes-db', () => ({
-    searchNotes: jest.fn(),
+vi.mock('~api/notes-db', () => ({
+    searchNotes: vi.fn(),
 }));
 
 describe('updateMdTimestamps', () => {
     beforeAll(() => {
-        jest.useFakeTimers({ now: new Date(2023, 0, 1) });
+        vi.useFakeTimers({ now: new Date(2023, 0, 1) });
     });
 
     afterAll(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     describe('when a correct file is passed', () => {
         it('updates the timestamp of the passed file', async () => {
-            jest.mocked(readFile).mockResolvedValueOnce(
+            vi.mocked(readFile).mockResolvedValueOnce(
                 '---\ntitle: Test\n---\n\n# Test',
             );
 

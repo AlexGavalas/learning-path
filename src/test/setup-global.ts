@@ -1,5 +1,1 @@
-const globalSetup = (): void => {
-    process.env.TZ = 'UTC';
-};
-
-export default globalSetup;
+process.env.TZ = 'UTC';

@@ -2,8 +2,8 @@ import fs from 'node:fs/promises';
 
 import { readFile, toISOString, writeFile } from './helpers';
 
-jest.mock('node:fs/promises');
-jest.mock('~lib/turso');
+vi.mock('node:fs/promises');
+vi.mock('~lib/turso');
 
 describe('toISOString', () => {
     describe('when the date is in the format yyyy-MM-dd', () => {

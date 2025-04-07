@@ -20,3 +20,6 @@ pnpm-debug.log*
 
 # e2e generated files
 test-results
+
+# coverage
+coverage/

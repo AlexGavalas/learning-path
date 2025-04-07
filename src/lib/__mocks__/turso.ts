@@ -1,10 +1,10 @@
 export const turso = {
-    batch: jest.fn(),
-    close: jest.fn(),
+    batch: vi.fn(),
+    close: vi.fn(),
     closed: false,
-    execute: jest.fn(),
-    executeMultiple: jest.fn(),
+    execute: vi.fn(),
+    executeMultiple: vi.fn(),
     protocol: '',
-    sync: jest.fn(),
-    transaction: jest.fn(),
+    sync: vi.fn(),
+    transaction: vi.fn(),
 };

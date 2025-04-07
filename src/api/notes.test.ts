@@ -2,23 +2,17 @@ import { getEntry } from 'astro:content';
 
 import { getNoteData } from './notes';
 
-jest.mock(
-    'astro:content',
-    () => ({
-        getCollection: jest.fn().mockResolvedValue([{ slug: 'test' }]),
-        getEntry: jest.fn().mockResolvedValue({
-            body: 'test body',
-        }),
-        render: jest.fn().mockReturnValue({
-            Content: jest.fn().mockReturnValue('<div>test body</div>'),
-        }),
+vi.mock('astro:content', () => ({
+    getCollection: vi.fn().mockResolvedValue([{ slug: 'test' }]),
+    getEntry: vi.fn().mockResolvedValue({
+        body: 'test body',
     }),
-    {
-        virtual: true,
-    },
-);
+    render: vi.fn().mockReturnValue({
+        Content: vi.fn().mockReturnValue('<div>test body</div>'),
+    }),
+}));
 
-jest.mock('~lib/turso');
+vi.mock('~lib/turso');
 
 describe('getNoteData', () => {
     it('calls getEntry', async () => {

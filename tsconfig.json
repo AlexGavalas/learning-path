@@ -26,6 +26,6 @@
             "~types/*": ["types/*"],
             "~constants": ["constants.ts"]
         },
-        "typeRoots": ["./node_modules/@types", "./src/types/"]
+        "types": ["vitest/globals"]
     }
 }
