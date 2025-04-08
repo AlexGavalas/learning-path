@@ -1,9 +1,9 @@
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
-import { getNoteData } from './notes';
+import { getNoteData, getNotesByCollection } from './notes';
 
 vi.mock('astro:content', () => ({
-    getCollection: vi.fn().mockResolvedValue([{ slug: 'test' }]),
+    getCollection: vi.fn().mockResolvedValue([{ id: 'test', slug: 'test' }]),
     getEntry: vi.fn().mockResolvedValue({
         body: 'test body',
     }),
@@ -29,5 +29,19 @@ describe('getNoteData', () => {
             content: expect.objectContaining({ Content: expect.any(Function) }),
             frontmatter: undefined,
         });
+    });
+});
+
+describe('getNotesByCollection', () => {
+    it('calls getCollection', async () => {
+        await getNotesByCollection('notes', 'created');
+
+        expect(getCollection).toHaveBeenCalledTimes(1);
+    });
+
+    it('returns the notes', async () => {
+        const notes = await getNotesByCollection('notes', 'created');
+
+        expect(notes).toStrictEqual([{ id: 'test' }]);
     });
 });

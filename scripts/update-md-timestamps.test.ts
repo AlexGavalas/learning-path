@@ -3,13 +3,15 @@ import { updateMdTimestamps } from './update-md-timestamps';
 
 vi.mock('./helpers');
 
-vi.mock('~api/notes-db', () => ({
-    searchNotes: vi.fn(),
-}));
-
 describe('updateMdTimestamps', () => {
     beforeAll(() => {
         vi.useFakeTimers({ now: new Date(2023, 0, 1) });
+    });
+
+    beforeEach(() => {
+        vi.mocked(readFile).mockResolvedValueOnce(
+            '---\ntitle: Test\n---\n\n# Test',
+        );
     });
 
     afterAll(() => {
@@ -18,10 +20,6 @@ describe('updateMdTimestamps', () => {
 
     describe('when a correct file is passed', () => {
         it('updates the timestamp of the passed file', async () => {
-            vi.mocked(readFile).mockResolvedValueOnce(
-                '---\ntitle: Test\n---\n\n# Test',
-            );
-
             await updateMdTimestamps(['notes/test.mdx']);
 
             expect(writeFile).toHaveBeenCalledTimes(1);

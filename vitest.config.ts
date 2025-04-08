@@ -8,5 +8,10 @@ export default defineConfig({
         exclude: ['node_modules', 'dist', 'build', 'e2e'],
         globals: true,
         setupFiles: ['./src/test/setup-global.ts'],
+        typecheck: {
+            enabled: true,
+            include: ['./scripts/**/*.test.ts', './src/**/*.test.ts'],
+            tsconfig: './tsconfig.json',
+        },
     },
 });
