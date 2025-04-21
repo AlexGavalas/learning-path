@@ -82,6 +82,6 @@ export default [
         },
     },
     {
-        ignores: ['*.config.js', '.astro', 'dist', '**/*.d.ts'],
+        ignores: ['*.config.js', '.astro', 'dist', '**/*.d.ts', 'coverage'],
     },
 ];
