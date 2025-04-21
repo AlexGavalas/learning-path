@@ -1,14 +1,12 @@
 name: Run e2e tests
 
 on:
-    repository_dispatch:
-        types:
-            - 'vercel.deployment.success'
+    deployment_status:
 
 jobs:
     tests_e2e:
         name: Run end-to-end tests
-        if: github.event_name == 'repository_dispatch'
+        if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
@@ -41,7 +39,7 @@ jobs:
               run: pnpm test:e2e
               env:
                   CI: true
-                  PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.client_payload.url }}
+                  PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
             - uses: actions/upload-artifact@v4
               if: failure() && steps.e2e.outcome == 'failure'
               with:
