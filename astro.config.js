@@ -1,7 +1,7 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import vercel from '@astrojs/vercel/serverless';
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import 'dotenv/config';
 
 import { REHYPE_PLUGINS } from './src/config/markdown';
@@ -25,6 +25,13 @@ export default defineConfig({
     },
     experimental: {
         contentIntellisense: true,
+        fonts: [
+            {
+                cssVariable: '--font-galdeano',
+                name: 'Galdeano',
+                provider: fontProviders.fontsource(),
+            },
+        ],
     },
     output: 'server',
     prefetch: true,

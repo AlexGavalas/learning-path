@@ -1,5 +1,5 @@
 ---
-import galdeanoFont from '@fontsource/galdeano/files/galdeano-latin-400-normal.woff2?url';
+import { Font } from 'astro:assets';
 import BaseHead from '~components/base-head.astro';
 import Nav from '~components/nav/nav.astro';
 import Header from '~components/header/header.astro';
@@ -18,17 +18,15 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
 <!doctype html>
 <html lang="en" class:list={[cn.page, theme]} style={`color-scheme: ${theme};`}>
     <head>
+        <Font cssVariable="--font-galdeano" preload />
         <BaseHead title={title} />
-        <link
-            as="font"
-            crossorigin="anonymous"
-            href={galdeanoFont}
-            rel="preload"
-            type="font/woff2"
-        />
         <style>
             @view-transition {
                 navigation: auto; /* Enable native view transitions */
+            }
+
+            body {
+                font-family: var(--font-galdeano);
             }
         </style>
     </head>
