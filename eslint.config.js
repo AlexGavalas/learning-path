@@ -35,7 +35,7 @@ export default [
                     exceptions: ['_'],
                 },
             ],
-            'max-lines-per-function': ['error', { max: 100 }],
+            'max-lines-per-function': ['error', { max: 120 }],
             'max-statements': ['error', { max: 30 }],
         },
     },

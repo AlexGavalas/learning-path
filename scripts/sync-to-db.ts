@@ -2,7 +2,7 @@ import 'dotenv/config';
 import matter from 'gray-matter';
 import fs from 'node:fs/promises';
 import ora from 'ora';
-import { type SimpleGit, simpleGit } from 'simple-git';
+import { simpleGit } from 'simple-git';
 
 import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes';
@@ -13,7 +13,7 @@ import { logger } from './logger';
 const spinner = ora();
 
 const main = async (): Promise<void> => {
-    const git: SimpleGit = simpleGit({});
+    const git = simpleGit();
 
     const diffSummary = await git.diffSummary([
         'HEAD~',
@@ -41,6 +41,7 @@ const main = async (): Promise<void> => {
             'HEAD~',
             'HEAD',
             '--unified=0',
+            '--no-ext-diff',
             file.file,
         ]);
 
