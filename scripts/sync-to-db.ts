@@ -68,6 +68,20 @@ const main = async (): Promise<void> => {
         const created = toISOString(data.created);
         const updated = toISOString(data.updated);
 
+        if (deletions.length > 0) {
+            spinner.text = `Deleting old entries of ${file.file} ...`;
+            spinner.start();
+
+            for (const line of deletions) {
+                await turso.execute({
+                    args: [line.replace(/^-/u, '').replace(/^-\s*/u, '')],
+                    sql: `DELETE FROM notes_fts WHERE line MATCH '"' || ? || '"' LIMIT 1`,
+                });
+            }
+
+            spinner.succeed(`Deleted old entries of ${file.file}`);
+        }
+
         if (additions.length > 0) {
             const valuesToInsert = additions.map((line) => ({
                 created,
@@ -95,20 +109,6 @@ const main = async (): Promise<void> => {
             );
 
             spinner.succeed(`Added new entries of ${file.file}`);
-        }
-
-        if (deletions.length > 0) {
-            spinner.text = `Deleting old entries of ${file.file} ...`;
-            spinner.start();
-
-            for (const line of deletions) {
-                await turso.execute({
-                    args: [line.replace(/^-/u, '').replace(/^-\s*/u, '')],
-                    sql: `DELETE FROM notes_fts WHERE line MATCH '"' || ? || '"'`,
-                });
-            }
-
-            spinner.succeed(`Deleted old entries of ${file.file}`);
         }
     }
 };
