@@ -62,8 +62,13 @@ const main = async (): Promise<void> => {
                     /^[+-]{1}/u.test(line),
             );
 
-        const additions = lines.filter((line) => line.startsWith('+'));
-        const deletions = lines.filter((line) => line.startsWith('-'));
+        const additions = lines.filter(
+            (line) => line !== '+' && line.startsWith('+'),
+        );
+
+        const deletions = lines.filter(
+            (line) => line !== '-' && line.startsWith('-'),
+        );
 
         const fname = file.file.match(/(?<fname>[^/]*)\.mdx$/u)?.[1] ?? '';
         const created = toISOString(data.created);
@@ -76,7 +81,7 @@ const main = async (): Promise<void> => {
             for (const line of deletions) {
                 await turso.execute({
                     args: [line.replace(/^-/u, '').replace(/^-\s*/u, '')],
-                    sql: `DELETE FROM notes_fts WHERE line MATCH '"' || ? || '"' LIMIT 1`,
+                    sql: `DELETE FROM notes_fts WHERE line MATCH '"' || ? || '"'`,
                 });
             }
 
