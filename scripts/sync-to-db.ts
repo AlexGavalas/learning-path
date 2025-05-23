@@ -10,7 +10,9 @@ import type { NoteFrontmatter } from '~types/notes';
 import { toISOString } from './helpers';
 import { logger } from './logger';
 
-const spinner = ora();
+const spinner = ora({
+    isEnabled: !process.env.IS_LEFTHOOK,
+});
 
 const main = async (): Promise<void> => {
     const git = simpleGit();

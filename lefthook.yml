@@ -18,11 +18,11 @@ pre-commit:
             run: pnpm check:format {staged_files}
         check_types:
             glob: '*.ts'
-            files: git diff --cached --name-only
-            run: pnpm check:types {files}
+            run: pnpm check:types
         update_timestamps:
             glob: '*.mdx'
             files: git diff --cached --name-only
+            stage_fixed: true
             run: |
                 tsx scripts/update-md-timestamps.runner.ts {files}
                 pnpm format {files}
@@ -33,3 +33,5 @@ pre-push:
     commands:
         'sync with database':
             run: pnpm sync:db
+            env:
+                IS_LEFTHOOK: true
