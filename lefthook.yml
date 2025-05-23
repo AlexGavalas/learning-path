@@ -1,0 +1,35 @@
+commit-msg:
+    commands:
+        commitlint:
+            run: pnpm commitlint --edit {1}
+
+pre-commit:
+    parallel: true
+    commands:
+        lint:
+            glob: '*.ts'
+            files: git diff --cached --name-only
+            run: pnpm lint {files}
+        unit_tests:
+            glob: '*.ts'
+            files: git diff --cached --name-only
+            run: pnpm test related {files}
+        check_format:
+            run: pnpm check:format {staged_files}
+        check_types:
+            glob: '*.ts'
+            files: git diff --cached --name-only
+            run: pnpm check:types {files}
+        update_timestamps:
+            glob: '*.mdx'
+            files: git diff --cached --name-only
+            run: |
+                tsx scripts/update-md-timestamps.runner.ts {files}
+                pnpm format {files}
+                cross-env PROD=true pnpm test:e2e --update-snapshots
+                git add e2e/__screenshots__
+
+pre-push:
+    commands:
+        'sync with database':
+            run: pnpm sync:db
