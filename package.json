@@ -15,17 +15,16 @@
         "sync:db": "tsx scripts/sync-to-db.ts",
         "publish:notes": "tsx scripts/publish-notes.ts",
         "test": "vitest --run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest --run --coverage",
         "test:e2e": "playwright test ./e2e",
         "test:e2e:watch": "playwright test --ui ./e2e",
-        "test:coverage": "vitest --run --coverage",
-        "test:watch": "vitest",
         "lint": "eslint",
-        "prettier": "prettier .",
         "check:format": "pnpm prettier --list-different",
         "check:types": "tsc --noEmit",
         "format": "pnpm prettier --write",
         "clean:install": "rm -rf node_modules/ pnpm-lock.yaml .astro/ dist/ && pnpm install && astro sync && pnpm playwright install --with-deps",
-        "validate": "pnpm lint && pnpm check:format && pnpm check:types"
+        "validate": "pnpm lint && pnpm check:format . && pnpm check:types"
     },
     "dependencies": {
         "@astrojs/mdx": "4.3.0",
@@ -35,8 +34,7 @@
         "@libsql/client": "0.15.7",
         "astro": "5.8.0",
         "cross-env": "7.0.3",
-        "remeda": "2.22.1",
-        "tiny-invariant": "1.3.3"
+        "remeda": "2.22.1"
     },
     "devDependencies": {
         "@commitlint/cli": "19.8.1",
