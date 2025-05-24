@@ -20,74 +20,120 @@ published: true
 
 A list of various maintained databases per rough category. Meaning to try them out.
 
-### SQL
+### OLTP (Online Transaction Processing)
 
-- [Cockroach DB](https://www.cockroachlabs.com)
-- [dolt](https://github.com/dolthub/dolt)
-- [Duck DB](https://github.com/duckdb/duckdb)
-- [Frost DB](https://github.com/polarsignals/frostdb)
-- [Gel](https://github.com/geldata/gel)
-- [Greptime DB](https://github.com/grepTimeTeam/greptimedb)
-- [Immu DB](https://github.com/codenotary/immudb)
+Traditional transactional databases for applications that need ACID guarantees and consistent reads/writes.
+
+- [Cockroach DB](https://www.cockroachlabs.com) - Distributed and cloud-native
+- [dolt](https://github.com/dolthub/dolt) - Version-controlled
+- [Immu DB](https://github.com/codenotary/immudb) - Distributed and immutable
 - [Maria DB](https://mariadb.org)
 - [PostgreSQL](https://www.postgresql.org)
+- [RQLite](https://github.com/rqlite/rqlite) - Distributed and lightweight
+- [TiDB](https://github.com/pingcap/tidb) - Distributed
+- [Yugabyte](https://github.com/yugabyte/yugabyte-db) - Distributed and postgres-compatible
+
+### OLAP (Online Analytical Processing)
+
+Optimized for complex queries and data analysis over large datasets.
+
+- [Duck DB](https://github.com/duckdb/duckdb) - Analytical and embedded
+
+### Time Series & Observability
+
+Specialized for storing and querying time-stamped data with high write throughput.
+
+- [Frost DB](https://github.com/polarsignals/frostdb)
+- [Greptime DB](https://github.com/grepTimeTeam/greptimedb)
 - [Quest DB](https://github.com/questdb/questdb)
-- [Rising Wave](https://github.com/risingwavelabs/risingwave)
-- [RQLite](https://github.com/rqlite/rqlite)
-- [Starbase DB](https://github.com/outerbase/starbasedb) - SQLite on Cloudflare
 - [Timescale](https://github.com/timescale/timescaledb)
 
-### NoSQL
+### Document & JSON
 
-- [Apache Cassandra](https://github.com/apache/cassandra)
-- [Elasticsearch](https://github.com/elastic/elasticsearch)
+Schema-flexible databases that store data as documents (usually JSON/BSON).
+
 - [Ferret DB](https://github.com/FerretDB/FerretDB)
 - [Mongo DB](https://github.com/mongodb/mongo)
-- [Orient DB](https://github.com/orientechnologies/orientdb)
-- [RxDB](https://github.com/pubkey/rxdb)
-- [Scylla DB](https://github.com/scylladb/scylladb)
+- [Polo DB](https://github.com/PoloDB/PoloDB) - Embedded
 
-### Graph
+### Search & Full-Text
+
+Engines optimized for text search, filtering, and complex queries across large document collections.
+
+- [Elasticsearch](https://github.com/elastic/elasticsearch)
+- [Parade DB](https://github.com/paradedb/paradedb)
+
+### Graph Databases
+
+Designed for data with complex relationships and connections.
 
 - [Arango DB](https://github.com/arangodb/arangodb)
-- [Dgraph](https://github.com/hypermodeinc/dgraph)
+- [Dgraph](https://github.com/hypermodeinc/dgraph) - Distributed
+- [Gel](https://github.com/geldata/gel)
 - [Indra DB](https://github.com/indradb/indradb)
 - [Memgraph](https://github.com/memgraph/memgraph)
 - [Neo4j](https://github.com/neo4j/neo4j)
 - [Terminus DB](https://github.com/terminusdb/terminusdb)
 
-### JSON Based
+### Streaming & Real-Time
 
-- [Dexie](https://github.com/dexie/Dexie.js) - IndexedDB wrapper
-- [Immortal DB](https://github.com/gruns/ImmortalDB)
-- [Polo DB](https://github.com/PoloDB/PoloDB)
-- [Tile DB](https://github.com/TileDB-Inc/TileDB)
-- [Watermelon DB](https://github.com/Nozbe/WatermelonDB)
+Handle continuous data streams and provide real-time processing capabilities.
 
-### In-memory
+- [HStream DB](https://github.com/hstreamdb/hstream)
+- [Rising Wave](https://github.com/risingwavelabs/risingwave)
+
+### Wide-Column
+
+Scalable databases that store data in column families, handling massive amounts of data across many servers.
+
+- [Apache Cassandra](https://github.com/apache/cassandra)
+- [Scylla DB](https://github.com/scylladb/scylladb)
+
+### Caching & Session Storage
+
+High-performance in-memory storage for temporary data and acceleration.
 
 - [Dragonfly](https://github.com/dragonflydb/dragonfly)
 - [Memcached](https://github.com/memcached/memcached)
 - [Redis](https://github.com/redis/redis)
 
+### Client-Side & Mobile
+
+Lightweight databases designed for client-side applications, mobile devices, or browser environments.
+
+- [Dexie](https://github.com/dexie/Dexie.js) - IndexedDB wrapper
+- [Immortal DB](https://github.com/gruns/ImmortalDB)
+- [RxDB](https://github.com/pubkey/rxdb)
+- [Watermelon DB](https://github.com/Nozbe/WatermelonDB)
+
+### Multi-Model
+
+Support multiple data models (document, graph, key-value) in a single database.
+
+- [Orient DB](https://github.com/orientechnologies/orientdb)
+- [Surreal DB](https://github.com/surrealdb/surrealdb)
+
+### Specialized Use Cases
+
+Databases built for specific domains like AI/ML, collaboration, scientific computing, or IoT.
+
+- [Crate DB](https://github.com/crate/crate) - IoT
+- [Ice Fire DB](https://github.com/IceFireDB/IceFireDB) - In-memory
+- [Minds DB](https://github.com/mindsdb/mindsdb) - AI
+- [Share DB](https://github.com/share/sharedb) - Realtime
+- [Tile DB](https://github.com/TileDB-Inc/TileDB) - Scientific computing
+
+### Serverless & Edge
+
+Databases designed to run in serverless environments or at the edge.
+
+- [Starbase DB](https://github.com/outerbase/starbasedb) - SQLite on Cloudflare
+
 ### Decentralized
 
+Peer-to-peer databases that don't rely on central servers.
+
 - [Orbit DB](https://github.com/orbitdb/orbitdb)
-
-### Distributed
-
-- [Crate DB](https://github.com/crate/crate)
-- [Ice Fire DB](https://github.com/IceFireDB/IceFireDB)
-- [TiDB](https://github.com/pingcap/tidb)
-- [Yugabyte](https://github.com/yugabyte/yugabyte-db)
-
-### Uncategorized
-
-- [HStream DB](https://github.com/hstreamdb/hstream)
-- [Minds DB](https://github.com/mindsdb/mindsdb)
-- [Parade DB](https://github.com/paradedb/paradedb)
-- [Share DB](https://github.com/share/sharedb)
-- [Surreal DB](https://github.com/surrealdb/surrealdb)
 
 ---
 
