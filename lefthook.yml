@@ -10,12 +10,12 @@ pre-commit:
             glob: '*.ts'
             files: git diff --cached --name-only
             run: pnpm lint {files}
+        format:
+            run: pnpm format {staged_files}
         unit_tests:
             glob: '*.ts'
             files: git diff --cached --name-only
             run: pnpm test related {files}
-        check_format:
-            run: pnpm format {staged_files}
         check_types:
             glob: '*.ts'
             run: pnpm check:types
