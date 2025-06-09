@@ -10,3 +10,6 @@ export const readFile = async (file: string): Promise<string> =>
 export const writeFile = async (file: string, data: string): Promise<void> => {
     await fs.writeFile(file, data, 'utf8');
 };
+
+export const formatMarkdownLine = (line: string): string =>
+    line.replace(/^-\s*/u, '');

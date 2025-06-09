@@ -7,7 +7,7 @@ import { simpleGit } from 'simple-git';
 import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes';
 
-import { toISOString } from './helpers';
+import { formatMarkdownLine, toISOString } from './helpers';
 import { logger } from './logger';
 
 const spinner = ora({
@@ -82,7 +82,7 @@ const main = async (): Promise<void> => {
 
             for (const line of deletions) {
                 await turso.execute({
-                    args: [line.replace(/^-/u, '').replace(/^-\s*/u, '')],
+                    args: [formatMarkdownLine(line)],
                     sql: `DELETE FROM notes_fts WHERE line MATCH '"' || ? || '"'`,
                 });
             }
@@ -94,7 +94,7 @@ const main = async (): Promise<void> => {
             const valuesToInsert = additions.map((line) => ({
                 created,
                 filename: fname,
-                line: line.replace(/^\+/u, '').replace(/^-\s*/u, ''),
+                line: formatMarkdownLine(line),
                 title: data.title,
                 updated,
             }));

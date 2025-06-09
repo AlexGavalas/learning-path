@@ -7,7 +7,7 @@ import ora from 'ora';
 import { turso } from '~lib/turso';
 import type { NoteFrontmatter } from '~types/notes';
 
-import { toISOString } from './helpers';
+import { formatMarkdownLine, toISOString } from './helpers';
 import { logger } from './logger';
 
 const NOTES_DIR = path.join(process.cwd(), 'src/content/notes');
@@ -41,9 +41,8 @@ const indexDocs = async (): Promise<void> => {
         const parsedContents = content
             .split('\n')
             .filter(Boolean)
-            // Remove some markdown syntax
             .filter((line) => line !== '---' && !/^#+\s/u.test(line))
-            .map((line) => line.replace('-   ', ''));
+            .map(formatMarkdownLine);
 
         const fname = filename.replace(/\.mdx$/u, '');
         const created = toISOString(data.created);
