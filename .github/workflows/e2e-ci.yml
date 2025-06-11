@@ -2,8 +2,7 @@ name: Run e2e tests
 
 on:
     repository_dispatch:
-        types:
-            - 'vercel.deployment.success'
+        - 'vercel.deployment.success'
 
 jobs:
     tests_e2e:
