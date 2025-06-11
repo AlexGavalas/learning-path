@@ -40,7 +40,7 @@
         "@commitlint/cli": "19.8.1",
         "@commitlint/config-conventional": "19.8.1",
         "@eslint/js": "9.28.0",
-        "@playwright/test": "1.52.0",
+        "@playwright/test": "1.53.0",
         "@trivago/prettier-plugin-sort-imports": "5.2.2",
         "@types/node": "22.15.30",
         "@vitest/coverage-v8": "3.2.3",
