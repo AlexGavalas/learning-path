@@ -1,6 +1,11 @@
 import fs from 'node:fs/promises';
 
-import { readFile, toISOString, writeFile } from './helpers';
+import {
+    formatMarkdownLine,
+    readFile,
+    toISOString,
+    writeFile,
+} from './helpers';
 
 vi.mock('node:fs/promises');
 vi.mock('~lib/turso');
@@ -44,5 +49,15 @@ describe('writeFile', () => {
             'contents',
             'utf8',
         );
+    });
+});
+
+describe('formatMarkdownLine', () => {
+    it('removes the - prefix', () => {
+        expect(formatMarkdownLine('- line')).toBe('line');
+    });
+
+    it('removes the +- prefix', () => {
+        expect(formatMarkdownLine('+- line')).toBe('line');
     });
 });
