@@ -12,4 +12,4 @@ export const writeFile = async (file: string, data: string): Promise<void> => {
 };
 
 export const formatMarkdownLine = (line: string): string =>
-    line.replace(/^-\s*/u, '').replace(/^\+-\s*/u, '');
+    line.replace(/^-\s*/u, '').replace(/^(?:\+-|\+)\s*/u, '');

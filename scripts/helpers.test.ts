@@ -55,9 +55,16 @@ describe('writeFile', () => {
 describe('formatMarkdownLine', () => {
     it('removes the - prefix', () => {
         expect(formatMarkdownLine('- line')).toBe('line');
+        expect(formatMarkdownLine('-line')).toBe('line');
+    });
+
+    it('removes the + prefix', () => {
+        expect(formatMarkdownLine('+ line')).toBe('line');
+        expect(formatMarkdownLine('+line')).toBe('line');
     });
 
     it('removes the +- prefix', () => {
         expect(formatMarkdownLine('+- line')).toBe('line');
+        expect(formatMarkdownLine('+-line')).toBe('line');
     });
 });
