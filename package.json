@@ -51,7 +51,7 @@
         "gray-matter": "4.0.3",
         "lefthook": "1.11.13",
         "ora": "8.2.0",
-        "prettier": "3.5.3",
+        "prettier": "3.6.0",
         "prettier-plugin-astro": "0.14.1",
         "rehype-autolink-headings": "7.1.0",
         "rehype-external-links": "3.0.0",
