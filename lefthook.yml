@@ -11,6 +11,8 @@ pre-commit:
             files: git diff --cached --name-only
             run: pnpm lint {files}
         format:
+            exclude:
+                - '*.png'
             run: pnpm format {staged_files}
         unit_tests:
             glob: '*.ts'
