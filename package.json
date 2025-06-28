@@ -20,9 +20,9 @@
         "test:e2e": "playwright test ./e2e",
         "test:e2e:watch": "playwright test --ui ./e2e",
         "lint": "eslint",
-        "check:format": "pnpm prettier --list-different",
+        "check:format": "prettier --check --experimental-cli",
         "check:types": "tsc --noEmit",
-        "format": "pnpm prettier --write",
+        "format": "prettier --write --experimental-cli",
         "clean:install": "rm -rf node_modules/ pnpm-lock.yaml .astro/ dist/ && pnpm install && astro sync && pnpm playwright install --with-deps",
         "validate": "pnpm lint && pnpm check:format . && pnpm check:types"
     },
