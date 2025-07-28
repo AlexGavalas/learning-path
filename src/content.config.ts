@@ -1,9 +1,7 @@
-// @ts-expect-error - TS config needs to be updated for this to recognize its types
 import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
 const notes = defineCollection({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     loader: glob({ base: './src/content/notes', pattern: '**/*.mdx' }),
     schema: z.object({
         created: z.string(),
@@ -14,7 +12,6 @@ const notes = defineCollection({
 });
 
 const summaries = defineCollection({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     loader: glob({ base: './src/content/summaries', pattern: '**/*.mdx' }),
     schema: z.object({
         created: z.string(),
@@ -26,7 +23,6 @@ const summaries = defineCollection({
 });
 
 const blog = defineCollection({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     loader: glob({ base: './src/content/blog', pattern: '**/*.mdx' }),
     schema: z.object({
         created: z.string(),

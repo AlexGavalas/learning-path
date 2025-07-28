@@ -1,6 +1,10 @@
 import { parse } from '@formkit/tempo';
-import type { AstroComponentFactory } from 'astro/dist/runtime/server';
-import { getCollection, getEntry, render } from 'astro:content';
+import {
+    type RenderResult,
+    getCollection,
+    getEntry,
+    render,
+} from 'astro:content';
 import { groupBy, mapValues, piped } from 'remeda';
 
 import type { BlogArticleFrontmatter } from '~types/blog';
@@ -85,7 +89,7 @@ export const getNoteData = async ({
     collection: Collection;
     slug: string;
 }): Promise<{
-    content: { Content: AstroComponentFactory };
+    content: { Content: RenderResult['Content'] };
     frontmatter: NoteFrontmatter | SummaryFrontmatter | BlogArticleFrontmatter;
 } | null> => {
     const note = await getEntry(collection, slug);

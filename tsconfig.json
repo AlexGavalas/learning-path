@@ -1,12 +1,11 @@
 {
     "exclude": ["dist", "*.js"],
+    "extends": "astro/tsconfigs/base",
     "compilerOptions": {
         "target": "ES2018",
-        "moduleResolution": "Node",
         "strictNullChecks": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "isolatedModules": true,

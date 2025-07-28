@@ -11,7 +11,7 @@ export default defineConfig({
         typecheck: {
             enabled: true,
             include: ['./scripts/**/*.test.ts', './src/**/*.test.ts'],
-            tsconfig: './tsconfig.json',
+            tsconfig: './tsconfig.test.json',
         },
     },
 });
