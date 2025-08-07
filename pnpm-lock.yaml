@@ -30,8 +30,8 @@ importers:
         specifier: 10.0.0
         version: 10.0.0
       remeda:
-        specifier: 2.29.0
-        version: 2.29.0
+        specifier: 2.30.0
+        version: 2.30.0
     devDependencies:
       '@commitlint/cli':
         specifier: 19.8.1
@@ -2816,8 +2816,8 @@ packages:
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
 
-  remeda@2.29.0:
-    resolution: {integrity: sha512-+Izkt+G9OS0cZLJ7Ca3Yd0OYs+/mASCow8GnsEu3KHm22/bvV4WLzbH3ohDRk2/cWCELb3eSrc36wdAJolV5rw==}
+  remeda@2.30.0:
+    resolution: {integrity: sha512-TcRpI1ecqnMer3jHhFtMerGvHFCDlCHljUp0/9A4HxHOh5bSY3kP1l8nQDFMnWYJKl3MSarDNY1tb0Bs/bCmvw==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -6793,7 +6793,7 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
-  remeda@2.29.0:
+  remeda@2.30.0:
     dependencies:
       type-fest: 4.41.0
 
