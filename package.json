@@ -34,7 +34,7 @@
         "@libsql/client": "0.15.11",
         "astro": "5.13.2",
         "cross-env": "10.0.0",
-        "remeda": "2.30.0"
+        "remeda": "2.31.0"
     },
     "devDependencies": {
         "@commitlint/cli": "19.8.1",
