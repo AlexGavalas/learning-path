@@ -32,7 +32,7 @@
         "@astrojs/vercel": "8.2.6",
         "@formkit/tempo": "0.1.2",
         "@libsql/client": "0.15.11",
-        "astro": "5.13.2",
+        "astro": "5.14.1",
         "cross-env": "10.0.0",
         "remeda": "2.32.0"
     },
