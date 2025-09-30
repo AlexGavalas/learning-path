@@ -33,7 +33,7 @@
         "@formkit/tempo": "0.1.2",
         "@libsql/client": "0.15.11",
         "astro": "5.14.1",
-        "cross-env": "10.0.0",
+        "cross-env": "10.1.0",
         "remeda": "2.32.0"
     },
     "devDependencies": {
