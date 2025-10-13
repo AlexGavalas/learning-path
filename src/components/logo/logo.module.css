@@ -11,9 +11,14 @@
 }
 
 @keyframes aurora {
-    100% {
+    from {
+        background-position: -250px 0px;
+    }
+
+    to {
         --ld: 1.2;
-        --cd: 1;
+        --cd: 0.9;
+        background-position: 0px 0px;
     }
 }
 
@@ -30,12 +35,14 @@
     );
 
     background: linear-gradient(
-        to right in oklch,
+        45deg in oklch,
+        var(--start-color),
+        var(--end-color),
         var(--start-color),
         var(--end-color)
     );
 
-    -webkit-background-clip: text;
+    background-size: 500px 100%;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
@@ -43,6 +50,6 @@
     font-size: 2rem;
 
     @media (prefers-reduced-motion: no-preference) {
-        animation: aurora 2s linear infinite alternate;
+        animation: aurora 4s linear infinite alternate;
     }
 }
