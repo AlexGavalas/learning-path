@@ -1,0 +1,36 @@
+---
+title: New CSS and HTML features in 2025
+created: '2025-10-19'
+updated: '2024-10-19'
+published: false
+---
+
+In our team we often discuss the new and emerging features in the web dev space. These are some of the CSS and HTML features that were anounced this year and we had a chance to play around with them.
+
+## Customizable select elements
+
+We can now opt-in to customize the native `select` element to some extent. This seems pretty nice, because supporting browsers can use the new, richer experience and older browsers can still provide the base functionality. More info on the [docs](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select).
+
+import CustomizableSelectDemo from '~components/demo/customizable-select/customizable-select.astro';
+
+<CustomizableSelectDemo />
+
+## CSS @function
+
+With this one we can write a function in CSS to get the result of a single property. It even supports some types! More on the [docs](https://developer.mozilla.org/en-US/docs/Web/CSS/@function).
+
+```css
+@function --multiply(--mult <length>, --value <number>) {
+    result: calc(var(--mult) * var(--value));
+}
+
+.test {
+    padding: --multiply(10px, 2);
+}
+```
+
+import CssFunctionDemo from '~components/demo/css-function/css-function.astro';
+
+Try resizing the demo to see the full effect.
+
+<CssFunctionDemo />
