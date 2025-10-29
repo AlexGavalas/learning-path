@@ -37,4 +37,4 @@ pre-push:
             glob: '*.mdx'
             run: pnpm sync:db
             env:
-                IS_LEFTHOOK: true
+                IS_LEFTHOOK: 'true'
