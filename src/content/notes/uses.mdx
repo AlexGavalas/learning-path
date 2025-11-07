@@ -1,19 +1,22 @@
 ---
 title: Uses
 created: '2023-01-05'
-updated: '2024-12-28'
-published: false
+updated: '2025-11-07'
+published: true
 ---
 
 # Shell
 
-Unix alternatives I have come to like and use are:
+Some CLI tools I use daily are
 
-- [bat](https://github.com/sharkdp/bat)
-- [exa](https://github.com/ogham/exa) or [lsd](https://github.com/Peltoche/lsd)
-- [jq](https://github.com/stedolan/jq)
-- [ouch](https://github.com/ouch-org/ouch)
-- [killport](https://github.com/jkfran/killport)
+- [bat](https://github.com/sharkdp/bat), - Better `cat`, supports syntax highlighting
+- [lsd](https://github.com/lsd-rs/lsd) - Better `ls`
+- [jq](https://github.com/jqlang/jq) - JSON processor
+- [killport](https://github.com/jkfran/killport) - Kill a process running on a specific port
+- [gh](https://github.com/cli/cli) - The Github CLI
+- [mise](https://github.com/jdx/mise) - Install various versions of the same tool
+- [atuin](https://github.com/atuinsh/atuin) - Shell history
+- [starship](https://github.com/starship/starship) - Custom shell prompt
 
 `.zshrc`
 
@@ -22,22 +25,21 @@ Unix alternatives I have come to like and use are:
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
-
 HISTORY_IGNORE="(l|ls|cd|pwd)*"
 
 # https://zsh.sourceforge.io/Doc/Release/Options.html (16.2.4 History)
 
-setopt EXTENDED_HISTORY      # Write the history file in the ':start:elapsed;command' format.
-setopt SHARE_HISTORY         # Share history between all sessions.
-setopt HIST_IGNORE_DUPS      # Do not record an event that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS  # Delete an old recorded event if a new event is a duplicate.
-setopt HIST_SAVE_NO_DUPS     # Do not write a duplicate event to the history file.
-setopt HIST_VERIFY           # Do not execute immediately upon history expansion.
-setopt APPEND_HISTORY        # append to history file (Default)
-setopt HIST_NO_STORE         # Don't store history commands
-setopt HIST_REDUCE_BLANKS    # Remove superfluous blanks from each command line being added to the history.
+setopt EXTENDED_HISTORY         # Write the history file in the ':start:elapsed;command' format.
+setopt SHARE_HISTORY            # Share history between all sessions.
+setopt HIST_IGNORE_DUPS         # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS     # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_SAVE_NO_DUPS        # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY              # Do not execute immediately upon history expansion.
+setopt INC_APPEND_HISTORY_TIME  # append to history file with timestamps
+setopt HIST_NO_STORE            # Don't store history commands
+setopt HIST_REDUCE_BLANKS       # Remove superfluous blanks from each command line being added to the history.
 
-# Path to your oh-my-zsh installation.
+# Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 
 zstyle ':omz:update' mode reminder # Remind me to update when it's time
@@ -49,22 +51,12 @@ DISABLE_AUTO_TITLE="true"
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Enable brew completions. Must be placed before sourcing `oh-my-zsh.sh`
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
 source $ZSH/oh-my-zsh.sh
 
-# pnpm
-export PNPM_HOME="/Users/alexgavalas/Library/pnpm"
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":~/completions:"* ]]; then export FPATH="~/completions:$FPATH"; fi
 
-# Java
-JAVA="/opt/homebrew/opt/openjdk/bin"
-
-# rvm
-RVM="$HOME/.rvm/bin"
-
-# VSCode binary
-VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+source ~/.deno/env
 
 # Preferred editor for local and remote sessions
 export EDITOR='nvim'
@@ -77,26 +69,19 @@ alias ls="lsd"
 alias l="ls -l"
 alias sort_size="du -hcd1 | sort -hr"
 
-# Android SDK
-export ANDROID_HOME="$HOME/Library/Android/sdk"
+# Sign commits with GPG
+# https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
+export GPG_TTY=$(tty)
 
-ANDROID_EMULATOR="$ANDROID_HOME/emulator"
-ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
-
-# Local executables
+# Make local node_modules binaries easier to run by adding them to the PATH
 LOCAL_NODE_MODULES="./node_modules/.bin"
 
 # Go binaries
 GO_BINARIES="$HOME/go/bin"
 
 BINARY_PATHS=(
-  $JAVA
-  $RVM
-  $VSCODE
   $LOCAL_NODE_MODULES
   $GO_BINARIES
-  $ANDROID_EMULATOR
-  $ANDROID_PLATFORM_TOOLS
 )
 
 # Concatenate and export binary paths
@@ -105,21 +90,22 @@ export PATH="${(j/:/)BINARY_PATHS}:$PATH"
 # Init staship
 eval "$(starship init zsh)"
 
-# Init fnm
-eval "$(fnm env --use-on-cd --resolve-engines)"
-
 # Init atuin
 eval "$(atuin init zsh)"
 
 # zinit
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # load plugins with zinit
 zinit snippet OMZP::git
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
+
+eval "$(mise activate zsh)"
+
+# On setup
+# mise settings add idiomatic_version_file_enable_tools node
 
 # Set language to English
 export LANG="en_US.UTF-8"
@@ -144,7 +130,7 @@ export LANG="en_US.UTF-8"
     # remove all branches that are already merged into master
     remove-gone-branches = "!git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
     # commits not in master
-    diff-master = lg origin/master..HEAD
+    compare-with-master = lg origin/master..HEAD
     # easier rebase a branch
     rebase-onto = "!f() { git rebase --onto=\"$1\" $(git merge-base --fork-point \"$1\"); }; f"
     # show diff using https://github.com/wilfred/difftastic
@@ -188,3 +174,11 @@ export LANG="en_US.UTF-8"
     # include another gitconfig for personal projects
     path = "~/.personal_gitconfig"
 ```
+
+## Applications
+
+- [ghostty](https://github.com/ghostty-org/ghostty) - Terminal
+- [Zen](https://zen-browser.app) - Browser
+- [Cursor](https://cursor.com) and [Zed](https://zed.dev) - IDE
+- [Raycast](https://raycast.com) - Productivity tool, Spotlight replacement
+- [Rectangle](https://rectangleapp.com) - Window management
