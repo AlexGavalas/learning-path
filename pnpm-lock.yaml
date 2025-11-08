@@ -64,8 +64,8 @@ importers:
         specifier: 9.39.0
         version: 9.39.0(jiti@2.5.1)
       eslint-plugin-astro:
-        specifier: 1.4.0
-        version: 1.4.0(eslint@9.39.0(jiti@2.5.1))
+        specifier: 1.5.0
+        version: 1.5.0(eslint@9.39.0(jiti@2.5.1))
       gray-matter:
         specifier: 4.0.3
         version: 4.0.3
@@ -1685,8 +1685,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-plugin-astro@1.4.0:
-    resolution: {integrity: sha512-BCHPj3gORh1RYFR3sZXY0/9N9lOOw4mQYUkMWFFoFqhZtYnytuzxlyCIr8tqMmSNdZ9P4SQNq5h4v8Amr2EE5Q==}
+  eslint-plugin-astro@1.5.0:
+    resolution: {integrity: sha512-IWy4kY3DKTJxd7g652zIWpBGFuxw7NIIt16kyqc8BlhnIKvI8yGJj+Maua0DiNYED3F/D8AmzoTTTA6A95WX9g==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.57.0'
@@ -4560,7 +4560,7 @@ snapshots:
   '@typescript-eslint/project-service@8.46.0(typescript@5.9.2)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.46.0(typescript@5.9.2)
-      '@typescript-eslint/types': 8.46.0
+      '@typescript-eslint/types': 8.46.2
       debug: 4.4.3
       typescript: 5.9.2
     transitivePeerDependencies:
@@ -4860,8 +4860,8 @@ snapshots:
   astro-eslint-parser@1.2.2:
     dependencies:
       '@astrojs/compiler': 2.12.2
-      '@typescript-eslint/scope-manager': 8.46.0
-      '@typescript-eslint/types': 8.46.0
+      '@typescript-eslint/scope-manager': 8.46.2
+      '@typescript-eslint/types': 8.46.2
       astrojs-compiler-sync: 1.1.1(@astrojs/compiler@2.12.2)
       debug: 4.4.3
       entities: 6.0.1
@@ -5315,11 +5315,11 @@ snapshots:
       eslint: 9.39.0(jiti@2.5.1)
       semver: 7.7.2
 
-  eslint-plugin-astro@1.4.0(eslint@9.39.0(jiti@2.5.1)):
+  eslint-plugin-astro@1.5.0(eslint@9.39.0(jiti@2.5.1)):
     dependencies:
       '@eslint-community/eslint-utils': 4.8.0(eslint@9.39.0(jiti@2.5.1))
       '@jridgewell/sourcemap-codec': 1.5.5
-      '@typescript-eslint/types': 8.46.0
+      '@typescript-eslint/types': 8.46.2
       astro-eslint-parser: 1.2.2
       eslint: 9.39.0(jiti@2.5.1)
       eslint-compat-utils: 0.6.5(eslint@9.39.0(jiti@2.5.1))
