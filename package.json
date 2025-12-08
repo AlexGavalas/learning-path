@@ -58,7 +58,7 @@
         "rehype-slug": "6.0.0",
         "simple-git": "3.30.0",
         "ts-node": "10.9.2",
-        "tsx": "4.20.4",
+        "tsx": "4.21.0",
         "typescript": "5.9.2",
         "typescript-eslint": "8.48.0",
         "vite-tsconfig-paths": "5.1.4",
