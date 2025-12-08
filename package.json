@@ -63,6 +63,6 @@
         "typescript-eslint": "8.48.0",
         "vite-tsconfig-paths": "5.1.4",
         "vitest": "4.0.3",
-        "winston": "3.18.3"
+        "winston": "3.19.0"
     }
 }
