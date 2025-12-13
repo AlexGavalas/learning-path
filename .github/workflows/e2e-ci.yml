@@ -39,7 +39,7 @@ jobs:
               env:
                   CI: true
                   PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
-            - uses: actions/upload-artifact@v5
+            - uses: actions/upload-artifact@v6
               if: failure() && steps.e2e.outcome == 'failure'
               with:
                   name: playwright-report
