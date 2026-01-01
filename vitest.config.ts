@@ -1,8 +1,8 @@
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { type Plugin, defineConfig } from 'vitest/config';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-    plugins: [tsconfigPaths() as Plugin],
+    plugins: [tsconfigPaths()],
     test: {
         clearMocks: true,
         exclude: ['node_modules', 'dist', 'build', 'e2e'],
