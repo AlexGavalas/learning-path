@@ -5,7 +5,6 @@ import {
     getEntry,
     render,
 } from 'astro:content';
-import { groupBy, mapValues, piped } from 'remeda';
 
 import type { BlogArticleFrontmatter } from '~types/blog';
 import type { Note, NoteDBEntry, NoteFrontmatter } from '~types/notes';
@@ -15,10 +14,13 @@ import { searchNotes } from './notes-db';
 
 type Lines = Record<string, string[]>;
 
-const groupByTitle = piped(
-    groupBy<NoteDBEntry>(({ title }) => title),
-    mapValues((notes) => notes.map(({ line }) => line)),
-);
+const groupByTitle = (input: NoteDBEntry[]) =>
+    input.reduce<Lines>((acc, { line, title }) => {
+        acc[title] ??= [];
+        acc[title].push(line);
+
+        return acc;
+    }, {});
 
 type Collection = 'blog' | 'notes' | 'summaries';
 
