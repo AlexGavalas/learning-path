@@ -31,7 +31,7 @@
         "@astrojs/node": "9.5.1",
         "@astrojs/vercel": "9.0.2",
         "@formkit/tempo": "1.0.0",
-        "@libsql/client": "0.15.15",
+        "@libsql/client": "0.17.0",
         "astro": "5.16.6",
         "cross-env": "10.1.0"
     },
