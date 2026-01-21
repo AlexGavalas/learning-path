@@ -23,3 +23,6 @@ test-results
 
 # coverage
 coverage/
+
+# User MCP servers configuration
+.cursor/mcp.json
