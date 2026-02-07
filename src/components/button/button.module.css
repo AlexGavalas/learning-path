@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--spacing-xs);
+    border-radius: var(--spacing-sm);
     border: none;
     color: var(--color-background);
     padding: var(--spacing-sm);

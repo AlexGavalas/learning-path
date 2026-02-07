@@ -9,7 +9,6 @@ import { REHYPE_PLUGINS } from './src/config/markdown';
 const isProd = process.env.PROD === 'true';
 const isLocalBuild = process.env.LOCAL === 'true';
 
-// https://astro.build/config
 export default defineConfig({
     devToolbar: {
         enabled: !isProd,
@@ -27,8 +26,8 @@ export default defineConfig({
         contentIntellisense: true,
         fonts: [
             {
-                cssVariable: '--font-galdeano',
-                name: 'Galdeano',
+                cssVariable: '--font-inconsolata',
+                name: 'Inconsolata',
                 provider: fontProviders.fontsource(),
             },
         ],

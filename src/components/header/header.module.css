@@ -8,7 +8,7 @@
 .logo {
     margin: var(--spacing-sm) 0;
     padding: var(--spacing-sm);
-    border-radius: var(--spacing-xs);
+    border-radius: var(--spacing-sm);
 
     &:hover {
         background-color: oklch(

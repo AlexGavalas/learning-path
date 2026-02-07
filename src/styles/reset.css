@@ -44,8 +44,7 @@ body {
     font-weight: 500;
     font-size: 1.4rem;
     font-family:
-        'Galdeano', Montserrat, Corbel, 'URW Gothic', source-sans-pro,
-        sans-serif;
+        'Ovo', Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
 }
 
 a {
@@ -79,7 +78,7 @@ ul {
 
 :focus-visible,
 [tabindex]:focus {
-    border-radius: var(--spacing-xs);
+    border-radius: var(--spacing-sm);
     outline-color: var(--color-secondary);
     outline-style: solid;
     outline-offset: 2px;

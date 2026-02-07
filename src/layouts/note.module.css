@@ -20,6 +20,11 @@
     text-align: justify;
     color: var(--color-typography-primary);
 
+    :focus-visible,
+    [tabindex]:focus {
+        outline-offset: 6px;
+    }
+
     :where(h1) {
         font-size: 1.5em;
     }
@@ -50,7 +55,15 @@
         text-decoration: underline;
         text-decoration-color: var(--color-primary);
         text-decoration-thickness: 0.125rem;
-        text-underline-offset: 0.125rem;
+        text-underline-offset: 0.25rem;
+        transition:
+            text-decoration-color 0.2s ease-in-out,
+            text-underline-offset 0.2s ease-in-out;
+
+        &:hover {
+            text-decoration-color: var(--color-secondary);
+            text-underline-offset: 0.35rem;
+        }
     }
 
     ul {
@@ -89,6 +102,7 @@
     pre {
         margin: var(--spacing-lg) 0;
         padding: var(--spacing-md);
+        border-radius: var(--spacing-sm);
 
         code::before,
         code::after {

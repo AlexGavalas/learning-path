@@ -18,7 +18,7 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
 <!doctype html>
 <html lang="en" class:list={[cn.page, theme]} style={`color-scheme: ${theme};`}>
     <head>
-        <Font cssVariable="--font-galdeano" preload />
+        <Font cssVariable="--font-inconsolata" preload />
         <BaseHead title={title} />
         <style>
             @view-transition {
@@ -26,7 +26,7 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
             }
 
             body {
-                font-family: var(--font-galdeano);
+                font-family: var(--font-inconsolata);
             }
         </style>
     </head>

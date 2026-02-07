@@ -7,9 +7,9 @@
     background-color: oklch(
         from var(--color-background) calc(l + 0.05) c calc(h + 0.2)
     );
-    border-radius: var(--spacing-xs);
+    border-radius: var(--spacing-sm);
     border: none;
-    font-size: 0.9em;
+    font-size: 0.8em;
     line-height: 1.7;
     padding-left: var(--spacing-sm);
 
