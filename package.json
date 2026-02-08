@@ -4,7 +4,7 @@
     "type": "module",
     "private": true,
     "engines": {
-        "node": "22"
+        "node": "24"
     },
     "scripts": {
         "dev": "astro dev",
@@ -41,7 +41,7 @@
         "@eslint/js": "9.39.2",
         "@playwright/test": "1.58.0",
         "@trivago/prettier-plugin-sort-imports": "6.0.0",
-        "@types/node": "22.19.0",
+        "@types/node": "24.10.11",
         "@vitest/coverage-v8": "4.0.16",
         "@vitest/eslint-plugin": "1.6.4",
         "dotenv": "17.2.3",
