@@ -46,7 +46,7 @@
         "@vitest/eslint-plugin": "1.6.4",
         "dotenv": "17.3.1",
         "eslint": "10.0.0",
-        "eslint-plugin-astro": "1.5.0",
+        "eslint-plugin-astro": "1.6.0",
         "gray-matter": "4.0.3",
         "lefthook": "2.1.0",
         "ora": "9.3.0",
