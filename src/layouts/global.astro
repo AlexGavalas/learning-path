@@ -18,15 +18,16 @@ const theme = themeCookie?.value ?? DEFAULT_THEME;
 <!doctype html>
 <html lang="en" class:list={[cn.page, theme]} style={`color-scheme: ${theme};`}>
     <head>
-        <Font cssVariable="--font-inconsolata" preload />
+        <Font cssVariable="--font-lexend" preload />
         <BaseHead title={title} />
         <style>
             @view-transition {
-                navigation: auto; /* Enable native view transitions */
+                navigation: auto;
             }
 
             body {
-                font-family: var(--font-inconsolata);
+                font-family: var(--font-lexend);
+                font-size: 1.3em;
             }
         </style>
     </head>

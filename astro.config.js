@@ -26,8 +26,8 @@ export default defineConfig({
         contentIntellisense: true,
         fonts: [
             {
-                cssVariable: '--font-inconsolata',
-                name: 'Inconsolata',
+                cssVariable: '--font-lexend',
+                name: 'Lexend',
                 provider: fontProviders.fontsource(),
             },
         ],
