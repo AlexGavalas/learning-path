@@ -32,7 +32,7 @@
         "@astrojs/vercel": "9.0.2",
         "@formkit/tempo": "1.0.0",
         "@libsql/client": "0.17.0",
-        "astro": "5.18.0",
+        "astro": "6.0.1",
         "cross-env": "10.1.0"
     },
     "devDependencies": {
