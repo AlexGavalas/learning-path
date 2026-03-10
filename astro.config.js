@@ -1,6 +1,6 @@
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 import { defineConfig, fontProviders } from 'astro/config';
 import 'dotenv/config';
 
@@ -22,15 +22,15 @@ export default defineConfig({
             theme: 'monokai',
         },
     },
+    fonts: [
+        {
+            cssVariable: '--font-lexend',
+            name: 'Lexend',
+            provider: fontProviders.fontsource(),
+        },
+    ],
     experimental: {
         contentIntellisense: true,
-        fonts: [
-            {
-                cssVariable: '--font-lexend',
-                name: 'Lexend',
-                provider: fontProviders.fontsource(),
-            },
-        ],
     },
     output: 'server',
     prefetch: true,
