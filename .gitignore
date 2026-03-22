@@ -26,3 +26,5 @@ coverage/
 
 # User MCP servers configuration
 .cursor/mcp.json
+
+.obsidian
