@@ -10,20 +10,18 @@
         "skipLibCheck": true,
         "isolatedModules": true,
         "composite": true,
-        "baseUrl": "./src",
         "paths": {
-            "~api/*": ["api/*"],
-            "~components/*": ["components/*"],
-            "~config/*": ["config/*"],
-            "~content/*": ["content/*"],
-            "~layouts/*": ["layouts/*"],
-            "~lib/*": ["lib/*"],
-            "~pages/*": ["pages/*"],
-            "~scripts/*": ["scripts/*"],
-            "~styles/*": ["styles/*"],
-            "~test/*": ["test/*"],
-            "~types/*": ["types/*"],
-            "~constants": ["constants.ts"]
+            "~api/*": ["./src/api/*"],
+            "~components/*": ["./src/components/*"],
+            "~config/*": ["./src/config/*"],
+            "~content/*": ["./src/content/*"],
+            "~layouts/*": ["./src/layouts/*"],
+            "~lib/*": ["./src/lib/*"],
+            "~pages/*": ["./src/pages/*"],
+            "~styles/*": ["./src/styles/*"],
+            "~test/*": ["./src/test/*"],
+            "~types/*": ["./src/types/*"],
+            "~constants": ["./src/constants.ts"]
         },
         "types": ["vitest/globals"]
     }
