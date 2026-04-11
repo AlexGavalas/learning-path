@@ -15,11 +15,11 @@ jobs:
             - uses: actions/setup-node@v6
               with:
                   node-version-file: '.nvmrc'
-            - uses: pnpm/action-setup@v5
+            - uses: pnpm/action-setup@v6
               name: Install pnpm
               id: pnpm-install
               with:
-                  version: 9.8.0
+                  version: 10.32.1
                   run_install: false
             - name: Get pnpm store directory
               id: pnpm-cache

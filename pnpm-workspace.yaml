@@ -1,0 +1,9 @@
+savePrefix: ''
+engineStrict: true
+ignoreScripts: true
+sideEffectsCache: false
+strictPeerDependencies: false
+public-hoist-pattern:
+    - '@types/*'
+onlyBuiltDependencies:
+    - 'esbuild'
