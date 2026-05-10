@@ -6,7 +6,7 @@
     "engines": {
         "node": "24"
     },
-    "packageManager": "pnpm@10.33.0",
+    "packageManager": "pnpm@11.0.9",
     "scripts": {
         "dev": "astro dev",
         "start:server": "node -r dotenv/config ./dist/server/entry.mjs",
