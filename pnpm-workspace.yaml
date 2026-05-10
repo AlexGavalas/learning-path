@@ -5,5 +5,5 @@ sideEffectsCache: false
 strictPeerDependencies: false
 public-hoist-pattern:
     - '@types/*'
-onlyBuiltDependencies:
-    - 'esbuild'
+allowBuilds:
+    esbuild: true
