@@ -2,6 +2,10 @@
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": ["config:base"],
     "automerge": false,
+    "minimumReleaseAge": "3 days",
+    "vulnerabilityAlerts": {
+        "minimumReleaseAge": null
+    },
     "patch": {
         "enabled": false
     }

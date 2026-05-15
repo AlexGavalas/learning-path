@@ -3,7 +3,6 @@ engineStrict: true
 ignoreScripts: true
 sideEffectsCache: false
 strictPeerDependencies: false
-public-hoist-pattern:
-    - '@types/*'
+minimumReleaseAge: 1440 # 1 day. Increase it to 4320 (3 days).
 allowBuilds:
     esbuild: true
