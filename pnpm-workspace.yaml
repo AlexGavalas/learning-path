@@ -3,6 +3,6 @@ engineStrict: true
 ignoreScripts: true
 sideEffectsCache: false
 strictPeerDependencies: false
-minimumReleaseAge: 1440 # 1 day. Increase it to 4320 (3 days).
+minimumReleaseAge: 4320
 allowBuilds:
     esbuild: true
