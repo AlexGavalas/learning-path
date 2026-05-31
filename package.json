@@ -28,12 +28,12 @@
         "validate": "pnpm lint && pnpm check:format . && pnpm check:types"
     },
     "dependencies": {
-        "@astrojs/mdx": "5.0.6",
-        "@astrojs/node": "10.1.1",
-        "@astrojs/vercel": "10.0.7",
+        "@astrojs/mdx": "6.0.1",
+        "@astrojs/node": "10.1.2",
+        "@astrojs/vercel": "10.0.8",
         "@formkit/tempo": "1.1.0",
         "@libsql/client": "0.17.3",
-        "astro": "6.3.6",
+        "astro": "6.4.1",
         "cross-env": "10.1.0"
     },
     "devDependencies": {
@@ -44,7 +44,7 @@
         "@trivago/prettier-plugin-sort-imports": "6.0.2",
         "@types/node": "24.12.0",
         "@vitest/coverage-v8": "4.1.7",
-        "@vitest/eslint-plugin": "1.6.17",
+        "@vitest/eslint-plugin": "1.6.18",
         "dotenv": "17.4.2",
         "eslint": "10.4.0",
         "eslint-plugin-astro": "1.7.0",

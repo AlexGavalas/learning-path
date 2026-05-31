@@ -1,8 +1,9 @@
+import type { RehypePlugins } from 'astro';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 
-export const REHYPE_PLUGINS = [
+export const REHYPE_PLUGINS: RehypePlugins = [
     [
         rehypeExternalLinks,
         {

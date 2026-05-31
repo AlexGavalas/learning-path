@@ -4,6 +4,9 @@ import astro from 'eslint-plugin-astro';
 import ts from 'typescript-eslint';
 
 export default [
+    {
+        ignores: ['*.js', '.astro', 'dist', '**/*.d.ts', 'coverage'],
+    },
     js.configs.all,
     ...ts.configs.recommendedTypeChecked,
     ...astro.configs['flat/recommended'],
@@ -80,8 +83,5 @@ export default [
             'no-useless-assignment': 'off',
             '@typescript-eslint/no-misused-promises': 'off',
         },
-    },
-    {
-        ignores: ['*.config.js', '.astro', 'dist', '**/*.d.ts', 'coverage'],
     },
 ];

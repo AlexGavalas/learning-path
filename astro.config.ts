@@ -10,17 +10,16 @@ const isProd = process.env.PROD === 'true';
 const isLocalBuild = process.env.LOCAL === 'true';
 
 export default defineConfig({
+    adapter: isLocalBuild
+        ? node({
+              mode: 'standalone',
+          })
+        : vercel(),
     devToolbar: {
         enabled: !isProd,
     },
-    integrations: [mdx()],
-    site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
-    markdown: {
-        rehypePlugins: REHYPE_PLUGINS,
-        syntaxHighlight: 'shiki',
-        shikiConfig: {
-            theme: 'monokai',
-        },
+    experimental: {
+        contentIntellisense: true,
     },
     fonts: [
         {
@@ -29,15 +28,16 @@ export default defineConfig({
             provider: fontProviders.fontsource(),
         },
     ],
-    experimental: {
-        contentIntellisense: true,
+    integrations: [mdx()],
+    markdown: {
+        rehypePlugins: REHYPE_PLUGINS,
+        shikiConfig: {
+            theme: 'monokai',
+        },
+        syntaxHighlight: 'shiki',
     },
     output: 'server',
     prefetch: true,
     scopedStyleStrategy: 'where',
-    adapter: isLocalBuild
-        ? node({
-              mode: 'standalone',
-          })
-        : vercel(),
+    site: isProd ? 'https://learning-path.dev' : 'http://localhost:4321',
 });
