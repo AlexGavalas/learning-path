@@ -19,7 +19,7 @@ jobs:
               name: Install pnpm
               id: pnpm-install
               with:
-                  version: 11.4.0
+                  version: 11.5.0
                   run_install: false
             - name: Get pnpm store directory
               id: pnpm-cache
