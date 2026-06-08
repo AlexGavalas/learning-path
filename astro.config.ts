@@ -1,3 +1,4 @@
+import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import vercel from '@astrojs/vercel';
@@ -30,7 +31,9 @@ export default defineConfig({
     ],
     integrations: [mdx()],
     markdown: {
-        rehypePlugins: REHYPE_PLUGINS,
+        processor: unified({
+            rehypePlugins: REHYPE_PLUGINS,
+        }),
         shikiConfig: {
             theme: 'monokai',
         },
