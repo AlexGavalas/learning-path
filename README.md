@@ -14,3 +14,4 @@ Favicons generated with Gemini.
 - https://icons.duckduckgo.com/ip9/learning-path.dev.ico
 
 Test stacked PRs 1
+Test stacked PRs 2
