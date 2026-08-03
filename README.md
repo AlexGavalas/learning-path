@@ -13,4 +13,4 @@ Favicons generated with Gemini.
 - Improve code snippets display with something like [expressive code](https://expressive-code.com) or shiki plugins
 - https://icons.duckduckgo.com/ip9/learning-path.dev.ico
 
-Testing stacked PR conflict
+Test stacked PRs 1
