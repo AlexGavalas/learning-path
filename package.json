@@ -30,11 +30,11 @@
     "dependencies": {
         "@astrojs/markdown-remark": "7.2.2",
         "@astrojs/mdx": "7.0.5",
-        "@astrojs/node": "11.0.3",
+        "@astrojs/node": "11.1.0",
         "@astrojs/vercel": "11.0.4",
         "@formkit/tempo": "1.1.0",
         "@libsql/client": "0.17.4",
-        "astro": "7.1.6",
+        "astro": "7.2.0",
         "cross-env": "10.1.0"
     },
     "devDependencies": {
