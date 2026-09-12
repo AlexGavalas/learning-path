@@ -20,45 +20,43 @@ const { notes, lines, baseUrl, display = 'updated' } = Astro.props;
 const hasNotes = notes.length > 0;
 ---
 
-{
-    hasNotes ? (
-        <ul class={cn.container}>
-            {notes.map(({ id: slug, title, ...rest }, index) => {
-                const dateId = `${index}d`;
-                const textId = `${index}t`;
+{hasNotes ? (
+    <ul class={cn.container}>
+        {notes.map(({ id: slug, title, ...rest }, index) => {
+            const dateId = `${index}d`;
+            const textId = `${index}t`;
 
-                return (
-                    <li class={cn.item}>
-                        <a
-                            aria-labelledby={`${textId} ${dateId}`}
-                            class={cn.link}
-                            href={`/${baseUrl}/${slug}`}
+            return (
+                <li class={cn.item}>
+                    <a
+                        aria-labelledby={`${textId} ${dateId}`}
+                        class={cn.link}
+                        href={`/${baseUrl}/${slug}`}
+                    >
+                        <FormattedDate
+                            dateString={rest[display]}
+                            format="DD/MM/YY"
+                            id={dateId}
+                        />
+                        <span
+                            aria-label={`Notes about ${title}`}
+                            class={cn.text}
+                            id={textId}
                         >
-                            <FormattedDate
-                                dateString={rest[display]}
-                                format="DD/MM/YY"
-                                id={dateId}
-                            />
-                            <span
-                                aria-label={`Notes about ${title}`}
-                                class={cn.text}
-                                id={textId}
-                            >
-                                {title}
-                            </span>
-                        </a>
-                        {lines?.[title] && (
-                            <List>
-                                {lines[title].map((line) => (
-                                    <ListItem key={line}>{line}</ListItem>
-                                ))}
-                            </List>
-                        )}
-                    </li>
-                );
-            })}
-        </ul>
-    ) : (
-        <p class={cn.empty}>No notes found</p>
-    )
-}
+                            {title}
+                        </span>
+                    </a>
+                    {lines?.[title] && (
+                        <List>
+                            {lines[title].map((line) => (
+                                <ListItem key={line}>{line}</ListItem>
+                            ))}
+                        </List>
+                    )}
+                </li>
+            );
+        })}
+    </ul>
+) : (
+    <p class={cn.empty}>No notes found</p>
+)}
