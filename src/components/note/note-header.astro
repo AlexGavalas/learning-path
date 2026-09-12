@@ -14,12 +14,10 @@ const { title, created, updated } = Astro.props;
 <h1 class={cn.title}>{title}</h1>
 <div class={cn.container}>
     <p>
-        Created at{' '}
-        <FormattedDate dateString={created} />
+        Created at <FormattedDate dateString={created} />
     </p>
     <span class={cn.separator}>||</span>
     <p>
-        Updated at{' '}
-        <FormattedDate dateString={updated} />
+        Updated at <FormattedDate dateString={updated} />
     </p>
 </div>

@@ -45,16 +45,16 @@ const documentTitle = `${title} | ${TITLE}`;
 <GlobalLayout title={documentTitle}>
     <article class={cn.container}>
         <NoteHeader title={title} created={created} updated={updated} />
-        {
-            hasBannerEnabled && (
-                <div class={cn.banner}>
-                    <ArticleBanner />
-                </div>
-            )
-        }
+        {hasBannerEnabled && (
+            <div class={cn.banner}>
+                <ArticleBanner />
+            </div>
+        )}
         <div class={cn.note}>
             <Content />
         </div>
-        <Link href={backUrl} class={cn.back}>&#x21dc; Back to home</Link>
+        <Link href={backUrl} class={cn.back}>
+            &#x21dc; Back to home
+        </Link>
     </article>
 </GlobalLayout>

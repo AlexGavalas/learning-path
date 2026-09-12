@@ -14,18 +14,16 @@ const activePath = Astro.url.pathname;
 ---
 
 <nav class={cn.container}>
-    {
-        links.map((link) => {
-            const isActivePath = activePath === link.href;
+    {links.map((link) => {
+        const isActivePath = activePath === link.href;
 
-            return (
-                <Link
-                    class:list={[cn.link, isActivePath && cn.active]}
-                    href={link.href}
-                >
-                    {link.label}
-                </Link>
-            );
-        })
-    }
+        return (
+            <Link
+                class:list={[cn.link, isActivePath && cn.active]}
+                href={link.href}
+            >
+                {link.label}
+            </Link>
+        );
+    })}
 </nav>

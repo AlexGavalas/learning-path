@@ -5,11 +5,9 @@ const TOTAL_STAGGER = CELLS_NUM * ITEM_STAGGER;
 ---
 
 <div class="container">
-    {
-        Array.from({ length: CELLS_NUM }, (_, idx) => (
-            <div class="cell" style={`--idx: ${idx};`} />
-        ))
-    }
+    {Array.from({ length: CELLS_NUM }, (_, idx) => (
+        <div class="cell" style={`--idx: ${idx};`} />
+    ))}
 </div>
 
 <style

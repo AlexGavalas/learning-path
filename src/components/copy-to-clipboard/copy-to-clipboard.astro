@@ -10,9 +10,9 @@ const { prefix } = Astro.props;
 
 <copy-to-clipboard hidden>
     {prefix ? `${prefix} - ` : ''}
-    <Button style="display: inline-block; padding: 0 var(--spacing-sm);"
-        >Copy to clipboard</Button
-    >
+    <Button style="display: inline-block; padding: 0 var(--spacing-sm);">
+        Copy to clipboard
+    </Button>
     <div id="target">
         <slot />
     </div>
