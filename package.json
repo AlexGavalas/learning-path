@@ -47,7 +47,7 @@
         "@vitest/coverage-v8": "5.0.0",
         "@vitest/eslint-plugin": "1.6.24",
         "dotenv": "18.0.0",
-        "eslint": "10.10.0",
+        "eslint": "10.11.0",
         "eslint-plugin-astro": "1.7.0",
         "gray-matter": "4.0.3",
         "lefthook": "2.1.10",
