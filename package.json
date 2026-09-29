@@ -43,7 +43,7 @@
         "@eslint/js": "10.0.1",
         "@playwright/test": "1.63.0",
         "@trivago/prettier-plugin-sort-imports": "6.0.2",
-        "@types/node": "24.13.0",
+        "@types/node": "24.19.0",
         "@vitest/coverage-v8": "5.0.0",
         "@vitest/eslint-plugin": "1.6.24",
         "dotenv": "18.0.0",
