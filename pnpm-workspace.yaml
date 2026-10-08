@@ -1,4 +1,5 @@
 savePrefix: ''
+pmOnFail: ignore
 engineStrict: true
 ignoreScripts: true
 sideEffectsCache: false
