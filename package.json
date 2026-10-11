@@ -50,7 +50,7 @@
         "eslint": "10.12.0",
         "eslint-plugin-astro": "1.7.0",
         "gray-matter": "4.0.3",
-        "lefthook": "2.1.10",
+        "lefthook": "2.2.0",
         "ora": "9.4.1",
         "prettier": "3.9.6",
         "prettier-plugin-astro": "1.1.0",
